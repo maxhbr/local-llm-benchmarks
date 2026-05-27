@@ -2,18 +2,23 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AIDER_DIR="$SCRIPT_DIR/aider"
-POLYGLOT_DIR="$SCRIPT_DIR/polyglot-benchmark"
+WORK_DIR="$SCRIPT_DIR/work"
+AIDER_DIR="$WORK_DIR/aider"
+AIDER_REPO="https://github.com/Aider-AI/aider.git"
+POLYGLOT_DIR="$AIDER_DIR/tmp.benchmarks/polyglot-benchmark"
+POLYGLOT_REPO="https://github.com/Aider-AI/polyglot-benchmark.git"
 
 usage() {
     cat <<EOF
 Usage: $(basename "$0") --endpoint <url> --model <name> [options]
 
 Run Aider polyglot benchmarks against a local LLM endpoint inside a container.
+Repos are cloned automatically on first run into work/aider/.
 
 Required:
   --endpoint <url>     OpenAI-compatible API base URL (e.g. http://localhost:8080/v1)
   --model <name>       Model name as recognized by the endpoint (prefixed with openai/ automatically)
+                       If omitted, lists available models from the endpoint
 
 Options:
   --container-runtime <rt>  Container runtime: podman or docker (default: podman)
@@ -41,7 +46,7 @@ NUM_TESTS=5
 THREADS=1
 REBUILD=false
 SHELL_ONLY=false
-RUN_NAME="local-model-run"
+RUN_NAME=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -63,9 +68,23 @@ if [[ -z "$ENDPOINT" ]]; then
     echo "Error: --endpoint is required" >&2
     usage
 fi
+
 if [[ -z "$MODEL" ]]; then
-    echo "Error: --model is required" >&2
-    usage
+    echo ">>> No --model specified. Available models from $ENDPOINT/models:"
+    echo ""
+    MODELS_URL="${ENDPOINT%/v1}/v1/models"
+    if command -v jq &>/dev/null; then
+        curl -sf "$MODELS_URL" | jq -r '.data[].id' 2>/dev/null || curl -sf "$MODELS_URL"
+    else
+        curl -sf "$MODELS_URL" | python3 -c "import sys,json; [print(m['id']) for m in json.load(sys.stdin)['data']]" 2>/dev/null || curl -sf "$MODELS_URL"
+    fi
+    echo ""
+    echo "Re-run with --model <name> to start the benchmark."
+    exit 0
+fi
+
+if [[ -z "$RUN_NAME" ]]; then
+    RUN_NAME="$(echo "$MODEL" | sed 's|/|_|g; s|:|-|g; s|[^a-zA-Z0-9._-]|-|g')"
 fi
 
 if [[ -z "$CONTAINER_RUNTIME" ]]; then
@@ -84,18 +103,19 @@ fi
 
 echo ">>> Using container runtime: $CONTAINER_RUNTIME"
 
+mkdir -p "$WORK_DIR"
+
 if [[ ! -d "$AIDER_DIR" ]]; then
-    echo "Error: aider submodule not found at $AIDER_DIR" >&2
-    echo "Run: git submodule update --init" >&2
-    exit 1
-fi
-if [[ ! -d "$POLYGLOT_DIR" ]]; then
-    echo "Error: polyglot-benchmark submodule not found at $POLYGLOT_DIR" >&2
-    echo "Run: git submodule update --init" >&2
-    exit 1
+    echo ">>> Cloning aider repository..."
+    git clone "$AIDER_REPO" "$AIDER_DIR"
 fi
 
 mkdir -p "$AIDER_DIR/tmp.benchmarks"
+
+if [[ ! -d "$POLYGLOT_DIR" ]]; then
+    echo ">>> Cloning polyglot-benchmark repository..."
+    git clone "$POLYGLOT_REPO" "$POLYGLOT_DIR"
+fi
 
 if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
     IMAGE_EXISTS=false
@@ -118,10 +138,10 @@ if [[ "$IMAGE_EXISTS" == false || "$REBUILD" == true ]]; then
 fi
 
 CONTAINER_ENDPOINT="$ENDPOINT"
-if [[ "$HOST_ENDPOINT" =~ ^http://localhost(:[0-9]+)? ]]; then
-    CONTAINER_ENDPOINT="${HOST_ENDPOINT/localhost/host.containers.internal}"
-elif [[ "$HOST_ENDPOINT" =~ ^http://127\.0\.0\.1(:[0-9]+)? ]]; then
-    CONTAINER_ENDPOINT="${HOST_ENDPOINT/127.0.0.1/host.containers.internal}"
+if [[ "$ENDPOINT" =~ ^http://localhost(:[0-9]+)? ]]; then
+    CONTAINER_ENDPOINT="${ENDPOINT/localhost/host.containers.internal}"
+elif [[ "$ENDPOINT" =~ ^http://127\.0\.0\.1(:[0-9]+)? ]]; then
+    CONTAINER_ENDPOINT="${ENDPOINT/127.0.0.1/host.containers.internal}"
 fi
 
 HOST_GATEWAY_FLAG="--add-host=host.containers.internal:host-gateway"
@@ -131,8 +151,6 @@ fi
 
 BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   --model openai/$MODEL \
-  --openai-api-base $CONTAINER_ENDPOINT \
-  --openai-api-key dummy-key \
   --edit-format $EDIT_FORMAT \
   --exercises-dir polyglot-benchmark \
   --threads $THREADS \
@@ -146,8 +164,10 @@ RUN_ARGS=(
     -v "$AIDER_DIR":/aider
     -v "$AIDER_DIR/tmp.benchmarks":/benchmarks
     -e OPENAI_API_KEY=dummy-key
+    -e OPENAI_API_BASE="$CONTAINER_ENDPOINT"
     -e AIDER_DOCKER=1
     -e AIDER_BENCHMARK_DIR=/benchmarks
+    -e RUN_NAME="$RUN_NAME"
 )
 
 if [[ "$SHELL_ONLY" == true ]]; then
@@ -161,6 +181,7 @@ if [[ "$SHELL_ONLY" == true ]]; then
     echo ">>> Launching container shell (benchmark command will NOT run automatically)..."
     echo ">>> When ready, run inside the container:"
     echo "    $BENCHMARK_CMD"
+    echo "    python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark"
     $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" aider-benchmark bash
 else
     echo ">>> Running benchmark..."
@@ -173,13 +194,29 @@ else
     echo "    Run name:     $RUN_NAME"
     echo ""
 
+    LOG_DIR="$WORK_DIR/logs"
+    mkdir -p "$LOG_DIR"
+    TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+    LOG_FILE="$LOG_DIR/${RUN_NAME}-${TIMESTAMP}.log"
+    STATS_FILE="$LOG_DIR/${RUN_NAME}-${TIMESTAMP}-stats.txt"
+    STATS_FILE_IN_CONTAINER="/benchmarks/.stats-${RUN_NAME}-${TIMESTAMP}.txt"
+    echo ">>> Logging to $LOG_FILE"
+    echo ">>> Stats will be saved to $STATS_FILE"
+
     $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" \
         -w /aider \
+        -e STATS_FILE="$STATS_FILE_IN_CONTAINER" \
         aider-benchmark \
-        bash -c "pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD"
+        bash -c "pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee \$STATS_FILE" \
+        2>&1 | tee "$LOG_FILE"
+
+    HOST_STATS_FILE="$AIDER_DIR/tmp.benchmarks/.stats-${RUN_NAME}-${TIMESTAMP}.txt"
+    if [[ -f "$HOST_STATS_FILE" ]]; then
+        mv "$HOST_STATS_FILE" "$STATS_FILE"
+    fi
 
     echo ""
     echo ">>> Benchmark complete. Results are in: $AIDER_DIR/tmp.benchmarks/"
-    echo ">>> To view a report, re-run with --shell-only and execute:"
-    echo "    python3 benchmark/benchmark_report.py tmp.benchmarks/<result-dir>"
+    echo ">>> Log saved to:   $LOG_FILE"
+    echo ">>> Stats saved to: $STATS_FILE"
 fi
