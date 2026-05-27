@@ -1,6 +1,0 @@
-[submodule "aider"]
-	path = aider
-	url = https://github.com/Aider-AI/aider.git
-[submodule "polyglot-benchmark"]
-	path = polyglot-benchmark
-	url = https://github.com/Aider-AI/polyglot-benchmark
