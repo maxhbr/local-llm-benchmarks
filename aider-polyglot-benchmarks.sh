@@ -25,6 +25,13 @@ Options:
   --edit-format <fmt>       Edit format for aider (default: whole)
   --num-tests <n>           Number of test exercises to run (default: all)
   --threads <n>             Number of parallel threads (default: 1)
+  --request-timeout <secs>  Per-LLM-request HTTP timeout in seconds. Injected
+                            via aider's official model-settings YAML mechanism
+                            (writes work/aider/aider-extra-model-settings.yml
+                            and passes --read-model-settings to the benchmark).
+                            If unset, aider's upstream default (600s) is used.
+                            Bump this when you see 'litellm.Timeout' errors
+                            (e.g. 1200 = 2x default).
   --rebuild                 Rebuild the container image before running
   --shell-only              Drop into the container shell instead of running the benchmark
   --run-name <name>         Name for this benchmark run (default: local-model-run)
@@ -44,6 +51,7 @@ CONTAINER_RUNTIME=""
 EDIT_FORMAT="whole"
 NUM_TESTS=""
 THREADS=1
+REQUEST_TIMEOUT=""
 REBUILD=false
 SHELL_ONLY=false
 RUN_NAME=""
@@ -56,6 +64,7 @@ while [[ $# -gt 0 ]]; do
         --edit-format)        EDIT_FORMAT="$2"; shift 2 ;;
         --num-tests)          NUM_TESTS="$2"; shift 2 ;;
         --threads)            THREADS="$2"; shift 2 ;;
+        --request-timeout)    REQUEST_TIMEOUT="$2"; shift 2 ;;
         --rebuild)            REBUILD=true; shift ;;
         --shell-only)         SHELL_ONLY=true; shift ;;
         --run-name)           RUN_NAME="$2"; shift 2 ;;
@@ -154,12 +163,29 @@ if [[ -n "$NUM_TESTS" ]]; then
     NUM_TESTS_FLAG="--num-tests $NUM_TESTS"
 fi
 
+# For --request-timeout, use aider's official config mechanism instead of
+# patching: a model-settings YAML with the `aider/extra_params` entry, which
+# aider deep-merges into every model's extra_params (see aider/models.py).
+# The benchmark accepts this via --read-model-settings.
+EXTRA_MODEL_SETTINGS_FLAG=""
+if [[ -n "$REQUEST_TIMEOUT" ]]; then
+    EXTRA_MODEL_SETTINGS_FILE="$AIDER_DIR/aider-extra-model-settings.yml"
+    cat > "$EXTRA_MODEL_SETTINGS_FILE" <<EOF
+- name: aider/extra_params
+  extra_params:
+    timeout: $REQUEST_TIMEOUT
+EOF
+    echo ">>> Wrote $EXTRA_MODEL_SETTINGS_FILE (timeout: ${REQUEST_TIMEOUT}s)"
+    EXTRA_MODEL_SETTINGS_FLAG="--read-model-settings /aider/aider-extra-model-settings.yml"
+fi
+
 BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   --model openai/$MODEL \
   --edit-format $EDIT_FORMAT \
   --exercises-dir polyglot-benchmark \
   --threads $THREADS \
-  $NUM_TESTS_FLAG"
+  $NUM_TESTS_FLAG \
+  $EXTRA_MODEL_SETTINGS_FLAG"
 
 RUN_ARGS=(
     -it --rm
@@ -196,6 +222,7 @@ else
     echo "    Edit format:  $EDIT_FORMAT"
     echo "    Tests:        ${NUM_TESTS:-all}"
     echo "    Threads:      $THREADS"
+    echo "    Req timeout:  ${REQUEST_TIMEOUT:+${REQUEST_TIMEOUT}s }${REQUEST_TIMEOUT:-aider default (600s)}"
     echo "    Run name:     $RUN_NAME"
     echo ""
 
