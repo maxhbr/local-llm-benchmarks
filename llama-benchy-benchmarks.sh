@@ -3,101 +3,86 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORK_DIR="$SCRIPT_DIR/work"
-LLAMA_BENCHY_DIR="$SCRIPT_DIR/llama-benchy"
-IMAGE_NAME="llama-benchy-benchmark"
+BENCHY_DIR="$WORK_DIR/llama-benchy"
+BENCHY_REPO="https://github.com/eugr/llama-benchy.git"
+VENV_DIR="$BENCHY_DIR/.venv"
 
 usage() {
     cat <<EOF
 Usage: $(basename "$0") --endpoint <url> --model <name> [options]
 
-Run llama-benchy benchmarks against a local LLM endpoint inside a container.
-Uses the llama-benchy subtree at llama-benchy/ (installed from source).
+Run llama-benchy benchmarks against a local OpenAI-compatible LLM endpoint
+inside a nix-shell with a Python venv.
+Repo is cloned automatically on first run into work/llama-benchy/.
 
 Required:
   --endpoint <url>     OpenAI-compatible API base URL (e.g. http://localhost:8080/v1)
-  --model <name>       Model name as recognized by the endpoint (HF format recommended, e.g. org/model)
+  --model <name>       Model name as recognized by the endpoint
                        If omitted, lists available models from the endpoint
 
 Options:
-  --container-runtime <rt>  Container runtime: podman or docker (default: auto-detected)
-  --pp <n ...>              Prompt processing token counts (default: 2048)
-  --tg <n ...>              Token generation counts (default: 32)
-  --depth <n ...>           Context depths to test at (default: 0)
+  --api-key <key>           API key (default: EMPTY)
+  --pp <list>               Space-separated prompt processing token counts (default: "2048")
+  --tg <list>               Space-separated token generation counts (default: "32")
+  --depth <list>            Space-separated context depths (default: "0")
   --runs <n>                Number of runs per test (default: 3)
-  --latency-mode <mode>     Latency measurement: api, generation, or none (default: generation)
-  --concurrency <n ...>     Concurrency levels (default: 1)
-  --format <fmt>            Output format: md, json, or csv (default: md)
-  --enable-prefix-caching   Enable prefix caching measurement
-  --no-cache                Add noise to requests to avoid prefix caching
-  --no-warmup               Skip warmup phase
-  --skip-coherence          Skip coherence test after warmup
-  --no-adapt-prompt         Disable prompt size adaptation
-  --tokenizer <name>        HuggingFace tokenizer name or local path (default: model name)
-  --post-run-cmd <cmd>      Command to execute after each test run
-  --save-result <file>      Custom filename for saved results (default: <run-name>-<timestamp>.json in work/results/)
-  --no-save-result          Disable automatic result saving
-  --rebuild                 Rebuild the container image before running
-  --shell-only              Drop into the container shell instead of running the benchmark
-  --run-name <name>         Name for this benchmark run (default: derived from model name)
+  --concurrency <list>      Space-separated concurrency levels (default: "1")
+  --latency-mode <mode>     Latency mode: api, generation, none (default: generation)
+  --format <fmt>            Output format: md, json, csv (default: md)
+  --enable-prefix-caching   Measure prefix-caching benchmarks
+  --rebuild                 Recreate the venv before running
+  --update                  git pull the llama-benchy repo before running
+  --shell-only              Drop into the nix-shell with venv activated; don't run benchmark
+  --run-name <name>         Name for this benchmark run (default: derived from --model)
+  --extra-args <args>       Extra args passed verbatim to llama-benchy
   -h, --help                Show this help message
 
 Examples:
-  $(basename "$0") --endpoint http://localhost:8080/v1 --model Qwen/Qwen3-8B
-  $(basename "$0") --endpoint http://172.17.0.1:8080/v1 --model my-model --depth 0 4096 8192 --latency-mode generation
-  $(basename "$0") --endpoint http://litellm.thing.wg0.maxhbr.local/v1 --model "rtx5090:Qwen3.5-9B-Q5_K_M" --container-runtime docker
-  $(basename "$0") --endpoint http://localhost:8080/v1 --model my-model --enable-prefix-caching --concurrency 1 2 4 --format json --save-result results.json
+  $(basename "$0") --endpoint http://localhost:8080/v1 --model my-qwen-model
+  $(basename "$0") --endpoint http://localhost:8080/v1 --model gpt-oss-120b \\
+      --depth "0 4096 8192" --latency-mode generation --enable-prefix-caching
+  $(basename "$0") --endpoint http://litellm.thing.wg0.maxhbr.local/v1 \\
+      --model "rtx5090:Qwen3.5-9B-Q5_K_M" --format json
 EOF
     exit 0
 }
 
 ENDPOINT=""
 MODEL=""
-CONTAINER_RUNTIME=""
-PP_VALS=""
-TG_VALS=""
-DEPTH_VALS=""
-RUNS=""
-LATENCY_MODE=""
-CONCURRENCY_VALS=""
-RESULT_FORMAT=""
+API_KEY="EMPTY"
+PP="2048"
+TG="32"
+DEPTH="0"
+RUNS=3
+CONCURRENCY="1"
+LATENCY_MODE="generation"
+FORMAT="md"
 ENABLE_PREFIX_CACHING=false
-NO_CACHE=false
-NO_WARMUP=false
-SKIP_COHERENCE=false
-NO_ADAPT_PROMPT=false
-TOKENIZER=""
-POST_RUN_CMD=""
-SAVE_RESULT=""
-NO_SAVE_RESULT=false
 REBUILD=false
+UPDATE=false
 SHELL_ONLY=false
 RUN_NAME=""
+EXTRA_ARGS=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --endpoint)              ENDPOINT="$2"; shift 2 ;;
-        --model)                 MODEL="$2"; shift 2 ;;
-        --container-runtime)     CONTAINER_RUNTIME="$2"; shift 2 ;;
-        --pp)                    shift; PP_VALS=(); while [[ $# -gt 0 && ! "$1" =~ ^-- ]]; do PP_VALS+=("$1"); shift; done ;;
-        --tg)                    shift; TG_VALS=(); while [[ $# -gt 0 && ! "$1" =~ ^-- ]]; do TG_VALS+=("$1"); shift; done ;;
-        --depth)                 shift; DEPTH_VALS=(); while [[ $# -gt 0 && ! "$1" =~ ^-- ]]; do DEPTH_VALS+=("$1"); shift; done ;;
-        --runs)                  RUNS="$2"; shift 2 ;;
-        --latency-mode)          LATENCY_MODE="$2"; shift 2 ;;
-        --concurrency)           shift; CONCURRENCY_VALS=(); while [[ $# -gt 0 && ! "$1" =~ ^-- ]]; do CONCURRENCY_VALS+=("$1"); shift; done ;;
-        --format)                RESULT_FORMAT="$2"; shift 2 ;;
-        --enable-prefix-caching) ENABLE_PREFIX_CACHING=true; shift ;;
-        --no-cache)              NO_CACHE=true; shift ;;
-        --no-warmup)             NO_WARMUP=true; shift ;;
-        --skip-coherence)        SKIP_COHERENCE=true; shift ;;
-        --no-adapt-prompt)       NO_ADAPT_PROMPT=true; shift ;;
-        --tokenizer)             TOKENIZER="$2"; shift 2 ;;
-        --post-run-cmd)          POST_RUN_CMD="$2"; shift 2 ;;
-        --save-result)           SAVE_RESULT="$2"; shift 2 ;;
-        --no-save-result)        NO_SAVE_RESULT=true; shift ;;
-        --rebuild)               REBUILD=true; shift ;;
-        --shell-only)            SHELL_ONLY=true; shift ;;
-        --run-name)              RUN_NAME="$2"; shift 2 ;;
-        -h|--help)               usage ;;
+        --endpoint)                ENDPOINT="$2"; shift 2 ;;
+        --model)                   MODEL="$2"; shift 2 ;;
+        --api-key)                 API_KEY="$2"; shift 2 ;;
+        --pp)                      PP="$2"; shift 2 ;;
+        --tg)                      TG="$2"; shift 2 ;;
+        --depth)                   DEPTH="$2"; shift 2 ;;
+        --runs)                    RUNS="$2"; shift 2 ;;
+        --concurrency)             CONCURRENCY="$2"; shift 2 ;;
+        --latency-mode)            LATENCY_MODE="$2"; shift 2 ;;
+        --format)                  FORMAT="$2"; shift 2 ;;
+        --enable-prefix-caching)   ENABLE_PREFIX_CACHING=true; shift ;;
+        --rebuild)                 REBUILD=true; shift ;;
+        --update)                  UPDATE=true; shift ;;
+        --shell-only)              SHELL_ONLY=true; shift ;;
+        --run-name)                RUN_NAME="$2"; shift 2 ;;
+        --extra-args)              EXTRA_ARGS="$2"; shift 2 ;;
+        -h|--help)                 usage ;;
         *) echo "Unknown option: $1"; usage ;;
     esac
 done
@@ -112,9 +97,12 @@ if [[ -z "$MODEL" ]]; then
     echo ""
     MODELS_URL="${ENDPOINT%/v1}/v1/models"
     if command -v jq &>/dev/null; then
-        curl -sf "$MODELS_URL" | jq -r '.data[].id' 2>/dev/null || curl -sf "$MODELS_URL"
+        curl -sf -H "Authorization: Bearer $API_KEY" "$MODELS_URL" | jq -r '.data[].id' 2>/dev/null \
+            || curl -sf -H "Authorization: Bearer $API_KEY" "$MODELS_URL"
     else
-        curl -sf "$MODELS_URL" | python3 -c "import sys,json; [print(m['id']) for m in json.load(sys.stdin)['data']]" 2>/dev/null || curl -sf "$MODELS_URL"
+        curl -sf -H "Authorization: Bearer $API_KEY" "$MODELS_URL" \
+            | python3 -c "import sys,json; [print(m['id']) for m in json.load(sys.stdin)['data']]" 2>/dev/null \
+            || curl -sf -H "Authorization: Bearer $API_KEY" "$MODELS_URL"
     fi
     echo ""
     echo "Re-run with --model <name> to start the benchmark."
@@ -125,184 +113,135 @@ if [[ -z "$RUN_NAME" ]]; then
     RUN_NAME="$(echo "$MODEL" | sed 's|/|_|g; s|:|-|g; s|[^a-zA-Z0-9._-]|-|g')"
 fi
 
-if [[ -z "$CONTAINER_RUNTIME" ]]; then
-    if command -v podman &>/dev/null; then
-        CONTAINER_RUNTIME=podman
-    elif command -v docker &>/dev/null; then
-        CONTAINER_RUNTIME=docker
-    else
-        echo "Error: neither podman nor docker found" >&2
-        exit 1
-    fi
-elif [[ "$CONTAINER_RUNTIME" != "podman" && "$CONTAINER_RUNTIME" != "docker" ]]; then
-    echo "Error: --container-runtime must be 'podman' or 'docker'" >&2
+if ! command -v nix-shell &>/dev/null; then
+    echo "Error: nix-shell not found in PATH" >&2
     exit 1
 fi
 
-echo ">>> Using container runtime: $CONTAINER_RUNTIME"
+mkdir -p "$WORK_DIR"
 
-# ---------------------------------------------------------------------------
-# Build the container image (from the local llama-benchy subtree)
-# ---------------------------------------------------------------------------
-
-IMAGE_EXISTS=false
-if $CONTAINER_RUNTIME image inspect "$IMAGE_NAME" &>/dev/null; then
-    IMAGE_EXISTS=true
+if [[ ! -d "$BENCHY_DIR" ]]; then
+    echo ">>> Cloning llama-benchy repository..."
+    git clone "$BENCHY_REPO" "$BENCHY_DIR"
+elif [[ "$UPDATE" == true ]]; then
+    echo ">>> Updating llama-benchy repository..."
+    git -C "$BENCHY_DIR" pull --ff-only
 fi
 
-if [[ "$IMAGE_EXISTS" == false || "$REBUILD" == true ]]; then
-    echo ">>> Building container image from llama-benchy/ ..."
-
-    CONTAINERFILE=$(mktemp /tmp/Containerfile.llama-benchy.XXXXXX)
-    cat > "$CONTAINERFILE" <<'DOCKERFILE'
-FROM python:3.12-slim
-
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /opt/llama-benchy
-COPY . .
-
-RUN pip install --no-cache-dir .
-
-ENTRYPOINT ["llama-benchy"]
-DOCKERFILE
-
-    $CONTAINER_RUNTIME build \
-        --file "$CONTAINERFILE" \
-        -t "$IMAGE_NAME" \
-        "$LLAMA_BENCHY_DIR"
-
-    rm -f "$CONTAINERFILE"
+if [[ "$REBUILD" == true && -d "$VENV_DIR" ]]; then
+    echo ">>> Removing existing venv at $VENV_DIR"
+    rm -rf "$VENV_DIR"
 fi
 
-# ---------------------------------------------------------------------------
-# Translate localhost URLs for container networking
-# ---------------------------------------------------------------------------
+LOG_DIR="$WORK_DIR/logs"
+RESULTS_DIR="$WORK_DIR/results"
+mkdir -p "$LOG_DIR" "$RESULTS_DIR"
+TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+LOG_FILE="$LOG_DIR/llama-benchy-${RUN_NAME}-${TIMESTAMP}.log"
+RESULT_FILE="$RESULTS_DIR/llama-benchy-${RUN_NAME}-${TIMESTAMP}.${FORMAT}"
 
-CONTAINER_ENDPOINT="$ENDPOINT"
-if [[ "$ENDPOINT" =~ ^http://localhost(:[0-9]+)? ]]; then
-    if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
-        CONTAINER_ENDPOINT="${ENDPOINT/localhost/host.containers.internal}"
-    else
-        CONTAINER_ENDPOINT="${ENDPOINT/localhost/host.docker.internal}"
-    fi
-elif [[ "$ENDPOINT" =~ ^http://127\.0\.0\.1(:[0-9]+)? ]]; then
-    if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
-        CONTAINER_ENDPOINT="${ENDPOINT/127.0.0.1/host.containers.internal}"
-    else
-        CONTAINER_ENDPOINT="${ENDPOINT/127.0.0.1/host.docker.internal}"
-    fi
-fi
-
-HOST_GATEWAY_FLAG="--add-host=host.containers.internal:host-gateway"
-if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
-    HOST_GATEWAY_FLAG="--add-host=host.docker.internal:host-gateway"
-fi
-
-# ---------------------------------------------------------------------------
-# Assemble the llama-benchy command
-# ---------------------------------------------------------------------------
-
-BENCHY_CMD=(llama-benchy --base-url "$CONTAINER_ENDPOINT" --model "$MODEL")
-
-if [[ -n "$TOKENIZER" ]];            then BENCHY_CMD+=(--tokenizer "$TOKENIZER"); fi
-if [[ ${#PP_VALS[@]} -gt 0 ]];       then BENCHY_CMD+=(--pp "${PP_VALS[@]}"); fi
-if [[ ${#TG_VALS[@]} -gt 0 ]];       then BENCHY_CMD+=(--tg "${TG_VALS[@]}"); fi
-if [[ ${#DEPTH_VALS[@]} -gt 0 ]];    then BENCHY_CMD+=(--depth "${DEPTH_VALS[@]}"); fi
-if [[ -n "$RUNS" ]];                 then BENCHY_CMD+=(--runs "$RUNS"); fi
-if [[ -n "$LATENCY_MODE" ]];         then BENCHY_CMD+=(--latency-mode "$LATENCY_MODE"); fi
-if [[ ${#CONCURRENCY_VALS[@]} -gt 0 ]]; then BENCHY_CMD+=(--concurrency "${CONCURRENCY_VALS[@]}"); fi
-if [[ -n "$RESULT_FORMAT" ]];        then BENCHY_CMD+=(--format "$RESULT_FORMAT"); fi
-if [[ "$ENABLE_PREFIX_CACHING" == true ]]; then BENCHY_CMD+=(--enable-prefix-caching); fi
-if [[ "$NO_CACHE" == true ]];        then BENCHY_CMD+=(--no-cache); fi
-if [[ "$NO_WARMUP" == true ]];       then BENCHY_CMD+=(--no-warmup); fi
-if [[ "$SKIP_COHERENCE" == true ]];  then BENCHY_CMD+=(--skip-coherence); fi
-if [[ "$NO_ADAPT_PROMPT" == true ]]; then BENCHY_CMD+=(--no-adapt-prompt); fi
-if [[ -n "$POST_RUN_CMD" ]];         then BENCHY_CMD+=(--post-run-cmd "$POST_RUN_CMD"); fi
-
-# ---------------------------------------------------------------------------
-# Container run args
-# ---------------------------------------------------------------------------
-
-RUN_ARGS=(
-    -it --rm
-    $HOST_GATEWAY_FLAG
-    -e OPENAI_API_KEY=dummy-key
+# Build the llama-benchy CLI invocation
+BENCHY_ARGS=(
+    --base-url "$ENDPOINT"
+    --api-key  "$API_KEY"
+    --model    "$MODEL"
+    --pp       $PP
+    --tg       $TG
+    --depth    $DEPTH
+    --runs     "$RUNS"
+    --concurrency $CONCURRENCY
+    --latency-mode "$LATENCY_MODE"
+    --format   "$FORMAT"
+    --save-result "$RESULT_FILE"
 )
 
-# Results saving is on by default (JSON to work/results/)
-RESULT_HOST_DIR=""
-if [[ "$NO_SAVE_RESULT" != true ]]; then
-    RESULT_HOST_DIR="$WORK_DIR/results"
-    mkdir -p "$RESULT_HOST_DIR"
-    if [[ -n "$SAVE_RESULT" ]]; then
-        RESULT_BASENAME="$(basename "$SAVE_RESULT")"
-    else
-        TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-        RESULT_BASENAME="${RUN_NAME}-${TIMESTAMP}.json"
-    fi
-    RUN_ARGS+=(-v "$RESULT_HOST_DIR":/results)
-    BENCHY_CMD+=(--save-result "/results/$RESULT_BASENAME")
-    # Ensure JSON format for structured result file
-    if [[ -z "$RESULT_FORMAT" ]]; then
-        BENCHY_CMD+=(--format json)
-    fi
+if [[ "$ENABLE_PREFIX_CACHING" == true ]]; then
+    BENCHY_ARGS+=( --enable-prefix-caching )
 fi
 
-# ---------------------------------------------------------------------------
-# Execute
-# ---------------------------------------------------------------------------
+if [[ -n "$EXTRA_ARGS" ]]; then
+    # shellcheck disable=SC2206
+    EXTRA_ARR=( $EXTRA_ARGS )
+    BENCHY_ARGS+=( "${EXTRA_ARR[@]}" )
+fi
+
+# Quote args for the bash -c invocation inside nix-shell
+PRINTF_ARGS=$(printf ' %q' "${BENCHY_ARGS[@]}")
+
+# Setup commands executed inside nix-shell
+SETUP_CMDS=$(cat <<EOF
+set -euo pipefail
+cd "$BENCHY_DIR"
+if [[ ! -d "$VENV_DIR" ]]; then
+    echo ">>> Creating venv at $VENV_DIR (via uv)"
+    uv venv "$VENV_DIR"
+fi
+# shellcheck disable=SC1091
+source "$VENV_DIR/bin/activate"
+if [[ ! -f "$VENV_DIR/.installed" ]] || [[ "$REBUILD" == "true" ]] || [[ "$UPDATE" == "true" ]]; then
+    echo ">>> Installing llama-benchy into venv (editable, via uv)..."
+    uv pip install -e .
+    touch "$VENV_DIR/.installed"
+fi
+EOF
+)
+
+# Build a nix-shell expression that pulls in the needed runtime libraries
+# (libstdc++, libz, etc.) so that pip/uv-installed pre-built wheels (numpy,
+# tokenizers, ...) can find their shared library dependencies.
+NIX_SHELL_EXPR='with import <nixpkgs> {}; mkShell {
+  buildInputs = [ python3 uv git curl ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ stdenv.cc.cc.lib zlib ];
+}'
 
 if [[ "$SHELL_ONLY" == true ]]; then
-    RUN_ARGS+=(
-        -e HISTFILE=/tmp/.bash_history
-        -e PROMPT_COMMAND='history -a'
-        -e HISTCONTROL=ignoredups
-        -e HISTSIZE=10000
-        -e HISTFILESIZE=20000
-    )
-    echo ">>> Launching container shell (benchmark command will NOT run automatically)..."
-    echo ">>> When ready, run inside the container:"
-    echo "    ${BENCHY_CMD[*]}"
-    $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" "$IMAGE_NAME" bash
-else
-    echo ">>> Running benchmark..."
-    echo "    Runtime:       $CONTAINER_RUNTIME"
-    echo "    Model:         $MODEL"
-    echo "    Endpoint:      $CONTAINER_ENDPOINT"
-    if [[ ${#PP_VALS[@]} -gt 0 ]];       then echo "    PP:            ${PP_VALS[*]}"; fi
-    if [[ ${#TG_VALS[@]} -gt 0 ]];       then echo "    TG:            ${TG_VALS[*]}"; fi
-    if [[ ${#DEPTH_VALS[@]} -gt 0 ]];    then echo "    Depth:         ${DEPTH_VALS[*]}"; fi
-    if [[ -n "$RUNS" ]];                 then echo "    Runs:          $RUNS"; fi
-    if [[ -n "$LATENCY_MODE" ]];         then echo "    Latency mode:  $LATENCY_MODE"; fi
-    if [[ ${#CONCURRENCY_VALS[@]} -gt 0 ]]; then echo "    Concurrency:   ${CONCURRENCY_VALS[*]}"; fi
-    if [[ -n "$RESULT_FORMAT" ]];        then echo "    Format:        $RESULT_FORMAT"; fi
-    if [[ "$ENABLE_PREFIX_CACHING" == true ]]; then echo "    Prefix cache:  enabled"; fi
-    echo "    Run name:      $RUN_NAME"
-    if [[ "$NO_SAVE_RESULT" != true ]]; then
-        echo "    Results:       $RESULT_HOST_DIR/$RESULT_BASENAME"
-    fi
+    echo ">>> Launching nix-shell with venv activated (benchmark will NOT run automatically)..."
+    echo ">>> When ready, run:"
+    echo "    llama-benchy${PRINTF_ARGS}"
     echo ""
+    exec nix-shell -E "$NIX_SHELL_EXPR" --run "bash --rcfile <(cat <<'RCEOF'
+$SETUP_CMDS
+echo ''
+echo '>>> venv activated. Suggested command:'
+echo '    llama-benchy${PRINTF_ARGS}'
+echo ''
+RCEOF
+)"
+fi
 
-    LOG_DIR="$WORK_DIR/logs"
-    mkdir -p "$LOG_DIR"
-    if [[ -z "$TIMESTAMP" ]]; then
-        TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-    fi
-    LOG_FILE="$LOG_DIR/${RUN_NAME}-${TIMESTAMP}.log"
-    echo ">>> Logging to $LOG_FILE"
+echo ">>> Running llama-benchy..."
+echo "    Endpoint:       $ENDPOINT"
+echo "    Model:          $MODEL"
+echo "    pp:             $PP"
+echo "    tg:             $TG"
+echo "    depth:          $DEPTH"
+echo "    runs:           $RUNS"
+echo "    concurrency:    $CONCURRENCY"
+echo "    latency-mode:   $LATENCY_MODE"
+echo "    format:         $FORMAT"
+echo "    prefix-cache:   $ENABLE_PREFIX_CACHING"
+echo "    run name:       $RUN_NAME"
+echo "    log file:       $LOG_FILE"
+echo "    result file:    $RESULT_FILE"
+echo ""
 
-    $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" \
-        "$IMAGE_NAME" \
-        bash -c "echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && ${BENCHY_CMD[*]}" \
-        2>&1 | tee "$LOG_FILE"
+RUN_CMDS=$(cat <<EOF
+$SETUP_CMDS
+echo '--- Verifying API connectivity ---'
+curl -sf -H "Authorization: Bearer $API_KEY" "${ENDPOINT%/v1}/v1/models" >/dev/null \\
+    && echo 'OK' \\
+    || { echo 'FAILED to reach ${ENDPOINT%/v1}/v1/models' >&2; exit 1; }
+echo ''
+echo '--- Starting benchmark ---'
+llama-benchy${PRINTF_ARGS}
+EOF
+)
 
-    echo ""
-    if [[ -n "$RESULT_HOST_DIR" && -n "$RESULT_BASENAME" ]]; then
-        RESULT_PATH="$RESULT_HOST_DIR/$RESULT_BASENAME"
-        if [[ -f "$RESULT_PATH" ]]; then
-            echo ">>> Results saved to: $RESULT_PATH"
-        fi
-    fi
-    echo ">>> Benchmark complete. Log saved to: $LOG_FILE"
+nix-shell -E "$NIX_SHELL_EXPR" --run "$RUN_CMDS" 2>&1 | tee "$LOG_FILE"
+
+echo ""
+echo ">>> Benchmark complete."
+echo ">>> Log saved to:    $LOG_FILE"
+if [[ -f "$RESULT_FILE" ]]; then
+    echo ">>> Result saved to: $RESULT_FILE"
 fi
