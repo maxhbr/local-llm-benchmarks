@@ -23,7 +23,7 @@ Required:
 Options:
   --container-runtime <rt>  Container runtime: podman or docker (default: podman)
   --edit-format <fmt>       Edit format for aider (default: whole)
-  --num-tests <n>           Number of test exercises to run (default: 5)
+  --num-tests <n>           Number of test exercises to run (default: all)
   --threads <n>             Number of parallel threads (default: 1)
   --rebuild                 Rebuild the container image before running
   --shell-only              Drop into the container shell instead of running the benchmark
@@ -42,7 +42,7 @@ ENDPOINT=""
 MODEL=""
 CONTAINER_RUNTIME=""
 EDIT_FORMAT="whole"
-NUM_TESTS=5
+NUM_TESTS=""
 THREADS=1
 REBUILD=false
 SHELL_ONLY=false
@@ -149,12 +149,17 @@ if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
     HOST_GATEWAY_FLAG="--add-host=host.docker.internal:host-gateway"
 fi
 
+NUM_TESTS_FLAG=""
+if [[ -n "$NUM_TESTS" ]]; then
+    NUM_TESTS_FLAG="--num-tests $NUM_TESTS"
+fi
+
 BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   --model openai/$MODEL \
   --edit-format $EDIT_FORMAT \
   --exercises-dir polyglot-benchmark \
   --threads $THREADS \
-  --num-tests $NUM_TESTS"
+  $NUM_TESTS_FLAG"
 
 RUN_ARGS=(
     -it --rm
@@ -189,7 +194,7 @@ else
     echo "    Model:        openai/$MODEL"
     echo "    Endpoint:     $CONTAINER_ENDPOINT"
     echo "    Edit format:  $EDIT_FORMAT"
-    echo "    Tests:        $NUM_TESTS"
+    echo "    Tests:        ${NUM_TESTS:-all}"
     echo "    Threads:      $THREADS"
     echo "    Run name:     $RUN_NAME"
     echo ""
