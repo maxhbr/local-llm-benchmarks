@@ -1,3 +1,6 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3Packages.openai python3Packages.pydantic
+
 import json
 import time
 from openai import OpenAI
@@ -7,13 +10,34 @@ from pydantic import BaseModel, ValidationError, Field
 # 1. SETUP ENGINE & TARGET MODELS
 # =====================================================================
 # Change the base_url if using vLLM (http://localhost:8000/v1) or LM Studio
-client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+client = OpenAI(base_url="http://thing.wg0.maxhbr.local:4000/v1", api_key="ollama")
 
-# Define the models/quants you currently have deployed locally to test sequentially
+# Define the models to test sequentially.
+# One representative per (model, device) — highest available quant chosen.
 MODELS_TO_TEST = [
-    "qwen2.5-coder:7b-instruct-q4_K_M",
-    "qwen2.5-coder:7b-instruct-q8_0",
-    "gemma2:9b-instruct-q5_K_M"
+    # --- Qwen3.6-35B-A3B (MoE) ---
+    "gfx1151:Qwen3.6-35B-A3B-BF16",
+    "rtx5090:Qwen3.6-35B-A3B",
+    # --- Qwen3.6-27B (Dense) ---
+    "gfx1151:Qwen3.6-27B-Q8_0",
+    "rtx5090:Qwen3.6-27B-Q8_0",
+    # --- Qwen3.6-35B (Dense) ---
+    "gfx1151:Qwen3.6-35B",
+    "rtx5090:Qwen3.6-35B",
+    # --- Qwen3.5 ---
+    "gfx1151:qwen3.5-122B-A10B-Q5_K_M",
+    "gfx1151:Qwen3.5-9B-Q5_K_M",
+    "rtx5090:Qwen3.5-9B-Q5_K_M",
+    # --- NVIDIA Nemotron ---
+    "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+    "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+    # --- MiniMax M2.7 ---
+    "gfx1151:MiniMax-M2.7-UD-IQ4_NL",
+    # --- gemma-4 ---
+    "gfx1151:gemma-4-31B-BF16",
+    "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+    "rtx5090:gemma-4-31B-Q5",
+    "rtx5090:gemma-4-26B-Q8",
 ]
 
 # =====================================================================
@@ -90,8 +114,7 @@ def run_agent_benchmark(model_name: str):
         print(f" -> Raw Output: {raw_output}")
         
         # Clean any accidental markdown code fences the model might have added
-        cleaned_output = raw_output.replace("
-```json", "").replace("```", "").strip()
+        cleaned_output = raw_output.replace("```json", "").replace("```", "").strip()
         
         # Validate JSON strict adherence
         tool_call = ToolCallSchema.model_validate_json(cleaned_output)
