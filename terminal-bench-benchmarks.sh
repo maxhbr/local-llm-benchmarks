@@ -2,57 +2,68 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORK_DIR="$SCRIPT_DIR/work"
+# shellcheck source=lib/common.sh
+. "$SCRIPT_DIR/lib/common.sh"
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [options]
+Usage: $(basename "$0") --endpoint <url> --model <name> [options]
 
-Run terminal-bench benchmarks using Harbor (installed via uv) against a configured model.
+Run terminal-bench benchmarks using Harbor (installed via uv).
 
 Required:
-  -m, --model <name>       Model identifier (e.g. anthropic/claude-sonnet-4-20250514)
+  --endpoint <url>     OpenAI-compatible API base URL (e.g. http://localhost:8080/v1)
+  --model, -m <name>   Model identifier as recognized by the endpoint
+                       If omitted, lists available models from the endpoint
 
-Options:
-  -a, --agent <name>       Agent/agent-slug to benchmark (default: terminus)
-  -d, --dataset <name>     Dataset identifier (default: terminal-bench@2.0)
-  -t, --task <id>          Task name filter (glob pattern, sets --include-task-name)
-  -e, --endpoint <url>     OpenAI-compatible API endpoint (sets OPENAI_BASE_URL env var for the agent)
-  -k, --api-key <key>      API key for the endpoint (sets OPENAI_API_KEY env var for the agent)
-  -n, --n-concurrent <n>   Number of concurrent trials (default: 1)
-  --reinstall              Reinstall harbor via uv
-  --shell-only             Drop into the shell with harbor available instead of running
-  -h, --help               Show this help message
+Common options:
+  --api-key, -k <key>       API key for the endpoint
+  --output-dir <path>       Root directory for results (default: ./benchmarks)
+  --work-dir <path>         Directory for cached harbor install (default: ./work)
+  --run-name <name>         Name suffix for this run (default: derived from --model)
+  --rebuild                 Reinstall harbor via uv
+  --shell-only              Drop into a shell with harbor available; don't run benchmark
+  -h, --help                Show this help message
+
+terminal-bench options:
+  --agent, -a <name>        Agent/agent-slug to benchmark (default: terminus)
+  --dataset, -d <name>      Dataset identifier (default: terminal-bench@2.0)
+  --task, -t <id>           Task name filter (glob pattern, sets --include-task-name)
+  --n-concurrent, -n <n>    Number of concurrent trials (default: 1)
 
 Examples:
-  $(basename "$0") --model anthropic/claude-sonnet-4-20250514
-  $(basename "$0") -m anthropic/claude-sonnet-4-20250514 -a terminus -d terminal-bench@2.0 -t adaptive-rejection-sampler
-  $(basename "$0") -m rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL -e http://litellm.thing.wg0.maxhbr.local/v1
-  $(basename "$0") -m rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL -e http://litellm.thing.wg0.maxhbr.local/v1 -k your-api-key
+  $(basename "$0") --endpoint http://localhost:8080/v1 --model my-model
+  $(basename "$0") -e http://localhost:8080/v1 -m my-model -a terminus -d terminal-bench@2.0 -t adaptive-rejection-sampler
 EOF
     exit 0
 }
 
-MODEL=""
-AGENT="terminus"
-DATASET="terminal-bench@2.0"
-TASK_FILTER="adaptive-rejection-sampler"
 ENDPOINT=""
 API_KEY=""
+MODEL=""
+OUTPUT_DIR="./benchmarks"
+WORK_DIR="./work"
+RUN_NAME=""
+AGENT="terminus"
+DATASET="terminal-bench@2.0"
+TASK_FILTER=""
 N_CONCURRENT=1
-REINSTALL=false
+REBUILD=false
 SHELL_ONLY=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        -m|--model)           MODEL="$2"; shift 2 ;;
-        -a|--agent)           AGENT="$2"; shift 2 ;;
-        -d|--dataset)         DATASET="$2"; shift 2 ;;
-        -t|--task)            TASK_FILTER="$2"; shift 2 ;;
-        -e|--endpoint)        ENDPOINT="$2"; shift 2 ;;
-        -k|--api-key)         API_KEY="$2"; shift 2 ;;
-        -n|--n-concurrent)    N_CONCURRENT="$2"; shift 2 ;;
-        --reinstall)          REINSTALL=true; shift ;;
+        --endpoint|-e)        ENDPOINT="$2"; shift 2 ;;
+        --api-key|-k)         API_KEY="$2"; shift 2 ;;
+        --model|-m)           MODEL="$2"; shift 2 ;;
+        --output-dir)         OUTPUT_DIR="$2"; shift 2 ;;
+        --work-dir)           WORK_DIR="$2"; shift 2 ;;
+        --run-name)           RUN_NAME="$2"; shift 2 ;;
+        --agent|-a)           AGENT="$2"; shift 2 ;;
+        --dataset|-d)         DATASET="$2"; shift 2 ;;
+        --task|-t)            TASK_FILTER="$2"; shift 2 ;;
+        --n-concurrent|-n)    N_CONCURRENT="$2"; shift 2 ;;
+        --rebuild|--reinstall) REBUILD=true; shift ;;
         --shell-only)         SHELL_ONLY=true; shift ;;
         -h|--help)            usage ;;
         *) echo "Unknown option: $1"; usage ;;
@@ -60,110 +71,126 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$MODEL" ]]; then
-    echo ">>> No --model specified. Re-run with --model <name> to start the benchmark."
-    echo ""
-    echo "Examples:"
-    echo "  $(basename "$0") --model anthropic/claude-sonnet-4-20250514"
-    echo "  $(basename "$0") -m rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL -e http://litellm.thing.wg0.maxhbr.local/v1"
-    exit 0
+    if [[ -n "$ENDPOINT" ]]; then
+        echo ">>> No --model specified. Available models from $ENDPOINT/models:"
+        echo ""
+        list_models "$ENDPOINT" "${API_KEY:-EMPTY}"
+        echo ""
+        echo "Re-run with --model <name> to start the benchmark."
+        exit 0
+    fi
+    echo "Error: --model is required (and --endpoint to list available models)" >&2
+    usage
+fi
+
+if [[ -z "$RUN_NAME" ]]; then
+    RUN_NAME="$(slugify_model "$MODEL")"
+fi
+
+if ! command -v uv >/dev/null 2>&1; then
+    echo "Error: 'uv' not found in PATH; use the flake devShell or install it." >&2
+    exit 1
 fi
 
 mkdir -p "$WORK_DIR"
+WORK_DIR="$(cd "$WORK_DIR" && pwd)"
 
-# Install harbor via uv if not already installed or if --reinstall
-if [[ "$REINSTALL" == true || ! -x "$(which harbor 2>/dev/null || true)" ]]; then
-    echo ">>> Installing harbor via uv..."
-    if [[ "$REINSTALL" == true ]]; then
-        echo ">>> Reinstalling harbor..."
+# Use a per-project location for uv-installed tools so the script does not
+# silently depend on whatever the host's $HOME/.local/bin contains.
+export UV_TOOL_BIN_DIR="$WORK_DIR/uv-tools/bin"
+export UV_TOOL_DIR="$WORK_DIR/uv-tools"
+mkdir -p "$UV_TOOL_BIN_DIR"
+export PATH="$UV_TOOL_BIN_DIR:$PATH"
+
+if [[ "$REBUILD" == true || ! -x "$UV_TOOL_BIN_DIR/harbor" ]]; then
+    if [[ "$REBUILD" == true ]]; then
+        echo ">>> Reinstalling harbor via uv..."
         uv tool uninstall harbor 2>/dev/null || true
+    else
+        echo ">>> Installing harbor via uv..."
     fi
     uv tool install harbor
-    echo ">>> Harbor installed"
 fi
 
-# Ensure harbor is in PATH (uv tool installs to ~/.local/bin)
-if [[ ! -x "$(which harbor 2>/dev/null || true)" ]]; then
-    export PATH="/home/mhuber/.local/bin:$PATH"
-    if [[ ! -x "$(which harbor 2>/dev/null || true)" ]]; then
-        echo "Error: harbor not found after installation" >&2
-        exit 1
-    fi
+if [[ ! -x "$UV_TOOL_BIN_DIR/harbor" ]]; then
+    echo "Error: harbor not found at $UV_TOOL_BIN_DIR/harbor after install" >&2
+    exit 1
+fi
+HARBOR_CMD="$UV_TOOL_BIN_DIR/harbor"
+
+# Build the harbor command line so we can echo + reuse it.
+HARBOR_ARGS=(
+    run
+    -d "$DATASET"
+    -a "$AGENT"
+    -m "$MODEL"
+    -n "$N_CONCURRENT"
+)
+if [[ -n "$TASK_FILTER" ]]; then
+    HARBOR_ARGS+=( --include-task-name "$TASK_FILTER" )
 fi
 
-HARBOR_CMD="$(which harbor)"
+exec_env_vars=()
+if [[ -n "$ENDPOINT" ]]; then
+    exec_env_vars+=("OPENAI_BASE_URL=$ENDPOINT")
+fi
+if [[ -n "$API_KEY" ]]; then
+    exec_env_vars+=("OPENAI_API_KEY=$API_KEY")
+fi
 
 if [[ "$SHELL_ONLY" == true ]]; then
     echo ">>> Launching shell with harbor available..."
     echo ">>> When ready, run:"
-    echo "    harbor run -d $DATASET -a $AGENT -m $MODEL --include-task-name $TASK_FILTER"
-    if [[ -n "$ENDPOINT" ]]; then
-        echo "    # With custom endpoint:"
-        echo "    OPENAI_BASE_URL=$ENDPOINT harbor run -d $DATASET -a $AGENT -m $MODEL --include-task-name $TASK_FILTER"
-    fi
-    if [[ -n "$API_KEY" ]]; then
-        echo "    # With API key:"
-        echo "    OPENAI_API_KEY=$API_KEY harbor run -d $DATASET -a $AGENT -m $MODEL --include-task-name $TASK_FILTER"
+    if [[ ${#exec_env_vars[@]} -gt 0 ]]; then
+        echo "    ${exec_env_vars[*]} $HARBOR_CMD ${HARBOR_ARGS[*]}"
+    else
+        echo "    $HARBOR_CMD ${HARBOR_ARGS[*]}"
     fi
     exec bash
-else
-    echo ">>> Running harbor benchmark..."
-    echo "    Dataset:        $DATASET"
-    echo "    Agent:          $AGENT"
-    echo "    Model:          $MODEL"
-    echo "    Task:           $TASK_FILTER"
-    echo "    Concurrent:     $N_CONCURRENT"
-    echo "    Harbor:         $HARBOR_CMD"
-    if [[ -n "$ENDPOINT" ]]; then
-        echo "    Endpoint:       $ENDPOINT"
-    fi
-    if [[ -n "$API_KEY" ]]; then
-        echo "    API Key:        <set>"
-    fi
-    echo ""
-
-    # Create logs directory
-    LOG_DIR="$SCRIPT_DIR/logs"
-    mkdir -p "$LOG_DIR"
-    TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-    LOG_FILE="$LOG_DIR/${AGENT}-${TASK_FILTER}-${TIMESTAMP}.log"
-    echo ">>> Logging to $LOG_FILE"
-    echo ""
-
-    echo ">>> Executing:"
-    if [[ -n "$ENDPOINT" || -n "$API_KEY" ]]; then
-        echo "    OPENAI_BASE_URL=${ENDPOINT:-} OPENAI_API_KEY=${API_KEY:-} $HARBOR_CMD run \\"
-    else
-        echo "    $HARBOR_CMD run \\"
-    fi
-    echo "        -d $DATASET \\"
-    echo "        -a $AGENT \\"
-    echo "        -m $MODEL \\"
-    echo "        --include-task-name $TASK_FILTER \\"
-    echo "        -n $N_CONCURRENT"
-    echo ""
-
-    # Set env vars and run harbor
-    exec_env_vars=()
-    if [[ -n "$ENDPOINT" ]]; then
-        exec_env_vars+=("OPENAI_BASE_URL=$ENDPOINT")
-    fi
-    if [[ -n "$API_KEY" ]]; then
-        exec_env_vars+=("OPENAI_API_KEY=$API_KEY")
-    fi
-
-    if [[ ${#exec_env_vars[@]} -gt 0 ]]; then
-        export "${exec_env_vars[@]}"
-    fi
-
-    $HARBOR_CMD run \
-        -d "$DATASET" \
-        -a "$AGENT" \
-        -m "$MODEL" \
-        --include-task-name "$TASK_FILTER" \
-        -n "$N_CONCURRENT" \
-        2>&1 | tee "$LOG_FILE"
-
-    echo ""
-    echo ">>> Benchmark complete."
-    echo ">>> Log saved to: $LOG_FILE"
 fi
+
+init_run_dir "$OUTPUT_DIR" "$MODEL" "terminal-bench"
+
+write_meta \
+    "bench=terminal-bench" \
+    "model=$MODEL" \
+    "endpoint=$ENDPOINT" \
+    "run_name=$RUN_NAME" \
+    "agent=$AGENT" \
+    "dataset=$DATASET" \
+    "task_filter=$TASK_FILTER" \
+    "n_concurrent=$N_CONCURRENT"
+
+echo ">>> Running harbor benchmark..."
+echo "    Dataset:        $DATASET"
+echo "    Agent:          $AGENT"
+echo "    Model:          $MODEL"
+echo "    Task:           ${TASK_FILTER:-<all>}"
+echo "    Concurrent:     $N_CONCURRENT"
+echo "    Harbor:         $HARBOR_CMD"
+if [[ -n "$ENDPOINT" ]]; then echo "    Endpoint:       $ENDPOINT"; fi
+if [[ -n "$API_KEY"  ]]; then echo "    API Key:        <set>"; fi
+echo "    Run dir:        $RUN_DIR"
+echo ""
+
+if [[ ${#exec_env_vars[@]} -gt 0 ]]; then
+    export "${exec_env_vars[@]}"
+fi
+
+"$HARBOR_CMD" "${HARBOR_ARGS[@]}" 2>&1 | tee "$LOG_FILE"
+
+# Best-effort: copy harbor's own run output into the result dir if it
+# uses the standard XDG cache layout.
+HARBOR_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/harbor/runs"
+if [[ -d "$HARBOR_CACHE" ]]; then
+    mkdir -p "$RUN_DIR/harbor-runs"
+    # symlink the latest few runs so the user has fast access; keep small.
+    find "$HARBOR_CACHE" -maxdepth 1 -mindepth 1 -newer "$LOG_FILE" -print0 2>/dev/null \
+        | xargs -0 -I {} ln -snf {} "$RUN_DIR/harbor-runs/" 2>/dev/null || true
+fi
+
+echo ""
+echo ">>> Benchmark complete."
+echo ">>> Run dir: $RUN_DIR"
+echo ">>> Log:     $LOG_FILE"
+echo ">>> Meta:    $META_FILE"

@@ -2,10 +2,10 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORK_DIR="$SCRIPT_DIR/work"
-AIDER_DIR="$WORK_DIR/aider"
+# shellcheck source=lib/common.sh
+. "$SCRIPT_DIR/lib/common.sh"
+
 AIDER_REPO="https://github.com/Aider-AI/aider.git"
-POLYGLOT_DIR="$AIDER_DIR/tmp.benchmarks/polyglot-benchmark"
 POLYGLOT_REPO="https://github.com/Aider-AI/polyglot-benchmark.git"
 
 usage() {
@@ -20,33 +20,36 @@ Required:
   --model <name>       Model name as recognized by the endpoint (prefixed with openai/ automatically)
                        If omitted, lists available models from the endpoint
 
-Options:
-  --container-runtime <rt>  Container runtime: podman or docker (default: podman)
+Common options:
+  --api-key <key>           API key (default: dummy-key)
+  --output-dir <path>       Root directory for results (default: ./benchmarks)
+  --work-dir <path>         Directory for cached clones/image (default: ./work)
+  --run-name <name>         Name for this benchmark run (default: derived from --model)
+  --rebuild                 Rebuild the container image before running
+  --shell-only              Drop into the container shell instead of running the benchmark
+  -h, --help                Show this help message
+
+aider options:
+  --container-runtime <rt>  Container runtime: podman or docker (default: auto-detect)
   --edit-format <fmt>       Edit format for aider (default: whole)
   --num-tests <n>           Number of test exercises to run (default: all)
   --threads <n>             Number of parallel threads (default: 1)
-  --request-timeout <secs>  Per-LLM-request HTTP timeout in seconds. Injected
-                            via aider's official model-settings YAML mechanism
-                            (writes work/aider/aider-extra-model-settings.yml
-                            and passes --read-model-settings to the benchmark).
-                            If unset, aider's upstream default (600s) is used.
-                            Bump this when you see 'litellm.Timeout' errors
-                            (e.g. 1200 = 2x default).
-  --rebuild                 Rebuild the container image before running
-  --shell-only              Drop into the container shell instead of running the benchmark
-  --run-name <name>         Name for this benchmark run (default: local-model-run)
-  -h, --help                Show this help message
+  --request-timeout <secs>  Per-LLM-request HTTP timeout in seconds.  Bump this
+                            when you see 'litellm.Timeout' errors (e.g. 1200).
 
 Examples:
   $(basename "$0") --endpoint http://localhost:8080/v1 --model my-qwen-model
   $(basename "$0") --endpoint http://172.17.0.1:8080/v1 --model my-model --num-tests 10 --threads 2
-  $(basename "$0") --endpoint http://litellm.thing.wg0.maxhbr.local/v1 --model "rtx5090:Qwen3.5-9B-Q5_K_M" --container-runtime docker
 EOF
     exit 0
 }
 
 ENDPOINT=""
 MODEL=""
+API_KEY="dummy-key"
+OUTPUT_DIR="./benchmarks"
+WORK_DIR="./work"
+RUN_NAME=""
 CONTAINER_RUNTIME=""
 EDIT_FORMAT="whole"
 NUM_TESTS=""
@@ -54,12 +57,15 @@ THREADS=1
 REQUEST_TIMEOUT=""
 REBUILD=false
 SHELL_ONLY=false
-RUN_NAME=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --endpoint)           ENDPOINT="$2"; shift 2 ;;
         --model)              MODEL="$2"; shift 2 ;;
+        --api-key)            API_KEY="$2"; shift 2 ;;
+        --output-dir)         OUTPUT_DIR="$2"; shift 2 ;;
+        --work-dir)           WORK_DIR="$2"; shift 2 ;;
+        --run-name)           RUN_NAME="$2"; shift 2 ;;
         --container-runtime)  CONTAINER_RUNTIME="$2"; shift 2 ;;
         --edit-format)        EDIT_FORMAT="$2"; shift 2 ;;
         --num-tests)          NUM_TESTS="$2"; shift 2 ;;
@@ -67,7 +73,6 @@ while [[ $# -gt 0 ]]; do
         --request-timeout)    REQUEST_TIMEOUT="$2"; shift 2 ;;
         --rebuild)            REBUILD=true; shift ;;
         --shell-only)         SHELL_ONLY=true; shift ;;
-        --run-name)           RUN_NAME="$2"; shift 2 ;;
         -h|--help)            usage ;;
         *) echo "Unknown option: $1"; usage ;;
     esac
@@ -81,38 +86,23 @@ fi
 if [[ -z "$MODEL" ]]; then
     echo ">>> No --model specified. Available models from $ENDPOINT/models:"
     echo ""
-    MODELS_URL="${ENDPOINT%/v1}/v1/models"
-    if command -v jq &>/dev/null; then
-        curl -sf "$MODELS_URL" | jq -r '.data[].id' 2>/dev/null || curl -sf "$MODELS_URL"
-    else
-        curl -sf "$MODELS_URL" | python3 -c "import sys,json; [print(m['id']) for m in json.load(sys.stdin)['data']]" 2>/dev/null || curl -sf "$MODELS_URL"
-    fi
+    list_models "$ENDPOINT" "$API_KEY"
     echo ""
     echo "Re-run with --model <name> to start the benchmark."
     exit 0
 fi
 
 if [[ -z "$RUN_NAME" ]]; then
-    RUN_NAME="$(echo "$MODEL" | sed 's|/|_|g; s|:|-|g; s|[^a-zA-Z0-9._-]|-|g')"
+    RUN_NAME="$(slugify_model "$MODEL")"
 fi
 
-if [[ -z "$CONTAINER_RUNTIME" ]]; then
-    if command -v podman &>/dev/null; then
-        CONTAINER_RUNTIME=podman
-    elif command -v docker &>/dev/null; then
-        CONTAINER_RUNTIME=docker
-    else
-        echo "Error: neither podman nor docker found" >&2
-        exit 1
-    fi
-elif [[ "$CONTAINER_RUNTIME" != "podman" && "$CONTAINER_RUNTIME" != "docker" ]]; then
-    echo "Error: --container-runtime must be 'podman' or 'docker'" >&2
-    exit 1
-fi
-
+CONTAINER_RUNTIME="$(pick_container_runtime "$CONTAINER_RUNTIME")"
 echo ">>> Using container runtime: $CONTAINER_RUNTIME"
 
 mkdir -p "$WORK_DIR"
+WORK_DIR="$(cd "$WORK_DIR" && pwd)"
+AIDER_DIR="$WORK_DIR/aider"
+POLYGLOT_DIR="$AIDER_DIR/tmp.benchmarks/polyglot-benchmark"
 
 if [[ ! -d "$AIDER_DIR" ]]; then
     echo ">>> Cloning aider repository..."
@@ -126,16 +116,9 @@ if [[ ! -d "$POLYGLOT_DIR" ]]; then
     git clone "$POLYGLOT_REPO" "$POLYGLOT_DIR"
 fi
 
-if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
-    IMAGE_EXISTS=false
-    if podman image inspect aider-benchmark &>/dev/null; then
-        IMAGE_EXISTS=true
-    fi
-else
-    IMAGE_EXISTS=false
-    if docker image inspect aider-benchmark &>/dev/null; then
-        IMAGE_EXISTS=true
-    fi
+IMAGE_EXISTS=false
+if $CONTAINER_RUNTIME image inspect aider-benchmark &>/dev/null; then
+    IMAGE_EXISTS=true
 fi
 
 if [[ "$IMAGE_EXISTS" == false || "$REBUILD" == true ]]; then
@@ -166,7 +149,6 @@ fi
 # For --request-timeout, use aider's official config mechanism instead of
 # patching: a model-settings YAML with the `aider/extra_params` entry, which
 # aider deep-merges into every model's extra_params (see aider/models.py).
-# The benchmark accepts this via --read-model-settings.
 EXTRA_MODEL_SETTINGS_FLAG=""
 if [[ -n "$REQUEST_TIMEOUT" ]]; then
     EXTRA_MODEL_SETTINGS_FILE="$AIDER_DIR/aider-extra-model-settings.yml"
@@ -187,6 +169,23 @@ BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   $NUM_TESTS_FLAG \
   $EXTRA_MODEL_SETTINGS_FLAG"
 
+init_run_dir "$OUTPUT_DIR" "$MODEL" "aider"
+# Absolute path needed for the bind-mount.
+RUN_DIR_ABS="$(cd "$RUN_DIR" && pwd)"
+STATS_FILE="$RUN_DIR/stats.txt"
+
+write_meta \
+    "bench=aider" \
+    "model=$MODEL" \
+    "endpoint=$ENDPOINT" \
+    "container_endpoint=$CONTAINER_ENDPOINT" \
+    "run_name=$RUN_NAME" \
+    "edit_format=$EDIT_FORMAT" \
+    "num_tests=${NUM_TESTS:-all}" \
+    "threads=$THREADS" \
+    "request_timeout=${REQUEST_TIMEOUT:-default}" \
+    "container_runtime=$CONTAINER_RUNTIME"
+
 RUN_ARGS=(
     -it --rm
     --memory=12g
@@ -194,7 +193,8 @@ RUN_ARGS=(
     $HOST_GATEWAY_FLAG
     -v "$AIDER_DIR":/aider
     -v "$AIDER_DIR/tmp.benchmarks":/benchmarks
-    -e OPENAI_API_KEY=dummy-key
+    -v "$RUN_DIR_ABS":/run
+    -e OPENAI_API_KEY="$API_KEY"
     -e OPENAI_API_BASE="$CONTAINER_ENDPOINT"
     -e AIDER_DOCKER=1
     -e AIDER_BENCHMARK_DIR=/benchmarks
@@ -214,41 +214,40 @@ if [[ "$SHELL_ONLY" == true ]]; then
     echo "    $BENCHMARK_CMD"
     echo "    python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark"
     $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" aider-benchmark bash
-else
-    echo ">>> Running benchmark..."
-    echo "    Runtime:      $CONTAINER_RUNTIME"
-    echo "    Model:        openai/$MODEL"
-    echo "    Endpoint:     $CONTAINER_ENDPOINT"
-    echo "    Edit format:  $EDIT_FORMAT"
-    echo "    Tests:        ${NUM_TESTS:-all}"
-    echo "    Threads:      $THREADS"
-    echo "    Req timeout:  ${REQUEST_TIMEOUT:+${REQUEST_TIMEOUT}s }${REQUEST_TIMEOUT:-aider default (600s)}"
-    echo "    Run name:     $RUN_NAME"
-    echo ""
-
-    LOG_DIR="$WORK_DIR/logs"
-    mkdir -p "$LOG_DIR"
-    TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-    LOG_FILE="$LOG_DIR/${RUN_NAME}-${TIMESTAMP}.log"
-    STATS_FILE="$LOG_DIR/${RUN_NAME}-${TIMESTAMP}-stats.txt"
-    STATS_FILE_IN_CONTAINER="/benchmarks/.stats-${RUN_NAME}-${TIMESTAMP}.txt"
-    echo ">>> Logging to $LOG_FILE"
-    echo ">>> Stats will be saved to $STATS_FILE"
-
-    $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" \
-        -w /aider \
-        -e STATS_FILE="$STATS_FILE_IN_CONTAINER" \
-        aider-benchmark \
-        bash -c "pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee \$STATS_FILE" \
-        2>&1 | tee "$LOG_FILE"
-
-    HOST_STATS_FILE="$AIDER_DIR/tmp.benchmarks/.stats-${RUN_NAME}-${TIMESTAMP}.txt"
-    if [[ -f "$HOST_STATS_FILE" ]]; then
-        mv "$HOST_STATS_FILE" "$STATS_FILE"
-    fi
-
-    echo ""
-    echo ">>> Benchmark complete. Results are in: $AIDER_DIR/tmp.benchmarks/"
-    echo ">>> Log saved to:   $LOG_FILE"
-    echo ">>> Stats saved to: $STATS_FILE"
+    exit 0
 fi
+
+echo ">>> Running benchmark..."
+echo "    Runtime:      $CONTAINER_RUNTIME"
+echo "    Model:        openai/$MODEL"
+echo "    Endpoint:     $CONTAINER_ENDPOINT"
+echo "    Edit format:  $EDIT_FORMAT"
+echo "    Tests:        ${NUM_TESTS:-all}"
+echo "    Threads:      $THREADS"
+echo "    Req timeout:  ${REQUEST_TIMEOUT:+${REQUEST_TIMEOUT}s }${REQUEST_TIMEOUT:-aider default (600s)}"
+echo "    Run name:     $RUN_NAME"
+echo "    Run dir:      $RUN_DIR"
+echo ""
+
+$CONTAINER_RUNTIME run "${RUN_ARGS[@]}" \
+    -w /aider \
+    -e STATS_FILE=/run/stats.txt \
+    aider-benchmark \
+    bash -c "pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt" \
+    2>&1 | tee "$LOG_FILE"
+
+# Copy aider's per-run artifact directory into the result dir for archival.
+AIDER_RUN_ARTIFACTS="$AIDER_DIR/tmp.benchmarks/$RUN_NAME"
+if [[ -d "$AIDER_RUN_ARTIFACTS" ]]; then
+    mkdir -p "$RUN_DIR/tmp.benchmarks"
+    cp -r "$AIDER_RUN_ARTIFACTS" "$RUN_DIR/tmp.benchmarks/" 2>/dev/null || true
+fi
+
+echo ""
+echo ">>> Benchmark complete."
+echo ">>> Run dir: $RUN_DIR"
+echo ">>> Log:     $LOG_FILE"
+if [[ -f "$STATS_FILE" ]]; then
+    echo ">>> Stats:   $STATS_FILE"
+fi
+echo ">>> Meta:    $META_FILE"
