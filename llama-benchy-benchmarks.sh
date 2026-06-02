@@ -181,6 +181,7 @@ if [[ -n "$EXTRA_ARGS" ]]; then
 fi
 
 PRINTF_ARGS=$(printf ' %q' "${BENCHY_ARGS[@]}")
+write_cmd llama-benchy "${BENCHY_ARGS[@]}"
 
 setup_venv() {
     cd "$BENCHY_DIR"
@@ -244,3 +245,10 @@ if [[ -f "$RESULT_FILE" ]]; then
     echo ">>> Result:      $RESULT_FILE"
 fi
 echo ">>> Meta:        $META_FILE"
+echo ">>> Cmd:         $CMD_FILE"
+
+if [[ "$FORMAT" == "md" && -f "$RESULT_FILE" ]]; then
+    echo ""
+    echo "--- Result ($RESULT_FILE) ---"
+    cat "$RESULT_FILE"
+fi

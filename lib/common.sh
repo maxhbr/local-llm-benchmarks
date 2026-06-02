@@ -14,6 +14,8 @@
 #         RUN_DIR, LOG_FILE, META_FILE, MODEL_SLUG, RUN_TS
 #   write_meta <key=value> [...]
 #       Writes/updates "$META_FILE" as a JSON object.
+#   write_cmd <argv...>
+#       Writes a shell-quoted, replayable command line to "$RUN_DIR/run.cmd".
 #
 # All helpers are intentionally portable across bash 4+; no external deps
 # beyond curl, python3 (fallback when jq is missing) and coreutils.
@@ -87,8 +89,29 @@ init_run_dir() {
     RUN_DIR="$root/$MODEL_SLUG/$bench/$RUN_TS"
     LOG_FILE="$RUN_DIR/run.log"
     META_FILE="$RUN_DIR/meta.json"
+    CMD_FILE="$RUN_DIR/run.cmd"
     mkdir -p "$RUN_DIR"
-    export RUN_DIR LOG_FILE META_FILE MODEL_SLUG RUN_TS
+    export RUN_DIR LOG_FILE META_FILE CMD_FILE MODEL_SLUG RUN_TS
+}
+
+# Write a shell-quoted, replayable command line to "$RUN_DIR/run.cmd".
+# Pass argv exactly as you would invoke the underlying tool.
+write_cmd() {
+    if [[ -z "${CMD_FILE:-}" ]]; then
+        echo "write_cmd: \$CMD_FILE is not set; call init_run_dir first" >&2
+        return 2
+    fi
+    {
+        printf '#!/usr/bin/env bash\n'
+        printf '# Replayable command for run %s\n' "${RUN_TS:-?}"
+        printf '%s' "$1"
+        shift
+        for a in "$@"; do
+            printf ' %q' "$a"
+        done
+        printf '\n'
+    } > "$CMD_FILE"
+    chmod +x "$CMD_FILE"
 }
 
 # Write a meta.json sidecar.  Each argument is key=value.  Values that

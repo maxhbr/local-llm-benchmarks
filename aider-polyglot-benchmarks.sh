@@ -229,11 +229,19 @@ echo "    Run name:     $RUN_NAME"
 echo "    Run dir:      $RUN_DIR"
 echo ""
 
+INNER_CMD="pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt"
+
+write_cmd "$CONTAINER_RUNTIME" run "${RUN_ARGS[@]}" \
+    -w /aider \
+    -e STATS_FILE=/run/stats.txt \
+    aider-benchmark \
+    bash -c "$INNER_CMD"
+
 $CONTAINER_RUNTIME run "${RUN_ARGS[@]}" \
     -w /aider \
     -e STATS_FILE=/run/stats.txt \
     aider-benchmark \
-    bash -c "pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt" \
+    bash -c "$INNER_CMD" \
     2>&1 | tee "$LOG_FILE"
 
 # Copy aider's per-run artifact directory into the result dir for archival.
@@ -251,3 +259,4 @@ if [[ -f "$STATS_FILE" ]]; then
     echo ">>> Stats:   $STATS_FILE"
 fi
 echo ">>> Meta:    $META_FILE"
+echo ">>> Cmd:     $CMD_FILE"

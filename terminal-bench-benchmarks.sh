@@ -177,6 +177,13 @@ if [[ ${#exec_env_vars[@]} -gt 0 ]]; then
     export "${exec_env_vars[@]}"
 fi
 
+# Record the command with the env vars prefixed so the file is replayable.
+if [[ ${#exec_env_vars[@]} -gt 0 ]]; then
+    write_cmd env "${exec_env_vars[@]}" "$HARBOR_CMD" "${HARBOR_ARGS[@]}"
+else
+    write_cmd "$HARBOR_CMD" "${HARBOR_ARGS[@]}"
+fi
+
 "$HARBOR_CMD" "${HARBOR_ARGS[@]}" 2>&1 | tee "$LOG_FILE"
 
 # Best-effort: copy harbor's own run output into the result dir if it
@@ -194,3 +201,4 @@ echo ">>> Benchmark complete."
 echo ">>> Run dir: $RUN_DIR"
 echo ">>> Log:     $LOG_FILE"
 echo ">>> Meta:    $META_FILE"
+echo ">>> Cmd:     $CMD_FILE"

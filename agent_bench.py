@@ -14,6 +14,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -246,6 +247,7 @@ def main() -> int:
         log_path = run_dir / "run.log"
         meta_path = run_dir / "meta.json"
         metrics_path = run_dir / "metrics.json"
+        cmd_path = run_dir / "run.cmd"
 
         meta = {
             "timestamp": ts,
@@ -257,6 +259,23 @@ def main() -> int:
             "run_name": args.run_name or slug,
         }
         meta_path.write_text(json.dumps(meta, indent=2) + "\n")
+
+        # Record a replayable single-model invocation of this script.
+        cmd_argv = [
+            sys.executable, str(Path(__file__).resolve()),
+            "--endpoint", args.endpoint,
+            "--api-key", args.api_key,
+            "--output-dir", str(output_root),
+            "--model", model,
+        ]
+        if args.run_name:
+            cmd_argv += ["--run-name", args.run_name]
+        cmd_path.write_text(
+            "#!/usr/bin/env bash\n"
+            f"# Replayable command for run {ts}\n"
+            + shlex.join(cmd_argv) + "\n"
+        )
+        cmd_path.chmod(0o755)
 
         with log_path.open("w") as log:
             m = run_agent_benchmark(client, model, log)
