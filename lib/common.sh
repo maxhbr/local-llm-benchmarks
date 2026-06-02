@@ -80,6 +80,10 @@ init_run_dir() {
     fi
     MODEL_SLUG="$(slugify_model "$model")"
     RUN_TS="$(date +%Y%m%d-%H%M%S)"
+    mkdir -p "$root"
+    # Make the root absolute so callers can `cd` later without breaking
+    # any --save-result / log paths derived from $RUN_DIR.
+    root="$(cd "$root" && pwd)"
     RUN_DIR="$root/$MODEL_SLUG/$bench/$RUN_TS"
     LOG_FILE="$RUN_DIR/run.log"
     META_FILE="$RUN_DIR/meta.json"
