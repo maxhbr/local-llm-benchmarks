@@ -70,23 +70,37 @@ def git_rev(repo_root: Path) -> str | None:
 @dataclass
 class Metrics:
     turn_1_tps: float = 0.0
-    json_valid: bool = False
-    math_conversion_correct: bool = False
+    json_valid_rate: float = 0.0        # fraction of runs where JSON parsed successfully (0.0–1.0)
+    tool_name_ok_rate: float = 0.0      # fraction of runs where tool_name == 'calculate_density'
+    math_conversion_rate: float = 0.0   # fraction of runs with correct unit conversions
     turn_2_tps: float = 0.0
-    final_success: bool = False
-    error: str | None = None
+    final_success_rate: float = 0.0     # fraction of runs with correct final summary
+    deterministic: bool = True          # True when every binary metric is all-pass or all-fail (zero variance)
+    runs: int = 0
+    errors: list[str] = None  # type: ignore[assignment]
+
+    def __post_init__(self) -> None:
+        if self.errors is None:
+            self.errors = []
 
 
 # =====================================================================
-# Benchmark runner
+# Benchmark runner — single trial
 # =====================================================================
-def run_agent_benchmark(client: OpenAI, model_name: str, log) -> Metrics:
-    def out(msg: str = "") -> None:
-        print(msg)
-        log.write(msg + "\n")
-        log.flush()
+_TrialResult = dict[str, Any]  # keys: turn_1_tps, json_valid, tool_name_ok, math_ok, turn_2_tps, final_ok, error
 
-    out(f"\n{'=' * 60}\nRUNNING BENCHMARK: {model_name}\n{'=' * 60}")
+
+def _run_single_trial(client: OpenAI, model_name: str, trial: int, out, temperature: float = 0.3) -> _TrialResult:
+    """Run one trial and return a dict with per-trial measurements."""
+    result: _TrialResult = {
+        "turn_1_tps": 0.0,
+        "json_valid": False,
+        "tool_name_ok": False,
+        "math_ok": False,
+        "turn_2_tps": 0.0,
+        "final_ok": False,
+        "error": None,
+    }
 
     system_prompt = (
         "You are an agentic core framework. You must ONLY respond in a raw, valid JSON object matching "
@@ -103,53 +117,56 @@ def run_agent_benchmark(client: OpenAI, model_name: str, log) -> Metrics:
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
     ]
-    m = Metrics()
 
     # -- Turn 1 -------------------------------------------------------
-    out("[Turn 1] Requesting Structured Tool Call...")
+    out(f"  [Trial {trial}][Turn 1] Requesting Structured Tool Call...")
     start = time.time()
     try:
         response = client.chat.completions.create(
             model=model_name,
             messages=history,
-            temperature=0.0,
+            temperature=temperature,
             max_tokens=200,
         )
         duration = time.time() - start
         raw_output = (response.choices[0].message.content or "").strip()
         tokens_gen = response.usage.completion_tokens if response.usage else 0
-        m.turn_1_tps = round(tokens_gen / duration, 2) if duration > 0 else 0.0
+        result["turn_1_tps"] = round(tokens_gen / duration, 2) if duration > 0 else 0.0
 
-        out(f" -> Received raw response in {duration:.2f}s ({m.turn_1_tps} tokens/sec)")
-        out(f" -> Raw Output: {raw_output}")
+        out(f"   -> {duration:.2f}s ({result['turn_1_tps']} tok/s) | Raw: {raw_output[:120]}")
 
         cleaned = raw_output.replace("```json", "").replace("```", "").strip()
         tool_call = ToolCallSchema.model_validate_json(cleaned)
-        m.json_valid = True
-        out(" -> Step 1 Success: Valid JSON generated.")
+        result["json_valid"] = True
+        out("   -> Step 1 OK: Valid JSON.")
 
-        if abs(tool_call.mass_kg - 4.5) < 1e-4 and abs(tool_call.volume_m3 - 0.0005) < 1e-6:
-            m.math_conversion_correct = True
-            out(" -> Step 2 Success: Accurate unit conversions.")
+        if tool_call.tool_name == "calculate_density":
+            result["tool_name_ok"] = True
+            out("   -> Step 1b OK: Correct tool_name.")
+        else:
+            out(f"   -> Step 1b FAIL: tool_name='{tool_call.tool_name}' (expected 'calculate_density')")
+
+        # Tolerances: ±0.0001 kg for mass (4500 g → 4.5 kg),
+        # ±0.0000001 m³ for volume (0.5 L → 0.0005 m³).  Both are generous
+        # enough to absorb float round-trip noise from any JSON serialisation.
+        if abs(tool_call.mass_kg - 4.5) < 1e-4 and abs(tool_call.volume_m3 - 0.0005) < 1e-7:
+            result["math_ok"] = True
+            out("   -> Step 2 OK: Correct unit conversions.")
         else:
             out(
-                f" -> Step 2 Fail: Incorrect parameters parsed "
-                f"(Mass: {tool_call.mass_kg}, Vol: {tool_call.volume_m3})"
+                f"   -> Step 2 FAIL: mass={tool_call.mass_kg}, vol={tool_call.volume_m3}"
             )
     except ValidationError as e:
-        m.error = f"validation: {e}"
-        out(f" -> Step 1 Fail: Broken JSON or missing fields.\nError: {e}")
-        return m
+        result["error"] = f"validation: {e}"
+        out(f"   -> Step 1 FAIL: {e}")
+        return result
     except Exception as e:
-        m.error = f"api: {e}"
-        out(f" -> API connection error: {e}")
-        return m
+        result["error"] = f"api: {e}"
+        out(f"   -> API error: {e}")
+        return result
 
     # -- Turn 2 -------------------------------------------------------
-    out("\n[Turn 2] Executing tool locally and feeding observation back to model...")
     tool_observation = mock_calculate_density_tool(tool_call.mass_kg, tool_call.volume_m3)
-    out(f" -> Tool Output: {tool_observation}")
-
     history.append({"role": "assistant", "content": cleaned})
     history.append(
         {
@@ -158,29 +175,110 @@ def run_agent_benchmark(client: OpenAI, model_name: str, log) -> Metrics:
         }
     )
 
+    out(f"  [Trial {trial}][Turn 2] Feeding observation back...")
     start = time.time()
     try:
         response_t2 = client.chat.completions.create(
             model=model_name,
             messages=history,
-            temperature=0.3,
+            temperature=temperature,
             max_tokens=300,
         )
         duration = time.time() - start
         tokens_gen = response_t2.usage.completion_tokens if response_t2.usage else 0
-        m.turn_2_tps = round(tokens_gen / duration, 2) if duration > 0 else 0.0
-        final_summary = (response_t2.choices[0].message.content or "").strip()
-        out(f" -> Final Summary Received ({m.turn_2_tps} tokens/sec):")
-        out(f"\n{final_summary}\n")
+        result["turn_2_tps"] = round(tokens_gen / duration, 2) if duration > 0 else 0.0
+        choice = response_t2.choices[0]
+        final_summary = (choice.message.content or "").strip()
+        finish_reason = choice.finish_reason
+        # Qwen3 thinking models put reasoning in reasoning_content; log it for diagnosis
+        reasoning = getattr(choice.message, "reasoning_content", None) or ""
+        out(f"   -> {result['turn_2_tps']} tok/s | finish={finish_reason} | thinking={len(reasoning)}chars | Summary: {final_summary[:120]}")
 
-        if "9000" in final_summary:
-            m.final_success = True
-            out(" -> Step 3 Success: State maintained through final calculation summary.")
+        # Extract all numbers from the summary (strip commas used as thousand-separators)
+        # and check whether any of them equals the expected density of 9000 kg/m³.
+        found_nums = [
+            float(n.replace(",", ""))
+            for n in re.findall(r"[\d,]+(?:\.\d+)?", final_summary)
+            if n.replace(",", "").replace(".", "").isdigit()
+        ]
+        if any(abs(v - 9000.0) < 0.5 for v in found_nums):
+            result["final_ok"] = True
+            out("   -> Step 3 OK: Final answer correct (9000 kg/m³ found).")
         else:
-            out(" -> Step 3 Fail: Final answer didn't contextualize the tool results correctly.")
+            out(f"   -> Step 3 FAIL: 9000 not found in summary numbers {found_nums[:10]}.")
     except Exception as e:
-        m.error = (m.error + " | " if m.error else "") + f"turn2: {e}"
-        out(f" -> Turn 2 failed: {e}")
+        result["error"] = (result["error"] + " | " if result["error"] else "") + f"turn2: {e}"
+        out(f"   -> Turn 2 failed: {e}")
+
+    return result
+
+
+# =====================================================================
+# Benchmark runner — 10-trial aggregator
+# =====================================================================
+NUM_TRIALS = 10
+
+
+def run_agent_benchmark(client: OpenAI, model_name: str, log, num_trials: int = NUM_TRIALS) -> Metrics:
+    def out(msg: str = "") -> None:
+        print(msg)
+        log.write(msg + "\n")
+        log.flush()
+
+    out(f"\n{'=' * 60}\nRUNNING BENCHMARK: {model_name} ({num_trials} trials)\n{'=' * 60}")
+
+    trials: list[_TrialResult] = []
+    for i in range(1, num_trials + 1):
+        temp = 0.0 if i == 1 else 0.3
+        out(f"\n--- Trial {i}/{num_trials} (temp={temp}) ---")
+        t = _run_single_trial(client, model_name, i, out, temperature=temp)
+        t["temperature"] = temp
+        trials.append(t)
+
+    # Aggregate — only include trials that actually produced tokens in TPS averages
+    # so that API failures don't suppress the reported speed.
+    n = len(trials)
+    t1_with_tokens = [t for t in trials if t["turn_1_tps"] > 0]
+    t2_with_tokens = [t for t in trials if t["turn_2_tps"] > 0]
+
+    # A metric is "variant" if it is neither all-True nor all-False across trials.
+    # If every binary metric is trivially uniform the backend is likely deterministic
+    # at temp=0 and the rates carry no more information than a single trial would.
+    binary_keys = ("json_valid", "tool_name_ok", "math_ok", "final_ok")
+    is_deterministic = all(
+        len(set(t[k] for t in trials)) == 1
+        for k in binary_keys
+    )
+
+    m = Metrics(
+        turn_1_tps=round(
+            sum(t["turn_1_tps"] for t in t1_with_tokens) / max(1, len(t1_with_tokens)), 2
+        ),
+        json_valid_rate=round(sum(1 for t in trials if t["json_valid"]) / n, 3),
+        tool_name_ok_rate=round(sum(1 for t in trials if t["tool_name_ok"]) / n, 3),
+        math_conversion_rate=round(sum(1 for t in trials if t["math_ok"]) / n, 3),
+        turn_2_tps=round(
+            sum(t["turn_2_tps"] for t in t2_with_tokens) / max(1, len(t2_with_tokens)), 2
+        ),
+        final_success_rate=round(sum(1 for t in trials if t["final_ok"]) / n, 3),
+        deterministic=is_deterministic,
+        runs=n,
+        errors=[t["error"] for t in trials if t["error"]],
+    )
+
+    out(f"\n--- Aggregated over {n} trials ---")
+    out(f"  Avg Turn-1 TPS        : {m.turn_1_tps}  (over {len(t1_with_tokens)} trials with tokens)")
+    out(f"  JSON valid rate       : {m.json_valid_rate * 100:.0f}%")
+    out(f"  Tool-name correct rate: {m.tool_name_ok_rate * 100:.0f}%")
+    out(f"  Math conversion rate  : {m.math_conversion_rate * 100:.0f}%")
+    out(f"  Avg Turn-2 TPS        : {m.turn_2_tps}  (over {len(t2_with_tokens)} trials with tokens)")
+    out(f"  Final success rate    : {m.final_success_rate * 100:.0f}%")
+    if m.deterministic:
+        out("  Variance              : none — backend appears deterministic at temp=0 (rates are binary)")
+    else:
+        out("  Variance              : detected — backend is non-deterministic despite temp=0")
+    if m.errors:
+        out(f"  Errors ({len(m.errors)}): {m.errors}")
 
     return m
 
@@ -286,7 +384,7 @@ def main() -> int:
         # On a successful run (no API/validation failure tripping `error`),
         # symlink <output_root>/<slug>/agent-bench.json -> this run's metrics
         # so the per-model dir always exposes the latest metrics.
-        if m.error is None:
+        if not m.errors:
             latest = output_root / slug / "agent-bench.json"
             try:
                 if latest.is_symlink() or latest.exists():
@@ -301,15 +399,21 @@ def main() -> int:
     (board_dir / "scoreboard.json").write_text(json.dumps(aggregated, indent=2) + "\n")
 
     lines = []
-    lines.append("=" * 75)
+    lines.append("=" * 90)
     lines.append("FINAL BENCHMARK SCOREBOARD")
-    lines.append("=" * 75)
-    lines.append(f"{'Model Name':<40} | {'T1 TPS':<7} | {'JSON?':<5} | {'Math?':<5} | {'Final?':<6}")
-    lines.append("-" * 75)
+    lines.append("=" * 90)
+    lines.append(
+        f"{'Model Name':<40} | {'T1 TPS':<7} | {'JSON%':<6} | {'Tool%':<6} | {'Math%':<6} | {'Final%':<7} | {'Runs'}"
+    )
+    lines.append("-" * 90)
     for model, m in aggregated.items():
+        json_pct = f"{m['json_valid_rate'] * 100:.0f}%"
+        tool_pct = f"{m['tool_name_ok_rate'] * 100:.0f}%"
+        math_pct = f"{m['math_conversion_rate'] * 100:.0f}%"
+        final_pct = f"{m['final_success_rate'] * 100:.0f}%"
+        det_flag = " [det]" if m.get("deterministic", True) else " [var]"
         lines.append(
-            f"{model:<40} | {m['turn_1_tps']:<7} | {str(m['json_valid']):<5} | "
-            f"{str(m['math_conversion_correct']):<5} | {str(m['final_success']):<6}"
+            f"{model:<40} | {m['turn_1_tps']:<7} | {json_pct:<6} | {tool_pct:<6} | {math_pct:<6} | {final_pct:<7} | {m['runs']}{det_flag}"
         )
     text = "\n".join(lines) + "\n"
     (board_dir / "scoreboard.txt").write_text(text)
