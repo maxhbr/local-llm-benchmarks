@@ -1,0 +1,219 @@
+# Generated from shared.localModels.litellm.nix.
+#
+# Filtering rules applied (vs. the full 167-entry LiteLLM model list):
+#   * keep only entries with a producer prefix (rtx5090: / gfx1151: / gfx1151:ROCm0:)
+#   * drop opencode*, sidekick*, hermes* aliases (LiteLLM aliases, not real models)
+#   * drop bare unprefixed entries (also aliases that round-robin to a producer)
+#
+# Each model gets llama-benchy + agent-bench. Add `benchmarks = [...]` on a
+# specific [[endpoints.models]] entry to override (e.g. add "aider" for a
+# coder model, or "terminal-bench" for a reasoning model).
+
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "litellm.thing.wg0"
+url        = "http://litellm.thing.wg0.maxhbr.local/v1"
+api_key    = "EMPTY"
+benchmarks = ["llama-benchy", "agent-bench"]
+
+# ---------------------------------------------------------------------------
+# rtx5090 producer (38 models) -- NVIDIA RTX 5090 instance on `thing`.
+# ---------------------------------------------------------------------------
+
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.5-9B-Q5_K_M"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-MTP-Q8_0"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-Q8_0"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-general-tasks"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-instruct-general-tasks"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-modded"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-65536"
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-general"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-reasoning"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-coding"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-general"
+  # [[endpoints.models]]
+  # name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-tweaked"
+  [[endpoints.models]]
+  name = "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  [[endpoints.models]]
+  name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL-mmproj"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL-nothink"
+  [[endpoints.models]]
+  name = "rtx5090:gemma-4-31B-it-UD-Q5_K_XL"
+
+# # ---------------------------------------------------------------------------
+# # gfx1151:ROCm0 producer (40 models) -- AMD Radeon 8060S iGPU, ROCm0 device.
+# # ---------------------------------------------------------------------------
+
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_NL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_XS"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-Q3_K_S"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.5-9B-Q5_K_M"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-BF16"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q4_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q5_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q6_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-instruct-general"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-instruct-reasoning"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-thinking-coding"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-thinking-general"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-general"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-reasoning"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-coding"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-general"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-general"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-reasoning"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-coding"
+#   # [[endpoints.models]]
+#   # name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-general"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q5_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q6_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q8_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:gemma-4-31B-it-BF16"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q4_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q5_K_XL"
+#   [[endpoints.models]]
+#   name = "gfx1151:ROCm0:qwen3.5-122B-A10B-Q5_K_M"
+
+# ---------------------------------------------------------------------------
+# gfx1151 producer, non-ROCm0 routing (55 models) -- same iGPU, default device.
+# ---------------------------------------------------------------------------
+
+  [[endpoints.models]]
+  name = "gfx1151:MiniMax-M2.7-UD-IQ4_NL"
+  [[endpoints.models]]
+  name = "gfx1151:MiniMax-M2.7-UD-IQ4_XS"
+  [[endpoints.models]]
+  name = "gfx1151:MiniMax-M2.7-UD-Q3_K_S"
+  [[endpoints.models]]
+  name = "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.5-9B-Q5_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-BF16"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-MTP-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-35B-A3B-BF16"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-BF16-instruct-general"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-BF16-instruct-reasoning"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-BF16-thinking-coding"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-BF16-thinking-general"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16-instruct-general"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16-instruct-reasoning"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16-thinking-coding"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16-thinking-general"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-35B-A3B-Q8_0"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-Q8_0-instruct-general"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-Q8_0-instruct-reasoning"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-Q8_0-thinking-coding"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.6-35B-A3B-Q8_0-thinking-general"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-BF16"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:qwen3.5-122B-A10B-Q5_K_M"

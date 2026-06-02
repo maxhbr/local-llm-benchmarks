@@ -283,6 +283,18 @@ def main() -> int:
         aggregated[model] = asdict(m)
         print(f">>> {model}: run dir {run_dir}")
 
+        # On a successful run (no API/validation failure tripping `error`),
+        # symlink <output_root>/<slug>/agent-bench.json -> this run's metrics
+        # so the per-model dir always exposes the latest metrics.
+        if m.error is None:
+            latest = output_root / slug / "agent-bench.json"
+            try:
+                if latest.is_symlink() or latest.exists():
+                    latest.unlink()
+                latest.symlink_to(metrics_path)
+            except OSError as e:
+                print(f"!!! warning: failed to update {latest}: {e}", file=sys.stderr)
+
     # Aggregated scoreboard for this invocation.
     board_dir = output_root / "_agent-bench-scoreboards" / ts
     board_dir.mkdir(parents=True, exist_ok=True)

@@ -37,7 +37,7 @@ llama-benchy options:
   --runs <n>                Number of runs per test (default: 3)
   --concurrency <list>      Space-separated concurrency levels (default: "1 2 4")
   --latency-mode <mode>     Latency mode: api, generation, none (default: generation)
-  --format <fmt>            Output format: md, json, csv (default: csv)
+  --format <fmt>            Output format: md, json, csv (default: md)
   --enable-prefix-caching   Measure prefix-caching benchmarks
   --update                  git pull the llama-benchy repo before running
   --extra-args <args>       Extra args passed verbatim to llama-benchy
@@ -62,7 +62,7 @@ DEPTH="0 8192 16384"
 RUNS=3
 CONCURRENCY="1 2 4"
 LATENCY_MODE="generation"
-FORMAT="csv"
+FORMAT="md"
 ENABLE_PREFIX_CACHING=false
 REBUILD=false
 UPDATE=false
@@ -237,12 +237,14 @@ echo ""
     llama-benchy "${BENCHY_ARGS[@]}"
 } 2>&1 | tee "$LOG_FILE"
 
+# Reaching this point means the piped block above exited 0 (set -e + pipefail).
 echo ""
 echo ">>> Benchmark complete."
 echo ">>> Run dir:     $RUN_DIR"
 echo ">>> Log:         $LOG_FILE"
 if [[ -f "$RESULT_FILE" ]]; then
     echo ">>> Result:      $RESULT_FILE"
+    link_latest_result "$RESULT_FILE" "llama-benchy"
 fi
 echo ">>> Meta:        $META_FILE"
 echo ">>> Cmd:         $CMD_FILE"

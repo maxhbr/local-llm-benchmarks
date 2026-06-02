@@ -21,6 +21,7 @@
         cp ${./llama-benchy-benchmarks.sh}       $out/llama-benchy-benchmarks.sh
         cp ${./terminal-bench-benchmarks.sh}     $out/terminal-bench-benchmarks.sh
         cp ${./agent_bench.py}                   $out/agent_bench.py
+        cp ${./run_benchmarks.py}                $out/run_benchmarks.py
         chmod +x $out/*.sh $out/*.py
       '';
 
@@ -71,37 +72,26 @@
         '';
       };
 
-      all-benchmarks = pkgs.writeShellApplication {
-        name = "all-benchmarks";
-        runtimeInputs = [ aider-bench llama-benchy-bench terminal-bench agent-bench ];
+      # Single entrypoint: reads a TOML matrix and dispatches to the four
+      # per-benchmark wrappers.  Needs python3 >= 3.11 for stdlib `tomllib`.
+      run-benchmarks = pkgs.writeShellApplication {
+        name = "run-benchmarks";
+        runtimeInputs = commonRuntime ++ [
+          pkgs.python3
+          aider-bench
+          llama-benchy-bench
+          terminal-bench
+          agent-bench
+        ];
         text = ''
-          set -euo pipefail
-          if [[ $# -eq 0 ]]; then
-            cat <<'USAGE'
-          Usage: all-benchmarks --endpoint <url> --model <name> [common options]
-
-          Runs aider-bench, llama-benchy-bench, terminal-bench and agent-bench
-          sequentially against a single model.  All extra args are forwarded
-          verbatim to each benchmark, so use only flags that every benchmark
-          recognises (--endpoint, --model, --api-key, --output-dir, --run-name).
-          USAGE
-            exit 0
-          fi
-          echo ">>> [1/4] aider-bench"
-          aider-bench "$@"
-          echo ">>> [2/4] llama-benchy-bench"
-          llama-benchy-bench "$@"
-          echo ">>> [3/4] terminal-bench"
-          terminal-bench "$@"
-          echo ">>> [4/4] agent-bench"
-          agent-bench "$@"
+          exec ${pkgs.python3}/bin/python3 ${src}/run_benchmarks.py "$@"
         '';
       };
     in
     {
       packages.${system} = {
-        inherit aider-bench llama-benchy-bench terminal-bench agent-bench all-benchmarks;
-        default = all-benchmarks;
+        inherit aider-bench llama-benchy-bench terminal-bench agent-bench run-benchmarks;
+        default = run-benchmarks;
       };
 
       apps.${system} = {
@@ -109,8 +99,8 @@
         llama-benchy-bench = { type = "app"; program = "${llama-benchy-bench}/bin/llama-benchy-bench"; };
         terminal-bench     = { type = "app"; program = "${terminal-bench}/bin/terminal-bench"; };
         agent-bench        = { type = "app"; program = "${agent-bench}/bin/agent-bench"; };
-        all-benchmarks     = { type = "app"; program = "${all-benchmarks}/bin/all-benchmarks"; };
-        default            = { type = "app"; program = "${all-benchmarks}/bin/all-benchmarks"; };
+        run-benchmarks     = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };
+        default            = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };
       };
 
       devShells.${system}.default = pkgs.mkShell {

@@ -16,6 +16,9 @@
 #       Writes/updates "$META_FILE" as a JSON object.
 #   write_cmd <argv...>
 #       Writes a shell-quoted, replayable command line to "$RUN_DIR/run.cmd".
+#   link_latest_result <artifact_path> <bench>
+#       Symlinks <root>/<slug>/<bench>.<ext> -> <artifact_path> so the
+#       per-model dir always exposes the latest run of each benchmark.
 #
 # All helpers are intentionally portable across bash 4+; no external deps
 # beyond curl, python3 (fallback when jq is missing) and coreutils.
@@ -112,6 +115,39 @@ write_cmd() {
         printf '\n'
     } > "$CMD_FILE"
     chmod +x "$CMD_FILE"
+}
+
+# Update <root>/<slug>/<bench>.<ext> as a symlink pointing at the freshly
+# produced artifact (e.g. result.md / metrics.json / stats.txt) so the
+# per-model directory always shows the latest result of each benchmark.
+#
+#   link_latest_result <artifact_path> <bench>
+#
+# Requires init_run_dir to have been called first (uses $RUN_DIR + $MODEL_SLUG).
+# Silently no-ops when the artifact doesn't exist (callers should only invoke
+# on success, but this stays defensive).  Always overwrites an existing link
+# or file with the same name.
+link_latest_result() {
+    local artifact="$1"
+    local bench="$2"
+    if [[ -z "$artifact" || -z "$bench" ]]; then
+        echo "link_latest_result: usage: link_latest_result <artifact> <bench>" >&2
+        return 2
+    fi
+    if [[ -z "${RUN_DIR:-}" || -z "${MODEL_SLUG:-}" ]]; then
+        echo "link_latest_result: \$RUN_DIR/\$MODEL_SLUG not set; call init_run_dir first" >&2
+        return 2
+    fi
+    if [[ ! -e "$artifact" ]]; then
+        return 0
+    fi
+    # Model dir is two levels above $RUN_DIR: <root>/<slug>/<bench>/<ts>/
+    local model_dir
+    model_dir="$(cd "$RUN_DIR/../.." && pwd)"
+    local ext="${artifact##*.}"
+    local link="$model_dir/$bench.$ext"
+    # ln -sfn replaces both existing symlinks and existing regular files.
+    ln -sfn "$artifact" "$link"
 }
 
 # Write a meta.json sidecar.  Each argument is key=value.  Values that

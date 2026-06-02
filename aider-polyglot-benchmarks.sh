@@ -257,6 +257,7 @@ echo ">>> Run dir: $RUN_DIR"
 echo ">>> Log:     $LOG_FILE"
 if [[ -f "$STATS_FILE" ]]; then
     echo ">>> Stats:   $STATS_FILE"
+    link_latest_result "$STATS_FILE" "aider"
 fi
 echo ">>> Meta:    $META_FILE"
 echo ">>> Cmd:     $CMD_FILE"
