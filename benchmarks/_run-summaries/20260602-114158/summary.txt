@@ -1,0 +1,73 @@
+==========================================================================================
+RUN SUMMARY  (20260602-114158)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 164.1    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | agent-bench    | 0   | 4.7      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-MTP-Q8_0        | llama-benchy   | 1   | 2740.4   | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-MTP-Q8_0        | agent-bench    | 0   | 42.5     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-Q8_0            | llama-benchy   | 1   | 18.4     | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-Q8_0            | agent-bench    | 0   | 21.0     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 499.6    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | agent-bench    | 0   | 6.2      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 428.4    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | agent-bench    | 0   | 10.8     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q6_K_XL-1310 | llama-benchy   | 0   | 515.1    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q6_K_XL-1310 | agent-bench    | 0   | 4.9      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 187.6    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | agent-bench    | 0   | 2.4      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 255.9    | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | agent-bench    | 0   | 4.2      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 255.7    | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | agent-bench    | 0   | 4.2      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 818.0    | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | agent-bench    | 0   | 12.4     | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 804.2    | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | agent-bench    | 0   | 13.7     | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-IQ4_NL      | llama-benchy   | 0   | 5490.6   | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-IQ4_NL      | agent-bench    | 0   | 16.6     | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-IQ4_XS      | llama-benchy   | 0   | 5482.9   | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-IQ4_XS      | agent-bench    | 0   | 24.9     | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-Q3_K_S      | llama-benchy   | 0   | 5248.1   | OK
+litellm.thing.wg0    | gfx1151:MiniMax-M2.7-UD-Q3_K_S      | agent-bench    | 0   | 19.9     | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | llama-benchy   | 0   | 1244.9   | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | agent-bench    | 0   | 9.7      | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Super-120 | llama-benchy   | 0   | 6444.9   | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Super-120 | agent-bench    | 0   | 26.5     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 1194.1   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.5-9B-Q5_K_M           | agent-bench    | 0   | 8.2      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-BF16            | llama-benchy   | 0   | 9134.1   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-BF16            | agent-bench    | 0   | 55.5     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-MTP-Q8_0        | llama-benchy   | 0   | 4729.3   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-MTP-Q8_0        | agent-bench    | 0   | 14.5     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-Q8_0            | llama-benchy   | 0   | 4394.8   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-Q8_0            | agent-bench    | 0   | 30.6     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 3710.6   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | agent-bench    | 0   | 21.1     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 4983.1   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | agent-bench    | 0   | 21.5     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 6201.0   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | agent-bench    | 0   | 28.0     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-BF16        | llama-benchy   | 0   | 3985.8   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-BF16        | agent-bench    | 0   | 21.5     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | llama-benchy   | 0   | 4210.0   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | agent-bench    | 0   | 19.8     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-Q8_0        | llama-benchy   | 0   | 1084.5   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-Q8_0        | agent-bench    | 0   | 5.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 1124.6   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | agent-bench    | 0   | 5.7      | OK
+litellm.thing.wg0    | gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 1137.9   | OK
+litellm.thing.wg0    | gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_ | agent-bench    | 0   | 8.4      | OK
+litellm.thing.wg0    | gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 1186.2   | OK
+litellm.thing.wg0    | gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_ | agent-bench    | 0   | 9.0      | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-BF16         | llama-benchy   | 0   | 12415.0  | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-BF16         | agent-bench    | 0   | 121.6    | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 4693.8   | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-UD-Q4_K_XL   | agent-bench    | 0   | 55.5     | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 5238.5   | OK
+litellm.thing.wg0    | gfx1151:gemma-4-31B-it-UD-Q5_K_XL   | agent-bench    | 0   | 33.0     | OK
+litellm.thing.wg0    | gfx1151:qwen3.5-122B-A10B-Q5_K_M    | llama-benchy   | 0   | 3883.9   | OK
+litellm.thing.wg0    | gfx1151:qwen3.5-122B-A10B-Q5_K_M    | agent-bench    | 0   | 13.0     | OK
+------------------------------------------------------------------------------------------
+Total: 66   OK: 64   FAIL: 2

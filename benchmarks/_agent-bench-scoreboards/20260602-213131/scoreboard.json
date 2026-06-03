@@ -1,0 +1,10 @@
+{
+  "rtx5090:Qwen3.6-27B-MTP-Q8_0": {
+    "turn_1_tps": 0.0,
+    "json_valid": false,
+    "math_conversion_correct": false,
+    "turn_2_tps": 0.0,
+    "final_success": false,
+    "error": "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}"
+  }
+}

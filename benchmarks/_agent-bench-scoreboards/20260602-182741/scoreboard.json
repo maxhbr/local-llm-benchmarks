@@ -1,0 +1,10 @@
+{
+  "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0": {
+    "turn_1_tps": 39.58,
+    "json_valid": true,
+    "math_conversion_correct": true,
+    "turn_2_tps": 51.87,
+    "final_success": false,
+    "error": null
+  }
+}

@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/gfx1151-MiniMax-M2.7-UD-IQ4_NL/llama-benchy/20260602-133532/result.md

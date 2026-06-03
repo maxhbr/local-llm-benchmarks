@@ -1,0 +1,666 @@
+{
+  "timestamp": "20260602-114158",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 164.057448,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 4.733315,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-MTP-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 1,
+      "duration_s": 2740.438914,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-MTP-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 42.459434,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 1,
+      "duration_s": 18.390911,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 20.99155,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 499.591237,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 6.237146,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 428.391226,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 10.811867,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 515.106902,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 4.877409,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 187.559442,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 2.447206,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 255.917423,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 4.176709,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 255.670087,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 4.23659,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 818.010747,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 12.393141,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 804.179806,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 13.747172,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-IQ4_NL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 5490.585784,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-IQ4_NL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 16.580714,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-IQ4_XS",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 5482.882841,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-IQ4_XS",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 24.872287,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-Q3_K_S",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 5248.072117,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiniMax-M2.7-UD-Q3_K_S",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 19.905709,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1244.911174,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 9.706775,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 6444.89518,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 26.540038,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.5-9B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1194.098786,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.5-9B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 8.205995,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-BF16",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 9134.078997,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-BF16",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 55.46361,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-MTP-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 4729.313633,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-MTP-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 14.483739,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 4394.81416,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 30.641514,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 3710.583959,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 21.10371,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 4983.103898,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 21.523609,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 6200.978667,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-27B-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 28.000564,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-BF16",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 3985.79923,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-BF16",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 21.474582,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-MTP-BF16",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 4209.999353,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-MTP-BF16",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 19.81557,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1084.477329,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 5.019769,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1124.596124,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 5.722743,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1137.938051,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 8.438915,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 1186.18422,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 8.971797,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-BF16",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 12415.024855,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-BF16",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 121.570202,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 4693.757431,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 55.461438,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 5238.480187,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 32.989704,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:qwen3.5-122B-A10B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 3883.901858,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:qwen3.5-122B-A10B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 13.022098,
+      "error": null
+    }
+  ]
+}

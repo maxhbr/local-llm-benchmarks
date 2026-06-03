@@ -1,0 +1,149 @@
+
+============================================================
+RUNNING BENCHMARK: rtx5090:Qwen3.5-9B-Q5_K_M (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 26.53s (5.96 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 159.4 tok/s | finish=length | thinking=1406chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 1.33s (150.58 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing an object at line 4 column 21 [type=json_invalid, input_value='{\n  "tool_name": "calcu...\n  "volume_m3": 0.0005', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 1.01s (160.82 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 164.06 tok/s | finish=length | thinking=1388chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 1.09s (144.38 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 141.33 tok/s | finish=length | thinking=1439chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 1.17s (148.52 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 158.12 tok/s | finish=stop | thinking=750chars | Summary: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 3 FAIL: 9000 not found in summary numbers [4.5, 3.0, 0.0005].
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 1.05s (161.46 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 161.94 tok/s | finish=length | thinking=1373chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 1.32s (151.09 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a string at line 3 column 7 [type=json_invalid, input_value='{\n  "tool_name": "calculate_density",\n  "mass', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 0.98s (161.01 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 162.55 tok/s | finish=length | thinking=1394chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 1.11s (141.78 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 160.85 tok/s | finish=length | thinking=1382chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 1.11s (146.31 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 162.8 tok/s | finish=length | thinking=1350chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 137.19  (over 10 trials with tokens)
+  JSON valid rate       : 80%
+  Tool-name correct rate: 80%
+  Math conversion rate  : 80%
+  Avg Turn-2 TPS        : 158.88  (over 8 trials with tokens)
+  Final success rate    : 0%
+  Variance              : detected — backend is non-deterministic despite temp=0
+  Errors (2): ['validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing an object at line 4 column 21 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...\\n  "volume_m3": 0.0005\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a string at line 3 column 7 [type=json_invalid, input_value=\'{\\n  "tool_name": "calculate_density",\\n  "mass\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid']

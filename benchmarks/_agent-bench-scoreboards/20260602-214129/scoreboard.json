@@ -1,0 +1,13 @@
+{
+  "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks": {
+    "turn_1_tps": 38.59,
+    "json_valid_rate": 1.0,
+    "tool_name_ok_rate": 1.0,
+    "math_conversion_rate": 1.0,
+    "turn_2_tps": 46.63,
+    "final_success_rate": 1.0,
+    "deterministic": true,
+    "runs": 10,
+    "errors": []
+  }
+}
