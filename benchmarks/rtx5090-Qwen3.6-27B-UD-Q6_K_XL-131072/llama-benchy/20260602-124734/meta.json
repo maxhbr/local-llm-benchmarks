@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260602-124734",
+  "host": "p14",
+  "bench": "llama-benchy",
+  "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Qwen3.6-27B-UD-Q6_K_XL-131072",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}

@@ -1,0 +1,10 @@
+{
+  "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M": {
+    "turn_1_tps": 9.99,
+    "json_valid": true,
+    "math_conversion_correct": true,
+    "turn_2_tps": 12.03,
+    "final_success": false,
+    "error": null
+  }
+}

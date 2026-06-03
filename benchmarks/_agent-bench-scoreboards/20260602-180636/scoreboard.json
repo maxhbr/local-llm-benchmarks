@@ -1,0 +1,10 @@
+{
+  "gfx1151:MiniMax-M2.7-UD-Q3_K_S": {
+    "turn_1_tps": 13.97,
+    "json_valid": true,
+    "math_conversion_correct": true,
+    "turn_2_tps": 24.83,
+    "final_success": false,
+    "error": null
+  }
+}

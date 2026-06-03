@@ -1,0 +1,21 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M
+============================================================
+[Turn 1] Requesting Structured Tool Call...
+ -> Received raw response in 14.91s (9.99 tokens/sec)
+ -> Raw Output: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+ -> Step 1 Success: Valid JSON generated.
+ -> Step 2 Success: Accurate unit conversions.
+
+[Turn 2] Executing tool locally and feeding observation back to model...
+ -> Tool Output: Success: Calculated density is 9000.00 kg/m3.
+ -> Final Summary Received (12.03 tokens/sec):
+
+The density of the new alloy sample is **9,000 kg/m³**, calculated from a mass of 4.5 kg (4500 g) and a volume of 0.0005 m³ (0.5 L). This high density indicates a material significantly heavier than water, suitable for applications requiring substantial mass in a compact volume.
+
+ -> Step 3 Fail: Final answer didn't contextualize the tool results correctly.

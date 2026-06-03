@@ -1,0 +1,11 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:gemma-4-31B-it-BF16
+============================================================
+[Turn 1] Requesting Structured Tool Call...
+ -> Received raw response in 121.09s (1.65 tokens/sec)
+ -> Raw Output: 
+ -> Step 1 Fail: Broken JSON or missing fields.
+Error: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid

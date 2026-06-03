@@ -1,0 +1,22 @@
+==========================================================================================
+RUN SUMMARY  (20260602-213121)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | agent-bench    | 0   | 9.4      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-MTP-Q8_0        | agent-bench    | 0   | 45.7     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-Q8_0            | agent-bench    | 0   | 27.2     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | agent-bench    | 130 | 0.7      | FAIL (interrupted)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-gene | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-inst | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-inst | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-prec | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q6_K_XL-1310 | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | agent-bench    | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 15   OK: 3   FAIL: 12

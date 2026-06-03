@@ -1,0 +1,22 @@
+==========================================================================================
+RUN SUMMARY  (20260602-213307)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | agent-bench    | 0   | 51.7     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-MTP-Q8_0        | agent-bench    | 0   | 201.3    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-Q8_0            | agent-bench    | 0   | 71.9     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | agent-bench    | 0   | 47.4     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | agent-bench    | 0   | 49.9     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-gene | agent-bench    | 0   | 43.1     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-inst | agent-bench    | 0   | 35.4     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-inst | agent-bench    | 0   | 33.9     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q5_K_XL-prec | agent-bench    | 0   | 42.3     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-27B-UD-Q6_K_XL-1310 | agent-bench    | 0   | 53.9     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | agent-bench    | 0   | 35.3     | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | agent-bench    | 0   | 31.6     | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | agent-bench    | 0   | 40.2     | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | agent-bench    | 0   | 69.1     | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | agent-bench    | 0   | 66.8     | OK
+------------------------------------------------------------------------------------------
+Total: 15   OK: 15   FAIL: 0

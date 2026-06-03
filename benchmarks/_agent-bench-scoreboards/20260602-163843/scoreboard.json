@@ -1,0 +1,10 @@
+{
+  "gfx1151:MiniMax-M2.7-UD-IQ4_XS": {
+    "turn_1_tps": 12.33,
+    "json_valid": true,
+    "math_conversion_correct": true,
+    "turn_2_tps": 23.46,
+    "final_success": true,
+    "error": null
+  }
+}

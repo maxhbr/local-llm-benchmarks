@@ -1,0 +1,156 @@
+{
+  "timestamp": "20260602-213307",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 51.745961,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-MTP-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 201.315629,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 71.880233,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 47.386437,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 49.866887,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-general-tasks",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 43.114017,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-instruct-general-tasks",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 35.375036,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 33.862307,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 42.260316,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 53.893982,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 35.285969,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 31.649236,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 40.181623,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 69.100232,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 66.771917,
+      "error": null
+    }
+  ]
+}

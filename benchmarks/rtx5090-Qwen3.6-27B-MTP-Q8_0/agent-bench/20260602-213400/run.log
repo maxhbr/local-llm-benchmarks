@@ -1,0 +1,54 @@
+
+============================================================
+RUNNING BENCHMARK: rtx5090:Qwen3.6-27B-MTP-Q8_0 (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 0.0  (over 0 trials with tokens)
+  JSON valid rate       : 0%
+  Tool-name correct rate: 0%
+  Math conversion rate  : 0%
+  Avg Turn-2 TPS        : 0.0  (over 0 trials with tokens)
+  Final success rate    : 0%
+  Variance              : none — backend appears deterministic at temp=0 (rates are binary)
+  Errors (10): ["api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}", "api: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}"]

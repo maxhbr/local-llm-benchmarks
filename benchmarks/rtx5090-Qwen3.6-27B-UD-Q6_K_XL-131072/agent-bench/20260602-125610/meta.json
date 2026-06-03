@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260602-125610",
+  "host": "p14",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL-131072",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Qwen3.6-27B-UD-Q6_K_XL-131072"
+}

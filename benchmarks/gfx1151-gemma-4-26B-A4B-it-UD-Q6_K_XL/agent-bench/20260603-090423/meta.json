@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260603-090423",
+  "host": "p14",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-gemma-4-26B-A4B-it-UD-Q6_K_XL"
+}

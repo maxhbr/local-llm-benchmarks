@@ -1,0 +1,11 @@
+{
+  "turn_1_tps": 39.56,
+  "json_valid_rate": 1.0,
+  "tool_name_ok_rate": 1.0,
+  "math_conversion_rate": 1.0,
+  "turn_2_tps": 48.56,
+  "final_success_rate": 1.0,
+  "deterministic": true,
+  "runs": 10,
+  "errors": []
+}

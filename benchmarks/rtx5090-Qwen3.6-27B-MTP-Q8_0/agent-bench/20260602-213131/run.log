@@ -1,0 +1,6 @@
+
+============================================================
+RUNNING BENCHMARK: rtx5090:Qwen3.6-27B-MTP-Q8_0
+============================================================
+[Turn 1] Requesting Structured Tool Call...
+ -> API connection error: Error code: 500 - {'error': {'message': 'litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '500'}}

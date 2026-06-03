@@ -1,0 +1,8 @@
+{
+  "turn_1_tps": 12.42,
+  "json_valid": false,
+  "math_conversion_correct": false,
+  "turn_2_tps": 0.0,
+  "final_success": false,
+  "error": "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 45 [type=json_invalid, input_value='{\"tool_name\": \"calculate_density\", \"mass_kg\":', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid"
+}

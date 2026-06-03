@@ -1,0 +1,10 @@
+{
+  "rtx5090:Qwen3.5-9B-Q5_K_M": {
+    "turn_1_tps": 22.43,
+    "json_valid": true,
+    "math_conversion_correct": true,
+    "turn_2_tps": 162.54,
+    "final_success": false,
+    "error": null
+  }
+}
