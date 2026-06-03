@@ -75,8 +75,8 @@ class Metrics:
     math_conversion_rate: float = 0.0   # fraction of runs with correct unit conversions
     turn_2_tps: float = 0.0
     final_success_rate: float = 0.0     # fraction of runs with correct final summary
-    deterministic: bool = True          # True when every binary metric is all-pass or all-fail (zero variance)
     runs: int = 0
+    temp0_final_response: str | None = None  # Turn-2 summary from the temp=0 trial
     errors: list[str] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
@@ -99,6 +99,7 @@ def _run_single_trial(client: OpenAI, model_name: str, trial: int, out, temperat
         "math_ok": False,
         "turn_2_tps": 0.0,
         "final_ok": False,
+        "final_response": None,
         "error": None,
     }
 
@@ -195,6 +196,7 @@ def _run_single_trial(client: OpenAI, model_name: str, trial: int, out, temperat
         result["turn_2_tps"] = round(tokens_gen / duration, 2) if duration > 0 else 0.0
         choice = response_t2.choices[0]
         final_summary = (choice.message.content or "").strip()
+        result["final_response"] = final_summary
         finish_reason = choice.finish_reason
         # Qwen3 thinking models put reasoning in reasoning_content; log it for diagnosis
         reasoning = getattr(choice.message, "reasoning_content", None) or ""
@@ -252,15 +254,7 @@ def run_agent_benchmark(client: OpenAI, model_name: str, log, num_trials: int = 
     t1_with_tokens = [t for t in trials if t["turn_1_tps"] > 0]
     t2_with_tokens = [t for t in trials if t["turn_2_tps"] > 0]
 
-    # A metric is "variant" if it is neither all-True nor all-False across trials.
-    # If every binary metric is trivially uniform the backend is likely deterministic
-    # at temp=0 and the rates carry no more information than a single trial would.
-    binary_keys = ("json_valid", "tool_name_ok", "math_ok", "final_ok")
-    is_deterministic = all(
-        len(set(t[k] for t in trials)) == 1
-        for k in binary_keys
-    )
-
+    temp0_trial = next((t for t in trials if t.get("temperature", 1.0) == 0.0), None)
     m = Metrics(
         turn_1_tps=round(
             sum(t["turn_1_tps"] for t in t1_with_tokens) / max(1, len(t1_with_tokens)), 2
@@ -272,8 +266,8 @@ def run_agent_benchmark(client: OpenAI, model_name: str, log, num_trials: int = 
             sum(t["turn_2_tps"] for t in t2_with_tokens) / max(1, len(t2_with_tokens)), 2
         ),
         final_success_rate=round(sum(1 for t in trials if t["final_ok"]) / n, 3),
-        deterministic=is_deterministic,
         runs=n,
+        temp0_final_response=temp0_trial["final_response"] if temp0_trial else None,
         errors=[t["error"] for t in trials if t["error"]],
     )
 
@@ -284,10 +278,6 @@ def run_agent_benchmark(client: OpenAI, model_name: str, log, num_trials: int = 
     out(f"  Math conversion rate  : {m.math_conversion_rate * 100:.0f}%")
     out(f"  Avg Turn-2 TPS        : {m.turn_2_tps}  (over {len(t2_with_tokens)} trials with tokens)")
     out(f"  Final success rate    : {m.final_success_rate * 100:.0f}%")
-    if m.deterministic:
-        out("  Variance              : none — backend appears deterministic at temp=0 (rates are binary)")
-    else:
-        out("  Variance              : detected — backend is non-deterministic despite temp=0")
     if m.errors:
         out(f"  Errors ({len(m.errors)}): {m.errors}")
 
@@ -426,9 +416,8 @@ def main() -> int:
         tool_pct = f"{m['tool_name_ok_rate'] * 100:.0f}%"
         math_pct = f"{m['math_conversion_rate'] * 100:.0f}%"
         final_pct = f"{m['final_success_rate'] * 100:.0f}%"
-        det_flag = " [det]" if m.get("deterministic", True) else " [var]"
         lines.append(
-            f"{model:<40} | {m['turn_1_tps']:<7} | {json_pct:<6} | {tool_pct:<6} | {math_pct:<6} | {final_pct:<7} | {m['runs']}{det_flag}"
+            f"{model:<40} | {m['turn_1_tps']:<7} | {json_pct:<6} | {tool_pct:<6} | {math_pct:<6} | {final_pct:<7} | {m['runs']}"
         )
     text = "\n".join(lines) + "\n"
     (board_dir / "scoreboard.txt").write_text(text)
