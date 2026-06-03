@@ -23,7 +23,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from openai import OpenAI
+from openai import OpenAI, APIStatusError
 from pydantic import BaseModel, Field, ValidationError
 
 
@@ -160,6 +160,12 @@ def _run_single_trial(client: OpenAI, model_name: str, trial: int, out, temperat
         result["error"] = f"validation: {e}"
         out(f"   -> Step 1 FAIL: {e}")
         return result
+    except APIStatusError as e:
+        if e.status_code == 500:
+            raise
+        result["error"] = f"api: {e}"
+        out(f"   -> API error: {e}")
+        return result
     except Exception as e:
         result["error"] = f"api: {e}"
         out(f"   -> API error: {e}")
@@ -206,6 +212,11 @@ def _run_single_trial(client: OpenAI, model_name: str, trial: int, out, temperat
             out("   -> Step 3 OK: Final answer correct (9000 kg/m³ found).")
         else:
             out(f"   -> Step 3 FAIL: 9000 not found in summary numbers {found_nums[:10]}.")
+    except APIStatusError as e:
+        if e.status_code == 500:
+            raise
+        result["error"] = (result["error"] + " | " if result["error"] else "") + f"turn2: {e}"
+        out(f"   -> Turn 2 failed: {e}")
     except Exception as e:
         result["error"] = (result["error"] + " | " if result["error"] else "") + f"turn2: {e}"
         out(f"   -> Turn 2 failed: {e}")
@@ -375,8 +386,12 @@ def main() -> int:
         )
         cmd_path.chmod(0o755)
 
-        with log_path.open("w") as log:
-            m = run_agent_benchmark(client, model, log)
+        try:
+            with log_path.open("w") as log:
+                m = run_agent_benchmark(client, model, log)
+        except APIStatusError as e:
+            print(f"!!! endpoint returned HTTP {e.status_code} for model {model}: {e.message}", file=sys.stderr)
+            return 1
         metrics_path.write_text(json.dumps(asdict(m), indent=2) + "\n")
         aggregated[model] = asdict(m)
         print(f">>> {model}: run dir {run_dir}")
