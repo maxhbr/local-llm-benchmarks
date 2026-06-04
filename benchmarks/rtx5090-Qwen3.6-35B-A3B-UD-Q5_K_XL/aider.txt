@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL/aider/20260604-083652/stats.txt

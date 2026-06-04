@@ -1,0 +1,13 @@
+{
+  "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M": {
+    "turn_1_tps": 12.32,
+    "json_valid_rate": 1.0,
+    "tool_name_ok_rate": 1.0,
+    "math_conversion_rate": 1.0,
+    "turn_2_tps": 11.97,
+    "final_success_rate": 0.9,
+    "runs": 10,
+    "temp0_final_response": "The alloy sample has a density of **9,000\u202fkg/m\u00b3**, calculated from a mass of 4.5\u202fkg and a volume of 0.0005\u202fm\u00b3 (0.5\u202fL). This high density indicates a material significantly heavier than water, suitable for applications requiring substantial mass in a compact volume.",
+    "errors": []
+  }
+}

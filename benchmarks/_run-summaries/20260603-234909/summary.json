@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260603-234909",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "terminal-bench",
+      "returncode": 1,
+      "duration_s": 10.596573,
+      "error": null
+    }
+  ]
+}

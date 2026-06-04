@@ -1,0 +1,12 @@
+{
+  "timestamp": "20260604-001503",
+  "host": "p14",
+  "bench": "terminal-bench",
+  "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL",
+  "agent": "mini-swe-agent",
+  "dataset": "terminal-bench@2.0",
+  "task_filter": "",
+  "n_concurrent": 1
+}

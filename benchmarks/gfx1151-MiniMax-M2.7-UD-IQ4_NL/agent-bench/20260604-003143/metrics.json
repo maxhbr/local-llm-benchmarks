@@ -1,0 +1,11 @@
+{
+  "turn_1_tps": 24.09,
+  "json_valid_rate": 1.0,
+  "tool_name_ok_rate": 1.0,
+  "math_conversion_rate": 1.0,
+  "turn_2_tps": 23.48,
+  "final_success_rate": 0.7,
+  "runs": 10,
+  "temp0_final_response": "{\n  \"properties\": {\n    \"summary\": {\n      \"description\": \"Summary of the density calculation findings for the engineering team\",\n      \"title\": \"Summary\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\"summary\"],\n  \"title\": \"SummaryResponse\",\n  \"type\": \"object\"\n}",
+  "errors": []
+}

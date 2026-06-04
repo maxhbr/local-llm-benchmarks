@@ -26,7 +26,7 @@ Common options:
   -h, --help                Show this help message
 
 terminal-bench options:
-  --agent, -a <name>        Agent/agent-slug to benchmark (default: terminus)
+  --agent, -a <name>        Agent/agent-slug to benchmark (default: tbd.)
   --dataset, -d <name>      Dataset identifier (default: terminal-bench@2.0)
   --task, -t <id>           Task name filter (glob pattern, sets --include-task-name)
   --n-concurrent, -n <n>    Number of concurrent trials (default: 1)
@@ -44,7 +44,7 @@ MODEL=""
 OUTPUT_DIR="./benchmarks"
 WORK_DIR="./work"
 RUN_NAME=""
-AGENT="terminus"
+AGENT="pi"
 DATASET="terminal-bench@2.0"
 TASK_FILTER=""
 N_CONCURRENT=1

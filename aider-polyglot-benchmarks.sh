@@ -164,6 +164,7 @@ fi
 BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   --model openai/$MODEL \
   --edit-format $EDIT_FORMAT \
+  --new \
   --exercises-dir polyglot-benchmark \
   --threads $THREADS \
   $NUM_TESTS_FLAG \
@@ -229,7 +230,7 @@ echo "    Run name:     $RUN_NAME"
 echo "    Run dir:      $RUN_DIR"
 echo ""
 
-INNER_CMD="pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt"
+INNER_CMD="pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --new --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt"
 
 write_cmd "$CONTAINER_RUNTIME" run "${RUN_ARGS[@]}" \
     -w /aider \
