@@ -1,0 +1,152 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 49.29s (3.02 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 11.45 tok/s | finish=stop | thinking=76chars | Summary: The alloy sample has a density of **9,000 kg/m³**, calculated from a mass of 4.5 kg and a volume of 0.0005 m³ (0.5 L). T
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 12.70s (13.46 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 12.0 tok/s | finish=stop | thinking=148chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, resulting in a calculated density of **9
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 11.31s (13.35 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 12.14 tok/s | finish=stop | thinking=82chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, resulting in a calculated density of **9
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 10.05s (13.34 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 12.7 tok/s | finish=length | thinking=1024chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 10.99s (13.19 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 11.55 tok/s | finish=stop | thinking=74chars | Summary: The alloy sample has a density of **9,000 kg/m³**, calculated from a mass of 4.5 kg and a volume of 0.0005 m³ (0.5 L). T
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 12.28s (13.43 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 12.1 tok/s | finish=stop | thinking=114chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, yielding a density of **9,000 kg/m³**. T
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 13.40s (13.43 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 11.78 tok/s | finish=stop | thinking=117chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, resulting in a calculated density of **9
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 11.25s (13.33 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 11.82 tok/s | finish=stop | thinking=165chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, yielding a calculated density of **9,000
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 8.31s (13.36 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 12.09 tok/s | finish=stop | thinking=224chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, giving a calculated density of **9,000 k
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 11.23s (13.26 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 12.04 tok/s | finish=stop | thinking=245chars | Summary: The alloy sample has a mass of 4.5 kg and displaces 0.5 L (0.0005 m³) of water, giving a calculated density of **9,000 k
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 12.32  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 11.97  (over 10 trials with tokens)
+  Final success rate    : 90%

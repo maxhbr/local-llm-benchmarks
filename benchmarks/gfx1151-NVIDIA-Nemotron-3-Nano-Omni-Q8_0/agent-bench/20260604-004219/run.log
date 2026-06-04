@@ -1,0 +1,152 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0 (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 18.68s (7.28 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 43.39 tok/s | finish=stop | thinking=189chars | Summary: The new alloy sample has a density of 9000.00 kg/m³.
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 2.59s (53.22 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 45.98 tok/s | finish=stop | thinking=261chars | Summary: The alloy sample has a density of 9000.00 kg/m³.
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 2.52s (53.94 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 48.22 tok/s | finish=stop | thinking=494chars | Summary: The new alloy sample has a density of 9000 kg/m³.
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 2.76s (53.93 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 49.35 tok/s | finish=stop | thinking=252chars | Summary: The alloy sample has a mass of 4.5 kg and a volume of 0.0005 m³, resulting in a density of 9,000 kg/m³. This indicates a
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 2.49s (53.88 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 48.33 tok/s | finish=stop | thinking=340chars | Summary: The density of the alloy sample is 9,000 kg/m³. This indicates a very high‑mass material, roughly twice the density of s
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 2.56s (53.83 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 48.13 tok/s | finish=stop | thinking=188chars | Summary: The new alloy sample has a density of **9,000 kg/m³**. This high density indicates a very compact, heavy material, which
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 2.34s (53.82 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 52.16 tok/s | finish=length | thinking=1184chars | Summary: The alloy sample has a density of **9000.00
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 2.56s (53.13 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 49.46 tok/s | finish=stop | thinking=394chars | Summary: The new alloy sample has a density of **9,000 kg/m³**. This high density indicates a very compact, heavy material, which
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 2.40s (53.7 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 46.69 tok/s | finish=stop | thinking=237chars | Summary: The alloy sample has a density of 9,000 kg/m³. This indicates a relatively high‑density material, which may influence de
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 2.49s (53.87 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 48.59 tok/s | finish=stop | thinking=283chars | Summary: The new alloy sample has a density of 9,000 kg/m³, derived from a mass of 4.5 kg and a displaced volume of 0.0005 m³. Th
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 49.06  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 48.03  (over 10 trials with tokens)
+  Final success rate    : 100%

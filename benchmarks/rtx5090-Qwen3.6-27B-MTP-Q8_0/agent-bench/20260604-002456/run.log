@@ -1,0 +1,7 @@
+
+============================================================
+RUNNING BENCHMARK: rtx5090:Qwen3.6-27B-MTP-Q8_0 (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...

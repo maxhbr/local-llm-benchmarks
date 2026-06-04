@@ -1,0 +1,183 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:MiniMax-M2.7-UD-Q3_K_S (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 52.60s (2.41 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 25.25 tok/s | finish=stop | thinking=262chars | Summary: ## Density Calculation Summary for Engineering Team
+
+**Test Sample:** New alloy sample
+
+**Measurements Recorded:**
+- Mas
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 4.99s (28.46 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 25.78 tok/s | finish=length | thinking=1337chars | Summary: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m
+   -> Step 3 FAIL: 9000 not found in summary numbers [4.5].
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 5.38s (28.61 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 23.75 tok/s | finish=stop | thinking=596chars | Summary: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 3 FAIL: 9000 not found in summary numbers [4.5, 3.0, 0.0005].
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 5.18s (28.4 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 25.35 tok/s | finish=stop | thinking=401chars | Summary: ## Density Calculation Summary for Engineering Team
+
+**Sample Details:**
+- Mass: 4,500 g → **4.5 kg**
+- Volume: 0.5 L → 
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 5.25s (28.39 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 24.93 tok/s | finish=stop | thinking=231chars | Summary: ## Density Calculation Summary for Engineering Team
+
+**Sample:** New alloy sample
+
+**Measurements:**
+- Mass: 4,500 grams
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 3.97s (28.48 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 25.57 tok/s | finish=stop | thinking=346chars | Summary: ## Density Analysis Summary
+
+**Sample Details:**
+- Mass: 4.5 kg (4500 grams)
+- Volume: 0.0005 m³ (0.5 liters)
+
+**Result:
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 5.35s (28.58 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 24.48 tok/s | finish=stop | thinking=285chars | Summary: ## Density Calculation Summary for Engineering Team
+
+**Sample:** New Alloy
+
+**Measurements:**
+- Mass: 4,500 g (converted
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 6.22s (28.64 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 25.08 tok/s | finish=stop | thinking=240chars | Summary: ## Density Calculation Summary for Engineering Team
+
+**Sample Details:**
+- Material: New alloy sample
+- Mass: 4.5 kg (4,
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 5.29s (28.56 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 25.35 tok/s | finish=stop | thinking=361chars | Summary: ## Density Analysis Summary for Engineering Team
+
+**Test Results:**
+- **Sample Mass:** 4,500 g (4.5 kg)
+- **Displaced Vo
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 4.87s (28.55 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 24.58 tok/s | finish=stop | thinking=262chars | Summary: ## Density Analysis Summary
+
+**Sample:** New Alloy
+
+**Measurements:**
+- Mass: 4,500 g (4.5 kg)
+- Volume Displaced: 0.5 L
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 25.91  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 25.01  (over 10 trials with tokens)
+  Final success rate    : 80%

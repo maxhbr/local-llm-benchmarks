@@ -1,0 +1,13 @@
+{
+  "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0": {
+    "turn_1_tps": 49.06,
+    "json_valid_rate": 1.0,
+    "tool_name_ok_rate": 1.0,
+    "math_conversion_rate": 1.0,
+    "turn_2_tps": 48.03,
+    "final_success_rate": 1.0,
+    "runs": 10,
+    "temp0_final_response": "The new alloy sample has a density of 9000.00\u202fkg/m\u00b3.",
+    "errors": []
+  }
+}

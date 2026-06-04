@@ -1,0 +1,141 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:MiniMax-M2.7-UD-IQ4_XS (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 58.80s (2.31 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 24.04 tok/s | finish=length | thinking=422chars | Summary: ## Density Calculation Summary
+
+The new alloy sample has been analyzed with the following results:
+
+| Parameter | Value 
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 6.52s (26.85 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 23.05 tok/s | finish=stop | thinking=288chars | Summary: The new alloy sample has a calculated density of 9000.00 kg/m³. This extremely high density value (approximately 9 times
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 5.44s (26.66 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 20.15 tok/s | finish=stop | thinking=260chars | Summary: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 3 FAIL: 9000 not found in summary numbers [4.5, 3.0, 0.0005].
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 5.18s (26.85 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 24.2 tok/s | finish=length | thinking=1435chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 5.13s (26.53 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 22.13 tok/s | finish=stop | thinking=422chars | Summary: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005, "density_kg_m3": 9000.0}
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 5.07s (26.81 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 24.14 tok/s | finish=length | thinking=1244chars | Summary: The new alloy sample has been analyzed. With a mass of 4.5 kg and a volume of 0.0005 m³, the calculated density is **900
+   -> Step 3 FAIL: 9000 not found in summary numbers [4.5, 0.0005, 900.0].
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 5.12s (26.78 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 24.16 tok/s | finish=length | thinking=1308chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 5.08s (26.79 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 24.18 tok/s | finish=stop | thinking=580chars | Summary: ## Density Calculation Summary
+
+**Sample:** New Alloy
+
+**Measurements:**
+- Mass: 4.5 kg
+- Volume: 0.0005 m³ (0.5 L)
+
+**R
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 5.07s (26.81 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 23.61 tok/s | finish=stop | thinking=683chars | Summary: {
+  "properties": {
+    "summary": {
+      "description": "Summary of the density calculation for the engineering team",
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 5.36s (26.84 tok/s) | Raw: {"tool_name": "calculate_density", "mass_kg": 4.5, "volume_m3": 0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 23.88 tok/s | finish=stop | thinking=463chars | Summary: ## Density Analysis Summary
+
+**Sample:** New Alloy
+
+**Measurements:**
+- Mass: 4,500 g → **4.5 kg**
+- Volume Displacement
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 24.32  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 23.35  (over 10 trials with tokens)
+  Final success rate    : 50%
