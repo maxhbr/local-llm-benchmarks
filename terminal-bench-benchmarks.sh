@@ -23,6 +23,7 @@ Common options:
   --run-name <name>         Name suffix for this run (default: derived from --model)
   --rebuild                 Reinstall harbor via uv
   --shell-only              Drop into a shell with harbor available; don't run benchmark
+  --new                     Re-run even if the output symlink already exists (accepted for consistency; terminal-bench does not yet create a symlink)
   -h, --help                Show this help message
 
 terminal-bench options:
@@ -50,6 +51,7 @@ TASK_FILTER=""
 N_CONCURRENT=1
 REBUILD=false
 SHELL_ONLY=false
+NEW=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -65,6 +67,7 @@ while [[ $# -gt 0 ]]; do
         --n-concurrent|-n)    N_CONCURRENT="$2"; shift 2 ;;
         --rebuild|--reinstall) REBUILD=true; shift ;;
         --shell-only)         SHELL_ONLY=true; shift ;;
+        --new)                NEW=true; shift ;;
         -h|--help)            usage ;;
         *) echo "Unknown option: $1"; usage ;;
     esac

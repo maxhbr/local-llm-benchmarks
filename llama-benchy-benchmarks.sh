@@ -28,6 +28,7 @@ Common options:
   --run-name <name>         Name suffix for this run (default: derived from --model)
   --rebuild                 Recreate the venv before running
   --shell-only              Drop into a shell with the venv activated; don't run benchmark
+  --new                     Re-run even if the output symlink already exists
   -h, --help                Show this help message
 
 llama-benchy options:
@@ -68,6 +69,7 @@ REBUILD=false
 UPDATE=false
 SHELL_ONLY=false
 EXTRA_ARGS=""
+NEW=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -89,6 +91,7 @@ while [[ $# -gt 0 ]]; do
         --update)                  UPDATE=true; shift ;;
         --shell-only)              SHELL_ONLY=true; shift ;;
         --extra-args)              EXTRA_ARGS="$2"; shift 2 ;;
+        --new)                     NEW=true; shift ;;
         -h|--help)                 usage ;;
         *) echo "Unknown option: $1"; usage ;;
     esac
@@ -110,6 +113,18 @@ fi
 
 if [[ -z "$RUN_NAME" ]]; then
     RUN_NAME="$(slugify_model "$MODEL")"
+fi
+
+# Skip if the output symlink already exists (unless --new was passed).
+if [[ "$NEW" == false && "$SHELL_ONLY" == false ]]; then
+    _slug="$(slugify_model "$MODEL")"
+    _output_abs="$(cd "$OUTPUT_DIR" 2>/dev/null && pwd || echo "$OUTPUT_DIR")"
+    _symlink="$_output_abs/$_slug/llama-benchy.md"
+    if [[ -L "$_symlink" ]]; then
+        echo ">>> SKIP [$MODEL] llama-benchy: output symlink already exists at $_symlink"
+        echo "    (use --new to force a fresh run)"
+        exit 0
+    fi
 fi
 
 for bin in uv python3 git curl; do

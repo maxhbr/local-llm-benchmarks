@@ -316,6 +316,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--api-key", default=os.environ.get("OPENAI_API_KEY", "EMPTY"))
     p.add_argument("--output-dir", default="./benchmarks", help="Root output directory (default: ./benchmarks)")
     p.add_argument("--run-name", default=None, help="Suffix for per-model run dirs (default: model slug)")
+    p.add_argument(
+        "--new",
+        action="store_true",
+        help="Re-run even if the output symlink already exists (default: skip if symlink present)",
+    )
     return p.parse_args()
 
 
@@ -341,6 +346,12 @@ def main() -> int:
 
     for model in args.model:
         slug = slugify_model(model)
+        latest = output_root / slug / "agent-bench.json"
+        if not args.new and latest.is_symlink():
+            print(f">>> SKIP {model}: output symlink already exists at {latest}")
+            print(f"    (use --new to force a fresh run)")
+            aggregated[model] = {}
+            continue
         run_dir = output_root / slug / "agent-bench" / ts
         run_dir.mkdir(parents=True, exist_ok=True)
         log_path = run_dir / "run.log"

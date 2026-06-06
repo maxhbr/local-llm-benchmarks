@@ -27,6 +27,7 @@ Common options:
   --run-name <name>         Name for this benchmark run (default: derived from --model)
   --rebuild                 Rebuild the container image before running
   --shell-only              Drop into the container shell instead of running the benchmark
+  --new                     Re-run even if the output symlink already exists
   -h, --help                Show this help message
 
 aider options:
@@ -57,6 +58,7 @@ THREADS=1
 REQUEST_TIMEOUT=""
 REBUILD=false
 SHELL_ONLY=false
+NEW=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -73,6 +75,7 @@ while [[ $# -gt 0 ]]; do
         --request-timeout)    REQUEST_TIMEOUT="$2"; shift 2 ;;
         --rebuild)            REBUILD=true; shift ;;
         --shell-only)         SHELL_ONLY=true; shift ;;
+        --new)                NEW=true; shift ;;
         -h|--help)            usage ;;
         *) echo "Unknown option: $1"; usage ;;
     esac
@@ -94,6 +97,18 @@ fi
 
 if [[ -z "$RUN_NAME" ]]; then
     RUN_NAME="$(slugify_model "$MODEL")"
+fi
+
+# Skip if the output symlink already exists (unless --new was passed).
+if [[ "$NEW" == false && "$SHELL_ONLY" == false ]]; then
+    _slug="$(slugify_model "$MODEL")"
+    _output_abs="$(cd "$OUTPUT_DIR" 2>/dev/null && pwd || echo "$OUTPUT_DIR")"
+    _symlink="$_output_abs/$_slug/aider.txt"
+    if [[ -L "$_symlink" ]]; then
+        echo ">>> SKIP [$MODEL] aider: output symlink already exists at $_symlink"
+        echo "    (use --new to force a fresh run)"
+        exit 0
+    fi
 fi
 
 CONTAINER_RUNTIME="$(pick_container_runtime "$CONTAINER_RUNTIME")"
