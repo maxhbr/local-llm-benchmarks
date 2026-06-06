@@ -65,6 +65,12 @@ benchmarks = ["agent-bench"]
   [[endpoints.models]]
   name = "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL"
   [[endpoints.models]]
+  name = "rtx5090:gemma-4-26B-A4B-it-qat-q4_0"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-26B-A4B-it-qat-q4_0-mmproj"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-26B-A4B-it-qat-q4_0-nothink"
+  [[endpoints.models]]
   name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL"
   # [[endpoints.models]]
   # name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL-mmproj"
@@ -72,6 +78,12 @@ benchmarks = ["agent-bench"]
   # name = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL-nothink"
   [[endpoints.models]]
   name = "rtx5090:gemma-4-31B-it-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "rtx5090:gemma-4-31B-it-qat-q4_0"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-31B-it-qat-q4_0-mmproj"
+  # [[endpoints.models]]
+  # name = "rtx5090:gemma-4-31B-it-qat-q4_0-nothink"
 
 # # ---------------------------------------------------------------------------
 # # gfx1151:ROCm0 producer (40 models) -- AMD Radeon 8060S iGPU, ROCm0 device.
