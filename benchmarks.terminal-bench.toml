@@ -1,0 +1,21 @@
+# Generated from shared.localModels.litellm.nix.
+#
+# Filtering rules applied (vs. the full 167-entry LiteLLM model list):
+#   * keep only entries with a producer prefix (rtx5090: / gfx1151: / gfx1151:ROCm0:)
+#   * drop opencode*, sidekick*, hermes* aliases (LiteLLM aliases, not real models)
+#   * drop bare unprefixed entries (also aliases that round-robin to a producer)
+#
+# Each model gets llama-benchy + agent-bench. Add `benchmarks = [...]` on a
+# specific [[endpoints.models]] entry to override (e.g. add "aider" for a
+# coder model, or "terminal-bench" for a reasoning model).
+
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "litellm.thing.wg0"
+url        = "http://litellm.thing.wg0.maxhbr.local/v1"
+api_key    = "EMPTY"
+benchmarks = ["terminal-bench"]
+
+  [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL"
