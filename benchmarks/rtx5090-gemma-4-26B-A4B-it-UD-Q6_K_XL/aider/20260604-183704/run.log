@@ -4515,4 +4515,9 @@ The API provider's servers are down or overloaded.
 Retrying in 1024.0 seconds...
 
 
-g s
+g s   litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model 
+Group=rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 2048.0 seconds...
+^C
