@@ -423,6 +423,9 @@ def main() -> int:
     )
     lines.append("-" * 90)
     for model, m in aggregated.items():
+        if not m:
+            lines.append(f"{model:<40} | {'SKIPPED'}")
+            continue
         json_pct = f"{m['json_valid_rate'] * 100:.0f}%"
         tool_pct = f"{m['tool_name_ok_rate'] * 100:.0f}%"
         math_pct = f"{m['math_conversion_rate'] * 100:.0f}%"
