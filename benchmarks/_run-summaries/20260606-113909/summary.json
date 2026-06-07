@@ -1,0 +1,46 @@
+{
+  "timestamp": "20260606-113909",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-qat-q4_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013584,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-qat-q4_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 15.233335,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014591,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 45.426548,
+      "error": null
+    }
+  ]
+}
