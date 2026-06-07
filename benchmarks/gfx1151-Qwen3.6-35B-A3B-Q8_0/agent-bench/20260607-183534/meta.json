@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260607-183534",
+  "host": "p14",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "gfx1151:Qwen3.6-35B-A3B-Q8_0",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-Qwen3.6-35B-A3B-Q8_0"
+}

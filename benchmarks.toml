@@ -15,8 +15,7 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.wg0"
 url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-# benchmarks = ["llama-benchy", "agent-bench"]
-benchmarks = ["agent-bench"]
+benchmarks = ["llama-benchy", "agent-bench"]
 
 # ---------------------------------------------------------------------------
 # rtx5090 producer (38 models) -- NVIDIA RTX 5090 instance on `thing`.
