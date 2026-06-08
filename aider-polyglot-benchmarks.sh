@@ -99,13 +99,18 @@ if [[ -z "$RUN_NAME" ]]; then
     RUN_NAME="$(slugify_model "$MODEL")"
 fi
 
+_bench_tag="aider"
+if [[ "$EDIT_FORMAT" != "whole" ]]; then
+    _bench_tag="aider-$EDIT_FORMAT"
+fi
+
 # Skip if the output symlink already exists (unless --new was passed).
 if [[ "$NEW" == false && "$SHELL_ONLY" == false ]]; then
     _slug="$(slugify_model "$MODEL")"
     _output_abs="$(cd "$OUTPUT_DIR" 2>/dev/null && pwd || echo "$OUTPUT_DIR")"
-    _symlink="$_output_abs/$_slug/aider.txt"
+    _symlink="$_output_abs/$_slug/$_bench_tag.txt"
     if [[ -L "$_symlink" ]]; then
-        echo ">>> SKIP [$MODEL] aider: output symlink already exists at $_symlink"
+        echo ">>> SKIP [$MODEL] $_bench_tag: output symlink already exists at $_symlink"
         echo "    (use --new to force a fresh run)"
         exit 0
     fi
@@ -185,7 +190,7 @@ BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   $NUM_TESTS_FLAG \
   $EXTRA_MODEL_SETTINGS_FLAG"
 
-init_run_dir "$OUTPUT_DIR" "$MODEL" "aider"
+init_run_dir "$OUTPUT_DIR" "$MODEL" "$_bench_tag"
 # Absolute path needed for the bind-mount.
 RUN_DIR_ABS="$(cd "$RUN_DIR" && pwd)"
 STATS_FILE="$RUN_DIR/stats.txt"
@@ -273,7 +278,7 @@ echo ">>> Run dir: $RUN_DIR"
 echo ">>> Log:     $LOG_FILE"
 if [[ -f "$STATS_FILE" ]]; then
     echo ">>> Stats:   $STATS_FILE"
-    link_latest_result "$STATS_FILE" "aider"
+    link_latest_result "$STATS_FILE" "$_bench_tag"
 fi
 echo ">>> Meta:    $META_FILE"
 echo ">>> Cmd:     $CMD_FILE"

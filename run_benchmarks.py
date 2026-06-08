@@ -194,7 +194,7 @@ def resolve_driver(bench: str, script_dir: Path) -> list[str]:
     return [wrapper]
 
 
-def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False) -> None:
+def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False, edit_format: str = "whole") -> None:
     driver = resolve_driver(job.bench, script_dir)
     argv = driver + [
         "--endpoint", job.endpoint_url,
@@ -204,6 +204,8 @@ def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_n
     ]
     if force_new:
         argv.append("--new")
+    if job.bench == "aider" and edit_format != "whole":
+        argv.extend(["--edit-format", edit_format])
     pretty = " ".join(argv)
     print(f"\n>>> [{job.endpoint_name}] {job.model} :: {job.bench}")
     print(f"    cmd: {pretty}")
@@ -308,6 +310,11 @@ def parse_args() -> argparse.Namespace:
         help="Re-run benchmarks even if an output symlink already exists (default: skip if symlink present)",
     )
     p.add_argument(
+        "--edit-format",
+        default="whole",
+        help="Edit format for aider benchmark (default: whole). When not 'whole', the format is appended to the output file name.",
+    )
+    p.add_argument(
         "--list-benchmarks", action="store_true", help="Print supported benchmark ids and exit"
     )
     return p.parse_args()
@@ -363,7 +370,7 @@ def main() -> int:
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     try:
         for job in plan.jobs:
-            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new)
+            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new, edit_format=args.edit_format)
     except KeyboardInterrupt:
         print("\n!!! interrupted; writing partial summary", file=sys.stderr)
 
