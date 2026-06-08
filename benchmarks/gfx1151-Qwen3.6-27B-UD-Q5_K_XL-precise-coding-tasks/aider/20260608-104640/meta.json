@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260608-104640",
+  "host": "p14",
+  "bench": "aider",
+  "model": "gfx1151:Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}
