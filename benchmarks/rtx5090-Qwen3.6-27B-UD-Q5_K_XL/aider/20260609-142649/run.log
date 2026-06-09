@@ -16272,3 +16272,21 @@ Model: openai/rtx5090:Qwen3.6-27B-UD-Q5_K_XL with whole edit format
 Git repo: none
 Repo-map: disabled
 Added counter.go to the chat.
+^[[B^[[B        
+litellm.Timeout: APITimeoutError - Request timed out. Error_str: Request timed out.
+The API provider timed out without returning a response. They may be down or overloaded.
+Retrying in 0.2 seconds...
+litellm.Timeout: APITimeoutError - Request timed out. Error_str: Request timed out.
+The API provider timed out without returning a response. They may be down or overloaded.
+Retrying in 0.2 seconds...
+^C[?25h
+
+^C again to exit
+
+response: 
+lazy_comments: 0
+^CException ignored in: <module 'threading' from '/usr/lib/python3.11/threading.py'>
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/threading.py", line 1590, in _shutdown
+    lock.acquire()
+KeyboardInterrupt: 
