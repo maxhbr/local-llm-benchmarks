@@ -1,0 +1,66 @@
+{
+  "timestamp": "20260611-004547",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.012492,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 0.455005,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Nano-Omni-Q8_0",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 27997.165719,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013429,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 130,
+      "duration_s": 0.455954,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M",
+      "bench": "aider",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}

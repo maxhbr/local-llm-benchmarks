@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260611-001603",
+  "host": "p14",
+  "bench": "llama-benchy",
+  "model": "gfx1151:ROCm0:gemma-4-26B-A4B-it-qat-q4_0",
+  "endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-ROCm0-gemma-4-26B-A4B-it-qat-q4_0",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}
