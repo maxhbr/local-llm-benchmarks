@@ -6,8 +6,8 @@
 output_dir = "./benchmarks"
 
 [[endpoints]]
-name       = "litellm.thing.vserver.wg0"
-url        = "https://litellm.thing.vserver.wg0.maxhbr.local/v1"
+name       = "litellm.thing.wg0"
+url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
 benchmarks = ["llama-benchy", "agent-bench"]
 

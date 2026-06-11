@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260611-001633",
+  "host": "p14",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+  "endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-ROCm0-gemma-4-26B-A4B-it-UD-Q6_K_XL"
+}

@@ -1,0 +1,246 @@
+{
+  "timestamp": "20260611-003100",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-qat-q4_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.012931,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-qat-q4_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 16.812121,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013625,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 22.468324,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013472,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 25.203598,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014319,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 37.783298,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014853,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 0.454464,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.0136,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 50.906912,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014635,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 0.448483,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-Q8_0",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013933,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-Q8_0",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 54.282486,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.013876,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 39.369906,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014067,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 43.767031,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 494.633827,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-27B-UD-Q6_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 38.689922,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "returncode": 0,
+      "duration_s": 0.014593,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL",
+      "bench": "agent-bench",
+      "returncode": 0,
+      "duration_s": 24.052114,
+      "error": null
+    }
+  ]
+}

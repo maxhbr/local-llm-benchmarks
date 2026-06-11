@@ -1,0 +1,11 @@
+
+============================================================
+RUNNING BENCHMARK: gfx1151:ROCm0:gemma-4-26B-A4B-it-qat-q4_0 (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 502 - {'error': {'message': 'litellm.BadGatewayError: BadGatewayError: OpenAIException - unable to start process: upstream command exited prematurely but successfully. Received Model Group=gfx1151:ROCm0:gemma-4-26B-A4B-it-qat-q4_0\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '502'}}
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...

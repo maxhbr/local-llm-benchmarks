@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260611-004547)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | agent-bench    | 0   | 0.5      | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | aider          | 130 | 27997.2  | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Super-120 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Super-120 | agent-bench    | 130 | 0.5      | FAIL (interrupted)
+litellm.thing.wg0    | gfx1151:NVIDIA-Nemotron-3-Super-120 | aider          | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 6   OK: 3   FAIL: 3

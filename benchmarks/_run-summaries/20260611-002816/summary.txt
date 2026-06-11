@@ -1,0 +1,31 @@
+==========================================================================================
+RUN SUMMARY  (20260611-002816)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | agent-bench    | 130 | 6.5      | FAIL (interrupted)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | agent-bench    | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 24   OK: 1   FAIL: 23
