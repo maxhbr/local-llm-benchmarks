@@ -6,8 +6,8 @@
 output_dir = "./benchmarks"
 
 [[endpoints]]
-name       = "litellm.thing.wg0"
-url        = "http://litellm.thing.wg0.maxhbr.local/v1"
+name       = "litellm.thing.vserver.wg0"
+url        = "https://litellm.thing.vserver.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
 benchmarks = ["llama-benchy", "agent-bench"]
 
@@ -57,5 +57,11 @@ benchmarks = ["llama-benchy", "agent-bench"]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-IQ1_M"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q2_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q3_K_XL"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q5_K_XL"
