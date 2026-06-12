@@ -31,6 +31,10 @@ Config schema (TOML):
 
       [[endpoints.models]]
       name       = "qwen2.5-coder-32b"
+      alias      = "qwen25-coder-32b-q4"   # optional: friendlier name used for
+                                           # output dirs + summary display.  The
+                                           # endpoint still receives `name` as
+                                           # the model id.
       benchmarks = ["llama-benchy", "aider", "agent-bench"]  # override
 
       [[endpoints.models]]
@@ -69,12 +73,18 @@ class Job:
     endpoint_name: str
     endpoint_url: str
     api_key: str
-    model: str
+    model: str          # model id sent to the endpoint (the real API name)
     bench: str
+    alias: str | None = None  # friendly name used for output dirs + display
     # Result fields populated after run():
     returncode: int | None = None
     duration_s: float | None = None
     error: str | None = None
+
+    @property
+    def display_name(self) -> str:
+        """Name to use for output dirs, summary table, and run-name."""
+        return self.alias or self.model
 
 
 @dataclass
@@ -124,7 +134,9 @@ def build_plan(
             mname = mdl.get("name")
             if not mname:
                 raise SystemExit(f"Config error: endpoint {ep_name!r} has model without name")
-            if only_model and mname != only_model:
+            malias = mdl.get("alias") or None
+            # --model filter matches either the real name or the alias
+            if only_model and only_model not in (mname, malias):
                 continue
             benches = mdl.get("benchmarks", default_benches)
             if not benches:
@@ -147,6 +159,7 @@ def build_plan(
                         endpoint_url=url,
                         api_key=api_key,
                         model=mname,
+                        alias=malias,
                         bench=b,
                     )
                 )
@@ -202,12 +215,18 @@ def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_n
         "--model", job.model,
         "--output-dir", str(output_dir),
     ]
+    # When an alias is configured, drive the per-model output directory name
+    # off the alias instead of the (often ugly) real model id.  All four
+    # driver scripts accept --run-name and use it as the dir suffix.
+    if job.alias:
+        argv.extend(["--run-name", job.alias])
     if force_new:
         argv.append("--new")
     if job.bench == "aider" and edit_format != "whole":
         argv.extend(["--edit-format", edit_format])
     pretty = " ".join(argv)
-    print(f"\n>>> [{job.endpoint_name}] {job.model} :: {job.bench}")
+    label = f"{job.alias} ({job.model})" if job.alias else job.model
+    print(f"\n>>> [{job.endpoint_name}] {label} :: {job.bench}")
     print(f"    cmd: {pretty}")
 
     if dry_run:
@@ -271,7 +290,7 @@ def write_summary(plan: Plan, ts: str) -> Path:
         dur = f"{j.duration_s:.1f}" if j.duration_s is not None else "-"
         rc = "-" if j.returncode is None else str(j.returncode)
         lines.append(
-            f"{j.endpoint_name:<20.20} | {j.model:<35.35} | {j.bench:<14} | {rc:<3} | {dur:<8} | {status}"
+            f"{j.endpoint_name:<20.20} | {j.display_name:<35.35} | {j.bench:<14} | {rc:<3} | {dur:<8} | {status}"
         )
     lines.append("-" * 90)
     lines.append(f"Total: {len(plan.jobs)}   OK: {ok}   FAIL: {fail}")
@@ -365,7 +384,8 @@ def main() -> int:
     print(f">>> output dir: {plan.output_dir}")
     print(f">>> planned jobs: {len(plan.jobs)}")
     for j in plan.jobs:
-        print(f"    - [{j.endpoint_name}] {j.model} :: {j.bench}")
+        label = f"{j.alias} ({j.model})" if j.alias else j.model
+        print(f"    - [{j.endpoint_name}] {label} :: {j.bench}")
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
     try:
