@@ -78,66 +78,128 @@ def deduplicate_blocks(blocks: list[list[str]]) -> list[list[str]]:
     return [seen[k] for k in sorted(seen.keys())]
 
 
-def find_latest_aider_dir(benchmark_dir: str) -> str | None:
-    """Find the most recent aider/<timestamp> subdirectory."""
-    aider_dir = os.path.join(benchmark_dir, 'aider')
-    if not os.path.isdir(aider_dir):
+def find_latest_run_dir(benchmark_dir: str, bench_type: str = 'aider') -> str | None:
+    """Find the most recent <bench_type>/<timestamp> subdirectory."""
+    bench_dir = os.path.join(benchmark_dir, bench_type)
+    if not os.path.isdir(bench_dir):
         return None
 
-    # List subdirectories and sort by name (timestamp format ensures lexicographic = chronological)
     subdirs = sorted(
-        d for d in os.listdir(aider_dir)
-        if os.path.isdir(os.path.join(aider_dir, d))
+        d for d in os.listdir(bench_dir)
+        if os.path.isdir(os.path.join(bench_dir, d))
     )
 
     if not subdirs:
         return None
 
-    return os.path.join(aider_dir, subdirs[-1])
+    return os.path.join(bench_dir, subdirs[-1])
 
 
-def main():
-    if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <benchmark-dir>", file=sys.stderr)
-        sys.exit(1)
+def get_output_filename(bench_type: str) -> str:
+    """Map benchmark type to output filename."""
+    return f"{bench_type}.computed.yaml"
 
-    benchmark_dir = sys.argv[1].rstrip('/')
-    run_dir = find_latest_aider_dir(benchmark_dir)
 
+def process_benchmark(benchmark_dir: str, bench_type: str = 'aider') -> bool:
+    """
+    Process a single benchmark directory for the given bench type.
+    Returns True if successful, False if skipped/failed.
+    """
+    run_dir = find_latest_run_dir(benchmark_dir, bench_type)
     if run_dir is None:
-        print(f"Error: No aider run directories found in {benchmark_dir}", file=sys.stderr)
-        sys.exit(1)
+        return False
 
     run_log = os.path.join(run_dir, 'run.log')
     if not os.path.isfile(run_log):
-        print(f"Error: run.log not found in {run_dir}", file=sys.stderr)
-        sys.exit(1)
+        return False
 
-    print(f"Reading: {run_log}")
+    print(f"  {run_log}")
 
     with open(run_log, 'r', encoding='utf-8', errors='replace') as f:
         content = f.read()
 
-    # Strip ANSI codes before parsing
     clean_content = strip_ansi(content)
     blocks = extract_yaml_blocks(clean_content)
 
     if not blocks:
-        print("Error: No YAML blocks found in run.log", file=sys.stderr)
-        sys.exit(1)
+        print(f"  Skipping: no YAML blocks found")
+        return False
 
-    print(f"Found {len(blocks)} YAML block(s), deduplicating...")
     unique_blocks = deduplicate_blocks(blocks)
-    print(f"{len(unique_blocks)} distinct entries (test_cases 1..{len(unique_blocks)})")
+    print(f"  {len(unique_blocks)} distinct entries")
 
-    # Join blocks: each is already a YAML list item starting with '-'
     yaml_output = '\n'.join('\n'.join(block) for block in unique_blocks)
 
-    output_path = os.path.join(benchmark_dir, 'aider.computed.yaml')
+    output_path = os.path.join(benchmark_dir, get_output_filename(bench_type))
     with open(output_path, 'w') as f:
         f.write(yaml_output + '\n')
 
-    print(f"Written: {output_path}")
+    print(f"  Written: {output_path}")
+    return True
+
+
+def discover_benchmarks(base_dir: str) -> list[tuple[str, str]]:
+    """
+    Discover all benchmark subdirectories containing aider or aider-diff.
+    Returns list of (benchmark_dir, bench_type) tuples.
+    """
+    results = []
+    bench_types = ['aider', 'aider-diff']
+
+    for entry in sorted(os.listdir(base_dir)):
+        bench_dir = os.path.join(base_dir, entry)
+        if not os.path.isdir(bench_dir):
+            continue
+        for bt in bench_types:
+            if os.path.isdir(os.path.join(bench_dir, bt)):
+                results.append((bench_dir, bt))
+
+    return results
+
+
+def main():
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Extract YAML summary entries from aider benchmark run logs.',
+    )
+    parser.add_argument('path', help='Benchmark directory or benchmarks root (with --all)')
+    parser.add_argument('--all', action='store_true',
+                        help='Scan path for all benchmarks with aider/aider-diff subdirs')
+    args = parser.parse_args()
+
+    base_dir = args.path.rstrip('/')
+
+    if not os.path.isdir(base_dir):
+        print(f"Error: {base_dir} is not a directory", file=sys.stderr)
+        sys.exit(1)
+
+    if args.all:
+        targets = discover_benchmarks(base_dir)
+        if not targets:
+            print("No benchmarks found.", file=sys.stderr)
+            sys.exit(1)
+
+        print(f"Found {len(targets)} benchmark(s) in {base_dir}")
+        success = 0
+        for bench_dir, bench_type in targets:
+            print(f"\nProcessing: {bench_dir} ({bench_type})")
+            if process_benchmark(bench_dir, bench_type):
+                success += 1
+
+        print(f"\nDone: {success}/{len(targets)} written")
+    else:
+        # Single benchmark directory mode
+        # Process all matching bench types in the directory
+        found = False
+        for bench_type in ['aider', 'aider-diff']:
+            if os.path.isdir(os.path.join(base_dir, bench_type)):
+                if process_benchmark(base_dir, bench_type):
+                    found = True
+
+        if not found:
+            print(f"Error: No aider or aider-diff directory found in {base_dir}", file=sys.stderr)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
