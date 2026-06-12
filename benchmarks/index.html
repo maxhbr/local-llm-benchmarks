@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Local LLM Benchmarks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #161a22;
+      --panel-2: #1d222c;
+      --fg: #e6e6e6;
+      --muted: #9aa3b2;
+      --accent: #6ea8fe;
+      --border: #262b36;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    header { padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    header .status { color: var(--muted); font-size: 13px; }
+    main { padding: 16px 20px; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+    .tab {
+      background: transparent; color: var(--muted); border: 1px solid transparent;
+      border-bottom: none; padding: 8px 14px; cursor: pointer; font-size: 14px;
+      border-top-left-radius: 6px; border-top-right-radius: 6px;
+    }
+    .tab.active { color: var(--fg); background: var(--panel); border-color: var(--border); }
+    .panel { display: none; background: var(--panel); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px; }
+    .panel.active { display: block; }
+    .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 12px; color: var(--muted); font-size: 13px; }
+    .controls label { display: inline-flex; align-items: center; gap: 6px; }
+    .controls select, .controls input {
+      background: var(--panel-2); color: var(--fg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 4px 8px; font-size: 13px;
+    }
+    .chart-wrap { position: relative; height: 70vh; min-height: 420px; }
+    .errors { color: #ff8a8a; font-size: 13px; margin-top: 8px; white-space: pre-wrap; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Local LLM Benchmarks</h1>
+    <span class="status" id="status">loading…</span>
+  </header>
+  <main>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="pass">Pass rate</button>
+      <button class="tab" data-tab="band">Pass-rate band</button>
+      <button class="tab" data-tab="tokens">Tokens per test case</button>
+    </div>
+
+    <section class="panel active" id="panel-pass">
+      <div class="controls">
+        <label>
+          Metric
+          <select id="passMetric">
+            <option value="pass_rate_2" selected>pass_rate_2 (final)</option>
+            <option value="pass_rate_1">pass_rate_1 (first try)</option>
+          </select>
+        </label>
+        <span>X axis: test_cases — one line per benchmark file (model / edit_format).</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartPass"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-band">
+      <div class="controls">
+        <label>
+          Show
+          <select id="bandShow">
+            <option value="band" selected>area only</option>
+            <option value="band+lines">area + boundary lines</option>
+          </select>
+        </label>
+        <span>Each filled area = pass_rate_2 − pass_rate_1 (self-correction gain). X axis: test_cases.</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartBand"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-tokens">
+      <div class="controls">
+        <label>
+          Token series
+          <select id="tokenMetric">
+            <option value="completion_tokens" selected>completion_tokens</option>
+            <option value="prompt_tokens">prompt_tokens</option>
+            <option value="total_tokens">prompt + completion</option>
+          </select>
+        </label>
+        <label>
+          Y scale
+          <select id="tokenScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <span>X axis: test_cases — label = model.</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartTokens"></canvas></div>
+    </section>
+
+    <div class="errors" id="errors"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script>
+    // Hard-coded list of *.computed.yaml files relative to this page.
+    // Regenerate with:  find . -maxdepth 2 -name '*.computed.yaml' -printf '%P\n' | sort
+    const DATA_FILES = [
+      "gfx1151-NVIDIA-Nemotron-3-Nano-Omni-Q8_0/aider.computed.yaml",
+      "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
+      "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml",
+      "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
+      "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider.computed.yaml",
+      "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",
+      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL/aider.computed.yaml",
+      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL/aider-diff.computed.yaml",
+      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
+      "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL/aider.computed.yaml",
+    ];
+
+    const statusEl = document.getElementById("status");
+    const errorsEl = document.getElementById("errors");
+
+    // --- Tabs ---
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b === btn));
+        const id = btn.dataset.tab;
+        document.querySelectorAll(".panel").forEach(p =>
+          p.classList.toggle("active", p.id === `panel-${id}`));
+      });
+    });
+
+    // --- Deterministic color from string ---
+    function colorFor(name) {
+      let h = 0;
+      for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+      const hue = h % 360;
+      return `hsl(${hue} 70% 60%)`;
+    }
+
+    async function loadAll() {
+      const results = [];
+      const errs = [];
+      await Promise.all(DATA_FILES.map(async (path) => {
+        try {
+          const res = await fetch(path);
+          if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+          const text = await res.text();
+          const rows = jsyaml.load(text);
+          if (!Array.isArray(rows) || rows.length === 0) throw new Error("empty/invalid yaml");
+          // sort by test_cases just in case
+          rows.sort((a, b) => (a.test_cases ?? 0) - (b.test_cases ?? 0));
+          const model = rows[0].model || "(unknown)";
+          const editFormat = rows[0].edit_format || "";
+          // folder is first path segment
+          const folder = path.split("/")[0];
+          const baseName = path.split("/").pop().replace(".computed.yaml", "");
+          // Pretty short model label: strip openai/<host>: prefix
+          const shortModel = String(model).replace(/^openai\//, "").replace(/^[^:]+:/, "");
+          results.push({
+            path, folder, baseName, model, shortModel, editFormat, rows,
+          });
+        } catch (e) {
+          errs.push(`${path}: ${e.message}`);
+        }
+      }));
+      if (errs.length) errorsEl.textContent = "Errors:\n" + errs.join("\n");
+      results.sort((a, b) => a.path.localeCompare(b.path));
+      return results;
+    }
+
+    let DATASETS = [];
+    let chartPass = null;
+    let chartTokens = null;
+
+    function buildPassDatasets(metric) {
+      return DATASETS.map(d => {
+        const label = `${d.folder} / ${d.baseName}`;
+        const color = colorFor(label);
+        return {
+          label,
+          data: d.rows.map(r => ({ x: r.test_cases, y: r[metric] })),
+          borderColor: color,
+          backgroundColor: color,
+          tension: 0.2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          borderWidth: 2,
+        };
+      });
+    }
+
+    // Build a pair of datasets per benchmark: lower (pass_rate_1) then upper (pass_rate_2)
+    // with fill: '-1' so Chart.js fills the band between them.
+    function buildBandDatasets(showLines) {
+      const datasets = [];
+      DATASETS.forEach(d => {
+        const label = `${d.folder} / ${d.baseName}`;
+        const stroke = colorFor(label);
+        // translucent fill: hsl -> hsla
+        const fill = stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
+        // lower bound (pass_rate_1) — invisible line, just a reference for the fill above
+        datasets.push({
+          label: `${label} (lower)`,
+          data: d.rows.map(r => ({ x: r.test_cases, y: r.pass_rate_1 })),
+          borderColor: showLines ? stroke : "rgba(0,0,0,0)",
+          backgroundColor: "rgba(0,0,0,0)",
+          borderWidth: showLines ? 1 : 0,
+          borderDash: showLines ? [4, 4] : undefined,
+          pointRadius: 0,
+          pointHoverRadius: showLines ? 3 : 0,
+          tension: 0.2,
+          fill: false,
+          // hide from legend (we'll show one entry per benchmark via the upper dataset)
+          _hideFromLegend: true,
+        });
+        // upper bound (pass_rate_2) — fills down to previous dataset
+        datasets.push({
+          label,
+          data: d.rows.map(r => ({ x: r.test_cases, y: r.pass_rate_2 })),
+          borderColor: stroke,
+          backgroundColor: fill,
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.2,
+          fill: "-1",
+        });
+      });
+      return datasets;
+    }
+
+    function buildTokenDatasets(metric) {
+      return DATASETS.map(d => {
+        const label = `${d.shortModel}${d.editFormat ? ` (${d.editFormat})` : ""}`;
+        const color = colorFor(label + d.path);
+        const yFn = metric === "total_tokens"
+          ? (r => (r.prompt_tokens || 0) + (r.completion_tokens || 0))
+          : (r => r[metric]);
+        return {
+          label,
+          data: d.rows.map(r => ({ x: r.test_cases, y: yFn(r) })),
+          borderColor: color,
+          backgroundColor: color,
+          tension: 0.2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          borderWidth: 2,
+        };
+      });
+    }
+
+    function commonOpts(yTitle, yIsPercent = false, yScaleType = "linear") {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: "nearest", intersect: false },
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              color: "#e6e6e6",
+              boxWidth: 12,
+              filter: (item, data) => {
+                const ds = data.datasets[item.datasetIndex];
+                return !(ds && ds._hideFromLegend);
+              },
+            },
+          },
+          tooltip: {
+            callbacks: {
+              title: items => items.length ? `test_cases = ${items[0].parsed.x}` : "",
+            },
+          },
+        },
+        scales: {
+          x: {
+            type: "linear",
+            title: { display: true, text: "test_cases", color: "#9aa3b2" },
+            ticks: { color: "#9aa3b2" },
+            grid: { color: "#262b36" },
+          },
+          y: {
+            type: yScaleType,
+            title: { display: true, text: yTitle, color: "#9aa3b2" },
+            ticks: {
+              color: "#9aa3b2",
+              callback: v => yIsPercent ? `${v}%` : v,
+            },
+            grid: { color: "#262b36" },
+            ...(yIsPercent ? { min: 0, max: 100 } : {}),
+          },
+        },
+      };
+    }
+
+    function renderPass() {
+      const metric = document.getElementById("passMetric").value;
+      const datasets = buildPassDatasets(metric);
+      if (chartPass) chartPass.destroy();
+      chartPass = new Chart(document.getElementById("chartPass"), {
+        type: "line",
+        data: { datasets },
+        options: commonOpts(`${metric} (%)`, true),
+      });
+    }
+
+    let chartBand = null;
+    function renderBand() {
+      const showLines = document.getElementById("bandShow").value === "band+lines";
+      const datasets = buildBandDatasets(showLines);
+      if (chartBand) chartBand.destroy();
+      chartBand = new Chart(document.getElementById("chartBand"), {
+        type: "line",
+        data: { datasets },
+        options: commonOpts("pass rate (%)  —  band = pass_rate_1 → pass_rate_2", true),
+      });
+    }
+
+    function renderTokens() {
+      const metric = document.getElementById("tokenMetric").value;
+      const scale = document.getElementById("tokenScale").value;
+      const datasets = buildTokenDatasets(metric);
+      if (chartTokens) chartTokens.destroy();
+      const title = metric === "total_tokens"
+        ? "prompt + completion tokens (cumulative)"
+        : `${metric} (cumulative)`;
+      chartTokens = new Chart(document.getElementById("chartTokens"), {
+        type: "line",
+        data: { datasets },
+        options: commonOpts(title, false, scale),
+      });
+    }
+
+    document.getElementById("passMetric").addEventListener("change", renderPass);
+    document.getElementById("bandShow").addEventListener("change", renderBand);
+    document.getElementById("tokenMetric").addEventListener("change", renderTokens);
+    document.getElementById("tokenScale").addEventListener("change", renderTokens);
+
+    (async () => {
+      statusEl.textContent = `loading ${DATA_FILES.length} files…`;
+      DATASETS = await loadAll();
+      statusEl.textContent = `${DATASETS.length} datasets loaded`;
+      renderPass();
+      renderBand();
+      renderTokens();
+    })();
+  </script>
+</body>
+</html>

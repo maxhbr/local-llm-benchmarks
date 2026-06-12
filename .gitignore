@@ -2,4 +2,5 @@ work/
 # benchmarks/
 *.cmd
 __pycache__/
+.playwright-cli
 
