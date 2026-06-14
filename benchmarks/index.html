@@ -55,6 +55,8 @@
       <button class="tab active" data-tab="pass">Pass rate</button>
       <button class="tab" data-tab="band">Pass-rate band</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
+      <button class="tab" data-tab="llama">llama-benchy</button>
+      <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
     </div>
 
     <section class="panel active" id="panel-pass">
@@ -107,11 +109,87 @@
       <div class="chart-wrap"><canvas id="chartTokens"></canvas></div>
     </section>
 
+    <section class="panel" id="panel-llama">
+      <div class="controls">
+        <label>
+          Test
+          <select id="llamaTest">
+            <option value="pp2048" selected>pp2048 (prompt)</option>
+            <option value="tg128">tg128 (generation)</option>
+          </select>
+        </label>
+        <label>
+          Depth
+          <select id="llamaDepth">
+            <option value="d0" selected>d0</option>
+            <option value="d8192">d8192</option>
+            <option value="d16384">d16384</option>
+          </select>
+        </label>
+        <label>
+          Concurrency
+          <select id="llamaConc">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <label>
+          Metric
+          <select id="llamaMetric">
+            <option value="t/s" selected>t/s</option>
+            <option value="t/s (req)">t/s (req)</option>
+            <option value="peak t/s">peak t/s</option>
+            <option value="peak t/s (req)">peak t/s (req)</option>
+            <option value="ttfr (ms)">ttfr (ms)</option>
+            <option value="est_ppt (ms)">est_ppt (ms)</option>
+            <option value="e2e_ttft (ms)">e2e_ttft (ms)</option>
+          </select>
+        </label>
+        <label>
+          Sort
+          <select id="llamaSort">
+            <option value="value-desc" selected>value (desc)</option>
+            <option value="value-asc">value (asc)</option>
+            <option value="model">model name</option>
+          </select>
+        </label>
+        <span id="llamaStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlama"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-llamagrid">
+      <div class="controls">
+        <label>
+          Test
+          <select id="gridTest">
+            <option value="tg128" selected>tg128 (generation)</option>
+            <option value="pp2048">pp2048 (prompt)</option>
+          </select>
+        </label>
+        <label>
+          Model
+          <select id="gridModel" style="min-width: 360px;"></select>
+        </label>
+        <label>
+          Z scale
+          <select id="gridScale">
+            <option value="linear" selected>linear</option>
+            <option value="log">log</option>
+          </select>
+        </label>
+        <span id="gridStatus" style="color: var(--muted);"></span>
+      </div>
+      <div id="chartGrid" style="width: 100%; height: 75vh; min-height: 480px;"></div>
+    </section>
+
     <div class="errors" id="errors"></div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script>
     // List of *.computed.yaml files is loaded from datasets.json.
     // Regenerate that file with: python3 ../scripts/extract-aider-stats.py . --all
@@ -127,6 +205,10 @@
         const id = btn.dataset.tab;
         document.querySelectorAll(".panel").forEach(p =>
           p.classList.toggle("active", p.id === `panel-${id}`));
+        if (id === "llamagrid" && window.Plotly) {
+          const el = document.getElementById("chartGrid");
+          if (el && el.data) Plotly.Plots.resize(el);
+        }
       });
     });
 
@@ -178,8 +260,153 @@
     }
 
     let DATASETS = [];
+    let LLAMA_ROWS = []; // parsed llama-benchy.csv rows
     let chartPass = null;
     let chartTokens = null;
+    let chartLlama = null;
+    const DEPTHS = ["d0", "d8192", "d16384"];
+    const DEPTH_X = { d0: 0, d8192: 8192, d16384: 16384 };
+    const CONCURRENCIES = [1, 2, 4];
+
+    function populateGridModels() {
+      const sel = document.getElementById("gridModel");
+      const models = [...new Set(LLAMA_ROWS.map(r => r.model))].sort();
+      sel.innerHTML = "";
+      models.forEach((m, i) => {
+        const opt = document.createElement("option");
+        opt.value = m;
+        opt.textContent = m;
+        if (i === 0) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+
+    function renderGrid() {
+      const test = document.getElementById("gridTest").value;
+      const scale = document.getElementById("gridScale").value;
+      const model = document.getElementById("gridModel").value;
+      const statusEl3 = document.getElementById("gridStatus");
+      const target = document.getElementById("chartGrid");
+
+      if (!model) { Plotly.purge(target); statusEl3.textContent = ""; return; }
+
+      // z[i][j] = t/s at concurrency CONCURRENCIES[i], depth DEPTHS[j].
+      const z = CONCURRENCIES.map(c => DEPTHS.map(d => {
+        const row = LLAMA_ROWS.find(r =>
+          r.model === model && r.test === test
+          && r.depth === d && r.concurrency === c);
+        return row && typeof row["t/s"] === "number" ? row["t/s"] : null;
+      }));
+
+      const present = z.flat().filter(v => v != null).length;
+      statusEl3.textContent = `${present}/9 points present`;
+
+      const xLabels = DEPTHS;                  // categorical tick labels
+      const xVals = DEPTHS.map(d => DEPTH_X[d]);
+      const yLabels = CONCURRENCIES.map(String);
+      const yVals = CONCURRENCIES;
+
+      // Scatter markers for the 9 actual measurements
+      const sx = [], sy = [], sz = [], stext = [];
+      CONCURRENCIES.forEach((c, i) => DEPTHS.forEach((d, j) => {
+        const v = z[i][j];
+        if (v == null) return;
+        sx.push(DEPTH_X[d]);
+        sy.push(c);
+        sz.push(v);
+        stext.push(`depth=${d}<br>conc=${c}<br>t/s=${v.toFixed(2)}`);
+      }));
+
+      const surface = {
+        type: "surface",
+        x: xVals,
+        y: yVals,
+        z,
+        colorscale: "Viridis",
+        showscale: true,
+        opacity: 0.85,
+        contours: {
+          z: { show: true, usecolormap: true, project: { z: true } },
+        },
+        hoverinfo: "skip",
+      };
+
+      const markers = {
+        type: "scatter3d",
+        mode: "markers",
+        x: sx, y: sy, z: sz,
+        marker: { size: 5, color: "#ffffff", line: { color: "#000", width: 1 } },
+        text: stext,
+        hovertemplate: "%{text}<extra></extra>",
+        name: "measured",
+      };
+
+      const layout = {
+        paper_bgcolor: "#161a22",
+        plot_bgcolor: "#161a22",
+        font: { color: "#e6e6e6" },
+        margin: { l: 0, r: 0, t: 30, b: 0 },
+        title: { text: `${model}  —  ${test} t/s`, font: { size: 14 } },
+        scene: {
+          xaxis: {
+            title: "depth",
+            tickvals: xVals, ticktext: xLabels,
+            gridcolor: "#262b36", zerolinecolor: "#262b36",
+          },
+          yaxis: {
+            title: "concurrency",
+            tickvals: yVals, ticktext: yLabels,
+            gridcolor: "#262b36", zerolinecolor: "#262b36",
+          },
+          zaxis: {
+            title: `${test} t/s`,
+            type: scale,
+            gridcolor: "#262b36", zerolinecolor: "#262b36",
+          },
+          camera: { eye: { x: 1.6, y: -1.6, z: 1.0 } },
+        },
+        showlegend: false,
+      };
+
+      Plotly.react(target, [surface, markers], layout,
+                   { responsive: true, displaylogo: false });
+    }
+
+    // Minimal CSV parser (no quoted-comma support — none needed in llama-benchy.csv).
+    function parseCSV(text) {
+      const lines = text.split(/\r?\n/).filter(l => l.length > 0);
+      if (lines.length === 0) return { header: [], rows: [] };
+      const header = lines[0].split(",");
+      const rows = lines.slice(1).map(line => {
+        const cells = line.split(",");
+        const obj = {};
+        header.forEach((h, i) => {
+          const raw = cells[i] ?? "";
+          if (raw === "") {
+            obj[h] = null;
+          } else {
+            const n = Number(raw);
+            obj[h] = Number.isFinite(n) && raw.trim() !== "" ? n : raw;
+          }
+        });
+        return obj;
+      });
+      return { header, rows };
+    }
+
+    async function loadLlama() {
+      try {
+        const res = await fetch("llama-benchy.csv", { cache: "no-cache" });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        const text = await res.text();
+        const { rows } = parseCSV(text);
+        LLAMA_ROWS = rows;
+      } catch (e) {
+        LLAMA_ROWS = [];
+        const cur = errorsEl.textContent;
+        errorsEl.textContent = (cur ? cur + "\n" : "") + `llama-benchy.csv: ${e.message}`;
+      }
+    }
 
     function buildPassDatasets(metric) {
       return DATASETS.map(d => {
@@ -313,6 +540,159 @@
       });
     }
 
+    // Simple Chart.js plugin to draw vertical error bars on bar charts.
+    // Reads dataset.errors[i] (same length as data) and draws a whisker around each bar's top.
+    const errorBarPlugin = {
+      id: "errorBars",
+      afterDatasetsDraw(chart) {
+        const { ctx, scales } = chart;
+        const yScale = scales.y;
+        chart.data.datasets.forEach((ds, dsIdx) => {
+          if (!ds.errors) return;
+          const meta = chart.getDatasetMeta(dsIdx);
+          ctx.save();
+          ctx.strokeStyle = "rgba(230,230,230,0.7)";
+          ctx.lineWidth = 1;
+          meta.data.forEach((bar, i) => {
+            const err = ds.errors[i];
+            const val = ds.data[i];
+            if (err == null || val == null) return;
+            const x = bar.x;
+            const yTop = yScale.getPixelForValue(val + err);
+            const yBot = yScale.getPixelForValue(Math.max(0, val - err));
+            ctx.beginPath();
+            ctx.moveTo(x, yTop); ctx.lineTo(x, yBot);
+            ctx.moveTo(x - 4, yTop); ctx.lineTo(x + 4, yTop);
+            ctx.moveTo(x - 4, yBot); ctx.lineTo(x + 4, yBot);
+            ctx.stroke();
+          });
+          ctx.restore();
+        });
+      },
+    };
+
+    function renderLlama() {
+      const test = document.getElementById("llamaTest").value;
+      const depth = document.getElementById("llamaDepth").value;
+      const conc = Number(document.getElementById("llamaConc").value);
+      const metric = document.getElementById("llamaMetric").value;
+      const sort = document.getElementById("llamaSort").value;
+      const statusEl2 = document.getElementById("llamaStatus");
+
+      let filtered = LLAMA_ROWS.filter(r =>
+        r.test === test && r.depth === depth && r.concurrency === conc
+                          && typeof r[metric] === "number");
+
+      const errKey = `${metric}_err`;
+      const items = filtered.map(r => ({
+        model: r.model,
+        value: r[metric],
+        err: typeof r[errKey] === "number" ? r[errKey] : 0,
+      }));
+
+      if (sort === "value-desc") items.sort((a, b) => b.value - a.value);
+      else if (sort === "value-asc") items.sort((a, b) => a.value - b.value);
+      else items.sort((a, b) => a.model.localeCompare(b.model));
+
+      statusEl2.textContent = `${items.length} models`;
+
+      const labels = items.map(i => i.model);
+      const data = items.map(i => i.value);
+      const errors = items.map(i => i.err);
+      const colors = labels.map(m => colorFor(m));
+
+      if (chartLlama) chartLlama.destroy();
+      chartLlama = new Chart(document.getElementById("chartLlama"), {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label: `${metric}  (test=${test}, depth=${depth}, conc=${conc})`,
+            data,
+            errors,
+            backgroundColor: colors,
+            borderColor: colors,
+            borderWidth: 1,
+          }],
+        },
+        plugins: [errorBarPlugin],
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const e = ctx.dataset.errors?.[ctx.dataIndex];
+                  const v = ctx.parsed.x;
+                  return e != null
+                    ? `${metric}: ${v.toFixed(2)} ± ${e.toFixed(2)}`
+                    : `${metric}: ${v.toFixed(2)}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: { display: true, text: metric, color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2" },
+              grid: { color: "#262b36" },
+              beginAtZero: true,
+            },
+            y: {
+              ticks: { color: "#e6e6e6", autoSkip: false, font: { size: 11 } },
+              grid: { color: "#262b36" },
+            },
+          },
+        },
+      });
+    }
+
+    // Re-purpose plugin error-bars for horizontal bars (errorBarPlugin only handles vertical y).
+    // For indexAxis: 'y' the error bars need to be drawn along the x axis instead.
+    // Override with a more general implementation:
+    Object.assign(errorBarPlugin, {
+      afterDatasetsDraw(chart) {
+        const { ctx, scales, options } = chart;
+        const horizontal = options.indexAxis === "y";
+        const valScale = horizontal ? scales.x : scales.y;
+        chart.data.datasets.forEach((ds, dsIdx) => {
+          if (!ds.errors) return;
+          const meta = chart.getDatasetMeta(dsIdx);
+          ctx.save();
+          ctx.strokeStyle = "rgba(230,230,230,0.7)";
+          ctx.lineWidth = 1;
+          meta.data.forEach((bar, i) => {
+            const err = ds.errors[i];
+            const val = ds.data[i];
+            if (err == null || val == null) return;
+            if (horizontal) {
+              const y = bar.y;
+              const xHi = valScale.getPixelForValue(val + err);
+              const xLo = valScale.getPixelForValue(Math.max(0, val - err));
+              ctx.beginPath();
+              ctx.moveTo(xLo, y); ctx.lineTo(xHi, y);
+              ctx.moveTo(xHi, y - 4); ctx.lineTo(xHi, y + 4);
+              ctx.moveTo(xLo, y - 4); ctx.lineTo(xLo, y + 4);
+              ctx.stroke();
+            } else {
+              const x = bar.x;
+              const yHi = valScale.getPixelForValue(val + err);
+              const yLo = valScale.getPixelForValue(Math.max(0, val - err));
+              ctx.beginPath();
+              ctx.moveTo(x, yHi); ctx.lineTo(x, yLo);
+              ctx.moveTo(x - 4, yHi); ctx.lineTo(x + 4, yHi);
+              ctx.moveTo(x - 4, yLo); ctx.lineTo(x + 4, yLo);
+              ctx.stroke();
+            }
+          });
+          ctx.restore();
+        });
+      },
+    });
+
     let chartBand = null;
     function renderBand() {
       const showLines = document.getElementById("bandShow").value === "band+lines";
@@ -344,17 +724,28 @@
     document.getElementById("bandShow").addEventListener("change", renderBand);
     document.getElementById("tokenMetric").addEventListener("change", renderTokens);
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
+    ["llamaTest", "llamaDepth", "llamaConc", "llamaMetric", "llamaSort"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderLlama));
+    ["gridTest", "gridScale", "gridModel"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderGrid));
 
     (async () => {
       try {
         statusEl.textContent = "loading datasets.json…";
         DATA_FILES = await loadManifest();
         statusEl.textContent = `loading ${DATA_FILES.length} files…`;
-        DATASETS = await loadAll();
-        statusEl.textContent = `${DATASETS.length} datasets loaded`;
+        await Promise.all([
+          loadAll().then(d => { DATASETS = d; }),
+          loadLlama(),
+        ]);
+        statusEl.textContent =
+          `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         renderPass();
         renderBand();
         renderTokens();
+        renderLlama();
+        populateGridModels();
+        renderGrid();
       } catch (e) {
         statusEl.textContent = "failed to load";
         errorsEl.textContent = String(e);
