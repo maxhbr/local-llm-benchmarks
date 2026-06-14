@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260612-133530",
+  "host": "p14",
+  "bench": "aider",
+  "model": "gfx1151:MiniMax-M2.7-UD-Q3_K_S",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-MiniMax-M2.7-UD-Q3_K_S",
+  "edit_format": "diff",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

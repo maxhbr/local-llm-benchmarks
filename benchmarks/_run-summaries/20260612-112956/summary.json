@@ -1,0 +1,28 @@
+{
+  "timestamp": "20260612-112956",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "vllm-dockerized-Qwen3.6-27B-Text-NVFP4-MTP",
+      "returncode": 0,
+      "duration_s": 600.824522,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "agent-bench",
+      "alias": "vllm-dockerized-Qwen3.6-27B-Text-NVFP4-MTP",
+      "returncode": 0,
+      "duration_s": 99.146848,
+      "error": null
+    }
+  ]
+}

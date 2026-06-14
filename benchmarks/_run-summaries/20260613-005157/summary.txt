@@ -1,0 +1,16 @@
+==========================================================================================
+RUN SUMMARY  (20260613-005157)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M    | llama-benchy   | 0   | 943.6    | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M    | agent-bench    | 0   | 14.8     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M    | aider          | 60  | 3.8      | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL  | llama-benchy   | 0   | 965.8    | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL  | agent-bench    | 0   | 15.0     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL  | aider          | 60  | 3.7      | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL  | llama-benchy   | 0   | 1018.3   | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL  | agent-bench    | 0   | 14.8     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL  | aider          | 60  | 3.7      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 9   OK: 6   FAIL: 3

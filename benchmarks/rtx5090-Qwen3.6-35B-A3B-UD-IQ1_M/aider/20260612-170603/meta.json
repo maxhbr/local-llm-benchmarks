@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260612-170603",
+  "host": "p14",
+  "bench": "aider",
+  "model": "rtx5090:Qwen3.6-35B-A3B-UD-IQ1_M",
+  "endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "container_endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Qwen3.6-35B-A3B-UD-IQ1_M",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

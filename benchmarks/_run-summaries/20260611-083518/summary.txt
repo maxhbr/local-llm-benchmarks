@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260611-083518)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | aider          | 130 | 1311.7   | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | aider          | 130 | 8137.5   | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | aider          | 130 | 12204.9  | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-qat-q4_0     | aider          | 130 | 20283.9  | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | aider          | 130 | 46112.9  | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | aider          | 130 | 453.7    | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 6   OK: 0   FAIL: 6

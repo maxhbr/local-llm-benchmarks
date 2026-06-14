@@ -1,0 +1,66 @@
+{
+  "timestamp": "20260611-083518",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-qat-q4_0",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 1311.723339,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 8137.473613,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 12204.87087,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 20283.920565,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q4_K_XL",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 46112.916122,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+      "bench": "aider",
+      "returncode": 130,
+      "duration_s": 453.671162,
+      "error": null
+    }
+  ]
+}

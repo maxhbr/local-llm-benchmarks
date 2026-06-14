@@ -1,0 +1,4 @@
+time="2026-06-13T16:13:37+02:00" level=warning msg="The input device is not a TTY. The --tty and --interactive flags might not work properly"
+Obtaining file:///aider
+  Installing build dependencies ... [?25l- error
+[?25h

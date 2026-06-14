@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260612-090249",
+  "host": "p14",
+  "bench": "aider",
+  "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-gemma-4-31B-it-UD-Q5_K_XL",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}
