@@ -113,20 +113,9 @@
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   <script>
-    // Hard-coded list of *.computed.yaml files relative to this page.
-    // Regenerate with:  find . -maxdepth 2 -name '*.computed.yaml' -printf '%P\n' | sort
-    const DATA_FILES = [
-      "gfx1151-NVIDIA-Nemotron-3-Nano-Omni-Q8_0/aider.computed.yaml",
-      "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
-      "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml",
-      "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
-      "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider.computed.yaml",
-      "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",
-      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL/aider.computed.yaml",
-      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL/aider-diff.computed.yaml",
-      "rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
-      "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL/aider.computed.yaml",
-    ];
+    // List of *.computed.yaml files is loaded from datasets.json.
+    // Regenerate that file with: python3 ../scripts/extract-aider-stats.py . --all
+    let DATA_FILES = [];
 
     const statusEl = document.getElementById("status");
     const errorsEl = document.getElementById("errors");
@@ -147,6 +136,14 @@
       for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
       const hue = h % 360;
       return `hsl(${hue} 70% 60%)`;
+    }
+
+    async function loadManifest() {
+      const res = await fetch("datasets.json", { cache: "no-cache" });
+      if (!res.ok) throw new Error(`datasets.json: ${res.status} ${res.statusText}`);
+      const json = await res.json();
+      if (!Array.isArray(json.files)) throw new Error("datasets.json: missing 'files' array");
+      return json.files;
     }
 
     async function loadAll() {
@@ -349,12 +346,19 @@
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
 
     (async () => {
-      statusEl.textContent = `loading ${DATA_FILES.length} files…`;
-      DATASETS = await loadAll();
-      statusEl.textContent = `${DATASETS.length} datasets loaded`;
-      renderPass();
-      renderBand();
-      renderTokens();
+      try {
+        statusEl.textContent = "loading datasets.json…";
+        DATA_FILES = await loadManifest();
+        statusEl.textContent = `loading ${DATA_FILES.length} files…`;
+        DATASETS = await loadAll();
+        statusEl.textContent = `${DATASETS.length} datasets loaded`;
+        renderPass();
+        renderBand();
+        renderTokens();
+      } catch (e) {
+        statusEl.textContent = "failed to load";
+        errorsEl.textContent = String(e);
+      }
     })();
   </script>
 </body>

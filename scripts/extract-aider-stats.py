@@ -13,8 +13,10 @@ Example:
 
 Output:
     <benchmark-dir>/aider.computed.yaml
+    <benchmarks-root>/datasets.json   (regenerated to list all *.computed.yaml)
 """
 
+import json
 import os
 import re
 import sys
@@ -157,6 +159,28 @@ def discover_benchmarks(base_dir: str) -> list[tuple[str, str]]:
     return results
 
 
+def update_datasets_json(base_dir: str) -> None:
+    """
+    Regenerate datasets.json in base_dir with all *.computed.yaml files
+    found in immediate subfolders.
+    """
+    files: list[str] = []
+    for entry in sorted(os.listdir(base_dir)):
+        sub = os.path.join(base_dir, entry)
+        if not os.path.isdir(sub):
+            continue
+        for name in sorted(os.listdir(sub)):
+            if name.endswith('.computed.yaml'):
+                files.append(f"{entry}/{name}")
+
+    output_path = os.path.join(base_dir, 'datasets.json')
+    with open(output_path, 'w') as f:
+        json.dump({'files': files}, f, indent=2)
+        f.write('\n')
+
+    print(f"\nWrote {output_path} ({len(files)} files)")
+
+
 def main():
     import argparse
 
@@ -188,6 +212,7 @@ def main():
                 success += 1
 
         print(f"\nDone: {success}/{len(targets)} written")
+        update_datasets_json(base_dir)
     else:
         # Single benchmark directory mode
         # Process all matching bench types in the directory
@@ -200,6 +225,9 @@ def main():
         if not found:
             print(f"Error: No aider or aider-diff directory found in {base_dir}", file=sys.stderr)
             sys.exit(1)
+
+        # Update datasets.json in the parent (benchmarks/) directory
+        update_datasets_json(os.path.dirname(os.path.abspath(base_dir)))
 
 
 if __name__ == '__main__':
