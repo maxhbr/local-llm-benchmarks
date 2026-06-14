@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260612-113957",
+  "host": "p14",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "localhost:22545:localhost:22545",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "vllm-dockerized-Qwen3.6-27B-Text-NVFP4-MTP"
+}

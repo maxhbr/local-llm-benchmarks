@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260612-161605)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-IQ1_M    | llama-benchy   | 0   | 191.6    | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-IQ1_M    | agent-bench    | 0   | 15.2     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q2_K_XL  | llama-benchy   | 0   | 200.2    | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q2_K_XL  | agent-bench    | 0   | 14.7     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q3_K_XL  | llama-benchy   | 0   | 193.8    | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q3_K_XL  | agent-bench    | 0   | 15.3     | OK
+------------------------------------------------------------------------------------------
+Total: 6   OK: 6   FAIL: 0

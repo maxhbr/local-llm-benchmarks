@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260613-010755",
+  "host": "p14",
+  "bench": "aider",
+  "model": "gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M",
+  "endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "container_endpoint": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-Qwen3.6-35B-A3B-UD-IQ1_M",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

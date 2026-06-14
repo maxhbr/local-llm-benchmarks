@@ -1,0 +1,16 @@
+time="2026-06-13T16:15:37+02:00" level=warning msg="The input device is not a TTY. The --tty and --interactive flags might not work properly"
+Obtaining file:///aider
+  Installing build dependencies ... [?25l- error
+  [1;31merror[0m: [1msubprocess-exited-with-error[0m
+  
+  [31m×[0m [32minstalling build dependencies[0m did not run successfully.
+  [31m│[0m exit code: [1;36m1[0m
+  [31m╰─>[0m [31m[2 lines of output][0m
+  [31m   [0m ERROR: Could not install packages due to an OSError: Could not find a suitable TLS CA certificate bundle, invalid path: /etc/ssl/certs/ca-certificates.crt
+  [31m   [0m 
+  [31m   [0m [31m[end of output][0m
+  
+  [1;35mnote[0m: This error originates from a subprocess, and is likely not a problem with pip.
+[33mWARNING: There was an error checking the latest version of pip.[0m[33m
+[0m[31mERROR: Failed to build 'file:///aider' when installing build dependencies[0m[31m
+[0m[?25h

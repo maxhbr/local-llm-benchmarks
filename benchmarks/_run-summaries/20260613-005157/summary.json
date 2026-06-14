@@ -1,0 +1,105 @@
+{
+  "timestamp": "20260613-005157",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 943.56474,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M",
+      "bench": "agent-bench",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 14.833211,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-IQ1_M",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.820292,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 965.817037,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL",
+      "bench": "agent-bench",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 15.021574,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q2_K_XL",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.655517,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 1018.30064,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+      "bench": "agent-bench",
+      "alias": null,
+      "returncode": 0,
+      "duration_s": 14.808056,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.662448,
+      "error": null
+    }
+  ]
+}

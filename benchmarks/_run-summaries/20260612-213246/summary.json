@@ -1,0 +1,39 @@
+{
+  "timestamp": "20260612-213246",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-IQ1_M",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.708691,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q2_K_XL",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.603942,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "https://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+      "bench": "aider",
+      "alias": null,
+      "returncode": 60,
+      "duration_s": 3.625089,
+      "error": null
+    }
+  ]
+}
