@@ -4,7 +4,7 @@
 # Source: http://gfx1151.thing.wg0.maxhbr.local/v1/models
 # Filter: all models (no tags exposed by endpoint)
 
-output_dir = "./benchmarks"
+output_dir = "./benchmarks.gfx1151"
 
 [[endpoints]]
 name       = "gfx1151.thing.wg0.maxhbr.local"
@@ -12,14 +12,14 @@ url        = "http://gfx1151.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
 benchmarks = ["llama-benchy", "agent-bench"]
 
-  [[endpoints.models]]
-  name = "gemma-4-26B-A4B-it-qat-q4_0"
-  [[endpoints.models]]
-  name = "gemma-4-26B-A4B-it-UD-Q6_K_XL"
-  [[endpoints.models]]
-  name = "gemma-4-26B-A4B-it-UD-Q8_K_XL"
-  [[endpoints.models]]
-  name = "gemma-4-31B-it-BF16"
+  # [[endpoints.models]]
+  # name = "gemma-4-26B-A4B-it-qat-q4_0"
+  # [[endpoints.models]]
+  # name = "gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  # [[endpoints.models]]
+  # name = "gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  # [[endpoints.models]]
+  # name = "gemma-4-31B-it-BF16"
   [[endpoints.models]]
   name = "gemma-4-31B-it-qat-q4_0"
   [[endpoints.models]]
@@ -27,27 +27,11 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-IQ4_NL"
-  [[endpoints.models]]
   name = "MiniMax-M2.7-UD-IQ4_NL-196k"
-  [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-IQ4_NL-49k"
-  [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-IQ4_XS"
   [[endpoints.models]]
   name = "MiniMax-M2.7-UD-IQ4_XS-196k"
   [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-IQ4_XS-49k"
-  [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-Q3_K_S"
-  [[endpoints.models]]
   name = "MiniMax-M2.7-UD-Q3_K_S-196k"
-  [[endpoints.models]]
-  name = "MiniMax-M2.7-UD-Q3_K_S-49k"
-  [[endpoints.models]]
-  name = "NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
-  [[endpoints.models]]
-  name = "NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
   [[endpoints.models]]
   name = "qwen3.5-122B-A10B-Q5_K_M"
   [[endpoints.models]]
@@ -67,33 +51,9 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-BF16"
   [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-BF16-instruct-general"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-BF16-instruct-reasoning"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-BF16-thinking-coding"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-BF16-thinking-general"
-  [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-MTP-BF16"
   [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-MTP-BF16-instruct-general"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-MTP-BF16-instruct-reasoning"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-MTP-BF16-thinking-coding"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-MTP-BF16-thinking-general"
-  [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-Q8_0"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-Q8_0-instruct-general"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-Q8_0-instruct-reasoning"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-Q8_0-thinking-coding"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-Q8_0-thinking-general"
   [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-UD-IQ1_M"
   [[endpoints.models]]
@@ -117,27 +77,11 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "ROCm0:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-IQ4_NL"
-  [[endpoints.models]]
   name = "ROCm0:MiniMax-M2.7-UD-IQ4_NL-196k"
-  [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-IQ4_NL-49k"
-  [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-IQ4_XS"
   [[endpoints.models]]
   name = "ROCm0:MiniMax-M2.7-UD-IQ4_XS-196k"
   [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-IQ4_XS-49k"
-  [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-Q3_K_S"
-  [[endpoints.models]]
   name = "ROCm0:MiniMax-M2.7-UD-Q3_K_S-196k"
-  [[endpoints.models]]
-  name = "ROCm0:MiniMax-M2.7-UD-Q3_K_S-49k"
-  [[endpoints.models]]
-  name = "ROCm0:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
-  [[endpoints.models]]
-  name = "ROCm0:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
   [[endpoints.models]]
   name = "ROCm0:qwen3.5-122B-A10B-Q5_K_M"
   [[endpoints.models]]
@@ -157,33 +101,9 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "ROCm0:Qwen3.6-35B-A3B-BF16"
   [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-BF16-instruct-general"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-BF16-instruct-reasoning"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-BF16-thinking-coding"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-BF16-thinking-general"
-  [[endpoints.models]]
   name = "ROCm0:Qwen3.6-35B-A3B-MTP-BF16"
   [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-general"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-reasoning"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-coding"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-general"
-  [[endpoints.models]]
   name = "ROCm0:Qwen3.6-35B-A3B-Q8_0"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-general"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-reasoning"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-coding"
-  [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-general"
   [[endpoints.models]]
   name = "ROCm0:Qwen3.6-35B-A3B-UD-IQ1_M"
   [[endpoints.models]]
