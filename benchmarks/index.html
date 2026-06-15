@@ -14,6 +14,9 @@
       --muted: #9aa3b2;
       --accent: #6ea8fe;
       --border: #262b36;
+      --good: #6ee7b7;
+      --warn: #fcd34d;
+      --bad: #f87171;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
@@ -23,7 +26,14 @@
     header h1 { margin: 0; font-size: 18px; font-weight: 600; }
     header .status { color: var(--muted); font-size: 13px; }
     main { padding: 16px 20px; }
-    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
+      flex-wrap: wrap; align-items: flex-end; }
+    .tabs .tab-group {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--muted); padding: 0 8px 6px; border-left: 1px solid var(--border);
+      margin-left: 4px; align-self: center; user-select: none;
+    }
+    .tabs .tab-group:first-of-type { border-left: none; margin-left: 0; padding-left: 0; }
     .tab {
       background: transparent; color: var(--muted); border: 1px solid transparent;
       border-bottom: none; padding: 8px 14px; cursor: pointer; font-size: 14px;
@@ -43,6 +53,46 @@
     .chart-wrap { position: relative; height: 70vh; min-height: 420px; }
     .errors { color: #ff8a8a; font-size: 13px; margin-top: 8px; white-space: pre-wrap; }
     a { color: var(--accent); }
+
+    /* --- Agent-bench tables / badges / KPIs --- */
+    table.grid { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.grid th, table.grid td {
+      padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: left;
+      white-space: nowrap; vertical-align: top;
+    }
+    table.grid th {
+      background: var(--panel-2); position: sticky; top: 0; cursor: pointer;
+      user-select: none; font-weight: 600;
+    }
+    table.grid th.sort-asc::after { content: " ▲"; color: var(--accent); }
+    table.grid th.sort-desc::after { content: " ▼"; color: var(--accent); }
+    table.grid td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    table.grid tr:hover td { background: rgba(110, 168, 254, 0.06); }
+    .scrollwrap { max-height: 78vh; overflow: auto; border: 1px solid var(--border);
+      border-radius: 6px; }
+    .pill {
+      display: inline-block; padding: 1px 6px; border-radius: 10px;
+      font-size: 11px; border: 1px solid var(--border);
+      background: var(--panel-2); color: var(--muted);
+    }
+    .pill.host-gfx1151 { color: #fda4af; border-color: #4c1d24; }
+    .pill.host-rtx5090 { color: #86efac; border-color: #14532d; }
+    .pill.host-localhost { color: #fcd34d; border-color: #78350f; }
+    .badge { font-size: 11px; padding: 0 6px; border-radius: 3px; }
+    .badge.good { color: #052e1a; background: var(--good); }
+    .badge.warn { color: #3b2705; background: var(--warn); }
+    .badge.bad  { color: #3b0a0a; background: var(--bad); }
+    .badge.zero { color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); }
+    details.errcell { max-width: 360px; white-space: normal; }
+    details.errcell summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+    details.errcell ul { margin: 4px 0 0; padding-left: 16px; font-size: 12px;
+      color: var(--muted); }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px; margin-bottom: 12px; }
+    .kpi { background: var(--panel-2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 10px 12px; }
+    .kpi .label { color: var(--muted); font-size: 12px; }
+    .kpi .value { font-size: 22px; font-weight: 600; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -52,11 +102,20 @@
   </header>
   <main>
     <div class="tabs" role="tablist">
+      <span class="tab-group">aider</span>
       <button class="tab active" data-tab="pass">Pass rate</button>
       <button class="tab" data-tab="passtable">Pass-rate table</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
+      <span class="tab-group">llama-benchy</span>
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
+      <span class="tab-group">agent bench</span>
+      <button class="tab" data-tab="ab-leaderboard">Leaderboard</button>
+      <button class="tab" data-tab="ab-bestmodel">Best per model</button>
+      <button class="tab" data-tab="ab-bars">Metric bars</button>
+      <button class="tab" data-tab="ab-timeline">Timeline</button>
+      <button class="tab" data-tab="ab-scatter">Speed vs success</button>
+      <button class="tab" data-tab="ab-runs">All runs (raw)</button>
     </div>
 
     <section class="panel active" id="panel-pass">
@@ -208,11 +267,162 @@
       <div id="chartGrid" style="width: 100%; height: 75vh; min-height: 480px;"></div>
     </section>
 
+    <!-- ============================================================
+         AGENT BENCH SCOREBOARDS — data from
+         _agent-bench-scoreboards/manifest.json
+         (generate with: python3 ../scripts/generate-agent-bench-manifest.py)
+         ============================================================ -->
+
+    <section class="panel" id="panel-ab-leaderboard">
+      <div class="kpis" id="abKpis"></div>
+      <div class="controls">
+        <label>Host
+          <select id="abLbHost"><option value="">all</option></select>
+        </label>
+        <label>Model filter
+          <input id="abLbFilter" type="text" placeholder="substring…" style="width: 14em;">
+        </label>
+        <label>Min runs
+          <input id="abLbMinRuns" type="number" min="0" step="1" value="0" style="width: 5em;">
+        </label>
+        <label><input id="abLbHideErrored" type="checkbox"> hide all-error runs</label>
+        <label><input id="abLbHideEmpty" type="checkbox" checked> hide empty schemas</label>
+        <span id="abLbStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="scrollwrap"><table class="grid" id="abTblLb"></table></div>
+    </section>
+
+    <section class="panel" id="panel-ab-bestmodel">
+      <div class="controls">
+        <label>Rank by
+          <select id="abBmMetric">
+            <option value="final_success_rate" selected>final_success_rate</option>
+            <option value="json_valid_rate">json_valid_rate</option>
+            <option value="tool_name_ok_rate">tool_name_ok_rate</option>
+            <option value="math_conversion_rate">math_conversion_rate</option>
+            <option value="turn_1_tps">turn_1_tps</option>
+            <option value="turn_2_tps">turn_2_tps</option>
+          </select>
+        </label>
+        <span>One row per host+model (best run on selected metric, ties broken by recency).</span>
+        <span id="abBmStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="scrollwrap"><table class="grid" id="abTblBm"></table></div>
+    </section>
+
+    <section class="panel" id="panel-ab-bars">
+      <div class="controls">
+        <label>Metric
+          <select id="abBarMetric">
+            <option value="final_success_rate" selected>final_success_rate</option>
+            <option value="json_valid_rate">json_valid_rate</option>
+            <option value="tool_name_ok_rate">tool_name_ok_rate</option>
+            <option value="math_conversion_rate">math_conversion_rate</option>
+            <option value="turn_1_tps">turn_1_tps</option>
+            <option value="turn_2_tps">turn_2_tps</option>
+          </select>
+        </label>
+        <label>Aggregation per model
+          <select id="abBarAgg">
+            <option value="best" selected>best run</option>
+            <option value="latest">latest run</option>
+            <option value="mean">mean across runs</option>
+          </select>
+        </label>
+        <label>Sort
+          <select id="abBarSort">
+            <option value="value-desc" selected>value (desc)</option>
+            <option value="value-asc">value (asc)</option>
+            <option value="model">model name</option>
+          </select>
+        </label>
+        <label>Host
+          <select id="abBarHost"><option value="">all</option></select>
+        </label>
+        <span id="abBarStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap" style="height: 80vh;"><canvas id="abChartBars"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-ab-timeline">
+      <div class="controls">
+        <label>Metric
+          <select id="abTlMetric">
+            <option value="final_success_rate" selected>final_success_rate</option>
+            <option value="json_valid_rate">json_valid_rate</option>
+            <option value="tool_name_ok_rate">tool_name_ok_rate</option>
+            <option value="math_conversion_rate">math_conversion_rate</option>
+            <option value="turn_1_tps">turn_1_tps</option>
+            <option value="turn_2_tps">turn_2_tps</option>
+          </select>
+        </label>
+        <label>Group by
+          <select id="abTlGroup">
+            <option value="model" selected>model</option>
+            <option value="host">host</option>
+            <option value="host_model">host:model</option>
+          </select>
+        </label>
+        <label>Host
+          <select id="abTlHost"><option value="">all</option></select>
+        </label>
+        <span>X axis: run timestamp. Click a legend entry to hide/show.</span>
+        <span id="abTlStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap"><canvas id="abChartTimeline"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-ab-scatter">
+      <div class="controls">
+        <label>X
+          <select id="abScX">
+            <option value="turn_2_tps" selected>turn_2_tps</option>
+            <option value="turn_1_tps">turn_1_tps</option>
+            <option value="json_valid_rate">json_valid_rate</option>
+            <option value="tool_name_ok_rate">tool_name_ok_rate</option>
+            <option value="math_conversion_rate">math_conversion_rate</option>
+          </select>
+        </label>
+        <label>Y
+          <select id="abScY">
+            <option value="final_success_rate" selected>final_success_rate</option>
+            <option value="json_valid_rate">json_valid_rate</option>
+            <option value="tool_name_ok_rate">tool_name_ok_rate</option>
+            <option value="math_conversion_rate">math_conversion_rate</option>
+            <option value="turn_1_tps">turn_1_tps</option>
+            <option value="turn_2_tps">turn_2_tps</option>
+          </select>
+        </label>
+        <label>Aggregation
+          <select id="abScAgg">
+            <option value="best" selected>best per model</option>
+            <option value="latest">latest per model</option>
+            <option value="all">all runs</option>
+          </select>
+        </label>
+        <span id="abScStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap"><canvas id="abChartScatter"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-ab-runs">
+      <div class="controls">
+        <label>Filter
+          <input id="abRawFilter" type="text" placeholder="run / host / model substring…"
+                 style="width: 20em;">
+        </label>
+        <span id="abRawStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="scrollwrap"><table class="grid" id="abTblRaw"></table></div>
+    </section>
+
     <div class="errors" id="errors"></div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script>
     // List of *.computed.yaml files is loaded from datasets.json.
@@ -232,6 +442,9 @@
         if (id === "llamagrid" && window.Plotly) {
           const el = document.getElementById("chartGrid");
           if (el && el.data) Plotly.Plots.resize(el);
+        }
+        if (id.startsWith("ab-") && window.AgentBench) {
+          window.AgentBench.onTabActivated(id);
         }
       });
     });
@@ -878,6 +1091,489 @@
         statusEl.textContent = "failed to load";
         errorsEl.textContent = String(e);
       }
+    })();
+
+    // ====================================================================
+    // AGENT BENCH SCOREBOARDS
+    // Self-contained module. Lazily loads _agent-bench-scoreboards/manifest.json
+    // on first visit to an "ab-*" tab and renders into the panels above.
+    // ====================================================================
+    window.AgentBench = (function () {
+      const MANIFEST_URL = "_agent-bench-scoreboards/manifest.json";
+      const RUN_BASE     = "_agent-bench-scoreboards/";
+      let MANIFEST = null;
+      let RUNS = [];
+      let loaded = false;
+      let loadStarted = false;
+      let charts = { bars: null, timeline: null, scatter: null };
+
+      // ---- formatting helpers (separate from outer colorFor to avoid shadowing) ----
+      function fmtNum(v, digits = 2) {
+        if (v === null || v === undefined || Number.isNaN(v)) return "—";
+        if (typeof v !== "number") return String(v);
+        return v.toFixed(digits);
+      }
+      function rateBadge(v) {
+        if (v === null || v === undefined || Number.isNaN(v)) return "—";
+        const pct = (v * 100).toFixed(0) + "%";
+        let cls = "zero";
+        if (v >= 0.9) cls = "good";
+        else if (v >= 0.5) cls = "warn";
+        else if (v > 0)    cls = "bad";
+        return `<span class="badge ${cls}">${pct}</span>`;
+      }
+      function hostPill(host) {
+        if (!host) return "";
+        return `<span class="pill host-${host}">${host}</span>`;
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, c => (
+          { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]
+        ));
+      }
+      function errCell(errs) {
+        if (!errs || !errs.length) return "—";
+        const counts = new Map();
+        for (const e of errs) counts.set(e, (counts.get(e) ?? 0) + 1);
+        const summary = `${errs.length} error${errs.length === 1 ? "" : "s"}`;
+        const items = [...counts.entries()]
+          .map(([e, n]) => `<li>${n > 1 ? `<b>×${n}</b> ` : ""}${escapeHtml(e)}</li>`)
+          .join("");
+        return `<details class="errcell"><summary>${summary}</summary><ul>${items}</ul></details>`;
+      }
+
+      function populateHostSelectors() {
+        const hosts = [...new Set(RUNS.map(r => r.host).filter(Boolean))].sort();
+        ["abLbHost", "abBarHost", "abTlHost"].forEach(id => {
+          const sel = document.getElementById(id);
+          // wipe everything except the "all" option
+          for (let i = sel.options.length - 1; i >= 1; i--) sel.remove(i);
+          for (const h of hosts) {
+            const opt = document.createElement("option");
+            opt.value = h; opt.textContent = h;
+            sel.appendChild(opt);
+          }
+        });
+      }
+
+      function renderKpis() {
+        const total = RUNS.length;
+        const withData = RUNS.filter(r => r.schema !== "empty").length;
+        const models = new Set(RUNS.map(r => `${r.host}:${r.model}`)).size;
+        const successful = RUNS.filter(r => (r.final_success_rate ?? 0) > 0).length;
+        const perfect    = RUNS.filter(r => (r.final_success_rate ?? 0) >= 1).length;
+        const generated  = MANIFEST.generated_at || "—";
+        const kpis = [
+          ["runs",              total],
+          ["host:model combos", models],
+          ["runs with data",    withData],
+          ["any success",       successful],
+          ["100% success",      perfect],
+          ["manifest built",    generated],
+        ];
+        document.getElementById("abKpis").innerHTML = kpis.map(([k, v]) =>
+          `<div class="kpi"><div class="label">${k}</div><div class="value">${v}</div></div>`
+        ).join("");
+      }
+
+      // ---------- LEADERBOARD ----------
+      const LB_COLS = [
+        { key: "ts",    label: "when",  render: r => r.ts ? r.ts.replace("T", " ") : r.run },
+        { key: "host",  label: "host",  render: r => hostPill(r.host) },
+        { key: "model", label: "model", render: r => escapeHtml(r.model) },
+        { key: "final_success_rate",   label: "final%", num: true, render: r => rateBadge(r.final_success_rate) },
+        { key: "json_valid_rate",      label: "json%",  num: true, render: r => rateBadge(r.json_valid_rate) },
+        { key: "tool_name_ok_rate",    label: "tool%",  num: true, render: r => rateBadge(r.tool_name_ok_rate) },
+        { key: "math_conversion_rate", label: "math%",  num: true, render: r => rateBadge(r.math_conversion_rate) },
+        { key: "turn_1_tps",           label: "t1 tps", num: true, render: r => fmtNum(r.turn_1_tps, 1) },
+        { key: "turn_2_tps",           label: "t2 tps", num: true, render: r => fmtNum(r.turn_2_tps, 1) },
+        { key: "runs_n",               label: "n",      num: true, render: r => r.runs_n ?? "—" },
+        { key: "error_count",          label: "errs",   num: true, render: r => r.error_count ?? 0 },
+        { key: "_errors",              label: "details", sortable: false, render: r => errCell(r.errors) },
+        { key: "schema",               label: "schema", render: r => `<span class="pill">${r.schema}</span>` },
+      ];
+      let lbSort = { col: "ts", dir: "desc" };
+      function sortVal(r, key) {
+        const v = r[key];
+        if (v === null || v === undefined) return key === "ts" ? "" : -Infinity;
+        return v;
+      }
+      function applyLb() {
+        const host    = document.getElementById("abLbHost").value;
+        const filter  = document.getElementById("abLbFilter").value.trim().toLowerCase();
+        const minRuns = Number(document.getElementById("abLbMinRuns").value) || 0;
+        const hideErr   = document.getElementById("abLbHideErrored").checked;
+        const hideEmpty = document.getElementById("abLbHideEmpty").checked;
+        let rows = RUNS.slice();
+        if (host) rows = rows.filter(r => r.host === host);
+        if (filter) rows = rows.filter(r =>
+          (r.model + " " + r.host + " " + r.run).toLowerCase().includes(filter));
+        if (minRuns > 0)  rows = rows.filter(r => (r.runs_n ?? 0) >= minRuns);
+        if (hideEmpty)    rows = rows.filter(r => r.schema !== "empty");
+        if (hideErr)      rows = rows.filter(r =>
+          !(r.schema !== "empty" && (r.runs_n ?? 0) > 0 &&
+            (r.error_count ?? 0) >= (r.runs_n ?? 0)));
+        rows.sort((a, b) => {
+          const av = sortVal(a, lbSort.col), bv = sortVal(b, lbSort.col);
+          if (av < bv) return lbSort.dir === "asc" ? -1 : 1;
+          if (av > bv) return lbSort.dir === "asc" ?  1 : -1;
+          return 0;
+        });
+        const head = "<thead><tr>" + LB_COLS.map(c => {
+          const sortCls = lbSort.col === c.key ? (lbSort.dir === "asc" ? "sort-asc" : "sort-desc") : "";
+          return `<th class="${sortCls}" data-col="${c.key}">${c.label}</th>`;
+        }).join("") + "</tr></thead>";
+        const body = "<tbody>" + rows.map(r =>
+          "<tr>" + LB_COLS.map(c =>
+            `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
+        ).join("") + "</tbody>";
+        document.getElementById("abTblLb").innerHTML = head + body;
+        document.getElementById("abLbStatus").textContent = `${rows.length} / ${RUNS.length} rows`;
+        document.querySelectorAll("#abTblLb thead th").forEach(th => {
+          const col = th.dataset.col;
+          const cdef = LB_COLS.find(c => c.key === col);
+          if (cdef && cdef.sortable === false) return;
+          th.addEventListener("click", () => {
+            if (lbSort.col === col) lbSort.dir = lbSort.dir === "asc" ? "desc" : "asc";
+            else { lbSort.col = col; lbSort.dir = cdef && cdef.num ? "desc" : "asc"; }
+            applyLb();
+          });
+        });
+      }
+
+      // ---------- BEST PER MODEL ----------
+      const BM_COLS = [
+        { key: "host",  label: "host",  render: r => hostPill(r.host) },
+        { key: "model", label: "model", render: r => escapeHtml(r.model) },
+        { key: "metric", label: "metric value", num: true, render: r => {
+            const m = document.getElementById("abBmMetric").value;
+            return m.endsWith("_rate") ? rateBadge(r[m]) : fmtNum(r[m], 1);
+          } },
+        { key: "final_success_rate",   label: "final%", num: true, render: r => rateBadge(r.final_success_rate) },
+        { key: "json_valid_rate",      label: "json%",  num: true, render: r => rateBadge(r.json_valid_rate) },
+        { key: "tool_name_ok_rate",    label: "tool%",  num: true, render: r => rateBadge(r.tool_name_ok_rate) },
+        { key: "math_conversion_rate", label: "math%",  num: true, render: r => rateBadge(r.math_conversion_rate) },
+        { key: "turn_1_tps",           label: "t1 tps", num: true, render: r => fmtNum(r.turn_1_tps, 1) },
+        { key: "turn_2_tps",           label: "t2 tps", num: true, render: r => fmtNum(r.turn_2_tps, 1) },
+        { key: "runs_n",               label: "n",      num: true, render: r => r.runs_n ?? "—" },
+        { key: "ts",                   label: "when",   render: r => r.ts ? r.ts.replace("T", " ") : r.run },
+      ];
+      function bestPerModel(metric) {
+        const groups = new Map();
+        for (const r of RUNS) {
+          if (r.schema === "empty") continue;
+          const key = `${r.host}::${r.model}`;
+          const v = r[metric];
+          if (v === null || v === undefined) continue;
+          const cur = groups.get(key);
+          if (!cur || v > cur[metric] ||
+              (v === cur[metric] && (r.ts || "") > (cur.ts || ""))) {
+            groups.set(key, r);
+          }
+        }
+        return [...groups.values()];
+      }
+      function applyBm() {
+        const metric = document.getElementById("abBmMetric").value;
+        const rows = bestPerModel(metric)
+          .sort((a, b) => (b[metric] ?? -Infinity) - (a[metric] ?? -Infinity));
+        const head = "<thead><tr>" + BM_COLS.map(c => `<th>${c.label}</th>`).join("") + "</tr></thead>";
+        const body = "<tbody>" + rows.map(r =>
+          "<tr>" + BM_COLS.map(c =>
+            `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
+        ).join("") + "</tbody>";
+        document.getElementById("abTblBm").innerHTML = head + body;
+        document.getElementById("abBmStatus").textContent = `${rows.length} models`;
+      }
+
+      // ---------- METRIC BARS ----------
+      function aggregatePerModel(metric, mode) {
+        const groups = new Map();
+        for (const r of RUNS) {
+          if (r.schema === "empty") continue;
+          const v = r[metric];
+          if (v === null || v === undefined) continue;
+          const key = `${r.host}::${r.model}`;
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(r);
+        }
+        const out = [];
+        for (const [key, runs] of groups) {
+          const [host, model] = key.split("::");
+          let row;
+          if (mode === "latest") {
+            row = runs.slice().sort((a, b) => (a.ts || "").localeCompare(b.ts || "")).pop();
+            out.push({ host, model, value: row[metric], representative: row });
+          } else if (mode === "mean") {
+            const vals = runs.map(r => r[metric]).filter(v => v !== null && v !== undefined);
+            const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+            out.push({ host, model, value: mean, n: vals.length });
+          } else { // best
+            row = runs.slice().sort((a, b) => (b[metric] ?? -Infinity) - (a[metric] ?? -Infinity))[0];
+            out.push({ host, model, value: row[metric], representative: row });
+          }
+        }
+        return out;
+      }
+      function renderBars() {
+        const metric = document.getElementById("abBarMetric").value;
+        const agg    = document.getElementById("abBarAgg").value;
+        const sort   = document.getElementById("abBarSort").value;
+        const host   = document.getElementById("abBarHost").value;
+        let rows = aggregatePerModel(metric, agg);
+        if (host) rows = rows.filter(r => r.host === host);
+        if (sort === "value-desc") rows.sort((a, b) => b.value - a.value);
+        else if (sort === "value-asc")  rows.sort((a, b) => a.value - b.value);
+        else rows.sort((a, b) => (a.host + a.model).localeCompare(b.host + b.model));
+
+        document.getElementById("abBarStatus").textContent = `${rows.length} models · ${agg}`;
+        const labels = rows.map(r => `${r.host}:${r.model}`);
+        const values = rows.map(r => r.value);
+        const colors = labels.map(l => colorFor(l));
+        const ctx = document.getElementById("abChartBars").getContext("2d");
+        if (charts.bars) charts.bars.destroy();
+        const isRate = metric.endsWith("_rate");
+        charts.bars = new Chart(ctx, {
+          type: "bar",
+          data: { labels, datasets: [{
+            label: metric, data: values, backgroundColor: colors, borderColor: colors,
+          }]},
+          options: {
+            indexAxis: "y",
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: { callbacks: {
+                label: (c) => `${c.parsed.x.toFixed(isRate ? 3 : 2)}${isRate ? "" : " tps"}`
+              }}
+            },
+            scales: {
+              x: {
+                min: 0, max: isRate ? 1 : undefined,
+                ticks: { color: "#9aa3b2",
+                  callback: v => isRate ? (v * 100).toFixed(0) + "%" : v },
+                grid:  { color: "#262b36" },
+                title: { display: true, text: metric, color: "#9aa3b2" }
+              },
+              y: { ticks: { color: "#e6e6e6", autoSkip: false }, grid: { color: "#262b36" } }
+            }
+          }
+        });
+      }
+
+      // ---------- TIMELINE ----------
+      function renderTimeline() {
+        const metric = document.getElementById("abTlMetric").value;
+        const group  = document.getElementById("abTlGroup").value;
+        const host   = document.getElementById("abTlHost").value;
+        const rows = RUNS.filter(r => r.schema !== "empty"
+          && r[metric] !== null && r[metric] !== undefined
+          && (!host || r.host === host));
+        const grouped = new Map();
+        for (const r of rows) {
+          const key = group === "model" ? r.model
+                    : group === "host"  ? r.host
+                                        : `${r.host}:${r.model}`;
+          if (!grouped.has(key)) grouped.set(key, []);
+          grouped.get(key).push({
+            x: r.ts ? new Date(r.ts).valueOf() : null,
+            xLabel: r.ts, y: r[metric], r,
+          });
+        }
+        const datasets = [];
+        for (const [key, pts] of grouped) {
+          pts.sort((a, b) => (a.x ?? 0) - (b.x ?? 0));
+          const c = colorFor(key);
+          datasets.push({
+            label: key, data: pts, borderColor: c, backgroundColor: c,
+            fill: false, tension: 0.2, pointRadius: 3, pointHoverRadius: 5,
+            spanGaps: true,
+          });
+        }
+        datasets.sort((a, b) => a.label.localeCompare(b.label));
+        document.getElementById("abTlStatus").textContent =
+          `${rows.length} points · ${datasets.length} series`;
+        const isRate = metric.endsWith("_rate");
+        const ctx = document.getElementById("abChartTimeline").getContext("2d");
+        if (charts.timeline) charts.timeline.destroy();
+        charts.timeline = new Chart(ctx, {
+          type: "line",
+          data: { datasets },
+          options: {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: "#9aa3b2", boxWidth: 12 } },
+              tooltip: { callbacks: {
+                title: (items) => items[0].raw.xLabel
+                  ? items[0].raw.xLabel.replace("T", " ") : "",
+                label: (c) => {
+                  const r = c.raw.r;
+                  const v = c.parsed.y;
+                  return `${c.dataset.label}: ${isRate ? (v*100).toFixed(0)+"%" : v.toFixed(2)} ` +
+                         `(${r.host}, ${r.run})`;
+                }
+              }}
+            },
+            scales: {
+              x: { type: "time",
+                   time: { tooltipFormat: "yyyy-MM-dd HH:mm",
+                           displayFormats: { day: "MMM d" } },
+                   ticks: { color: "#9aa3b2" }, grid: { color: "#262b36" } },
+              y: {
+                min: 0, max: isRate ? 1 : undefined,
+                ticks: { color: "#9aa3b2",
+                  callback: v => isRate ? (v*100).toFixed(0)+"%" : v },
+                grid: { color: "#262b36" },
+                title: { display: true, text: metric, color: "#9aa3b2" }
+              }
+            }
+          }
+        });
+      }
+
+      // ---------- SCATTER ----------
+      function pickAggForScatter(metric, mode) {
+        if (mode === "all") {
+          return RUNS.filter(r => r.schema !== "empty"
+            && r[metric] !== null && r[metric] !== undefined);
+        }
+        return aggregatePerModel(metric, mode).map(r => r.representative).filter(Boolean);
+      }
+      function renderScatter() {
+        const xKey = document.getElementById("abScX").value;
+        const yKey = document.getElementById("abScY").value;
+        const mode = document.getElementById("abScAgg").value;
+        const rows = pickAggForScatter(yKey, mode).filter(r =>
+          r[xKey] !== null && r[xKey] !== undefined &&
+          r[yKey] !== null && r[yKey] !== undefined);
+        const byHost = new Map();
+        for (const r of rows) {
+          if (!byHost.has(r.host)) byHost.set(r.host, []);
+          byHost.get(r.host).push({ x: r[xKey], y: r[yKey], r });
+        }
+        const datasets = [];
+        for (const [host, pts] of byHost) {
+          const c = colorFor(host || "(none)");
+          datasets.push({
+            label: host || "(no host)", data: pts,
+            backgroundColor: c, borderColor: c, pointRadius: 5, pointHoverRadius: 7,
+          });
+        }
+        document.getElementById("abScStatus").textContent = `${rows.length} points`;
+        const xRate = xKey.endsWith("_rate");
+        const yRate = yKey.endsWith("_rate");
+        const ctx = document.getElementById("abChartScatter").getContext("2d");
+        if (charts.scatter) charts.scatter.destroy();
+        charts.scatter = new Chart(ctx, {
+          type: "scatter",
+          data: { datasets },
+          options: {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: "#9aa3b2" } },
+              tooltip: { callbacks: {
+                label: (c) => {
+                  const r = c.raw.r;
+                  const fx = xRate ? (c.parsed.x*100).toFixed(0)+"%" : c.parsed.x.toFixed(2);
+                  const fy = yRate ? (c.parsed.y*100).toFixed(0)+"%" : c.parsed.y.toFixed(2);
+                  return `${r.host}:${r.model}  (${xKey}=${fx}, ${yKey}=${fy})`;
+                }
+              }}
+            },
+            scales: {
+              x: { min: 0, max: xRate ? 1 : undefined,
+                   ticks: { color: "#9aa3b2",
+                     callback: v => xRate ? (v*100).toFixed(0)+"%" : v },
+                   grid: { color: "#262b36" },
+                   title: { display: true, text: xKey, color: "#9aa3b2" } },
+              y: { min: 0, max: yRate ? 1 : undefined,
+                   ticks: { color: "#9aa3b2",
+                     callback: v => yRate ? (v*100).toFixed(0)+"%" : v },
+                   grid: { color: "#262b36" },
+                   title: { display: true, text: yKey, color: "#9aa3b2" } }
+            }
+          }
+        });
+      }
+
+      // ---------- RAW RUNS ----------
+      const RAW_COLS = [
+        { label: "run",    render: r => `<a href="${RUN_BASE}${r.run}/scoreboard.txt">${r.run}</a>` },
+        { label: "host",   render: r => hostPill(r.host) },
+        { label: "model",  render: r => escapeHtml(r.model) },
+        { label: "schema", render: r => `<span class="pill">${r.schema}</span>` },
+        { label: "n",      num: true, render: r => r.runs_n ?? "—" },
+        { label: "final",  num: true, render: r => rateBadge(r.final_success_rate) },
+        { label: "json",   num: true, render: r => rateBadge(r.json_valid_rate) },
+        { label: "tool",   num: true, render: r => rateBadge(r.tool_name_ok_rate) },
+        { label: "math",   num: true, render: r => rateBadge(r.math_conversion_rate) },
+        { label: "t1 tps", num: true, render: r => fmtNum(r.turn_1_tps, 1) },
+        { label: "t2 tps", num: true, render: r => fmtNum(r.turn_2_tps, 1) },
+        { label: "errors", render: r => errCell(r.errors) },
+      ];
+      function applyRaw() {
+        const f = document.getElementById("abRawFilter").value.trim().toLowerCase();
+        const rows = RUNS.filter(r => !f ||
+          (r.run + " " + r.host + " " + r.model).toLowerCase().includes(f))
+          .slice().sort((a, b) => (a.ts || "").localeCompare(b.ts || "")).reverse();
+        const head = "<thead><tr>" + RAW_COLS.map(c => `<th>${c.label}</th>`).join("") + "</tr></thead>";
+        const body = "<tbody>" + rows.map(r =>
+          "<tr>" + RAW_COLS.map(c =>
+            `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
+        ).join("") + "</tbody>";
+        document.getElementById("abTblRaw").innerHTML = head + body;
+        document.getElementById("abRawStatus").textContent = `${rows.length} / ${RUNS.length} rows`;
+      }
+
+      // ---------- bootstrap on demand ----------
+      function wireListeners() {
+        ["abLbHost", "abLbFilter", "abLbMinRuns", "abLbHideErrored", "abLbHideEmpty"]
+          .forEach(id => document.getElementById(id).addEventListener("input", applyLb));
+        document.getElementById("abBmMetric").addEventListener("change", applyBm);
+        ["abBarMetric", "abBarAgg", "abBarSort", "abBarHost"]
+          .forEach(id => document.getElementById(id).addEventListener("change", renderBars));
+        ["abTlMetric", "abTlGroup", "abTlHost"]
+          .forEach(id => document.getElementById(id).addEventListener("change", renderTimeline));
+        ["abScX", "abScY", "abScAgg"]
+          .forEach(id => document.getElementById(id).addEventListener("change", renderScatter));
+        document.getElementById("abRawFilter").addEventListener("input", applyRaw);
+      }
+
+      async function load() {
+        if (loaded || loadStarted) return;
+        loadStarted = true;
+        try {
+          const res = await fetch(MANIFEST_URL, { cache: "no-cache" });
+          if (!res.ok) throw new Error(`${MANIFEST_URL}: ${res.status} ${res.statusText}`);
+          MANIFEST = await res.json();
+          RUNS = (MANIFEST.runs || [])
+            .slice().sort((a, b) => (b.ts || "").localeCompare(a.ts || ""));
+          renderKpis();
+          populateHostSelectors();
+          wireListeners();
+          applyLb();
+          applyBm();
+          applyRaw();
+          loaded = true;
+        } catch (e) {
+          loadStarted = false;
+          const cur = errorsEl.textContent;
+          errorsEl.textContent = (cur ? cur + "\n" : "") +
+            `agent-bench: ${e.message || e}`;
+        }
+      }
+
+      function onTabActivated(tabId) {
+        load().then(() => {
+          if (!loaded) return;
+          // Charts must render only when their canvas is visible.
+          if (tabId === "ab-bars")     renderBars();
+          if (tabId === "ab-timeline") renderTimeline();
+          if (tabId === "ab-scatter")  renderScatter();
+        });
+      }
+
+      return { onTabActivated, load };
     })();
   </script>
 </body>
