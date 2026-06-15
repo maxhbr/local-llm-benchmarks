@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260615-162019",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "gemma-4-31B-it-UD-Q5_K_XL",
+  "endpoint": "http://gfx1151.thing.wg0.maxhbr.local/v1",
+  "run_name": "gemma-4-31B-it-UD-Q5_K_XL"
+}
