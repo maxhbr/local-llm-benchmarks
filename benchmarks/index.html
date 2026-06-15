@@ -54,7 +54,6 @@
     <div class="tabs" role="tablist">
       <button class="tab active" data-tab="pass">Pass rate</button>
       <button class="tab" data-tab="passtable">Pass-rate table</button>
-      <button class="tab" data-tab="band">Pass-rate band</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
@@ -63,13 +62,26 @@
     <section class="panel active" id="panel-pass">
       <div class="controls">
         <label>
+          View
+          <select id="passView">
+            <option value="area" selected>area (band: pass_rate_1 → pass_rate_2)</option>
+            <option value="lines">lines</option>
+          </select>
+        </label>
+        <label>
           Metric
           <select id="passMetric">
             <option value="pass_rate_2" selected>pass_rate_2 (final)</option>
             <option value="pass_rate_1">pass_rate_1 (first try)</option>
           </select>
         </label>
+        <label>
+          Min tasks
+          <input id="passMinTasks" type="number" min="0" step="1" value="20"
+                 style="width: 5em;">
+        </label>
         <span>X axis: test_cases — one line per benchmark file (model / edit_format).</span>
+        <span id="passStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap"><canvas id="chartPass"></canvas></div>
     </section>
@@ -90,27 +102,13 @@
         </label>
         <label>
           Min tasks
-          <input id="ptableMinTasks" type="number" min="0" step="1" value="0"
+          <input id="ptableMinTasks" type="number" min="0" step="1" value="20"
                  style="width: 5em;">
         </label>
         <span>Bars show final values (last test_case row of each *.computed.yaml).</span>
         <span id="ptableStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap" style="height: 80vh;"><canvas id="chartPtable"></canvas></div>
-    </section>
-
-    <section class="panel" id="panel-band">
-      <div class="controls">
-        <label>
-          Show
-          <select id="bandShow">
-            <option value="band" selected>area only</option>
-            <option value="band+lines">area + boundary lines</option>
-          </select>
-        </label>
-        <span>Each filled area = pass_rate_2 − pass_rate_1 (self-correction gain). X axis: test_cases.</span>
-      </div>
-      <div class="chart-wrap"><canvas id="chartBand"></canvas></div>
     </section>
 
     <section class="panel" id="panel-tokens">
@@ -434,30 +432,41 @@
       }
     }
 
-    function buildPassDatasets(metric) {
-      return DATASETS.map(d => {
-        const label = `${d.folder} / ${d.baseName}`;
-        const color = colorFor(label);
-        return {
-          label,
-          data: d.rows.map(r => ({ x: r.test_cases, y: r[metric] })),
-          borderColor: color,
-          backgroundColor: color,
-          tension: 0.2,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          borderWidth: 2,
-        };
-      });
+    function tasksOf(d) {
+      const last = d.rows[d.rows.length - 1] || {};
+      return typeof last.test_cases === "number" ? last.test_cases : d.rows.length;
+    }
+
+    function buildPassDatasets(metric, minTasks) {
+      return DATASETS
+        .filter(d => tasksOf(d) >= minTasks)
+        .map(d => {
+          const tasks = tasksOf(d);
+          const base = `${d.folder} / ${d.baseName}`;
+          const label = `${base}  [${tasks}]`;
+          const color = colorFor(base);
+          return {
+            label,
+            data: d.rows.map(r => ({ x: r.test_cases, y: r[metric] })),
+            borderColor: color,
+            backgroundColor: color,
+            tension: 0.2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            borderWidth: 2,
+          };
+        });
     }
 
     // Build a pair of datasets per benchmark: lower (pass_rate_1) then upper (pass_rate_2)
     // with fill: '-1' so Chart.js fills the band between them.
-    function buildBandDatasets(showLines) {
+    function buildBandDatasets(showLines, minTasks) {
       const datasets = [];
-      DATASETS.forEach(d => {
-        const label = `${d.folder} / ${d.baseName}`;
-        const stroke = colorFor(label);
+      DATASETS.filter(d => tasksOf(d) >= minTasks).forEach(d => {
+        const tasks = tasksOf(d);
+        const base = `${d.folder} / ${d.baseName}`;
+        const label = `${base}  [${tasks}]`;
+        const stroke = colorFor(base);
         // translucent fill: hsl -> hsla
         const fill = stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
         // lower bound (pass_rate_1) — invisible line, just a reference for the fill above
@@ -556,13 +565,31 @@
     }
 
     function renderPass() {
+      const view = document.getElementById("passView").value;
       const metric = document.getElementById("passMetric").value;
-      const datasets = buildPassDatasets(metric);
+      const minTasks = Math.max(0, Number(document.getElementById("passMinTasks").value) || 0);
+      const metricSel = document.getElementById("passMetric");
+      // The metric selector only matters for the "lines" view.
+      metricSel.disabled = view === "area";
+
+      let datasets, visibleRuns, title;
+      if (view === "area") {
+        datasets = buildBandDatasets(false, minTasks);
+        visibleRuns = datasets.length / 2;
+        title = "pass rate (%)  —  band = pass_rate_1 → pass_rate_2";
+      } else {
+        datasets = buildPassDatasets(metric, minTasks);
+        visibleRuns = datasets.length;
+        title = `${metric} (%)`;
+      }
+      const hidden = DATASETS.length - visibleRuns;
+      document.getElementById("passStatus").textContent =
+        `${visibleRuns} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
       if (chartPass) chartPass.destroy();
       chartPass = new Chart(document.getElementById("chartPass"), {
         type: "line",
         data: { datasets },
-        options: commonOpts(`${metric} (%)`, true),
+        options: commonOpts(title, true),
       });
     }
 
@@ -803,18 +830,6 @@
       });
     }
 
-    let chartBand = null;
-    function renderBand() {
-      const showLines = document.getElementById("bandShow").value === "band+lines";
-      const datasets = buildBandDatasets(showLines);
-      if (chartBand) chartBand.destroy();
-      chartBand = new Chart(document.getElementById("chartBand"), {
-        type: "line",
-        data: { datasets },
-        options: commonOpts("pass rate (%)  —  band = pass_rate_1 → pass_rate_2", true),
-      });
-    }
-
     function renderTokens() {
       const metric = document.getElementById("tokenMetric").value;
       const scale = document.getElementById("tokenScale").value;
@@ -830,10 +845,11 @@
       });
     }
 
+    document.getElementById("passView").addEventListener("change", renderPass);
     document.getElementById("passMetric").addEventListener("change", renderPass);
+    document.getElementById("passMinTasks").addEventListener("input", renderPass);
     document.getElementById("ptableSort").addEventListener("change", renderPtable);
     document.getElementById("ptableMinTasks").addEventListener("input", renderPtable);
-    document.getElementById("bandShow").addEventListener("change", renderBand);
     document.getElementById("tokenMetric").addEventListener("change", renderTokens);
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
     ["llamaTest", "llamaDepth", "llamaConc", "llamaMetric", "llamaSort"].forEach(id =>
@@ -854,7 +870,6 @@
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         renderPass();
         renderPtable();
-        renderBand();
         renderTokens();
         renderLlama();
         populateGridModels();
