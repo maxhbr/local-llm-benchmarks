@@ -53,6 +53,7 @@
   <main>
     <div class="tabs" role="tablist">
       <button class="tab active" data-tab="pass">Pass rate</button>
+      <button class="tab" data-tab="passtable">Pass-rate table</button>
       <button class="tab" data-tab="band">Pass-rate band</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
       <button class="tab" data-tab="llama">llama-benchy</button>
@@ -71,6 +72,31 @@
         <span>X axis: test_cases — one line per benchmark file (model / edit_format).</span>
       </div>
       <div class="chart-wrap"><canvas id="chartPass"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-passtable">
+      <div class="controls">
+        <label>
+          Sort by
+          <select id="ptableSort">
+            <option value="pass_rate_2-desc" selected>pass_rate_2 (desc)</option>
+            <option value="pass_rate_2-asc">pass_rate_2 (asc)</option>
+            <option value="pass_rate_1-desc">pass_rate_1 (desc)</option>
+            <option value="pass_rate_1-asc">pass_rate_1 (asc)</option>
+            <option value="tasks-desc">tasks (desc)</option>
+            <option value="tasks-asc">tasks (asc)</option>
+            <option value="name">name</option>
+          </select>
+        </label>
+        <label>
+          Min tasks
+          <input id="ptableMinTasks" type="number" min="0" step="1" value="0"
+                 style="width: 5em;">
+        </label>
+        <span>Bars show final values (last test_case row of each *.computed.yaml).</span>
+        <span id="ptableStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap" style="height: 80vh;"><canvas id="chartPtable"></canvas></div>
     </section>
 
     <section class="panel" id="panel-band">
@@ -693,6 +719,90 @@
       },
     });
 
+    let chartPtable = null;
+    function renderPtable() {
+      const sort = document.getElementById("ptableSort").value;
+      const minTasks = Math.max(0, Number(document.getElementById("ptableMinTasks").value) || 0);
+      const allItems = DATASETS.map(d => {
+        const last = d.rows[d.rows.length - 1] || {};
+        const tasks = typeof last.test_cases === "number" ? last.test_cases : d.rows.length;
+        return {
+          baseName: `${d.folder} / ${d.baseName}`,
+          name: `${d.folder} / ${d.baseName}  [${tasks}]`,
+          tasks,
+          pass_rate_1: typeof last.pass_rate_1 === "number" ? last.pass_rate_1 : 0,
+          pass_rate_2: typeof last.pass_rate_2 === "number" ? last.pass_rate_2 : 0,
+        };
+      });
+      const items = allItems.filter(i => i.tasks >= minTasks);
+      const [key, dir] = sort.includes("-")
+        ? sort.split("-")
+        : [sort, "asc"];
+      items.sort((a, b) => {
+        if (key === "name") return a.baseName.localeCompare(b.baseName);
+        const diff = a[key] - b[key];
+        return dir === "desc" ? -diff : diff;
+      });
+
+      const hidden = allItems.length - items.length;
+      document.getElementById("ptableStatus").textContent =
+        `${items.length} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
+
+      const labels = items.map(i => i.name);
+      const data1 = items.map(i => i.pass_rate_1);
+      const data2 = items.map(i => i.pass_rate_2);
+
+      if (chartPtable) chartPtable.destroy();
+      chartPtable = new Chart(document.getElementById("chartPtable"), {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            { label: "pass_rate_1",
+              data: data1,
+              backgroundColor: "rgba(110,168,254,0.7)",
+              borderColor: "rgba(110,168,254,1)",
+              borderWidth: 1 },
+            { label: "pass_rate_2",
+              data: data2,
+              backgroundColor: "rgba(94,196,143,0.7)",
+              borderColor: "rgba(94,196,143,1)",
+              borderWidth: 1 },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: "top", labels: { color: "#e6e6e6" } },
+            tooltip: {
+              callbacks: {
+                title: ctxs => {
+                  const i = ctxs[0]?.dataIndex;
+                  return i != null ? `${items[i].baseName}  (${items[i].tasks} tasks)` : "";
+                },
+                label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              title: { display: true, text: "pass rate (%)", color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2", callback: v => `${v}%` },
+              grid: { color: "#262b36" },
+              beginAtZero: true,
+              max: 100,
+            },
+            y: {
+              ticks: { color: "#e6e6e6", autoSkip: false, font: { size: 11 } },
+              grid: { color: "#262b36" },
+            },
+          },
+        },
+      });
+    }
+
     let chartBand = null;
     function renderBand() {
       const showLines = document.getElementById("bandShow").value === "band+lines";
@@ -721,6 +831,8 @@
     }
 
     document.getElementById("passMetric").addEventListener("change", renderPass);
+    document.getElementById("ptableSort").addEventListener("change", renderPtable);
+    document.getElementById("ptableMinTasks").addEventListener("input", renderPtable);
     document.getElementById("bandShow").addEventListener("change", renderBand);
     document.getElementById("tokenMetric").addEventListener("change", renderTokens);
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
@@ -741,6 +853,7 @@
         statusEl.textContent =
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         renderPass();
+        renderPtable();
         renderBand();
         renderTokens();
         renderLlama();
