@@ -1,0 +1,97 @@
+>>> Creating venv at /home/mhuber/MINE/REPOS/local-llm-benchmarks/work/llama-benchy/.venv (via uv)
+Using CPython 3.13.13 interpreter at: /nix/store/60m4rxhg2fldqaak400c0lry96ijrzqn-python3-3.13.13/bin/python3
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate.fish
+>>> Installing llama-benchy into venv (editable, via uv)...
+Resolved 49 packages in 936ms
+   Building llama-benchy @ file:///home/mhuber/MINE/REPOS/local-llm-benchmarks/work/llama-benchy
+Downloading aiohttp (1.7MiB)
+Downloading numpy (15.9MiB)
+Downloading pygments (1.2MiB)
+Downloading hf-xet (4.3MiB)
+Downloading transformers (10.6MiB)
+Downloading openai (1.3MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading tokenizers (3.1MiB)
+      Built llama-benchy @ file:///home/mhuber/MINE/REPOS/local-llm-benchmarks/work/llama-benchy
+ Downloaded pygments
+ Downloaded openai
+ Downloaded aiohttp
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded hf-xet
+ Downloaded transformers
+ Downloaded numpy
+Prepared 48 packages in 504ms
+warning: Failed to hardlink files; falling back to full copy. This may lead to degraded performance.
+         If the cache and target directories are on different filesystems, hardlinking may not be supported.
+         If this is intentional, set `export UV_LINK_MODE=copy` or use `--link-mode=copy` to suppress this warning.
+Installed 49 packages in 192ms
+ + aiohappyeyeballs==2.6.2
+ + aiohttp==3.14.1
+ + aiosignal==1.4.0
+ + annotated-doc==0.0.4
+ + annotated-types==0.7.0
+ + anyio==4.13.0
+ + asyncio==4.0.0
+ + attrs==26.1.0
+ + certifi==2026.5.20
+ + charset-normalizer==3.4.7
+ + click==8.4.1
+ + distro==1.9.0
+ + filelock==3.29.4
+ + frozenlist==1.8.0
+ + fsspec==2026.4.0
+ + h11==0.16.0
+ + hf-xet==1.5.1
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + huggingface-hub==1.19.0
+ + idna==3.18
+ + jiter==0.15.0
+ + llama-benchy==0.3.8 (from file:///home/mhuber/MINE/REPOS/local-llm-benchmarks/work/llama-benchy)
+ + markdown-it-py==4.2.0
+ + mdurl==0.1.2
+ + multidict==6.7.1
+ + numpy==2.4.6
+ + openai==2.41.1
+ + packaging==26.2
+ + propcache==0.5.2
+ + pydantic==2.13.4
+ + pydantic-core==2.46.4
+ + pygments==2.20.0
+ + pyyaml==6.0.3
+ + regex==2026.5.9
+ + requests==2.34.2
+ + rich==15.0.0
+ + safetensors==0.8.0
+ + shellingham==1.5.4
+ + sniffio==1.3.1
+ + tabulate==0.10.0
+ + tokenizers==0.22.2
+ + tqdm==4.68.2
+ + transformers==5.12.0
+ + typer==0.25.1
+ + typing-extensions==4.15.0
+ + typing-inspection==0.4.2
+ + urllib3==2.7.0
+ + yarl==1.24.2
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (171736 > 1024). Running this sequence through the model will result in indexing errors
+llama-benchy (0.3.8)
+Date: 2026-06-15 09:01:32
+Benchmarking model: gemma-4-26B-A4B-it-qat-q4_0 at http://gfx1151.thing.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: gemma-4-26B-A4B-it-qat-q4_0 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+Falling back to 'gpt2' tokenizer as approximation.
+Downloading book from https://www.gutenberg.org/files/1661/1661-0.txt...
+Saved text to cache: /home/mhuber/.cache/llama-benchy/cc6a0b5782734ee3b9069aa3b64cc62c.txt
+Total tokens available in text corpus: 171736
+Warming up...
+Warmup failed: HTTP 502: unable to start process: health check timed out after 120s
+

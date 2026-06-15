@@ -1,0 +1,114 @@
+
+============================================================
+RUNNING BENCHMARK: gemma-4-31B-it-UD-Q4_K_XL (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 106.17s (1.52 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 2.76 tok/s | finish=length | thinking=1301chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 109.76s (1.82 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg":
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 3 column 12 [type=json_invalid, input_value='{\n  "tool_name": "calcu...density",\n  "mass_kg":', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 84.12s (2.38 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a string at line 4 column 9 [type=json_invalid, input_value='{\n  "tool_name": "calcu...ss_kg": 4.5,\n  "volume', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 95.90s (2.09 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a string at line 4 column 9 [type=json_invalid, input_value='{\n  "tool_name": "calcu...ss_kg": 4.5,\n  "volume', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 19.26s (10.39 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a string at line 4 column 3 [type=json_invalid, input_value='{\n  "tool_name": "calcu...n  "mass_kg": 4.5,\n  "', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 19.27s (10.38 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3":
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 4 column 14 [type=json_invalid, input_value='{\n  "tool_name": "calcu...": 4.5,\n  "volume_m3":', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 19.26s (10.38 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 10.25 tok/s | finish=length | thinking=1331chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 19.44s (10.29 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a string at line 4 column 11 [type=json_invalid, input_value='{\n  "tool_name": "calcu..._kg": 4.5,\n  "volume_m', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 19.26s (10.38 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 19.28s (10.38 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 7.0  (over 10 trials with tokens)
+  JSON valid rate       : 20%
+  Tool-name correct rate: 20%
+  Math conversion rate  : 20%
+  Avg Turn-2 TPS        : 6.5  (over 2 trials with tokens)
+  Final success rate    : 0%
+  Errors (8): ['validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 3 column 12 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...density",\\n  "mass_kg":\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a string at line 4 column 9 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...ss_kg": 4.5,\\n  "volume\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a string at line 4 column 9 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...ss_kg": 4.5,\\n  "volume\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a string at line 4 column 3 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...n  "mass_kg": 4.5,\\n  "\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 4 column 14 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu...": 4.5,\\n  "volume_m3":\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a string at line 4 column 11 [type=json_invalid, input_value=\'{\\n  "tool_name": "calcu..._kg": 4.5,\\n  "volume_m\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid', "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid"]
