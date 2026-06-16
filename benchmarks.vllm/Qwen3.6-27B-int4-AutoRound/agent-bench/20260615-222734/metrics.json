@@ -1,0 +1,22 @@
+{
+  "turn_1_tps": 0.0,
+  "json_valid_rate": 0.0,
+  "tool_name_ok_rate": 0.0,
+  "math_conversion_rate": 0.0,
+  "turn_2_tps": 0.0,
+  "final_success_rate": 0.0,
+  "runs": 10,
+  "temp0_final_response": null,
+  "errors": [
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}",
+    "api: Error code: 404 - {'detail': 'Not Found'}"
+  ]
+}

@@ -1,0 +1,53 @@
+
+============================================================
+RUNNING BENCHMARK: Qwen3.6-27B-int4-AutoRound (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> API error: Error code: 404 - {'detail': 'Not Found'}
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 0.0  (over 0 trials with tokens)
+  JSON valid rate       : 0%
+  Tool-name correct rate: 0%
+  Math conversion rate  : 0%
+  Avg Turn-2 TPS        : 0.0  (over 0 trials with tokens)
+  Final success rate    : 0%
+  Errors (10): ["api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}", "api: Error code: 404 - {'detail': 'Not Found'}"]

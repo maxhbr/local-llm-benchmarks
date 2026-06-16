@@ -1,0 +1,109 @@
+
+============================================================
+RUNNING BENCHMARK: Qwen3.6-27B-int4-AutoRound (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 5.22s (38.33 tok/s) | Raw: The user wants to calculate the density of an alloy sample.
+I need to extract the mass and volume from the text and conv
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...ck schema:\n- tool_name', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 5.17s (38.72 tok/s) | Raw: Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Goal: Calculate density of an alloy sample.
+    *   Input Data: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\n\n1. ...on: $1 \\text{ liter} =', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 5.17s (38.7 tok/s) | Raw: The user wants to calculate the density of an alloy sample.
+I need to extract the mass and volume from the text and conv
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...olume_m3`: 0.0005\n\n3.', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 5.17s (38.66 tok/s) | Raw: Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Goal: Calculate density of an alloy sample.
+    *   Input Data: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\n\n1. ...       *   Target Unit:', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 5.20s (38.47 tok/s) | Raw: The user wants to calculate the density of an alloy sample.
+I need to extract the mass and volume from the text and conv
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul....5 liters * 0.001 = 0.0', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 5.19s (38.57 tok/s) | Raw: The user wants to calculate the density of an alloy sample.
+I need to extract the mass and volume from the text and conv
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...ss_kg: 4.5\n- volume_m3', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 5.19s (38.54 tok/s) | Raw: Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Goal: Calculate density of an alloy sample.
+    *   Input data: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\n\n1. ...sion: $1 \\text{ liter}', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 5.20s (38.49 tok/s) | Raw: Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Goal: Calculate density of an alloy sample.
+    *   Input Data:
+
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\n\n1. ...onversion factor: $1 \\', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 5.20s (38.5 tok/s) | Raw: Thinking Process:
+
+1.  **Analyze the Request:**
+    *   Goal: Trigger the `calculate_density` tool.
+    *   Input Data: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\n\n1. ... Calculation: $0.5 / 10', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 5.21s (38.37 tok/s) | Raw: The user wants to calculate the density of an alloy sample.
+I need to extract the mass and volume from the text and conv
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...\n\n{\n  "tool_name": "', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 38.54  (over 10 trials with tokens)
+  JSON valid rate       : 0%
+  Tool-name correct rate: 0%
+  Math conversion rate  : 0%
+  Avg Turn-2 TPS        : 0.0  (over 0 trials with tokens)
+  Final success rate    : 0%
+  Errors (10): ["validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...ck schema:\\n- tool_name', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\\n\\n1. ...on: $1 \\\\text{ liter} =', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...olume_m3`: 0.0005\\n\\n3.', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\\n\\n1. ...       *   Target Unit:', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul....5 liters * 0.001 = 0.0', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='The user wants to calcul...ss_kg: 4.5\\n- volume_m3', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\\n\\n1. ...sion: $1 \\\\text{ liter}', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\\n\\n1. ...onversion factor: $1 \\\\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value='Thinking Process:\\n\\n1. ... Calculation: $0.5 / 10', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", 'validation: 1 validation error for ToolCallSchema\n  Invalid JSON: expected value at line 1 column 1 [type=json_invalid, input_value=\'The user wants to calcul...\\n\\n{\\n  "tool_name": "\', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid']
