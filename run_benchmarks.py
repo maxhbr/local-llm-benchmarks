@@ -275,7 +275,7 @@ def resolve_driver(bench: str, script_dir: Path) -> list[str]:
     return [wrapper]
 
 
-def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False, edit_format: str = "whole") -> None:
+def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False) -> None:
     driver = resolve_driver(job.bench, script_dir)
     argv = driver + [
         "--endpoint", job.endpoint_url,
@@ -290,8 +290,8 @@ def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_n
         argv.extend(["--run-name", job.alias])
     if force_new:
         argv.append("--new")
-    if job.bench == "aider" and edit_format != "whole":
-        argv.extend(["--edit-format", edit_format])
+    if job.bench == "aider" and job.edit_format != "whole":
+        argv.extend(["--edit-format", job.edit_format])
     pretty = " ".join(argv)
     label = f"{job.alias} ({job.model})" if job.alias else job.model
     print(f"\n>>> [{job.endpoint_name}] {label} :: {job.bench}")
