@@ -1,0 +1,39 @@
+{
+  "timestamp": "20260620-181233",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "llama-benchy",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "returncode": 0,
+      "duration_s": 7668.221248,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "agent-bench",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "returncode": 0,
+      "duration_s": 233.260731,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "aider",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "returncode": 7,
+      "duration_s": 3.950975,
+      "error": null
+    }
+  ]
+}

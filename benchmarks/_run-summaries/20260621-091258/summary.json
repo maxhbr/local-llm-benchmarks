@@ -1,0 +1,17 @@
+{
+  "timestamp": "20260621-091258",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "aider",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "returncode": 130,
+      "duration_s": 45882.98849,
+      "error": null
+    }
+  ]
+}

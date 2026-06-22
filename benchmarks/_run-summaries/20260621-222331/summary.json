@@ -1,0 +1,17 @@
+{
+  "timestamp": "20260621-222331",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "aider",
+      "alias": "Qwen3.6-27B-GGUF.BF16.splitted.1-2",
+      "returncode": 130,
+      "duration_s": 3.488182,
+      "error": "interrupted"
+    }
+  ]
+}

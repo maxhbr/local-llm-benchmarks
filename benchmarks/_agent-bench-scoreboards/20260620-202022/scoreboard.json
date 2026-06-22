@@ -1,0 +1,13 @@
+{
+  "deepseek-v4-flash": {
+    "turn_1_tps": 11.31,
+    "json_valid_rate": 1.0,
+    "tool_name_ok_rate": 1.0,
+    "math_conversion_rate": 1.0,
+    "turn_2_tps": 14.45,
+    "final_success_rate": 0.9,
+    "runs": 10,
+    "temp0_final_response": "The user wants a summary of the findings for the engineering team. I need to respond in a way that is helpful, but the instructions say I must only respond in raw JSON matching the schema. However, the user is now asking for a summary, not a tool call. The previous interaction was a tool call and observation. Now the user asks to summarize findings. The system's role is to only output JSON for tool calls, but this is a conversational turn. According to the initial instruction, \"You must ONLY respond in a raw, valid JSON object matching the provided schema.\" That schema is for tool calls. But now the user is asking for a summary, not a tool call. I need to decide: Should I continue to output only JSON tool calls? The instruction says \"You must ONLY respond in a raw, valid JSON object matching the provided schema.\" That implies I cannot output any other text. However, the user is now asking for a summary, which is not a tool call. The schema is specifically for tool calls. I could interpret that I should only respond when a tool call is needed, but here the user is asking for a summary after a tool observation. Perhaps I should respond with a JSON object that contains a summary? But the schema doesn't allow that. Alternatively, I could output a JSON object that says something like {\"response\": \"summary\"} but that doesn't match the schema. The safest is to adhere to the strict instruction: only output JSON matching the schema",
+    "errors": []
+  }
+}
