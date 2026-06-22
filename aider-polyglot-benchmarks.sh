@@ -106,7 +106,7 @@ fi
 
 # Skip if the output symlink already exists (unless --new was passed).
 if [[ "$NEW" == false && "$SHELL_ONLY" == false ]]; then
-    _slug="$(slugify_model "$MODEL")"
+    _slug="$(slugify_model "$RUN_NAME")"
     _output_abs="$(cd "$OUTPUT_DIR" 2>/dev/null && pwd || echo "$OUTPUT_DIR")"
     _symlink="$_output_abs/$_slug/$_bench_tag.txt"
     if [[ -L "$_symlink" ]]; then
@@ -190,7 +190,7 @@ BENCHMARK_CMD="benchmark/benchmark.py $RUN_NAME \
   $NUM_TESTS_FLAG \
   $EXTRA_MODEL_SETTINGS_FLAG"
 
-init_run_dir "$OUTPUT_DIR" "$MODEL" "$_bench_tag"
+init_run_dir "$OUTPUT_DIR" "$RUN_NAME" "$_bench_tag"
 # Absolute path needed for the bind-mount.
 RUN_DIR_ABS="$(cd "$RUN_DIR" && pwd)"
 STATS_FILE="$RUN_DIR/stats.txt"

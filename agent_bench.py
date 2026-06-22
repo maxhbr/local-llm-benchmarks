@@ -345,7 +345,7 @@ def main() -> int:
     aggregated: dict[str, dict[str, Any]] = {}
 
     for model in args.model:
-        slug = slugify_model(model)
+        slug = slugify_model(args.run_name or model)
         latest = output_root / slug / "agent-bench.json"
         if not args.new and latest.is_symlink():
             print(f">>> SKIP {model}: output symlink already exists at {latest}")

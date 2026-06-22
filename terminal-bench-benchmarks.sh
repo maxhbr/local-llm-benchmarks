@@ -152,7 +152,7 @@ if [[ "$SHELL_ONLY" == true ]]; then
     exec bash
 fi
 
-init_run_dir "$OUTPUT_DIR" "$MODEL" "terminal-bench"
+init_run_dir "$OUTPUT_DIR" "$RUN_NAME" "terminal-bench"
 
 write_meta \
     "bench=terminal-bench" \

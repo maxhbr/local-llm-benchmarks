@@ -117,7 +117,7 @@ fi
 
 # Skip if the output symlink already exists (unless --new was passed).
 if [[ "$NEW" == false && "$SHELL_ONLY" == false ]]; then
-    _slug="$(slugify_model "$MODEL")"
+    _slug="$(slugify_model "$RUN_NAME")"
     _output_abs="$(cd "$OUTPUT_DIR" 2>/dev/null && pwd || echo "$OUTPUT_DIR")"
     _symlink="$_output_abs/$_slug/llama-benchy.md"
     if [[ -L "$_symlink" ]]; then
@@ -152,7 +152,7 @@ if [[ "$REBUILD" == true && -d "$VENV_DIR" ]]; then
     rm -rf "$VENV_DIR"
 fi
 
-init_run_dir "$OUTPUT_DIR" "$MODEL" "llama-benchy"
+init_run_dir "$OUTPUT_DIR" "$RUN_NAME" "llama-benchy"
 RESULT_FILE="$RUN_DIR/result.$FORMAT"
 
 write_meta \
