@@ -1,0 +1,39 @@
+{
+  "timestamp": "20260622-160216",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks.vllm",
+  "jobs": [
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22548/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-int4-AutoRound",
+      "bench": "llama-benchy",
+      "alias": "vllm-dockerized-Qwen3.6-27B-int4-AutoRound",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22548/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-int4-AutoRound",
+      "bench": "agent-bench",
+      "alias": "vllm-dockerized-Qwen3.6-27B-int4-AutoRound",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22548/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-int4-AutoRound",
+      "bench": "aider",
+      "alias": "vllm-dockerized-Qwen3.6-27B-int4-AutoRound",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    }
+  ]
+}

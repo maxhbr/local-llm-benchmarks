@@ -1,0 +1,10 @@
+==========================================================================================
+RUN SUMMARY  (20260622-091113)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | Qwen3.6-35B-GGUF.BF16.splitted.2-3  | llama-benchy   | 130 | 200.1    | FAIL (interrupted)
+litellm.thing.vserve | Qwen3.6-35B-GGUF.BF16.splitted.2-3  | agent-bench    | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | Qwen3.6-35B-GGUF.BF16.splitted.2-3  | aider          | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 3   OK: 0   FAIL: 3

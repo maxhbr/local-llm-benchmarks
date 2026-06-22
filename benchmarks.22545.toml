@@ -9,15 +9,12 @@
 # specific [[endpoints.models]] entry to override (e.g. add "aider" for a
 # coder model, or "terminal-bench" for a reasoning model).
 
-output_dir = "./benchmarks"
+output_dir = "./benchmarks.splitted"
 
 [[endpoints]]
-name       = "litellm.thing.vserver.wg0"
-url        = "http://litellm.thing.wg0.maxhbr.local/v1"
-api_key    = "EMPTY"
-benchmarks = [ "llama-benchy", "agent-bench", "aider"]
+name        = "localhost:22548"
+url         = "http://localhost:22545/v1"
+api_key     = "EMPTY"
+benchmarks  = [ "llama-benchy", "agent-bench", "aider"]
+edit_format = "diff"
 
-
-  [[endpoints.models]]
-  name = "localhost:22545:localhost:22545"
-  alias = "Qwen3.6-27B-GGUF.BF16.splitted.1-2"
