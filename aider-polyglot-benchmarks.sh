@@ -156,7 +156,35 @@ elif [[ "$ENDPOINT" =~ ^http://127\.0\.0\.1(:[0-9]+)? ]]; then
     CONTAINER_ENDPOINT="${ENDPOINT/127.0.0.1/host.containers.internal}"
 fi
 
-HOST_GATEWAY_FLAG="--add-host=host.containers.internal:host-gateway"
+# Detect the podman host gateway IP (the host's IP on the container network).
+# The ``host-gateway`` keyword sometimes fails to resolve in certain podman
+# configurations, so we try to use the actual IP instead.
+HOST_GATEWAY_IP=""
+if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
+    # Try to get the gateway from the default podman network (jq is in commonRuntime).
+    HOST_GATEWAY_IP=$($CONTAINER_RUNTIME network inspect podman 2>/dev/null \
+        | jq -r '.[0].IPAM.Config[0].Gateway // empty' 2>/dev/null)
+
+    if [[ -z "$HOST_GATEWAY_IP" ]]; then
+        # Fallback: probe common podman default gateway IPs against the
+        # endpoint's port (extract from $ENDPOINT).
+        _probe_port="${ENDPOINT#*:}"       # strip "http:" → "//localhost:22545/v1"
+        _probe_port="${_probe_port##*:}"   # strip "//localhost:" → "22545/v1"
+        _probe_port="${_probe_port%%/*}"   # strip "/v1" → "22545"
+        for _candidate in 10.88.0.1 10.89.0.1 10.0.2.1; do
+            if timeout 2 bash -c "echo >/dev/tcp/$_candidate/$_probe_port" 2>/dev/null; then
+                HOST_GATEWAY_IP=$_candidate
+                break
+            fi
+        done
+    fi
+fi
+
+if [[ -n "$HOST_GATEWAY_IP" ]]; then
+    HOST_GATEWAY_FLAG="--add-host=host.containers.internal:$HOST_GATEWAY_IP"
+else
+    HOST_GATEWAY_FLAG="--add-host=host.containers.internal:host-gateway"
+fi
 if [[ "$CONTAINER_RUNTIME" == "docker" ]]; then
     HOST_GATEWAY_FLAG="--add-host=host.docker.internal:host-gateway"
 fi
@@ -250,7 +278,9 @@ echo "    Run name:     $RUN_NAME"
 echo "    Run dir:      $RUN_DIR"
 echo ""
 
-INNER_CMD="pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --new --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt"
+# Use || true for the curl connectivity check so a dead host-gateway doesn't
+# kill the entire benchmark (it's just a diagnostic step anyway).
+INNER_CMD="pip install -e '.[dev]' 2>/dev/null && echo '--- Verifying API connectivity ---' && (curl -sf ${CONTAINER_ENDPOINT%/v1}/v1/models || echo '[WARN] API connectivity check failed; benchmark will proceed if the host is reachable') && echo '' && echo '--- Starting benchmark ---' && python3 $BENCHMARK_CMD && echo '' && echo '--- Generating report ---' && python3 benchmark/benchmark.py \$RUN_NAME --new --stats --exercises-dir polyglot-benchmark 2>&1 | tee /run/stats.txt"
 
 write_cmd "$CONTAINER_RUNTIME" run "${RUN_ARGS[@]}" \
     -w /aider \

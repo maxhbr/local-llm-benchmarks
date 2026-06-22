@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260615-222734",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "Qwen3.6-27B-int4-AutoRound",
+  "endpoint": "http://localhost:22548",
+  "run_name": "vllm-dockerized-Qwen3.6-27B-int4-AutoRound"
+}

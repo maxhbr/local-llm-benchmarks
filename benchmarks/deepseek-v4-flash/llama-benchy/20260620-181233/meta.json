@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260620-181233",
+  "host": "thing",
+  "bench": "llama-benchy",
+  "model": "deepseek-v4-flash",
+  "endpoint": "http://localhost:22545/v1",
+  "run_name": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}

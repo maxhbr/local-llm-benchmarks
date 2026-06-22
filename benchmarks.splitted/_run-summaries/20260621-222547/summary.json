@@ -1,0 +1,39 @@
+{
+  "timestamp": "20260621-222547",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks.splitted",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "Qwen3.6-27B-GGUF.BF16.splitted.1-2",
+      "returncode": 0,
+      "duration_s": 6422.340738,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "agent-bench",
+      "alias": "Qwen3.6-27B-GGUF.BF16.splitted.1-2",
+      "returncode": 0,
+      "duration_s": 373.293494,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "aider",
+      "alias": "Qwen3.6-27B-GGUF.BF16.splitted.1-2",
+      "returncode": 130,
+      "duration_s": 28520.644084,
+      "error": null
+    }
+  ]
+}

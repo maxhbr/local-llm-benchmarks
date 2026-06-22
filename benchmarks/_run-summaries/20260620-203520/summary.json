@@ -1,0 +1,17 @@
+{
+  "timestamp": "20260620-203520",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "vllm.thing",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "aider",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "returncode": 7,
+      "duration_s": 3.612461,
+      "error": null
+    }
+  ]
+}

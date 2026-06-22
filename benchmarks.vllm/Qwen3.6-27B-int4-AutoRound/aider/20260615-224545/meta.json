@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260615-224545",
+  "host": "thing",
+  "bench": "aider",
+  "model": "Qwen3.6-27B-int4-AutoRound",
+  "endpoint": "http://localhost:22548/v1",
+  "container_endpoint": "http://host.containers.internal:22548/v1",
+  "run_name": "vllm-dockerized-Qwen3.6-27B-int4-AutoRound",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

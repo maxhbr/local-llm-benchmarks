@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks.vllm/Qwen3.6-27B-int4-AutoRound/llama-benchy/20260615-223236/result.md

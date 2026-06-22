@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260622-082041",
+  "host": "thing",
+  "bench": "aider",
+  "model": "localhost:22545:localhost:22545",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "Qwen3.6-35B-GGUF.BF16.splitted.2-3",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}
