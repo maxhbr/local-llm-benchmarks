@@ -9,12 +9,12 @@
 # specific [[endpoints.models]] entry to override (e.g. add "aider" for a
 # coder model, or "terminal-bench" for a reasoning model).
 
-output_dir = "./benchmarks.splitted"
+output_dir = "./benchmarks"
 
 [[endpoints]]
 name        = "localhost:22548"
 url         = "http://localhost:22545/v1"
 api_key     = "EMPTY"
-benchmarks  = [ "llama-benchy", "agent-bench", "aider"]
+benchmarks  = ["aider"] #  "llama-benchy", "agent-bench", 
 edit_format = "diff"
 

@@ -163,7 +163,7 @@ HOST_GATEWAY_IP=""
 if [[ "$CONTAINER_RUNTIME" == "podman" ]]; then
     # Try to get the gateway from the default podman network (jq is in commonRuntime).
     HOST_GATEWAY_IP=$($CONTAINER_RUNTIME network inspect podman 2>/dev/null \
-        | jq -r '.[0].IPAM.Config[0].Gateway // empty' 2>/dev/null)
+        | jq -r '.[0].subnets[0].gateway // empty' 2>/dev/null)
 
     if [[ -z "$HOST_GATEWAY_IP" ]]; then
         # Fallback: probe common podman default gateway IPs against the
