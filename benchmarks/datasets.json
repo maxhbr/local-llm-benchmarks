@@ -2,6 +2,7 @@
   "files": [
     "gfx1151-NVIDIA-Nemotron-3-Nano-Omni-Q8_0/aider.computed.yaml",
     "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
+    "localhost-22545-localhost-22545/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q5_K_XL/aider-diff.computed.yaml",
@@ -9,6 +10,7 @@
     "rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
     "rtx5090-Qwen3.6-35B-A3B-UD-IQ1_M/aider.computed.yaml",
     "rtx5090-Qwen3.6-35B-A3B-UD-Q2_K_XL/aider.computed.yaml",
+    "rtx5090-Qwen3.6-35B-A3B-UD-Q3_K_XL/aider.computed.yaml",
     "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml"
