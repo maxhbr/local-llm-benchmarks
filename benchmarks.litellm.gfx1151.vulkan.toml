@@ -45,6 +45,8 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "gfx1151:Qwen3.6-27B-MTP-Q8_0"
   [[endpoints.models]]
+  name = "gfx1151:Qwen3.6-27B-Q6_K-MTP"
+  [[endpoints.models]]
   name = "gfx1151:Qwen3.6-27B-Q8_0"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.6-27B-UD-Q4_K_XL"

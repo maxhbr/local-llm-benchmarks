@@ -27,6 +27,8 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "rtx5090:Qwen3.5-9B-Q5_K_M"
   [[endpoints.models]]
+  name = "rtx5090:Qwen3.6-27B-Q6_K-MTP"
+  [[endpoints.models]]
   name = "rtx5090:Qwen3.6-27B-Q8_0"
   [[endpoints.models]]
   name = "rtx5090:Qwen3.6-27B-UD-Q4_K_XL"
