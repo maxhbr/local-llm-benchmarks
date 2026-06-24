@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260622-213102",
+  "host": "thing",
+  "bench": "aider",
+  "model": "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf",
+  "endpoint": "http://localhost:22545/v1",
+  "container_endpoint": "http://host.containers.internal:22545/v1",
+  "run_name": "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf",
+  "edit_format": "diff",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

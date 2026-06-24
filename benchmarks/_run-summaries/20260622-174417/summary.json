@@ -1,0 +1,18 @@
+{
+  "timestamp": "20260622-174417",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "localhost:22548",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-BF16-multigpu",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "diff",
+      "returncode": 130,
+      "duration_s": 17.389416,
+      "error": "interrupted"
+    }
+  ]
+}
