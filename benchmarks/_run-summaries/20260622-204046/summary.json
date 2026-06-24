@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260622-204046",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "localhost:22548",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-MTP-BF16.gguf",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 13.430531,
+      "error": null
+    },
+    {
+      "endpoint_name": "localhost:22548",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-MTP-BF16.gguf",
+      "bench": "agent-bench",
+      "alias": null,
+      "edit_format": "diff",
+      "returncode": 130,
+      "duration_s": 5.792945,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "localhost:22548",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-MTP-BF16.gguf",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "diff",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}

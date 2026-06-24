@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260622-172008",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "Qwen3.6-35B-A3B-BF16-multigpu",
+  "endpoint": "http://localhost:22545/v1",
+  "run_name": "Qwen3.6-35B-A3B-BF16-multigpu"
+}

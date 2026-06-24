@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks.splitted/Qwen3.6-35B-GGUF.BF16.splitted.2-3/llama-benchy/20260622-091500/result.md

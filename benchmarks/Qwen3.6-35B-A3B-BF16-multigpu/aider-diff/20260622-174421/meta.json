@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260622-174421",
+  "host": "thing",
+  "bench": "aider",
+  "model": "Qwen3.6-35B-A3B-BF16-multigpu",
+  "endpoint": "http://localhost:22545/v1",
+  "container_endpoint": "http://host.containers.internal:22545/v1",
+  "run_name": "Qwen3.6-35B-A3B-BF16-multigpu",
+  "edit_format": "diff",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": "default",
+  "container_runtime": "podman"
+}

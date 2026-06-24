@@ -7,6 +7,10 @@ benchmark is invoked as a subprocess (one of the existing driver scripts in
 this repo) and run in continue-on-failure mode.  A final summary table is
 printed and persisted to ./benchmarks/_run-summaries/<ts>/summary.{json,txt}.
 
+When a [[endpoints]] section has no [[endpoints.models]], the script queries
+the endpoint's ``/v1/models`` and runs benchmarks for **every** model that
+the endpoint reports.
+
 Available benchmarks (matches the flake apps and the *.sh / *.py drivers):
     llama-benchy   -> llama-benchy-benchmarks.sh
     aider          -> aider-polyglot-benchmarks.sh
@@ -40,6 +44,24 @@ Config schema (TOML):
       [[endpoints.models]]
       name = "gpt-oss-120b"
       # inherits endpoint-level benchmarks
+
+    # If [[endpoints.models]] is omitted, the script queries the endpoint's
+    # /v1/models and benchmarks every model it reports:
+    #
+    #   [[endpoints]]
+    #   name       = "my-endpoint"
+    #   url        = "http://localhost:22548/v1"
+    #   api_key    = "EMPTY"
+    #   benchmarks = ["llama-benchy", "agent-bench"]
+    #   edit_format = "diff"     # optional: aider edit format (default: "whole")
+    #   # no [[endpoints.models]] — fetches all models from the endpoint
+    #
+    # An endpoint-level `edit_format` can be overridden per-model:
+    #
+    #   [[endpoints.models]]
+    #   name       = "my-coder-model"
+    #   edit_format = "diff"     # override for this model only
+    #
 """
 
 from __future__ import annotations
@@ -51,6 +73,7 @@ import shutil
 import subprocess
 import sys
 import tomllib
+import urllib.request
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from pathlib import Path
@@ -76,6 +99,7 @@ class Job:
     model: str          # model id sent to the endpoint (the real API name)
     bench: str
     alias: str | None = None  # friendly name used for output dirs + display
+    edit_format: str = "whole"  # aider edit format (whole, diff, etc.)
     # Result fields populated after run():
     returncode: int | None = None
     duration_s: float | None = None
@@ -99,6 +123,23 @@ class Plan:
 def load_config(path: Path) -> dict[str, Any]:
     with path.open("rb") as f:
         return tomllib.load(f)
+
+
+def fetch_models_from_endpoint(endpoint_url: str, api_key: str) -> list[str]:
+    """Fetch the list of model ids from an OpenAI-compatible /models endpoint."""
+    url = endpoint_url.rstrip("/").removesuffix("/v1") + "/v1/models"
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {api_key}"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            data = json.load(r)
+        models = [m["id"] for m in data.get("data", [])]
+        return models
+    except Exception as e:
+        print(
+            f"!!! Error fetching models from {url}: {e}",
+            file=sys.stderr,
+        )
+        return []
 
 
 def build_plan(
@@ -127,10 +168,35 @@ def build_plan(
         api_key = ep.get("api_key", "EMPTY")
         default_benches = ep.get("benchmarks", [])
         models = ep.get("models", [])
+        ep_edit_format = ep.get("edit_format", "whole")
         if not models:
-            raise SystemExit(f"Config error: endpoint {ep_name!r} has no [[endpoints.models]]")
+            # No [[endpoints.models]] defined — fetch from the endpoint's
+            # /v1/models endpoint and run for every model that is configured.
+            print(
+                f">>> No [[endpoints.models]] for {ep_name!r}; fetching models from endpoint...",
+                file=sys.stderr,
+            )
+            models = fetch_models_from_endpoint(url, api_key)
+            if not models:
+                raise SystemExit(
+                    f"Config error: endpoint {ep_name!r} returned no models (or fetch failed). "
+                    f"Either populate [[endpoints.models]] in the TOML or ensure the endpoint is reachable."
+                )
+            print(
+                f"    Found {len(models)} model(s) from {url}",
+                file=sys.stderr,
+            )
+
+        # Normalize models so each entry is a dict with at least a "name" key.
+        # TOML [[endpoints.models]] entries are already dicts; API-fetched models
+        # come as plain strings.
+        def _normalize_model(m):
+            if isinstance(m, str):
+                return {"name": m}
+            return m
 
         for mdl in models:
+            mdl = _normalize_model(mdl)
             mname = mdl.get("name")
             if not mname:
                 raise SystemExit(f"Config error: endpoint {ep_name!r} has model without name")
@@ -139,6 +205,7 @@ def build_plan(
             if only_model and only_model not in (mname, malias):
                 continue
             benches = mdl.get("benchmarks", default_benches)
+            model_edit_format = mdl.get("edit_format", ep_edit_format)
             if not benches:
                 print(
                     f"!!! warning: {ep_name}/{mname} has no benchmarks selected; skipping",
@@ -161,6 +228,7 @@ def build_plan(
                         model=mname,
                         alias=malias,
                         bench=b,
+                        edit_format=model_edit_format,
                     )
                 )
     return plan
@@ -207,7 +275,7 @@ def resolve_driver(bench: str, script_dir: Path) -> list[str]:
     return [wrapper]
 
 
-def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False, edit_format: str = "whole") -> None:
+def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False) -> None:
     driver = resolve_driver(job.bench, script_dir)
     argv = driver + [
         "--endpoint", job.endpoint_url,
@@ -222,8 +290,8 @@ def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_n
         argv.extend(["--run-name", job.alias])
     if force_new:
         argv.append("--new")
-    if job.bench == "aider" and edit_format != "whole":
-        argv.extend(["--edit-format", edit_format])
+    if job.bench == "aider" and job.edit_format != "whole":
+        argv.extend(["--edit-format", job.edit_format])
     pretty = " ".join(argv)
     label = f"{job.alias} ({job.model})" if job.alias else job.model
     print(f"\n>>> [{job.endpoint_name}] {label} :: {job.bench}")
@@ -388,9 +456,15 @@ def main() -> int:
         print(f"    - [{j.endpoint_name}] {label} :: {j.bench}")
 
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    # CLI --edit-format overrides the TOML default for all aider jobs.
+    if args.edit_format != "whole":
+        for job in plan.jobs:
+            if job.bench == "aider":
+                job.edit_format = args.edit_format
+
     try:
         for job in plan.jobs:
-            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new, edit_format=args.edit_format)
+            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new)
     except KeyboardInterrupt:
         print("\n!!! interrupted; writing partial summary", file=sys.stderr)
 

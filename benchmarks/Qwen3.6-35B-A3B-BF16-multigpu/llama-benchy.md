@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/Qwen3.6-35B-A3B-BF16-multigpu/llama-benchy/20260622-164018/result.md

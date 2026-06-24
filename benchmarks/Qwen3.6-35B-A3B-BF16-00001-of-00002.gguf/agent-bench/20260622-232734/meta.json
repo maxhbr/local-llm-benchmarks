@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260622-232734",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf",
+  "endpoint": "http://localhost:22545/v1",
+  "run_name": "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf"
+}

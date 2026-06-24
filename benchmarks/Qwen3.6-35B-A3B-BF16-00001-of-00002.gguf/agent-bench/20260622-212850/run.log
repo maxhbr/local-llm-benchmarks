@@ -1,0 +1,83 @@
+
+============================================================
+RUNNING BENCHMARK: Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 17.85s (11.2 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 12.63s (15.84 tok/s) | Raw: {
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing an object at line 1 column 1 [type=json_invalid, input_value='{', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 12.55s (15.93 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 12.52s (15.98 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 12.68s (15.77 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 12.71s (15.73 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 12.71s (15.74 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 12.71s (15.74 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 12.73s (15.71 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 12.73s (15.71 tok/s) | Raw: 
+   -> Step 1 FAIL: 1 validation error for ToolCallSchema
+  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 15.33  (over 10 trials with tokens)
+  JSON valid rate       : 0%
+  Tool-name correct rate: 0%
+  Math conversion rate  : 0%
+  Avg Turn-2 TPS        : 0.0  (over 0 trials with tokens)
+  Final success rate    : 0%
+  Errors (10): ["validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing an object at line 1 column 1 [type=json_invalid, input_value='{', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid", "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid"]
