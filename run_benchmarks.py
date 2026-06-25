@@ -69,10 +69,12 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tomllib
+import urllib.error
 import urllib.request
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
@@ -83,12 +85,23 @@ from typing import Any
 # Map of logical benchmark id -> driver script (relative to this file's dir).
 # We resolve the driver per call so the script also works when run from the
 # nix-built flake (where SCRIPT_DIR contains the wrappers).
-BENCHMARKS: dict[str, str] = {
+# Sentinel value None marks "handled inline" (no subprocess driver).
+BENCHMARKS: dict[str, str | None] = {
     "llama-benchy":   "llama-benchy-benchmarks.sh",
     "aider":          "aider-polyglot-benchmarks.sh",
     "terminal-bench": "terminal-bench-benchmarks.sh",
     "agent-bench":    "agent_bench.py",
+    "smoke":          None,  # inline: simple liveness check, writes smoke.ok
 }
+
+
+# Slug helper (mirrors agent_bench.slugify_model) so output dirs line up with
+# the other benchmarks' per-model directory naming.
+_SLUG_RE = re.compile(r"[^a-zA-Z0-9._-]")
+
+
+def slugify_model(model: str) -> str:
+    return _SLUG_RE.sub("-", model.replace("/", "_").replace(":", "-"))
 
 
 @dataclass
@@ -245,7 +258,112 @@ WRAPPERS: dict[str, str] = {
     "aider":          "aider-bench",
     "terminal-bench": "terminal-bench",
     "agent-bench":    "agent-bench",
+    # "smoke" is intentionally absent — handled inline by run_smoke_job().
 }
+
+
+# ---------------------------------------------------------------------------
+# Smoke test (inline, no subprocess driver)
+# ---------------------------------------------------------------------------
+def run_smoke_job(job: Job, output_dir: Path, force_new: bool) -> None:
+    """Issue a single tiny chat-completion request and assert a non-empty reply.
+
+    On success, writes ``<output_dir>/<slug>/smoke.ok`` (which also acts as the
+    skip marker for subsequent runs unless ``--new`` is passed).  On failure,
+    writes ``smoke.fail`` containing the error so the cause is visible without
+    digging through logs.
+    """
+    slug = slugify_model(job.display_name)
+    model_dir = output_dir / slug
+    model_dir.mkdir(parents=True, exist_ok=True)
+    ok_path = model_dir / "smoke.ok"
+    fail_path = model_dir / "smoke.fail"
+
+    if not force_new and ok_path.exists():
+        print(f"    SKIP smoke: {ok_path} already exists (use --new to re-run)")
+        job.returncode = 0
+        job.duration_s = 0.0
+        return
+
+    # Best-effort: clear any stale failure marker from a previous attempt.
+    if fail_path.exists():
+        try:
+            fail_path.unlink()
+        except OSError:
+            pass
+
+    url = job.endpoint_url.rstrip("/") + "/chat/completions"
+    payload = json.dumps({
+        "model": job.model,
+        "messages": [
+            {"role": "user", "content": "Say 'pong' and nothing else."},
+        ],
+        "max_tokens": 16,
+        "temperature": 0.0,
+        "stream": False,
+    }).encode()
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        method="POST",
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {job.api_key}",
+        },
+    )
+
+    start = datetime.now()
+    err: str | None = None
+    reply: str | None = None
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            body = r.read()
+        data = json.loads(body)
+        choices = data.get("choices") or []
+        if not choices:
+            err = f"no choices in response: {body[:200]!r}"
+        else:
+            msg = choices[0].get("message") or {}
+            reply = (msg.get("content") or "").strip()
+            if not reply:
+                err = f"empty reply (raw={body[:200]!r})"
+    except urllib.error.HTTPError as e:
+        try:
+            detail = e.read().decode("utf-8", errors="replace")[:300]
+        except Exception:
+            detail = ""
+        err = f"HTTP {e.code}: {e.reason}{(' — ' + detail) if detail else ''}"
+    except Exception as e:  # noqa: BLE001
+        err = f"{type(e).__name__}: {e}"
+
+    job.duration_s = (datetime.now() - start).total_seconds()
+
+    if err:
+        job.returncode = 1
+        job.error = err
+        fail_path.write_text(
+            json.dumps({
+                "timestamp": datetime.now().isoformat(timespec="seconds"),
+                "endpoint": job.endpoint_url,
+                "model": job.model,
+                "error": err,
+                "duration_s": job.duration_s,
+            }, indent=2) + "\n",
+        )
+        print(f"    !!! smoke FAIL: {err}", file=sys.stderr)
+        return
+
+    job.returncode = 0
+    ok_path.write_text(
+        json.dumps({
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "endpoint": job.endpoint_url,
+            "model": job.model,
+            "reply": reply,
+            "duration_s": job.duration_s,
+        }, indent=2) + "\n",
+    )
+    print(f"    OK smoke: reply={reply!r} ({job.duration_s:.2f}s) -> {ok_path}")
 
 
 def resolve_driver(bench: str, script_dir: Path) -> list[str]:
@@ -276,6 +394,23 @@ def resolve_driver(bench: str, script_dir: Path) -> list[str]:
 
 
 def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False) -> None:
+    # Inline benches: skip the subprocess-driver path entirely.
+    if job.bench == "smoke":
+        label = f"{job.alias} ({job.model})" if job.alias else job.model
+        print(f"\n>>> [{job.endpoint_name}] {label} :: smoke")
+        print(f"    POST {job.endpoint_url.rstrip('/')}/chat/completions  model={job.model}")
+        if dry_run:
+            job.returncode = 0
+            job.duration_s = 0.0
+            return
+        try:
+            run_smoke_job(job, output_dir, force_new=force_new)
+        except KeyboardInterrupt:
+            job.returncode = 130
+            job.error = "interrupted"
+            raise
+        return
+
     driver = resolve_driver(job.bench, script_dir)
     argv = driver + [
         "--endpoint", job.endpoint_url,
