@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260625-230930)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q4_K_M               | smoke          | 1   | 0.8      | FAIL (HTTP 500: Internal Server Error — {"error":{"code":500,"message":"model name=Ornith-1.0-35B-Q4_K_M failed to load","type":"server_error"}})
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q4_K_M               | llama-benchy   | 1   | 4.0      | FAIL (rc!=0)
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q4_K_M               | aider          | 130 | 60.9     | FAIL (interrupted)
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q5_K_M               | smoke          | -   | -        | FAIL (rc!=0)
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q5_K_M               | llama-benchy   | -   | -        | FAIL (rc!=0)
+rtx5090.thing.wg0.ma | Ornith-1.0-35B-Q5_K_M               | aider          | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 6   OK: 0   FAIL: 6

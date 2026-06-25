@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/Ornith-1.0-35B-Q4_K_M/llama-benchy/20260625-231040/result.md

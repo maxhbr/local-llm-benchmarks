@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260625-231349",
+  "host": "thing",
+  "bench": "aider",
+  "model": "Ornith-1.0-35B-Q4_K_M",
+  "endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+  "run_name": "Ornith-1.0-35B-Q4_K_M",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

@@ -1,0 +1,1726 @@
+Obtaining file:///aider
+  Installing build dependencies ... [?25l- \ | / - \ | done
+[?25h  Checking if build backend supports build_editable ... [?25ldone
+[?25h  Getting requirements to build editable ... [?25l- done
+[?25h  Preparing editable metadata (pyproject.toml) ... [?25l- done
+[?25hRequirement already satisfied: aiohappyeyeballs==2.6.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.6.1)
+Requirement already satisfied: aiohttp==3.13.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.13.3)
+Requirement already satisfied: aiosignal==1.4.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.4.0)
+Requirement already satisfied: annotated-doc==0.0.4 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.0.4)
+Requirement already satisfied: annotated-types==0.7.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.7.0)
+Requirement already satisfied: anyio==4.12.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.12.1)
+Requirement already satisfied: asgiref==3.11.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.11.1)
+Requirement already satisfied: attrs==25.4.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (25.4.0)
+Requirement already satisfied: backoff==2.2.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.2.1)
+Requirement already satisfied: beautifulsoup4==4.14.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.14.3)
+Requirement already satisfied: certifi==2026.2.25 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2026.2.25)
+Requirement already satisfied: cffi==2.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.0.0)
+Requirement already satisfied: charset-normalizer==3.4.6 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.4.6)
+Requirement already satisfied: click==8.3.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (8.3.1)
+Requirement already satisfied: configargparse==1.7.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.7.5)
+Requirement already satisfied: diff-match-patch==20241021 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (20241021)
+Requirement already satisfied: diskcache==5.6.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (5.6.3)
+Requirement already satisfied: distro==1.9.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.9.0)
+Requirement already satisfied: fastapi==0.135.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.135.1)
+Requirement already satisfied: fastuuid==0.14.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.14.0)
+Requirement already satisfied: filelock==3.25.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.25.2)
+Requirement already satisfied: flake8==7.3.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.3.0)
+Requirement already satisfied: frozenlist==1.8.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.8.0)
+Requirement already satisfied: fsspec==2026.2.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2026.2.0)
+Requirement already satisfied: gitdb==4.0.12 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.0.12)
+Requirement already satisfied: gitpython==3.1.46 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.1.46)
+Requirement already satisfied: grep-ast==0.9.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.9.0)
+Requirement already satisfied: h11==0.16.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.16.0)
+Requirement already satisfied: hf-xet==1.4.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.4.2)
+Requirement already satisfied: httpcore==1.0.9 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.0.9)
+Requirement already satisfied: httpx==0.28.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.28.1)
+Requirement already satisfied: huggingface-hub==1.7.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.7.1)
+Requirement already satisfied: idna==3.11 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.11)
+Requirement already satisfied: importlib-metadata==7.2.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.2.1)
+Requirement already satisfied: importlib-resources==6.5.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (6.5.2)
+Requirement already satisfied: jinja2==3.1.6 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.1.6)
+Requirement already satisfied: jiter==0.13.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.13.0)
+Requirement already satisfied: json5==0.13.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.13.0)
+Requirement already satisfied: jsonschema==4.26.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.26.0)
+Requirement already satisfied: jsonschema-specifications==2025.9.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2025.9.1)
+Requirement already satisfied: litellm==1.82.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.82.3)
+Requirement already satisfied: markdown-it-py==4.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.0.0)
+Requirement already satisfied: markupsafe==3.0.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.0.3)
+Requirement already satisfied: mccabe==0.7.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.7.0)
+Requirement already satisfied: mdurl==0.1.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.1.2)
+Requirement already satisfied: mixpanel==5.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (5.0.0)
+Requirement already satisfied: mslex==1.3.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.3.0)
+Requirement already satisfied: multidict==6.7.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (6.7.1)
+Requirement already satisfied: networkx==3.4.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.4.2)
+Requirement already satisfied: openai==2.28.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.28.0)
+Requirement already satisfied: orjson==3.11.7 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.11.7)
+Requirement already satisfied: oslex==0.1.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.1.3)
+Requirement already satisfied: packaging==26.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (26.0)
+Requirement already satisfied: pathspec==1.0.4 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.0.4)
+Requirement already satisfied: pexpect==4.9.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.9.0)
+Requirement already satisfied: pillow==12.1.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (12.1.1)
+Requirement already satisfied: posthog==7.9.12 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.9.12)
+Requirement already satisfied: prompt-toolkit==3.0.52 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.0.52)
+Requirement already satisfied: propcache==0.4.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.4.1)
+Requirement already satisfied: psutil==7.2.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.2.2)
+Requirement already satisfied: ptyprocess==0.7.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.7.0)
+Requirement already satisfied: pycodestyle==2.14.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.14.0)
+Requirement already satisfied: pycparser==3.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.0)
+Requirement already satisfied: pydantic==2.12.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.12.5)
+Requirement already satisfied: pydantic-core==2.41.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.41.5)
+Requirement already satisfied: pydub==0.25.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.25.1)
+Requirement already satisfied: pyflakes==3.4.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.4.0)
+Requirement already satisfied: pygments==2.19.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.19.2)
+Requirement already satisfied: pypandoc==1.17 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.17)
+Requirement already satisfied: pyperclip==1.11.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.11.0)
+Requirement already satisfied: python-dateutil==2.9.0.post0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.9.0.post0)
+Requirement already satisfied: python-dotenv==1.2.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.2.2)
+Requirement already satisfied: pyyaml==6.0.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (6.0.3)
+Requirement already satisfied: referencing==0.37.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.37.0)
+Requirement already satisfied: regex==2026.2.28 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2026.2.28)
+Requirement already satisfied: requests==2.32.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.32.5)
+Requirement already satisfied: rich==14.3.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (14.3.3)
+Requirement already satisfied: rpds-py==0.30.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.30.0)
+Requirement already satisfied: shellingham==1.5.4 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.5.4)
+Requirement already satisfied: shtab==1.8.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.8.0)
+Requirement already satisfied: six==1.17.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.17.0)
+Requirement already satisfied: smmap==5.0.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (5.0.3)
+Requirement already satisfied: sniffio==1.3.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.3.1)
+Requirement already satisfied: socksio==1.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.0.0)
+Requirement already satisfied: sounddevice==0.5.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.5.5)
+Requirement already satisfied: soundfile==0.13.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.13.1)
+Requirement already satisfied: soupsieve==2.8.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.8.3)
+Requirement already satisfied: starlette==0.52.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.52.1)
+Requirement already satisfied: tiktoken==0.12.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.12.0)
+Requirement already satisfied: tokenizers==0.22.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.22.2)
+Requirement already satisfied: tqdm==4.67.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.67.3)
+Requirement already satisfied: tree-sitter-c-sharp==0.23.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.23.1)
+Requirement already satisfied: tree-sitter-embedded-template==0.25.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.25.0)
+Requirement already satisfied: tree-sitter-language-pack==0.13.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.13.0)
+Requirement already satisfied: tree-sitter-yaml==0.7.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.7.2)
+Requirement already satisfied: typer==0.24.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.24.1)
+Requirement already satisfied: typing-extensions==4.15.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.15.0)
+Requirement already satisfied: typing-inspection==0.4.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.4.2)
+Requirement already satisfied: urllib3==2.6.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.6.3)
+Requirement already satisfied: watchfiles==1.1.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.1.1)
+Requirement already satisfied: wcwidth==0.6.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.6.0)
+Requirement already satisfied: yarl==1.23.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.23.0)
+Requirement already satisfied: zipp==3.23.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.23.0)
+Requirement already satisfied: tree-sitter==0.25.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.25.2)
+Requirement already satisfied: numpy<2.5,>=2.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.4.3)
+Requirement already satisfied: scipy<1.18,>=1.16.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.17.1)
+Requirement already satisfied: build==1.4.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.4.0)
+Requirement already satisfied: cfgv==3.5.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.5.0)
+Requirement already satisfied: codespell==2.4.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.4.2)
+Requirement already satisfied: cogapp==3.6.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.6.0)
+Requirement already satisfied: contourpy==1.3.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.3.3)
+Requirement already satisfied: coverage==7.13.4 in /usr/local/lib/python3.11/dist-packages (from coverage[toml]==7.13.4; extra == "dev"->aider-chat==0.86.3.dev53+g5dc9490bb) (7.13.4)
+Requirement already satisfied: cryptography==46.0.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (46.0.5)
+Requirement already satisfied: cycler==0.12.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.12.1)
+Requirement already satisfied: distlib==0.4.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.4.0)
+Requirement already satisfied: fonttools==4.62.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.62.1)
+Requirement already satisfied: google-api-core==2.30.0 in /usr/local/lib/python3.11/dist-packages (from google-api-core[grpc]==2.30.0; extra == "dev"->aider-chat==0.86.3.dev53+g5dc9490bb) (2.30.0)
+Requirement already satisfied: google-auth==2.49.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.49.1)
+Requirement already satisfied: google-cloud-bigquery==3.40.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.40.1)
+Requirement already satisfied: google-cloud-core==2.5.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.5.0)
+Requirement already satisfied: google-crc32c==1.8.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.8.0)
+Requirement already satisfied: google-resumable-media==2.8.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.8.0)
+Requirement already satisfied: googleapis-common-protos==1.73.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.73.0)
+Requirement already satisfied: grpcio==1.78.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.78.0)
+Requirement already satisfied: grpcio-status==1.78.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.78.0)
+Requirement already satisfied: identify==2.6.18 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.6.18)
+Requirement already satisfied: imgcat==0.6.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.6.0)
+Requirement already satisfied: iniconfig==2.3.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.3.0)
+Requirement already satisfied: kiwisolver==1.5.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.5.0)
+Requirement already satisfied: lox==1.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.0.0)
+Requirement already satisfied: matplotlib==3.10.8 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.10.8)
+Requirement already satisfied: nodeenv==1.10.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.10.0)
+Requirement already satisfied: pandas==2.3.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2.3.3)
+Requirement already satisfied: pip==26.0.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (26.0.1)
+Requirement already satisfied: pip-tools==7.5.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.5.3)
+Requirement already satisfied: platformdirs==4.9.4 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.9.4)
+Requirement already satisfied: pluggy==1.6.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.6.0)
+Requirement already satisfied: pre-commit==4.5.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (4.5.1)
+Requirement already satisfied: proto-plus==1.27.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.27.1)
+Requirement already satisfied: protobuf==6.33.5 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (6.33.5)
+Requirement already satisfied: pyasn1==0.6.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.6.2)
+Requirement already satisfied: pyasn1-modules==0.4.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.4.2)
+Requirement already satisfied: pyparsing==3.3.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.3.2)
+Requirement already satisfied: pyproject-hooks==1.2.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.2.0)
+Requirement already satisfied: pytest==9.0.2 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (9.0.2)
+Requirement already satisfied: pytest-cov==7.0.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (7.0.0)
+Requirement already satisfied: pytest-env==1.6.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.6.0)
+Requirement already satisfied: python-discovery==1.1.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (1.1.3)
+Requirement already satisfied: pytz==2026.1.post1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2026.1.post1)
+Requirement already satisfied: semver==3.0.4 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (3.0.4)
+Requirement already satisfied: setuptools==82.0.1 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (82.0.1)
+Requirement already satisfied: tzdata==2025.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (2025.3)
+Requirement already satisfied: uv==0.10.11 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.10.11)
+Requirement already satisfied: virtualenv==21.2.0 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (21.2.0)
+Requirement already satisfied: wheel==0.46.3 in /usr/local/lib/python3.11/dist-packages (from aider-chat==0.86.3.dev53+g5dc9490bb) (0.46.3)
+Building wheels for collected packages: aider-chat
+  Building editable for aider-chat (pyproject.toml) ... [?25l- done
+[?25h  Created wheel for aider-chat: filename=aider_chat-0.86.3.dev53+g5dc9490bb-0.editable-py3-none-any.whl size=20065 sha256=1d4899cf42b9a4e22c0599bd2cefcc4bd7dc43ec06a02b107144ae2e76d8f2b2
+  Stored in directory: /tmp/pip-ephem-wheel-cache-c17az34p/wheels/14/2d/e6/dd72931ea1b8808ed4c54addf19ef353e6b6e3a8700b50b0b0
+Successfully built aider-chat
+Installing collected packages: aider-chat
+  Attempting uninstall: aider-chat
+    Found existing installation: aider-chat 0.86.3.dev53+g5dc9490bb
+    Uninstalling aider-chat-0.86.3.dev53+g5dc9490bb:
+      Successfully uninstalled aider-chat-0.86.3.dev53+g5dc9490bb
+Successfully installed aider-chat-0.86.3.dev53+g5dc9490bb
+--- Verifying API connectivity ---
+{"data":[{"id":"Ornith-1.0-35B-Q4_K_M","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"loaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","34643","--tags","base,cuda","--no-webui","--alias","Ornith-1.0-35B-Q4_K_M","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q4_K_M]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false,"meta":{"vocab_type":2,"n_vocab":248320,"n_ctx":262144,"n_ctx_train":262144,"n_embd":2048,"n_params":34660610688,"size":21155768832}},{"id":"Ornith-1.0-35B-Q4_K_M-creative","aliases":[],"tags":["Ornith-1.0-35B-Q4_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q4_K_M,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Ornith-1.0-35B-Q4_K_M-creative","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q4_K_M-creative]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q4_K_M-general","aliases":[],"tags":["Ornith-1.0-35B-Q4_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q4_K_M,cuda","--temperature","0.7","--top-k","40","--top-p","0.95","--no-webui","--alias","Ornith-1.0-35B-Q4_K_M-general","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q4_K_M-general]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 0.7\ntop-k = 40\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q4_K_M-instruct","aliases":[],"tags":["Ornith-1.0-35B-Q4_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q4_K_M,cuda","--temperature","0.7","--top-k","20","--top-p","0.8","--no-webui","--alias","Ornith-1.0-35B-Q4_K_M-instruct","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q4_K_M-instruct]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 0.7\ntop-k = 20\ntop-p = 0.8\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q4_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q5_K_M","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","0","--tags","base,cuda","--no-webui","--alias","Ornith-1.0-35B-Q5_K_M","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q5_K_M]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q5_K_M-creative","aliases":[],"tags":["Ornith-1.0-35B-Q5_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q5_K_M,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Ornith-1.0-35B-Q5_K_M-creative","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q5_K_M-creative]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q5_K_M-general","aliases":[],"tags":["Ornith-1.0-35B-Q5_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q5_K_M,cuda","--temperature","0.7","--top-k","40","--top-p","0.95","--no-webui","--alias","Ornith-1.0-35B-Q5_K_M-general","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q5_K_M-general]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 0.7\ntop-k = 40\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Ornith-1.0-35B-Q5_K_M-instruct","aliases":[],"tags":["Ornith-1.0-35B-Q5_K_M","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--tags","variant,Ornith-1.0-35B-Q5_K_M,cuda","--temperature","0.7","--top-k","20","--top-p","0.8","--no-webui","--alias","Ornith-1.0-35B-Q5_K_M-instruct","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Ornith-1.0-35B-Q5_K_M-instruct]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\ntemperature = 0.7\ntop-k = 20\ntop-p = 0.8\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/deepreinforce-ai-Ornith-1.0-35B-GGUF/ornith-1.0-35b-Q5_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.5-9B-Q5_K_M","aliases":["sidekick"],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","42653","--tags","base,cuda","--no-webui","--alias","Qwen3.5-9B-Q5_K_M","--ctx-size","262144","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.5-9B-GGUF/Qwen3.5-9B-Q5_K_M.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.5-9B-Q5_K_M]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nctx-size = 262144\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.5-9B-GGUF/Qwen3.5-9B-Q5_K_M.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-Q6_K-MTP","aliases":["opencode"],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","59343","--spec-draft-n-max","2","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--spec-type","draft-mtp","--tags","base,cuda","--no-webui","--alias","Qwen3.6-27B-Q6_K-MTP","--ctx-size","184320","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-MTP-GGUF/Qwen3.6-27B-Q6_K.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-27B-Q6_K-MTP]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nspec-draft-n-max = 2\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nspec-type = draft-mtp\nwebui = false\nctx-size = 184320\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-MTP-GGUF/Qwen3.6-27B-Q6_K.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-Q8_0","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--mlock","--port","44747","--tags","base,cuda","--no-webui","--alias","Qwen3.6-27B-Q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-Q8_0.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-27B-Q8_0]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-Q8_0.gguf\nn-gpu-layers = all\ntimeout = 600\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q4_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--mlock","--port","37313","--tags","base,cuda","--no-webui","--alias","Qwen3.6-27B-UD-Q4_K_XL","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q4_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-27B-UD-Q4_K_XL]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q4_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q5_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","44435","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","base,cuda","--no-webui","--alias","Qwen3.6-27B-UD-Q5_K_XL","--batch-size","2048","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q5_K_XL]\ncache-idle-slots = false\nmetrics = true\nmlock = true\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nwebui = false\nbatch-size = 2048\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q5_K_XL-general-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","0","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q5_K_XL,cuda","--no-webui","--alias","Qwen3.6-27B-UD-Q5_K_XL-general-tasks","--batch-size","2048","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q5_K_XL-general-tasks]\ncache-idle-slots = false\nmetrics = true\nmlock = true\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nwebui = false\nbatch-size = 2048\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q5_K_XL-instruct-general-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"enable_thinking\":false}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","1.5","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q5_K_XL,cuda","--temperature","0.7","--top-k","20","--top-p","0.8","--no-webui","--alias","Qwen3.6-27B-UD-Q5_K_XL-instruct-general-tasks","--batch-size","2048","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q5_K_XL-instruct-general-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"enable_thinking\":false}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 1.5\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 0.7\ntop-k = 20\ntop-p = 0.8\nwebui = false\nbatch-size = 2048\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"enable_thinking\":false}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","1.5","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q5_K_XL,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks","--batch-size","2048","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q5_K_XL-instruct-reasoning-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"enable_thinking\":false}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 1.5\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks","aliases":["opencode-fast"],"tags":["Qwen3.6-27B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","0","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q5_K_XL,cuda","--no-webui","--alias","Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks","--batch-size","2048","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks]\ncache-idle-slots = false\nmetrics = true\nmlock = true\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nwebui = false\nbatch-size = 2048\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q6_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--mlock","--port","53141","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","base,cuda","--no-webui","--alias","Qwen3.6-27B-UD-Q6_K_XL","--batch-size","2048","--ctx-size","196608","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q6_K_XL]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmlock = true\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nwebui = false\nbatch-size = 2048\nctx-size = 196608\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q6_K_XL-general-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q6_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","1.5","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q6_K_XL,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-27B-UD-Q6_K_XL-general-tasks","--batch-size","2048","--ctx-size","196608","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q6_K_XL-general-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 1.5\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 196608\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q6_K_XL-instruct-general-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q6_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","1.5","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q6_K_XL,cuda","--temperature","0.7","--top-k","20","--top-p","0.8","--no-webui","--alias","Qwen3.6-27B-UD-Q6_K_XL-instruct-general-tasks","--batch-size","2048","--ctx-size","196608","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q6_K_XL-instruct-general-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 1.5\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 0.7\ntop-k = 20\ntop-p = 0.8\nwebui = false\nbatch-size = 2048\nctx-size = 196608\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q6_K_XL-instruct-reasoning-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q6_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","1.5","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q6_K_XL,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-27B-UD-Q6_K_XL-instruct-reasoning-tasks","--batch-size","2048","--ctx-size","196608","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q6_K_XL-instruct-reasoning-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 1.5\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 196608\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-27B-UD-Q6_K_XL-precise-coding-tasks","aliases":[],"tags":["Qwen3.6-27B-UD-Q6_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"preserve_thinking\":true}","--host","127.0.0.1","--metrics","--min-p","0.00","--mlock","--port","0","--presence-penalty","0.0","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-27B-UD-Q6_K_XL,cuda","--temperature","0.6","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-27B-UD-Q6_K_XL-precise-coding-tasks","--batch-size","2048","--ctx-size","196608","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--timeout","600","--ubatch-size","512"],"preset":"[Qwen3.6-27B-UD-Q6_K_XL-precise-coding-tasks]\ncache-idle-slots = false\nchat-template-kwargs = {\"preserve_thinking\":true}\nmetrics = true\nmin-p = 0.00\nmlock = true\npresence-penalty = 0.0\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\ntemperature = 0.6\ntop-k = 20\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 196608\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-27B-GGUF/Qwen3.6-27B-UD-Q6_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL","aliases":["hermes","opencode-fast-fallback"],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","48397","--tags","base,cuda","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-general","aliases":[],"tags":["Qwen3.6-35B-A3B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--presence-penalty","1.5","--tags","variant,Qwen3.6-35B-A3B-UD-Q5_K_XL,cuda","--temperature","0.7","--top-k","20","--top-p","0.8","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-general","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-general]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\npresence-penalty = 1.5\ntemperature = 0.7\ntop-k = 20\ntop-p = 0.8\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-reasoning","aliases":[],"tags":["Qwen3.6-35B-A3B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--presence-penalty","2.0","--tags","variant,Qwen3.6-35B-A3B-UD-Q5_K_XL,cuda","--temperature","1.0","--top-k","40","--top-p","1.0","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-reasoning","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL-instruct-reasoning]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\npresence-penalty = 2.0\ntemperature = 1.0\ntop-k = 40\ntop-p = 1.0\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-coding","aliases":[],"tags":["Qwen3.6-35B-A3B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--presence-penalty","0.0","--tags","variant,Qwen3.6-35B-A3B-UD-Q5_K_XL,cuda","--temperature","0.6","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-coding","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-coding]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\npresence-penalty = 0.0\ntemperature = 0.6\ntop-k = 20\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-general","aliases":[],"tags":["Qwen3.6-35B-A3B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--min-p","0.0","--mlock","--port","0","--presence-penalty","1.5","--tags","variant,Qwen3.6-35B-A3B-UD-Q5_K_XL,cuda","--temperature","1.0","--top-k","20","--top-p","0.95","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-general","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL-thinking-general]\ncache-idle-slots = false\nmetrics = true\nmin-p = 0.0\nmlock = true\npresence-penalty = 1.5\ntemperature = 1.0\ntop-k = 20\ntop-p = 0.95\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"Qwen3.6-35B-A3B-UD-Q5_K_XL-tweaked","aliases":[],"tags":["Qwen3.6-35B-A3B-UD-Q5_K_XL","cuda","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","0","--cache-type-k-draft","q8_0","--cache-type-v-draft","q8_0","--tags","variant,Qwen3.6-35B-A3B-UD-Q5_K_XL,cuda","--no-webui","--alias","Qwen3.6-35B-A3B-UD-Q5_K_XL-tweaked","--ctx-size","262144","--cache-type-k","q8_0","--cache-type-v","q8_0","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--split-mode","layer","--timeout","600","--tensor-split","1,1.12"],"preset":"[Qwen3.6-35B-A3B-UD-Q5_K_XL-tweaked]\ncache-idle-slots = false\nmetrics = true\nmlock = true\ncache-type-k-draft = q8_0\ncache-type-v-draft = q8_0\nwebui = false\nctx-size = 262144\ncache-type-k = q8_0\ncache-type-v = q8_0\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-Qwen3.6-35B-A3B-GGUF/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf\nn-gpu-layers = all\nsplit-mode = layer\ntimeout = 600\ntensor-split = 1,1.12\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"TheDrummer_Skyfall-31B-v4.2-Q6_K","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","37745","--tags","base,cuda","--no-webui","--alias","TheDrummer_Skyfall-31B-v4.2-Q6_K","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/bartowski-TheDrummer_Skyfall-31B-v4.2-GGUF/TheDrummer_Skyfall-31B-v4.2-Q6_K.gguf","--n-gpu-layers","all","--timeout","600"],"preset":"[TheDrummer_Skyfall-31B-v4.2-Q6_K]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/bartowski-TheDrummer_Skyfall-31B-v4.2-GGUF/TheDrummer_Skyfall-31B-v4.2-Q6_K.gguf\nn-gpu-layers = all\ntimeout = 600\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"default","aliases":[],"tags":[],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--metrics","--mlock","--port","0","--no-webui","--alias","default","--swa-checkpoints","0","--flash-attn","on","--fit","off","--n-gpu-layers","all","--timeout","600"],"preset":"[default]\ncache-idle-slots = false\nmetrics = true\nmlock = true\nwebui = false\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nn-gpu-layers = all\ntimeout = 600\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-26B-A4B-it-UD-Q6_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","46593","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-26B-A4B-it-UD-Q6_K_XL","--batch-size","2048","--ctx-size","262144","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q6_K_XL.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-26B-A4B-it-UD-Q6_K_XL]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 262144\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q6_K_XL.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-26B-A4B-it-UD-Q8_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","60257","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-26B-A4B-it-UD-Q8_K_XL","--batch-size","2048","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q8_K_XL.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-26B-A4B-it-UD-Q8_K_XL]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-26B-A4B-it-GGUF/gemma-4-26B-A4B-it-UD-Q8_K_XL.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-26B-A4B-it-qat-q4_0","aliases":["hermes-fallback"],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","39695","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-26B-A4B-it-qat-q4_0","--batch-size","2048","--ctx-size","262144","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-26B-A4B-it-qat-q4_0]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 262144\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-26B-A4B-it-qat-q4_0-mmproj","aliases":[],"tags":["cuda","gemma-4-26B-A4B-it-qat-q4_0","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-26B-A4B-it-qat-q4_0,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-26B-A4B-it-qat-q4_0-mmproj","--batch-size","2048","--ctx-size","262144","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf","--mmproj","/models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B-it-mmproj.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-26B-A4B-it-qat-q4_0-mmproj]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 262144\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf\nmmproj = /models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B-it-mmproj.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text","image"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-26B-A4B-it-qat-q4_0-nothink","aliases":[],"tags":["cuda","gemma-4-26B-A4B-it-qat-q4_0","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"enable_thinking\":false}","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-26B-A4B-it-qat-q4_0,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-26B-A4B-it-qat-q4_0-nothink","--batch-size","2048","--ctx-size","262144","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-26B-A4B-it-qat-q4_0-nothink]\ncache-idle-slots = false\nchat-template-kwargs = {\"enable_thinking\":false}\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 262144\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-26B-A4B-it-qat-q4_0-gguf/gemma-4-26B_q4_0-it.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-UD-Q4_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","41641","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-UD-Q4_K_XL","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-UD-Q4_K_XL]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-UD-Q4_K_XL-mmproj","aliases":[],"tags":["cuda","gemma-4-31B-it-UD-Q4_K_XL","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-31B-it-UD-Q4_K_XL,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-UD-Q4_K_XL-mmproj","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf","--mmproj","/models/unsloth-gemma-4-31B-it-GGUF/mmproj-F16.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-UD-Q4_K_XL-mmproj]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf\nmmproj = /models/unsloth-gemma-4-31B-it-GGUF/mmproj-F16.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text","image"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-UD-Q4_K_XL-nothink","aliases":[],"tags":["cuda","gemma-4-31B-it-UD-Q4_K_XL","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"enable_thinking\":false}","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-31B-it-UD-Q4_K_XL,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-UD-Q4_K_XL-nothink","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-UD-Q4_K_XL-nothink]\ncache-idle-slots = false\nchat-template-kwargs = {\"enable_thinking\":false}\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q4_K_XL.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-UD-Q5_K_XL","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","53567","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-UD-Q5_K_XL","--batch-size","2048","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q5_K_XL.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-UD-Q5_K_XL]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/unsloth-gemma-4-31B-it-GGUF/gemma-4-31B-it-UD-Q5_K_XL.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-qat-q4_0","aliases":[],"tags":["base","cuda"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","50047","--tags","base,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-qat-q4_0","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-qat-q4_0]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n","exit_code":1,"failed":true},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-qat-q4_0-mmproj","aliases":[],"tags":["cuda","gemma-4-31B-it-qat-q4_0","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-31B-it-qat-q4_0,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-qat-q4_0-mmproj","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf","--mmproj","/models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B-it-mmproj.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-qat-q4_0-mmproj]\ncache-idle-slots = false\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf\nmmproj = /models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B-it-mmproj.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text","image"],"output_modalities":["text"]},"need_download":false},{"id":"gemma-4-31B-it-qat-q4_0-nothink","aliases":[],"tags":["cuda","gemma-4-31B-it-qat-q4_0","variant"],"object":"model","owned_by":"llamacpp","created":1782422038,"status":{"value":"unloaded","args":["/nix/store/7j4k0yi4b8qzm9n9f8z4cxfd7wvjglkn-llama-cpp-9608/bin/llama-server","--no-cache-idle-slots","--chat-template-kwargs","{\"enable_thinking\":false}","--host","127.0.0.1","--jinja","--metrics","--mlock","--port","0","--tags","variant,gemma-4-31B-it-qat-q4_0,cuda","--temperature","1.0","--top-k","64","--top-p","0.95","--no-webui","--alias","gemma-4-31B-it-qat-q4_0-nothink","--batch-size","2048","--ctx-size","65536","--swa-checkpoints","0","--flash-attn","on","--fit","off","--model","/models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf","--n-gpu-layers","all","--threads","1","--timeout","600","--ubatch-size","512"],"preset":"[gemma-4-31B-it-qat-q4_0-nothink]\ncache-idle-slots = false\nchat-template-kwargs = {\"enable_thinking\":false}\njinja = true\nmetrics = true\nmlock = true\ntemperature = 1.0\ntop-k = 64\ntop-p = 0.95\nwebui = false\nbatch-size = 2048\nctx-size = 65536\nswa-checkpoints = 0\nflash-attn = on\nfit = off\nmodel = /models/google-gemma-4-31B-it-qat-q4_0-gguf/gemma-4-31B_q4_0-it.gguf\nn-gpu-layers = all\nthreads = 1\ntimeout = 600\nubatch-size = 512\n\n"},"architecture":{"input_modalities":["text"],"output_modalities":["text"]},"need_download":false}],"object":"list"}
+--- Starting benchmark ---
+Copying /benchmarks/polyglot-benchmark -> /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M ...
+...done
+model_metadata_files_loaded: [PosixPath('/aider/aider/resources/model-metadata.json')]
+[?12l[?25hmain_model.max_chat_history_tokens: 1024
+main_model: openai/Ornith-1.0-35B-Q4_K_M
+edit_format: whole
+fnames: /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/kindergarten-garden/src/main/java/KindergartenGarden.java
+coder.ignore_mentions: {'.meta/src', '.meta/src/reference/java/Plant.java', 'src/test/java/KindergartenGardenTest.java', '.meta/config.json', '.meta/src/reference/java/KindergartenGarden.java', '.meta/tests.toml', '.meta/src/reference/java', 'Cargo.toml', '.meta/src/reference', '.docs/introduction.md', '.docs/instructions.md', 'CMakeLists.txt'}
+Aider v0.86.3.dev53+g5dc9490bb
+Model: openai/Ornith-1.0-35B-Q4_K_M with whole edit format
+Git repo: none
+Repo-map: disabled
+Added KindergartenGarden.java to the chat.
+
+--------------
+► **THINKING**
+
+The user wants me to implement the `KindergartenGarden` class in Java.
+The class needs to:
+1. Parse a garden diagram string (two rows separated by newline).
+2. Map each student to their plants based on alphabetical order.
+3. Provide a method `getPlantsOfStudent(String student)` that returns a `List<Plant>`.
+
+The students are fixed: Alice, Bob, Charlie, David, Eve, Fred, Ginny, Harriet, Ileana, Joseph, Kincaid, Larry.
+Each student gets 2 cups from the first row and 2 cups from the second row.
+The cups are assigned alphabetically. So Alice gets cups 0 and 1, Bob gets 2 and 3, etc.
+Wait, the problem says "Their teacher assigns cups to the children alphabetically by their names".
+So Alice -> columns 0,1
+Bob -> columns 2,3
+Charlie -> columns 4,5
+...
+Larry -> columns 22,23
+
+The diagram string has two rows separated by `\n`.
+Each row has characters representing plants: G, C, R, V.
+
+Let's define the `Plant` enum. Wait, is `Plant` already defined somewhere? The instructions say "Four different types of seeds are planted: Grass, Clover, Radishes, Violets." Usually in this exercise, `Plant` is an enum 
+provided by the test suite or we need to assume it exists. I'll assume `Plant` is an enum with values `GRASS`, `CLOVER`, `RADISHES`, `VIOLETS`. Actually, the standard Exercism `Plant` enum has values like `Grass`, `Clover`, 
+`Radishes`, `Violets` or uppercase. Let's check typical Java Exercism `Plant` enum:
+```java
+enum Plant {
+    VIOLETS,
+    RADISHES,
+    CLOVER,
+    GRASS
+}
+```
+Wait, the exact names might be `VIOLETS`, `RADISHES`, `CLOVER`, `GRASS`. I'll use uppercase as is standard for Java enums, but I should be careful. Sometimes it's `Grass`, `Clover`, `Radishes`, `Violets`. I'll stick to 
+uppercase as it's safer, or I can just use `Plant.valueOf(String)` if the names match. Actually, the standard Exercism `Plant.java` for this exercise has:
+```java
+enum Plant {
+    VIOLETS,
+    RADISHES,
+    CLOVER,
+    GRASS
+}
+```
+I will assume this.
+
+Let's implement `KindergartenGarden`:
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int index = Arrays.asList(STUDENTS).indexOf(student);
+        if (index < 0) {
+            throw new IllegalArgumentException("Unknown student: " + student);
+        }
+        int colStart = index * 2;
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(colStart)));
+        plants.add(charToPlant(rows[0].charAt(colStart + 1)));
+        plants.add(charToPlant(rows[1].charAt(colStart)));
+        plants.add(charToPlant(rows[1].charAt(colStart + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Unknown plant: " + c);
+        }
+    }
+}
+```
+
+Wait, `Plant` enum values might be `GRASS`, `CLOVER`, `RADISHES`, `VIOLETS`. Let's verify typical Exercism Java `Plant` enum:
+It usually is:
+```java
+public enum Plant {
+    VIOLETS,
+    RADISHES,
+    CLOVER,
+    GRASS
+}
+```
+Yes, uppercase.
+
+Let's double check the exact requirements. "Four different types of seeds are planted: Grass, Clover, Radishes, Violets."
+The `Plant` enum in the test suite usually has these exact names. I'll use uppercase.
+
+One detail: `Arrays.asList(STUDENTS).indexOf(student)` works fine.
+Alternatively, I can use a `Map<String, Integer>` or just an array and loop. `Arrays.asList` is fine.
+
+Let's structure the code carefully.
+
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
+        int col = studentIndex * 2;
+        
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(col)));
+        plants.add(charToPlant(rows[0].charAt(col + 1)));
+        plants.add(charToPlant(rows[1].charAt(col)));
+        plants.add(charToPlant(rows[1].charAt(col + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Invalid plant character: " + c);
+        }
+    }
+}
+```
+
+Wait, should I handle `\r\n`? The input might have `\n` or `\r\n`. `garden.split("\n")` might leave `\r` at the end of the first row if it's `\r\n`. It's safer to use `garden.split("\\r?\\n")` or just `garden.indexOf('\n')`.
+Actually, `garden.split("\n")` is standard for this exercise. I'll stick with `\n`. Or I can just find the newline index.
+
+Let's use `garden.split("\n")`. It's fine.
+
+One thing: `Plant` might not be imported. The test file usually has `import static ... Plant.*` or similar, or it's in the same package. I'll assume `Plant` is accessible without import, or I can add `import static ...` but 
+it's better to just reference `Plant.GRASS` etc. If `Plant` is in the default package or imported by the test runner, it's fine.
+
+I will produce the full file content.
+
+Let's verify the class structure matches the request.
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
+        int col = studentIndex * 2;
+        
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(col)));
+        plants.add(charToPlant(rows[0].charAt(col + 1)));
+        plants.add(charToPlant(rows[1].charAt(col)));
+        plants.add(charToPlant(rows[1].charAt(col + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Invalid plant character: " + c);
+        }
+    }
+}
+```
+
+Is there any edge case? The problem says 12 children. The diagram has exactly 24 characters per row.
+`Arrays.asList(STUDENTS).indexOf(student)` returns -1 if not found. I'll throw an exception or just assume valid input as per Exercism conventions. I'll keep the `indexOf` and maybe add a check, but it's fine.
+
+Wait, `Plant` enum values in the actual Exercism Java track for this exercise are:
+`VIOLETS, RADISHES, CLOVER, GRASS`
+I'll use these.
+
+One minor point: `garden.split("\n")` might behave differently if the string ends with `\n`. But the diagram is two rows, so `split("\n")` gives an array of length 2.
+
+Let's consider if `Plant` is imported. Usually, the test file imports it or it's in the same package. I won't add an import for `Plant` unless necessary. I'll just reference it as `Plant.GRASS`.
+
+I will generate the updated file now.
+Check format:
+```
+KindergartenGarden.java
+```
+```
+// content
+```
+
+All good.
+I will produce the response. 
+One thing: `java.util.Arrays` and `java.util.ArrayList` imports are needed.
+The original file has `import java.util.List;`. I'll add `import java.util.ArrayList;` and `import java.util.Arrays;`.
+
+Final check of the code:
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
+        int col = studentIndex * 2;
+        
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(col)));
+        plants.add(charToPlant(rows[0].charAt(col + 1)));
+        plants.add(charToPlant(rows[1].charAt(col)));
+        plants.add(charToPlant(rows[1].charAt(col + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Invalid plant character: " + c);
+        }
+    }
+}
+```
+
+Looks solid. I'll output it. 
+Wait, should I handle `\r\n`? `garden.split("\n")` works for `\r\n` too, it just leaves `\r` at the end of the first row. To be safe, I'll use `garden.split("\\r?\\n")` or just trim. Actually, `split("\n")` is standard and 
+tests usually pass `\n`. I'll stick with `\n`. Or I can just find the index of `\n` manually to avoid regex overhead and `\r` issues:
+```java
+int newlineIdx = garden.indexOf('\n');
+this.rows = new String[] { garden.substring(0, newlineIdx), garden.substring(newlineIdx + 1) };
+```
+This is cleaner and avoids regex. I'll use `split("\n")` for simplicity, it's fine.
+
+I will produce the response now. 
+One detail: `Plant` might be `Plant.GRASS` etc. I'll assume uppercase as is conventional. If the test uses lowercase, it would fail, but Exercism's `Plant` enum is uppercase.
+
+Proceed. 
+Output matches requested format.✅
+All steps verified. 
+Generating response. 
+[self-correction/refinement during thought]
+Let's verify `Plant` enum names from Exercism's Java track for KindergartenGarden:
+Actually, the `Plant` enum in the stub or test usually looks like:
+```java
+enum Plant { VIOLETS, RADISHES, CLOVER, GRASS }
+```
+Yes, uppercase.
+
+I'll produce the code. 
+One minor point: `Arrays.asList(STUDENTS).indexOf(student)` works but creates a list each time. It's fine for this scale. Alternatively, I could use a `Map` or just loop. I'll keep it simple.
+
+Final code:
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
+        int col = studentIndex * 2;
+        
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(col)));
+        plants.add(charToPlant(rows[0].charAt(col + 1)));
+        plants.add(charToPlant(rows[1].charAt(col)));
+        plants.add(charToPlant(rows[1].charAt(col + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Invalid plant character: " + c);
+        }
+    }
+}
+```
+Looks good. Output matches.✅
+Proceeds. 
+Note: I'll make sure the formatting matches exactly.
+All good. 
+Output generation. 
+[Done] 
+(Self-Correction/Verification during generation prep)
+Wait, `Plant` might be imported from `java.lang`? No, it's a custom enum. The test file usually has it in the same package or imports it. I won't add an import for it.
+The code is ready.✅
+Output matches request.✅
+Proceeds. 
+[Output Generation] -> *Proceeds*
+
+------------
+► **ANSWER**
+
+KindergartenGarden.java
+
+```diff
+@@ -1,13 +1,39 @@
+ import java.util.List;
++import java.util.ArrayList;
++import java.util.Arrays;
+ 
+ class KindergartenGarden {
+ 
++    private static final String[] STUDENTS = {
++        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
++        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
++    };
++
++    private final String[] rows;
++
+     KindergartenGarden(String garden) {
+-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
++        this.rows = garden.split("\n");
+     }
+ 
+     List<Plant> getPlantsOfStudent(String student) {
+-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
++        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
++        int col = studentIndex * 2;
++        
++        List<Plant> plants = new ArrayList<>();
++        plants.add(charToPlant(rows[0].charAt(col)));
++        plants.add(charToPlant(rows[0].charAt(col + 1)));
++        plants.add(charToPlant(rows[1].charAt(col)));
++        plants.add(charToPlant(rows[1].charAt(col + 1)));
++        return plants;
+     }
+ 
++    private Plant charToPlant(char c) {
++        switch (c) {
++            case 'G': return Plant.GRASS;
++            case 'C': return Plant.CLOVER;
++            case 'R': return Plant.RADISHES;
++            case 'V': return Plant.VIOLETS;
++            default: throw new IllegalArgumentException("Invalid plant character: " + c);
++        }
++    }
+ }
+```
+
+
+Tokens: 1.3k sent, 3.9k received.
+Applied edit to KindergartenGarden.java
+response:
+KindergartenGarden.java
+```java
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+class KindergartenGarden {
+
+    private static final String[] STUDENTS = {
+        "Alice", "Bob", "Charlie", "David", "Eve", "Fred",
+        "Ginny", "Harriet", "Ileana", "Joseph", "Kincaid", "Larry"
+    };
+
+    private final String[] rows;
+
+    KindergartenGarden(String garden) {
+        this.rows = garden.split("\n");
+    }
+
+    List<Plant> getPlantsOfStudent(String student) {
+        int studentIndex = Arrays.asList(STUDENTS).indexOf(student);
+        int col = studentIndex * 2;
+        
+        List<Plant> plants = new ArrayList<>();
+        plants.add(charToPlant(rows[0].charAt(col)));
+        plants.add(charToPlant(rows[0].charAt(col + 1)));
+        plants.add(charToPlant(rows[1].charAt(col)));
+        plants.add(charToPlant(rows[1].charAt(col + 1)));
+        return plants;
+    }
+
+    private Plant charToPlant(char c) {
+        switch (c) {
+            case 'G': return Plant.GRASS;
+            case 'C': return Plant.CLOVER;
+            case 'R': return Plant.RADISHES;
+            case 'V': return Plant.VIOLETS;
+            default: throw new IllegalArgumentException("Invalid plant character: " + c);
+        }
+    }
+}
+```
+lazy_comments: 0
+copying /benchmarks/polyglot-benchmark/java/exercises/practice/kindergarten-garden/src/test/java/KindergartenGardenTest.java /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/kindergarten-garden/src/test/java/KindergartenGardenTest.java
+./gradlew test
+res:
+Downloading https://services.gradle.org/distributions/gradle-8.7-bin.zip
+............10%.............20%.............30%.............40%............50%.............60%.............70%.............80%.............90%............100%
+
+Welcome to Gradle 8.7!
+
+Here are the highlights of this release:
+ - Compiling and testing with Java 22
+ - Cacheable Groovy script compilation
+ - New methods in lazy collection properties
+
+For more details see https://docs.gradle.org/8.7/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :test
+
+KindergartenGardenTest > fullGardenForHarriet() PASSED
+
+KindergartenGardenTest > singleStudent2() PASSED
+
+KindergartenGardenTest > fullGardenForCharlie() PASSED
+
+KindergartenGardenTest > fullGardenForFred() PASSED
+
+KindergartenGardenTest > twoStudents() PASSED
+
+KindergartenGardenTest > singleStudent() PASSED
+
+KindergartenGardenTest > fullGardenForIleana() PASSED
+
+KindergartenGardenTest > fullGardenForAlice() PASSED
+
+KindergartenGardenTest > fullGardenForJoseph() PASSED
+
+KindergartenGardenTest > fullGardenForDavid() PASSED
+
+KindergartenGardenTest > fullGardenForGinny() PASSED
+
+KindergartenGardenTest > fullGardenForLarry() PASSED
+
+KindergartenGardenTest > oneGardenThirdStudent() PASSED
+
+KindergartenGardenTest > fullGardenForKincaid() PASSED
+
+KindergartenGardenTest > oneGardenSecondStudent() PASSED
+
+KindergartenGardenTest > fullGardenForBob() PASSED
+
+KindergartenGardenTest > fullGardenForEve() PASSED
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.7/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2m 9s
+3 actionable tasks: 3 executed
+
+results:
+{
+    "testdir": "/benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/kindergarten-garden",
+    "testcase": "kindergarten-garden",
+    "model": "openai/Ornith-1.0-35B-Q4_K_M",
+    "edit_format": "whole",
+    "tests_outcomes": [
+        true
+    ],
+    "cost": 0.0,
+    "duration": 19.030526876449585,
+    "test_timeouts": 0,
+    "commit_hash": "5dc9490",
+    "num_error_outputs": 0,
+    "num_user_asks": 0,
+    "num_exhausted_context_windows": 0,
+    "num_malformed_responses": 0,
+    "syntax_errors": 0,
+    "indentation_errors": 0,
+    "lazy_comments": 0,
+    "reasoning_effort": null,
+    "prompt_tokens": 1311,
+    "completion_tokens": 3886,
+    "thinking_tokens": null,
+    "chat_hashes": [
+        [
+            "6bc8b518593d29a6d905e3888c036b5d3cbd607b",
+            "6250b894c8d76253fb5e4437d151a332a649b2f7"
+        ]
+    ]
+}
+[92m─────────────────────────────────────────────── [0m/benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M[92m ───────────────────────────────────────────────[0m
+- dirname: 2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M
+[31m  test_cases: 1[0m
+  model: openai/Ornith-1.0-35B-Q4_K_M
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 100.0
+  pass_num_1: 1
+  percent_cases_well_formed: 100.0
+  error_outputs: 0
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 0
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 0
+  prompt_tokens: 1311
+  completion_tokens: 3886
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/Ornith-1.0-35B-Q4_K_M
+  date: 2026-06-25
+  versions: 0.86.3.dev
+  seconds_per_case: 19.0
+  total_cost: 0.0000
+
+costs: $0.0000/test-case, $0.00 total, $0.00 projected
+[92m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+main_model.max_chat_history_tokens: 1024
+main_model: openai/Ornith-1.0-35B-Q4_K_M
+edit_format: whole
+fnames: /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/alphametics/src/main/java/Alphametics.java
+coder.ignore_mentions: {'.meta/src', '.meta/config.json', '.meta/src/reference/java/Alphametics.java', '.meta/tests.toml', '.meta/src/reference/java', 'src/test/java/AlphameticsTest.java', '.meta/src/reference/java/UnsolvablePuzzleException.java', 'Cargo.toml', '.meta/src/reference', '.docs/instructions.md', 'CMakeLists.txt'}
+Aider v0.86.3.dev53+g5dc9490bb
+Model: openai/Ornith-1.0-35B-Q4_K_M with whole edit format
+Git repo: none
+Repo-map: disabled
+Added Alphametics.java to the chat.
+
+--------------
+► **THINKING**
+
+The user wants me to implement an Alphametics solver in Java.
+The input is a string like "SEND + MORE = MONEY".
+The output is a `Map<Character, Integer>` mapping each character to its digit.
+If unsolvable, throw `UnsolvablePuzzleException`.
+
+Constraints:
+- Each letter represents a different digit (0-9).
+- Leading digit of a multi-digit number cannot be zero.
+- Standard alphametics rules.
+
+Let's think about the algorithm.
+Since there are at most 10 unique letters, we can try all permutations of digits 0-9 for the letters.
+But 10! = 3,628,800, which is manageable.
+We can optimize by pruning or using backtracking.
+
+Let's parse the input string.
+Format: `WORD + WORD + ... = WORD`
+We can split by `=` to get left and right sides.
+Left side: split by `+`, trim each word.
+Right side: trim the word.
+
+For each word, we know its letters and their positions.
+We can compute a "weight" for each letter.
+For example, SEND + MORE = MONEY:
+S: 1000 (from SEND) - 10000 (from MONEY) = -9000
+E: 100 (SEND) + 1 (MORE) - 10 (MONEY) = 91
+N: 10 (SEND) - 100 (MONEY) = -90
+D: 1 (SEND) = 1
+M: 10000 (MORE) - 10000 (MONEY) = 0
+O: 1000 (MORE) - 1000 (MONEY) = 0
+R: 10 (MORE) = 10
+Y: -1 (MONEY) = -1
+
+So the equation becomes:
+-9000*S + 91*E - 90*N + 1*D + 0*M + 0*O + 10*R - 1*Y = 0
+
+We need to assign digits 0-9 to S, E, N, D, M, O, R, Y such that this sum is 0.
+Also, leading letters cannot be 0. Leading letters are S, M, M. So S != 0, M != 0.
+
+Algorithm:
+1. Parse input to extract words.
+2. Identify unique letters. If > 10, throw exception or return empty? Usually puzzles have <= 10.
+3. Compute weights for each letter.
+4. Identify leading letters (first letter of each word).
+5. Use backtracking to assign digits to letters.
+   - For each letter, try digits 0-9 not yet used.
+   - Check if leading letter constraint is met.
+   - At the end, check if sum == 0.
+   - Actually, we can prune early if partial sum can't possibly reach 0, but with <= 10 letters, full backtracking is fine.
+
+Let's refine the backtracking:
+```java
+private Map<Character, Integer> weights = new HashMap<>();
+private List<Character> letters = new ArrayList<>();
+private Set<Character> leadingLetters = new HashSet<>();
+private boolean[] used = new boolean[10];
+private Map<Character, Integer> solution = new HashMap<>();
+
+private boolean backtrack(int idx, long currentSum) {
+    if (idx == letters.size()) {
+        return currentSum == 0;
+    }
+    char c = letters.get(idx);
+    for (int d = 0; d <= 9; d++) {
+        if (used[d]) continue;
+        if (d == 0 && leadingLetters.contains(c)) continue;
+        used[d] = true;
+        solution.put(c, d);
+        if (backtrack(idx + 1, currentSum + d * weights.get(c))) {
+            return true;
+        }
+        solution.remove(c);
+        used[d] = false;
+    }
+    return false;
+}
+```
+
+Wait, `weights.get(c)` could be 0, which is fine.
+The sum can be large, but `long` should suffice. Max sum for 10 letters with weights up to ~10^9? Actually weights are at most 10^8 for 9-letter 
+words. `long` is fine.
+
+Let's handle parsing carefully.
+Input: `"SEND + MORE = MONEY"`
+Split by `=` -> `["SEND + MORE ", " MONEY"]`
+Left: `"SEND + MORE "` -> split by `+` -> `["SEND ", " MORE "]` -> trim -> `["SEND", "MORE"]`
+Right: `" MONEY"` -> trim -> `"MONEY"`
+
+All words: `["SEND", "MORE", "MONEY"]`
+For each word, compute place values.
+Length of word: L. Letter at index i has place value 10^(L-1-i).
+Left words add to sum, right word subtracts.
+
+Let's implement parsing:
+```java
+String[] parts = userInput.split("=");
+String[] leftParts = parts[0].split("\\+");
+String rightPart = parts[1];
+
+List<String> words = new ArrayList<>();
+for (String lp : leftParts) {
+    words.add(lp.trim());
+}
+words.add(rightPart.trim());
+```
+
+Compute weights:
+```java
+Map<Character, Long> charWeights = new HashMap<>();
+Set<Character> leading = new HashSet<>();
+for (String word : words) {
+    if (word.isEmpty()) continue;
+    leading.add(word.charAt(0));
+    long place = 1;
+    for (int i = word.length() - 1; i >= 0; i--) {
+        char c = word.charAt(i);
+        charWeights.merge(c, place, Long::sum);
+        place *= 10;
+    }
+}
+// Right side subtracts
+// Actually, we added right word with +place. We should subtract it.
+// Let's adjust: left words add, right word subtract.
+// Better: process left words with +, right word with -.
+```
+
+Let's redo weight calculation:
+```java
+Map<Character, Long> charWeights = new HashMap<>();
+Set<Character> leading = new HashSet<>();
+String[] leftParts = parts[0].split("\\+");
+for (String lp : leftParts) {
+    String w = lp.trim();
+    if (w.isEmpty()) continue;
+    leading.add(w.charAt(0));
+    long place = 1;
+    for (int i = w.length() - 1; i >= 0; i--) {
+        charWeights.merge(w.charAt(i), place, Long::sum);
+        place *= 10;
+    }
+}
+String rightW = parts[1].trim();
+if (!rightW.isEmpty()) {
+    leading.add(rightW.charAt(0));
+    long place = 1;
+    for (int i = rightW.length() - 1; i >= 0; i--) {
+        charWeights.merge(rightW.charAt(i), -place, Long::sum);
+        place *= 10;
+    }
+}
+```
+
+Collect unique letters:
+```java
+List<Character> letters = new ArrayList<>(charWeights.keySet());
+```
+
+Backtrack:
+```java
+private boolean backtrack(int idx, long currentSum) {
+    if (idx == letters.size()) {
+        return currentSum == 0;
+    }
+    char c = letters.get(idx);
+    long w = charWeights.get(c);
+    for (int d = 0; d <= 9; d++) {
+        if (used[d]) continue;
+        if (d == 0 && leading.contains(c)) continue;
+        used[d] = true;
+        solution.put(c, d);
+        if (backtrack(idx + 1, currentSum + d * w)) {
+            return true;
+        }
+        solution.remove(c);
+        used[d] = false;
+    }
+    return false;
+}
+```
+
+One optimization: sort letters by absolute weight descending to prune earlier? Not strictly necessary for <= 10 letters. But it can help. I'll skip 
+sorting for simplicity, or add it if needed. Actually, sorting might help significantly. I'll stick to simple backtracking first.
+
+Wait, `UnsolvablePuzzleException` needs to be thrown if no solution.
+The constructor of `Alphametics` should parse the input.
+The `solve()` method should run the backtracking and return the map or throw.
+
+Let's put it all together.
+
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+
+Wait, `UnsolvablePuzzleException` is not imported. I should check if it's provided or needs to be created. The instructions say "throws 
+UnsolvablePuzzleException". Usually in these exercises, the exception class is provided in the test suite or needs to be in the same package. I'll 
+assume it's provided or I should create it if not. I'll just throw it. If it's not in the classpath, the test will fail to compile. I'll add a simple 
+exception class just in case, or assume it's provided. Actually, in Exercism, `UnsolvablePuzzleException` is usually provided. I'll just throw it.
+
+Let's double check the `Alphametics` class structure.
+The provided file:
+```java
+import java.util.Map;
+
+class Alphametics {
+
+    Alphametics(String userInput) {
+        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+    }
+
+}
+```
+
+I will replace the contents. I'll add `import java.util.*;` or specific imports.
+
+One thing: `UnsolvablePuzzleException` might need to be defined. I'll check typical Exercism Java track. It usually provides it. I'll just throw it. 
+If it's missing, the user can add it, but usually it's in the test directory. I'll assume it's available.
+
+Let's consider edge cases:
+- Single word on left, single on right: `A + B = C`
+- Multiple plus signs: `A + B + C = D`
+- Spaces around `+` and `=`
+- Words with same letters
+- Leading zeros constraint: "the leading digit of a multi-digit number must not be zero." Wait, the instruction says "multi-digit number". Does that 
+mean single-letter words can be 0? Usually, in alphametics, leading letter of any word cannot be 0. The instruction says "multi-digit number", but 
+typically tests enforce no leading zero for any word. I'll stick with `leading.contains(c)` for all words. Actually, the exact wording: "the leading 
+digit of a multi-digit number must not be zero." This implies single-digit numbers CAN be zero. But usually, puzzles treat all leading letters as 
+non-zero. I'll follow the standard rule: leading letter of any word cannot be 0. Many solutions on Exercism just check `word.length() > 1` or just all
+words. I'll check `leading.contains(c)` for all words, as it's safer and matches most test cases. Actually, I'll stick to all words. If a test 
+specifically allows single-digit leading zero, it's rare. I'll keep it simple: no leading zero for any word.
+
+Wait, let's reconsider: "the leading digit of a multi-digit number must not be zero." This explicitly says multi-digit. So `I + BB = I` -> `I` could 
+be 0? `0 + 11 = 11`. But usually alphametics puzzles don't have single-letter words representing 0, or they do. I'll follow the exact instruction: 
+only restrict if word length > 1.
+But to be safe, I'll restrict for all words. Most Exercism tests expect no leading zero for any word. I'll stick with restricting for all words. 
+Actually, the instruction says "multi-digit number", so I will only restrict if `word.length() > 1`. Let's adjust `leading` set to only contain first 
+chars of words with length > 1.
+Wait, `I + BB = I` is a known edge case in some alphametics puzzles. `I=0, B=1`. If I restrict all, it fails.
+I'll change `leading.add(w.charAt(0))` to only add if `w.length() > 1`.
+
+Let's adjust:
+```java
+if (w.length() > 1) {
+    leading.add(w.charAt(0));
+}
+```
+This matches the instruction exactly.
+
+Let's test mentally: `SEND + MORE = MONEY`
+All words length > 1, so S, M, M are in leading. Correct.
+`A + B = C` -> A, B, C can be 0. But they are distinct digits. So one is 0. That's fine.
+
+I will implement this carefully.
+
+One more thing: `UnsolvablePuzzleException` might need to be in the same package or imported. I'll assume it's provided. If not, I can define it. I'll
+just throw it. To be safe, I'll add a comment or just throw it. The test file usually has it.
+
+Let's structure the code:
+
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            if (w.length() > 1) leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            if (rightW.length() > 1) leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+
+Wait, `UnsolvablePuzzleException` might not be imported. I'll add `import java.lang.Exception;`? No, it's `java.lang.Throwable` subclass. It's 
+automatically imported. But the class itself might be in the default package or a specific package. In Exercism, it's usually in the same package or 
+default. I'll just throw it.
+
+Let's check if `UnsolvablePuzzleException` needs to be defined. Sometimes Exercism provides it in the test directory. I'll assume it's provided. If 
+the user gets a compile error, they can add it. But to be safe, I'll define it as a static nested class or just throw it. I'll stick to throwing it.
+
+One minor point: `Map<Character, Integer>` return type. The `solution` map has `Integer` values. That's fine.
+
+Let's consider performance. 10! = 3.6M permutations. Backtracking with pruning is fast enough.
+Sorting letters by absolute weight descending can speed up pruning. I'll add it optionally, but not strictly needed. I'll keep it simple.
+
+Actually, I'll sort letters by absolute weight to improve pruning:
+```java
+letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+```
+This helps find solutions faster or determine unsolvability faster.
+
+Let's add it.
+
+```java
+letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+```
+
+Wait, `Math.abs(Long.MIN_VALUE)` is negative. Weights won't be `Long.MIN_VALUE`. It's fine.
+
+Let's assemble the final code.
+
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            if (w.length() > 1) leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            if (rightW.length() > 1) leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+        letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+
+Wait, `UnsolvablePuzzleException` might not be in `java.lang`. It's likely a custom exception provided by the test suite. I will just throw it. If 
+it's missing, the user will know.
+
+One thing: `import java.util.*;` covers `Map`, `HashMap`, `Set`, `HashSet`, `List`, `ArrayList`. That's fine.
+
+Let's double check the `split` behavior. `userInput.split("=")` works.
+What about `parts[0].split("\\+")`? Yes, `+` is a regex meta character, needs escaping. `\\+` is correct.
+Trimming handles spaces.
+
+Edge case: `userInput` might have trailing spaces or newlines. `trim()` on parts handles it.
+What if `userInput` is `"A = B"`? `parts[0]` = `"A "`, `parts[1]` = `" B"`.
+`leftParts` = `["A "]`. `w` = `"A"`. `w.length() > 1` is false. `leading` doesn't get A.
+`rightW` = `"B"`. `leading` doesn't get B.
+Letters: A, B. Weights: A=1, B=-1.
+Backtrack: A=0, B=0 -> sum=0. But `used` prevents both being 0.
+A=1, B=1 -> used prevents.
+A=0, B=0 fails.
+Actually, `A = B` with distinct digits has no solution. Correct.
+If `A + A = A`, then A=0. Weights: A=1+1-1=1. Sum = 1*A = 0 => A=0. Solution: {A=0}. Correct.
+
+What about `I + BB = I`?
+Words: I, BB, I.
+Weights: I: 1 - 1 = 0. B: 10 + 10 = 20.
+Equation: 0*I + 20*B = 0 => B=0. But BB has length > 1, so B cannot be 0. Unsolvable.
+Wait, `I + BB = I` => `BB = 0` => impossible. So correct.
+
+Another case: `A + A = B`
+Weights: A: 2, B: -1.
+2*A - B = 0 => B = 2*A.
+Solutions: A=1, B=2; A=2, B=4; etc. Backtrack will find A=1, B=2 first. Correct.
+
+The algorithm seems solid.
+
+One minor point: `UnsolvablePuzzleException` might need to be imported or defined. I'll assume it's provided. In many Exercism tracks, it's in the 
+test directory. I'll just throw it.
+
+I will produce the final file.
+
+Let's verify the exact class structure matches the request.
+The request gives:
+```java
+import java.util.Map;
+
+class Alphametics {
+
+    Alphametics(String userInput) {
+        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
+    }
+
+}
+```
+
+I'll replace it with my implementation. I'll keep `import java.util.Map;` and add others, or just use `import java.util.*;`.
+
+One detail: `UnsolvablePuzzleException` constructor. It probably has a no-arg constructor. I'll use `new UnsolvablePuzzleException()`.
+
+All good.
+
+I will generate the response now.
+Let's double check the `letters.sort` line. `letters` is `List<Character>`. Sorting with comparator is fine.
+`Math.abs(charWeights.get(b))` returns `long`. `Long.compare` takes `long`. Fine.
+
+One thing: `charWeights.get(c)` returns `Long`. Unboxing to `long` is fine.
+`letters.sort(...)` modifies in place.
+
+Final check of the code:
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            if (w.length() > 1) leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            if (rightW.length() > 1) leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+        letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+
+Looks good. I will output this.
+One minor consideration: `UnsolvablePuzzleException` might be in a different package. I'll assume default package or that it's provided. If the test 
+expects it to be thrown, it will work.
+
+I'll produce the response. 
+I should make sure the formatting matches the request exactly.
+The request says:
+```
+Alphametics.java
+```
+I will output the full file content.
+All set. 
+Proceeding. 
+Self-Correction/Verification during thought:
+Wait, `userInput.split("=")` might fail if there's no `=`. But the problem guarantees a valid puzzle format.
+What about `parts[0].split("\\+")`? If there's only one word on the left, it returns an array of one element. That's fine.
+`Long::sum` is fine for Java 8+.
+`letters.sort(...)` is fine.
+Everything looks solid.
+I will generate the response. 
+One thing: `import java.util.*;` replaces `import java.util.Map;`. That's fine.
+I'll output the file. 
+Done. 
+Let's produce it. 
+[Output Generation] -> matches the final code block. 
+All steps verified. 
+Proceeds. 
+`Alphametics.java` content matches exactly. 
+Done. 
+[Output]
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            if (w.length() > 1) leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            if (rightW.length() > 1) leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+        letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+Matches requested format. Done. 
+I will now generate the response. 
+All good. 
+[Output Generation] -> *Proceeds*
+
+------------
+► **ANSWER**
+
+Alphametics.java
+
+```diff
+@@ -1,13 +1,63 @@
+-import java.util.Map;
++import java.util.*;
+ 
+ class Alphametics {
+ 
++    private final Map<Character, Long> charWeights = new HashMap<>();
++    private final Set<Character> leading = new HashSet<>();
++    private final List<Character> letters = new ArrayList<>();
++    private final boolean[] used = new boolean[10];
++    private final Map<Character, Integer> solution = new HashMap<>();
++
+     Alphametics(String userInput) {
+-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
++        String[] parts = userInput.split("=");
++        String[] leftParts = parts[0].split("\\+");
++        for (String lp : leftParts) {
++            String w = lp.trim();
++            if (w.isEmpty()) continue;
++            if (w.length() > 1) leading.add(w.charAt(0));
++            long place = 1;
++            for (int i = w.length() - 1; i >= 0; i--) {
++                charWeights.merge(w.charAt(i), place, Long::sum);
++                place *= 10;
++            }
++        }
++        String rightW = parts[1].trim();
++        if (!rightW.isEmpty()) {
++            if (rightW.length() > 1) leading.add(rightW.charAt(0));
++            long place = 1;
++            for (int i = rightW.length() - 1; i >= 0; i--) {
++                charWeights.merge(rightW.charAt(i), -place, Long::sum);
++                place *= 10;
++            }
++        }
++        letters.addAll(charWeights.keySet());
++        letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+     }
+ 
+     Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+-        throw new UnsupportedOperationException("Delete this statement and write your own implementation.");
++        if (backtrack(0, 0L)) {
++            return solution;
++        }
++        throw new UnsolvablePuzzleException();
+     }
+ 
+-}+    private boolean backtrack(int idx, long currentSum) {
++        if (idx == letters.size()) {
++            return currentSum == 0;
++        }
++        char c = letters.get(idx);
++        long w = charWeights.get(c);
++        for (int d = 0; d <= 9; d++) {
++            if (used[d]) continue;
++            if (d == 0 && leading.contains(c)) continue;
++            used[d] = true;
++            solution.put(c, d);
++            if (backtrack(idx + 1, currentSum + d * w)) {
++                return true;
++            }
++            solution.remove(c);
++            used[d] = false;
++        }
++        return false;
++    }
++}
+```
+
+
+Tokens: 1.0k sent, 8.0k received.
+Applied edit to Alphametics.java
+response:
+Alphametics.java
+```java
+import java.util.*;
+
+class Alphametics {
+
+    private final Map<Character, Long> charWeights = new HashMap<>();
+    private final Set<Character> leading = new HashSet<>();
+    private final List<Character> letters = new ArrayList<>();
+    private final boolean[] used = new boolean[10];
+    private final Map<Character, Integer> solution = new HashMap<>();
+
+    Alphametics(String userInput) {
+        String[] parts = userInput.split("=");
+        String[] leftParts = parts[0].split("\\+");
+        for (String lp : leftParts) {
+            String w = lp.trim();
+            if (w.isEmpty()) continue;
+            if (w.length() > 1) leading.add(w.charAt(0));
+            long place = 1;
+            for (int i = w.length() - 1; i >= 0; i--) {
+                charWeights.merge(w.charAt(i), place, Long::sum);
+                place *= 10;
+            }
+        }
+        String rightW = parts[1].trim();
+        if (!rightW.isEmpty()) {
+            if (rightW.length() > 1) leading.add(rightW.charAt(0));
+            long place = 1;
+            for (int i = rightW.length() - 1; i >= 0; i--) {
+                charWeights.merge(rightW.charAt(i), -place, Long::sum);
+                place *= 10;
+            }
+        }
+        letters.addAll(charWeights.keySet());
+        letters.sort((a, b) -> Long.compare(Math.abs(charWeights.get(b)), Math.abs(charWeights.get(a))));
+    }
+
+    Map<Character, Integer> solve() throws UnsolvablePuzzleException {
+        if (backtrack(0, 0L)) {
+            return solution;
+        }
+        throw new UnsolvablePuzzleException();
+    }
+
+    private boolean backtrack(int idx, long currentSum) {
+        if (idx == letters.size()) {
+            return currentSum == 0;
+        }
+        char c = letters.get(idx);
+        long w = charWeights.get(c);
+        for (int d = 0; d <= 9; d++) {
+            if (used[d]) continue;
+            if (d == 0 && leading.contains(c)) continue;
+            used[d] = true;
+            solution.put(c, d);
+            if (backtrack(idx + 1, currentSum + d * w)) {
+                return true;
+            }
+            solution.remove(c);
+            used[d] = false;
+        }
+        return false;
+    }
+}
+```
+lazy_comments: 0
+copying /benchmarks/polyglot-benchmark/java/exercises/practice/alphametics/src/test/java/AlphameticsTest.java /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/alphametics/src/test/java/AlphameticsTest.java
+./gradlew test
+res:
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :test FAILED
+
+AlphameticsTest > testFourLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testFourLetters(AlphameticsTest.java:46)
+
+AlphameticsTest > testSevenLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testSevenLetters(AlphameticsTest.java:68)
+
+AlphameticsTest > testThreeLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testThreeLetters(AlphameticsTest.java:12)
+
+AlphameticsTest > testTwoDigitsFinalCarry() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testTwoDigitsFinalCarry(AlphameticsTest.java:37)
+
+AlphameticsTest > testTenLetters41Addends() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testTenLetters41Addends(AlphameticsTest.java:126)
+
+AlphameticsTest > testTenLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testTenLetters(AlphameticsTest.java:95)
+
+AlphameticsTest > testLeadingZero() PASSED
+
+AlphameticsTest > testEightLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testEightLetters(AlphameticsTest.java:81)
+
+AlphameticsTest > testUniqueValue() FAILED
+    java.lang.AssertionError: 
+    Expecting code to raise a throwable.
+        at AlphameticsTest.testUniqueValue(AlphameticsTest.java:24)
+
+AlphameticsTest > testSixLetters() FAILED
+    UnsolvablePuzzleException
+        at app//Alphametics.solve(Alphametics.java:41)
+        at app//AlphameticsTest.testSixLetters(AlphameticsTest.java:56)
+
+10 tests completed, 9 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file://alphametics/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.7/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 930ms
+3 actionable tasks: 3 executed
+
+Tests failed: /benchmarks/2026-06-25-21-14-00--Ornith-1.0-35B-Q4_K_M/java/exercises/practice/alphametics
+3 actionable tasks: 3 executed
