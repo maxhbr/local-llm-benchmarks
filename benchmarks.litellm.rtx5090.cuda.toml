@@ -25,6 +25,10 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "rtx5090:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
+  name = "rtx5090:Ornith-1.0-35B-Q4_K_M"
+  [[endpoints.models]]
+  name = "rtx5090:Ornith-1.0-35B-Q5_K_M"
+  [[endpoints.models]]
   name = "rtx5090:Qwen3.5-9B-Q5_K_M"
   [[endpoints.models]]
   name = "rtx5090:Qwen3.6-27B-Q6_K-MTP"

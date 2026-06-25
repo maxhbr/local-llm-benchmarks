@@ -49,6 +49,26 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
   [[endpoints.models]]
+  name = "Ornith-1.0-35B-BF16"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-BF16-creative"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-BF16-general"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-BF16-instruct"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q4_K_M"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q5_K_M"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q8_0"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q8_0-creative"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q8_0-general"
+  [[endpoints.models]]
+  name = "Ornith-1.0-35B-Q8_0-instruct"
+  [[endpoints.models]]
   name = "qwen3.5-122B-A10B-Q5_K_M"
   [[endpoints.models]]
   name = "Qwen3.5-9B-Q5_K_M"
@@ -134,6 +154,26 @@ benchmarks = ["smoke", "llama-benchy"]
   name = "ROCm0:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
   [[endpoints.models]]
   name = "ROCm0:NVIDIA-Nemotron-3-Super-120B-A12B-Q5_K_M"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-BF16"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-BF16-creative"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-BF16-general"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-BF16-instruct"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q4_K_M"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q5_K_M"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q8_0"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q8_0-creative"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q8_0-general"
+  [[endpoints.models]]
+  name = "ROCm0:Ornith-1.0-35B-Q8_0-instruct"
   [[endpoints.models]]
   name = "ROCm0:qwen3.5-122B-A10B-Q5_K_M"
   [[endpoints.models]]
