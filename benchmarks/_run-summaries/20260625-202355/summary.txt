@@ -1,0 +1,35 @@
+==========================================================================================
+RUN SUMMARY  (20260625-202355)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | smoke          | 1   | 12.8     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - proxy error: Could not establish connection. Received Model Group=rtx5090:gemma-4-26B-A4B-it-qat-q4_0\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | smoke          | 1   | 8.1      | FAIL (empty reply (raw=b'{"id":"chatcmpl-S98fpi29kRFP5KHiGG9IJh2eWSQVgDq1","created":1782411856,"model":"rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"fini'))
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | smoke          | 1   | 60.0     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | smoke          | 1   | 13.3     | FAIL (empty reply (raw=b'{"id":"chatcmpl-yIOUChRKDXAMSBz2vGk2dvWqeN1d7mMt","created":1782411930,"model":"rtx5090:gemma-4-31B-it-qat-q4_0","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_rea'))
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | smoke          | 1   | 11.0     | FAIL (empty reply (raw=b'{"id":"chatcmpl-xmKZbgpvbRf1XKj3sGrDlelsrdhy1aUe","created":1782411941,"model":"rtx5090:gemma-4-31B-it-UD-Q4_K_XL","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_r'))
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | smoke          | 1   | 8.4      | FAIL (empty reply (raw=b'{"id":"chatcmpl-JlKLhHL9o69T9ShZzRIEnS8LRyjHv1xI","created":1782412009,"model":"rtx5090:Qwen3.5-9B-Q5_K_M","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_reason":"'))
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | smoke          | 1   | 11.3     | FAIL (empty reply (raw=b'{"id":"chatcmpl-sGGkSIXySi7zK9DUGRd8cgaFAywVV1fX","created":1782412020,"model":"rtx5090:Qwen3.6-27B-Q6_K-MTP","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_reason'))
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | smoke          | 1   | 10.4     | FAIL (empty reply (raw=b'{"id":"chatcmpl-c89O8JGaBBVNlagL6WbG61zV0JlSfZqo","created":1782412151,"model":"rtx5090:Qwen3.6-27B-UD-Q5_K_XL","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_reas'))
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | smoke          | 1   | 13.0     | FAIL (empty reply (raw=b'{"id":"chatcmpl-fZoVNy79Q47iyw3PnnyOlDG3MbyKBuE3","created":1782412164,"model":"rtx5090:Qwen3.6-27B-UD-Q6_K_XL","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_reas'))
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 1   | 16.4     | FAIL (empty reply (raw=b'{"id":"chatcmpl-tgtNVkCKFTqSVex1rhzWi5PZmJwAzsTp","created":1782412180,"model":"rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL","object":"chat.completion","system_fingerprint":"b9608-70b54e1","choices":[{"finish_'))
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | smoke          | 1   | 60.0     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | llama-benchy   | 1   | 3612.7   | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 28   OK: 13   FAIL: 15

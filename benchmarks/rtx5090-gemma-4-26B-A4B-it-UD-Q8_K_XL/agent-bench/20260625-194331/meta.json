@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260625-194331",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-gemma-4-26B-A4B-it-UD-Q8_K_XL"
+}

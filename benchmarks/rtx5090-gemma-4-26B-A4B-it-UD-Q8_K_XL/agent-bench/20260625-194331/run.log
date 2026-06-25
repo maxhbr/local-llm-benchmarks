@@ -1,0 +1,11 @@
+
+============================================================
+RUNNING BENCHMARK: rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> API error: Request timed out.
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
