@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-25T23:07:59",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.05324
+}

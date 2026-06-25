@@ -1,0 +1,35 @@
+==========================================================================================
+RUN SUMMARY  (20260625-230021)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | smoke          | 0   | 8.3      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | smoke          | 0   | 13.8     | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | smoke          | 1   | 60.0     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | smoke          | 0   | 14.6     | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | smoke          | 0   | 9.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | smoke          | 0   | 13.0     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q8_0            | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | smoke          | 1   | 61.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | smoke          | 0   | 12.0     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | smoke          | 0   | 13.4     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 0   | 13.0     | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | llama-benchy   | 130 | 63.7     | FAIL (interrupted)
+------------------------------------------------------------------------------------------
+Total: 28   OK: 21   FAIL: 7

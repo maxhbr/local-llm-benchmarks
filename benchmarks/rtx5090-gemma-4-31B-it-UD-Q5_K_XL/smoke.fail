@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-25T23:03:58",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "rtx5090:gemma-4-31B-it-UD-Q5_K_XL",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.113844
+}
