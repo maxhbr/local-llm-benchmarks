@@ -1,0 +1,32 @@
+Using pre-existing 2026-06-24-11-23-28--rtx5090-Qwen3.6-27B-Q6_K-MTP
+──────────────────────── /benchmarks/2026-06-24-11-23-28--rtx5090-Qwen3.6-27B-Q6_K-MTP ─────────────────────────
+- dirname: 2026-06-24-11-23-28--rtx5090-Qwen3.6-27B-Q6_K-MTP
+  test_cases: 225
+  model: openai/rtx5090:Qwen3.6-27B-Q6_K-MTP
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 36.4
+  pass_rate_2: 73.8
+  pass_num_1: 82
+  pass_num_2: 166
+  percent_cases_well_formed: 100.0
+  error_outputs: 4
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 181
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 3
+  prompt_tokens: 2593669
+  completion_tokens: 2795319
+  test_timeouts: 4
+  total_tests: 225
+  command: aider --model openai/rtx5090:Qwen3.6-27B-Q6_K-MTP
+  date: 2026-06-24
+  versions: 0.86.3.dev
+  seconds_per_case: 289.3
+  total_cost: 0.0000
+
+costs: $0.0000/test-case, $0.00 total, $0.00 projected
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
