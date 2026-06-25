@@ -324,9 +324,22 @@ def run_smoke_job(job: Job, output_dir: Path, force_new: bool) -> None:
             err = f"no choices in response: {body[:200]!r}"
         else:
             msg = choices[0].get("message") or {}
-            reply = (msg.get("content") or "").strip()
+            content = msg.get("content")
+            if isinstance(content, list):
+                parts = [
+                    p.get("text", "") for p in content
+                    if isinstance(p, dict) and p.get("type") == "text"
+                ]
+                reply = "".join(parts).strip()
+            elif isinstance(content, str):
+                reply = content.strip()
+            elif content is None:
+                reply = ""
+            else:
+                reply = str(content).strip()
             if not reply:
-                err = f"empty reply (raw={body[:200]!r})"
+                finish = choices[0].get("finish_reason") or "unknown"
+                reply = f"(empty content, finish_reason={finish})"
     except urllib.error.HTTPError as e:
         try:
             detail = e.read().decode("utf-8", errors="replace")[:300]
