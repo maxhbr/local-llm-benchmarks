@@ -61,12 +61,6 @@ benchmarks = ["llama-benchy", "agent-bench"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0"
   [[endpoints.models]]
-  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-IQ1_M"
-  [[endpoints.models]]
-  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q2_K_XL"
-  [[endpoints.models]]
-  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q3_K_XL"
-  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q5_K_XL"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:TheDrummer_Skyfall-31B-v4.2-Q6_K"
