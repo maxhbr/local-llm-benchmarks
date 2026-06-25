@@ -1,0 +1,17 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (171736 > 1024). Running this sequence through the model will result in indexing errors
+llama-benchy (0.3.8)
+Date: 2026-06-25 20:30:42
+Benchmarking model: rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K at http://litellm.thing.vserver.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: Repo id must use alphanumeric chars, '-', '_' or '.'. The name cannot start or end with '-' or '.' and the maximum length is 96: 'rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K'.
+Falling back to 'gpt2' tokenizer as approximation.
+Downloading book from https://www.gutenberg.org/files/1661/1661-0.txt...
+Saved text to cache: /home/mhuber/.cache/llama-benchy/cc6a0b5782734ee3b9069aa3b64cc62c.txt
+Total tokens available in text corpus: 171736
+Warming up...
+Warmup failed: 

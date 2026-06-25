@@ -27,7 +27,7 @@ ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
 ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
-BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy, agent-bench}"
+BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy}"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
