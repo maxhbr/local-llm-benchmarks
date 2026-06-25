@@ -10,7 +10,7 @@ output_dir = "./benchmarks"
 name       = "gfx1151.thing.wg0.maxhbr.local"
 url        = "http://gfx1151.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["llama-benchy", "agent-bench"]
+benchmarks = ["smoke", "llama-benchy", "agent-bench"]
 
   [[endpoints.models]]
   name = "gemma-4-26B-A4B-it-qat-q4_0"
