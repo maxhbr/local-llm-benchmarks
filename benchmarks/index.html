@@ -106,6 +106,7 @@
       <button class="tab active" data-tab="pass">Pass rate</button>
       <button class="tab" data-tab="passtable">Pass-rate table</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
+      <button class="tab" data-tab="seconds">Seconds per test case</button>
       <span class="tab-group">llama-benchy</span>
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
@@ -190,6 +191,20 @@
         <span>X axis: test_cases — label = model.</span>
       </div>
       <div class="chart-wrap"><canvas id="chartTokens"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-seconds">
+      <div class="controls">
+        <label>
+          Y scale
+          <select id="secondsScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <span>X axis: test_cases — one line per benchmark file. Y: seconds_per_case.</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartSeconds"></canvas></div>
     </section>
 
     <section class="panel" id="panel-llama">
@@ -959,6 +974,31 @@
       },
     });
 
+    let chartSeconds = null;
+    function renderSeconds() {
+      const scale = document.getElementById("secondsScale").value;
+      const datasets = DATASETS.map(d => {
+        const label = `${d.folder} / ${d.baseName}`;
+        const color = colorFor(label);
+        return {
+          label,
+          data: d.rows.map(r => ({ x: r.test_cases, y: r.seconds_per_case })),
+          borderColor: color,
+          backgroundColor: color,
+          tension: 0.2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          borderWidth: 2,
+        };
+      });
+      if (chartSeconds) chartSeconds.destroy();
+      chartSeconds = new Chart(document.getElementById("chartSeconds"), {
+        type: "line",
+        data: { datasets },
+        options: commonOpts("seconds_per_case", false, scale),
+      });
+    }
+
     let chartPtable = null;
     function renderPtable() {
       const sort = document.getElementById("ptableSort").value;
@@ -1065,6 +1105,7 @@
     document.getElementById("ptableMinTasks").addEventListener("input", renderPtable);
     document.getElementById("tokenMetric").addEventListener("change", renderTokens);
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
+    document.getElementById("secondsScale").addEventListener("change", renderSeconds);
     ["llamaTest", "llamaDepth", "llamaConc", "llamaMetric", "llamaSort"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlama));
     ["gridTest", "gridScale", "gridModel"].forEach(id =>
@@ -1084,6 +1125,7 @@
         renderPass();
         renderPtable();
         renderTokens();
+        renderSeconds();
         renderLlama();
         populateGridModels();
         renderGrid();
