@@ -1,5 +1,7 @@
 {
   "files": [
+    "Ornith-1.0-35B-Q4_K_M/aider.computed.yaml",
+    "Ornith-1.0-35B-Q5_K_M/aider.computed.yaml",
     "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf/aider-diff.computed.yaml",
     "Qwen3.6-35B-A3B-BF16-multigpu/aider-diff.computed.yaml",
     "gfx1151-NVIDIA-Nemotron-3-Nano-Omni-Q8_0/aider.computed.yaml",
