@@ -15,7 +15,7 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.vserver.wg0"
 url        = "http://litellm.thing.vserver.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["aider"] # "llama-benchy", "agent-bench", 
+benchmarks = ["smoke", "llama-benchy", "agent-bench",  "aider"] # "llama-benchy", "agent-bench", 
 
 
   [[endpoints.models]]

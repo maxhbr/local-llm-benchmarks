@@ -1,0 +1,19 @@
+==========================================================================================
+RUN SUMMARY  (20260626-120010)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q8_0   | smoke          | 1   | 5.4      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Ornith-1.0-35B-Q8_0\nAvailable Model Group Fallbacks=None","type":nul)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q8_0   | llama-benchy   | 1   | 7.7      | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q8_0   | aider          | 130 | 122.0    | FAIL (interrupted)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-BF16   | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-BF16   | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-BF16   | aider          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q4_K_M | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q4_K_M | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q4_K_M | aider          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q5_K_M | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q5_K_M | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Ornith-1.0-35B-Q5_K_M | aider          | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 12   OK: 0   FAIL: 12

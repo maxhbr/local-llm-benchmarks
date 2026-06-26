@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-26T17:15:32",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "localhost:22545:localhost:22545",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.098988
+}

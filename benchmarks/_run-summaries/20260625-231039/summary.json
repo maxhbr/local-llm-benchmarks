@@ -1,0 +1,78 @@
+{
+  "timestamp": "20260625-231039",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q4_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.104376,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q4_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 189.900019,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q4_K_M",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 21623.978559,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q5_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 13.625923,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q5_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 191.514582,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Ornith-1.0-35B-Q5_K_M",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 22761.269354,
+      "error": null
+    }
+  ]
+}
