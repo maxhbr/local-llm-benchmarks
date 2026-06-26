@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260626-193208",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "localhost:22545:localhost:22545",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "DeepSeek-V4-Flash-IQ2XXS-MTP"
+}

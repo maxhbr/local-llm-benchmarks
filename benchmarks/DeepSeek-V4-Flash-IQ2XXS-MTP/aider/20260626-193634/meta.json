@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260626-193634",
+  "host": "thing",
+  "bench": "aider",
+  "model": "localhost:22545:localhost:22545",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

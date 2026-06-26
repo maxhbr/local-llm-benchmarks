@@ -1,0 +1,15 @@
+==========================================================================================
+RUN SUMMARY  (20260626-163710)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q8_0         | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q8_0         | llama-benchy   | 130 | 97.1     | FAIL (interrupted)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-BF16         | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-BF16         | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q4_K_M       | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q4_K_M       | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q5_K_M       | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q5_K_M       | llama-benchy   | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 8   OK: 0   FAIL: 8
