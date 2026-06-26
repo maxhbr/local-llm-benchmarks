@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-26T05:14:27",
+  "endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+  "model": "Ornith-1.0-35B-Q5_K_M",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 13.625923
+}
