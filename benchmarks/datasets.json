@@ -1,5 +1,6 @@
 {
   "files": [
+    "DeepSeek-V4-Flash-IQ2XXS-MTP/aider.computed.yaml",
     "Ornith-1.0-35B-Q4_K_M/aider.computed.yaml",
     "Ornith-1.0-35B-Q5_K_M/aider.computed.yaml",
     "Qwen3.6-35B-A3B-BF16-00001-of-00002.gguf/aider-diff.computed.yaml",
