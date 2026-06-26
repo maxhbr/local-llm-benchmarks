@@ -1,0 +1,32 @@
+Using pre-existing 2026-06-26-03-17-43--Ornith-1.0-35B-Q5_K_M
+─────────────────────────────────────────────── /benchmarks/2026-06-26-03-17-43--Ornith-1.0-35B-Q5_K_M ───────────────────────────────────────────────
+- dirname: 2026-06-26-03-17-43--Ornith-1.0-35B-Q5_K_M
+  test_cases: 225
+  model: openai/Ornith-1.0-35B-Q5_K_M
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 30.2
+  pass_rate_2: 65.3
+  pass_num_1: 68
+  pass_num_2: 147
+  percent_cases_well_formed: 100.0
+  error_outputs: 5
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 128
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 1839813
+  completion_tokens: 2692963
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/Ornith-1.0-35B-Q5_K_M
+  date: 2026-06-26
+  versions: 0.86.3.dev
+  seconds_per_case: 99.6
+  total_cost: 0.0000
+
+costs: $0.0000/test-case, $0.00 total, $0.00 projected
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
