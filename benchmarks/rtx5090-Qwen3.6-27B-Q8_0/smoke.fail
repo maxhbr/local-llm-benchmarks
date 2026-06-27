@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-25T23:05:20",
+  "timestamp": "2026-06-27T08:44:20",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "rtx5090:Qwen3.6-27B-Q8_0",
   "error": "TimeoutError: timed out",
-  "duration_s": 60.123634
+  "duration_s": 60.098662
 }
