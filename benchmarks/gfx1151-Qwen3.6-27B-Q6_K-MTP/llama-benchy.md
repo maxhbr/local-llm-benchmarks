@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/gfx1151-Qwen3.6-27B-Q6_K-MTP/llama-benchy/20260629-115339/result.md

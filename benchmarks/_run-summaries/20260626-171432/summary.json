@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260626-171432",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "smoke",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 60.098988,
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 8194.804186,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "agent-bench",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 267.282844,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "aider",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 11797.27562,
+      "error": null
+    }
+  ]
+}
