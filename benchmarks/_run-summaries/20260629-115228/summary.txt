@@ -1,0 +1,29 @@
+==========================================================================================
+RUN SUMMARY  (20260629-115228)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-BF16            | smoke          | 0   | 39.4     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-BF16            | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-MTP-Q8_0        | smoke          | 0   | 19.7     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-MTP-Q8_0        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q6_K-MTP        | smoke          | 0   | 11.2     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q6_K-MTP        | llama-benchy   | 0   | 5265.0   | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q8_0            | smoke          | 0   | 18.4     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q8_0            | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | smoke          | 0   | 12.5     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | smoke          | 0   | 14.5     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | smoke          | 0   | 16.3     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-BF16        | smoke          | 0   | 36.9     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-BF16        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | smoke          | 0   | 34.1     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-Q8_0        | smoke          | 0   | 19.2     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-Q8_0        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 0   | 11.0     | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 0.0      | OK
+------------------------------------------------------------------------------------------
+Total: 22   OK: 22   FAIL: 0
