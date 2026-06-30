@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-06-30T20:13:08",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "gfx1151:ROCm0:Qwen3.6-27B-Q8_0",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 13.407655
+}
