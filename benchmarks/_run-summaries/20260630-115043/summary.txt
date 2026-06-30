@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260630-115043)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0  | smoke          | 1   | 6.2      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0\nAvailable Model Group Fallbacks=None","type":nu)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0  | llama-benchy   | 1   | 9.0      | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0  | smoke          | 1   | 5.2      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0\nAvailable Model Group Fallbacks=None","type":nu)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0  | llama-benchy   | 1   | 7.6      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 0   FAIL: 4
