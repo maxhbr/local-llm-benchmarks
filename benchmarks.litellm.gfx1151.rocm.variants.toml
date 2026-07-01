@@ -10,7 +10,7 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.vserver.wg0"
 url        = "http://litellm.thing.vserver.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy"]
+benchmarks = ["smoke", "llama-benchy", "llama-benchmark", "llama-benchmark-v1", "llama-benchmark-v2"]
 
   [[endpoints.models]]
   name = "gfx1151:ROCm0:gemma-4-31B-it-BF16"

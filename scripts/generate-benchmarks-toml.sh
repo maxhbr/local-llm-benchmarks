@@ -23,11 +23,13 @@ set -euo pipefail
 ENDPOINT_URL="${ENDPOINT_URL:-http://litellm.thing.vserver.wg0.maxhbr.local/v1}"
 ENDPOINT_NAME="${ENDPOINT_NAME:-litellm.thing.vserver.wg0}"
 ENDPOINT_BACKEND="${ENDPOINT_BACKEND:-litellm}"
+ENABLE_VARIANTS="${ENABLE_VARIANTS:-false}"
 ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
 ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
 BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy}"
+VARIANTS_BENCHMARKS="smoke, llama-benchy, llama-benchmark, llama-benchmark-v1, llama-benchmark-v2"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
@@ -77,7 +79,11 @@ write_toml() {
     local producer="$1" backend="$2" filter_desc="$3"
     shift 3
     local -a models=("$@")
-    local out_file="${OUT_DIR}/benchmarks.${ENDPOINT_BACKEND}.${producer}.${backend}.toml"
+    local variants_suffix=""
+    if $ENABLE_VARIANTS; then
+        variants_suffix=".variants"
+    fi
+    local out_file="${OUT_DIR}/benchmarks.${ENDPOINT_BACKEND}.${producer}.${backend}${variants_suffix}.toml"
 
     echo "Writing ${out_file} (${#models[@]} models)" >&2
     {
@@ -100,6 +106,12 @@ write_toml() {
 }
 
 if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
+    if $ENABLE_VARIANTS; then
+        # Use variant benchmarks when flag is enabled
+        BENCHMARKS="${VARIANTS_BENCHMARKS}"
+    fi
+    BENCHMARKS_ARRAY="$(benchmarks_toml_array "${BENCHMARKS}")"
+
     # Discover (producer, backend) pairs present among base-tagged models.
     mapfile -t pairs < <(
         jq -r '
