@@ -43,8 +43,6 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "Qwen3.6-27B-MTP-Q8_0"
   [[endpoints.models]]
-  name = "Qwen3.6-27B-MTP-Q8_0-bartowski"
-  [[endpoints.models]]
   name = "Qwen3.6-27B-MTP-Q8_0-general-tasks"
   [[endpoints.models]]
   name = "Qwen3.6-27B-MTP-Q8_0-instruct-general-tasks"
@@ -123,8 +121,6 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "ROCm0:Qwen3.6-27B-MTP-Q8_0"
   [[endpoints.models]]
-  name = "ROCm0:Qwen3.6-27B-MTP-Q8_0-bartowski"
-  [[endpoints.models]]
   name = "ROCm0:Qwen3.6-27B-MTP-Q8_0-general-tasks"
   [[endpoints.models]]
   name = "ROCm0:Qwen3.6-27B-MTP-Q8_0-instruct-general-tasks"
@@ -172,3 +168,5 @@ benchmarks = ["smoke", "llama-benchy"]
   name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-coding"
   [[endpoints.models]]
   name = "ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-general"
+  [[endpoints.models]]
+  name = "vllm:Qwen3.6-27B-FP8"

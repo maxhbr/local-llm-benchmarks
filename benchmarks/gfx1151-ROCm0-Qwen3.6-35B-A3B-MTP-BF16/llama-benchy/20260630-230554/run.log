@@ -1,0 +1,16 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (159385 > 1024). Running this sequence through the model will result in indexing errors
+llama-benchy (0.3.8)
+Date: 2026-06-30 23:05:55
+Benchmarking model: gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16 at http://litellm.thing.vserver.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: Repo id must use alphanumeric chars, '-', '_' or '.'. The name cannot start or end with '-' or '.' and the maximum length is 96: 'gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16'.
+Falling back to 'gpt2' tokenizer as approximation.
+Loading text from cache: /home/mhuber/.cache/llama-benchy/cc6a0b5782734ee3b9069aa3b64cc62c.txt
+Total tokens available in text corpus: 159385
+Warming up...
+Warmup failed: HTTP 500: {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}}

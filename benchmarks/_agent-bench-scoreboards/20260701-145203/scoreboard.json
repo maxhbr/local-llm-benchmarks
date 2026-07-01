@@ -1,0 +1,24 @@
+{
+  "localhost:22545:localhost:22545": {
+    "turn_1_tps": 0.0,
+    "json_valid_rate": 0.0,
+    "tool_name_ok_rate": 0.0,
+    "math_conversion_rate": 0.0,
+    "turn_2_tps": 0.0,
+    "final_success_rate": 0.0,
+    "runs": 10,
+    "temp0_final_response": null,
+    "errors": [
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 404 - {'error': {'message': 'litellm.NotFoundError: NotFoundError: OpenAIException - The model `localhost:22545` does not exist.. Received Model Group=localhost:22545:localhost:22545\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '404'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 404 - {'error': {'message': 'litellm.NotFoundError: NotFoundError: OpenAIException - The model `localhost:22545` does not exist.. Received Model Group=localhost:22545:localhost:22545\\nAvailable Model Group Fallbacks=None', 'type': None, 'param': None, 'code': '404'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}",
+      "api: Error code: 429 - {'error': {'message': \"No deployments available for selected model, Try again in 5 seconds. Passed model=localhost:22545:localhost:22545. pre-call-checks=False, cooldown_list=['0c736d551d99a9d946ab20c3fdad8f2cd162f4d8cb3534aaf3794d134d36eb7f']\", 'type': 'None', 'param': 'None', 'code': '429'}}"
+    ]
+  }
+}

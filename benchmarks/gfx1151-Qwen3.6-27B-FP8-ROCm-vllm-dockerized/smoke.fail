@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-07-01T15:09:30",
+  "endpoint": "http://localhost:22545/v1",
+  "model": "Qwen3.6-27B-FP8",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.069938
+}

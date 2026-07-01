@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260701-145431",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "vllm",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-FP8",
+      "bench": "smoke",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 60.072009,
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "endpoint_name": "vllm",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-FP8",
+      "bench": "llama-benchy",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 777.738847,
+      "error": "interrupted"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+==========================================================================================
+RUN SUMMARY  (20260701-145405)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-d | smoke          | 1   | 0.0      | FAIL (HTTP 400: Bad Request — {"error":{"message":"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. Call `/v1/models` to view available models for your key.","type":"None","param":"None","code":"400","provider_specific_fields":{"error":"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. )
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-d | llama-benchy   | 1   | 2.2      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 2   OK: 0   FAIL: 2
