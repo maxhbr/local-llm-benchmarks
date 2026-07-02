@@ -17,6 +17,7 @@
 #
 # Output filename:
 #     benchmarks.<ENDPOINT_BACKEND>.<producer>.<backend>.toml
+#   (appends .variants when ENABLE_VARIANTS=true)
 
 set -euo pipefail
 
@@ -29,7 +30,6 @@ ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
 BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy}"
-VARIANTS_BENCHMARKS="smoke, llama-benchy, llama-benchmark, llama-benchmark-v1, llama-benchmark-v2"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
@@ -75,6 +75,13 @@ benchmarks_toml_array() {
 
 BENCHMARKS_ARRAY="$(benchmarks_toml_array "$BENCHMARKS")"
 
+# Model filter: restrict to "base" tagged models, or all models for variants.
+if $ENABLE_VARIANTS; then
+    VARIANT_FILTER_DESC="all models (variants)"
+else
+    VARIANT_FILTER_DESC='litellm_params.tags contains "base"'
+fi
+
 write_toml() {
     local producer="$1" backend="$2" filter_desc="$3"
     shift 3
@@ -106,17 +113,11 @@ write_toml() {
 }
 
 if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
-    if $ENABLE_VARIANTS; then
-        # Use variant benchmarks when flag is enabled
-        BENCHMARKS="${VARIANTS_BENCHMARKS}"
-    fi
-    BENCHMARKS_ARRAY="$(benchmarks_toml_array "${BENCHMARKS}")"
-
-    # Discover (producer, backend) pairs present among base-tagged models.
+    # Discover (producer, backend) pairs present among filtered models.
     mapfile -t pairs < <(
-        jq -r '
+        jq -r --argjson enable_variants "$ENABLE_VARIANTS" '
             .data[]
-            | select(.litellm_params.tags | index("base"))
+            | select($enable_variants or (.litellm_params.tags | index("base")))
             | .litellm_params.tags as $t
             | ( ["rtx5090","gfx1151"] | map(select(. as $p | $t | index($p))) | .[0] ) as $producer
             | ( ["cuda","vulkan","rocm"] | map(select(. as $b | $t | index($b))) | .[0] ) as $backend
@@ -126,7 +127,7 @@ if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
     )
 
     if [[ ${#pairs[@]} -eq 0 ]]; then
-        echo "No base-tagged models found." >&2
+        echo "No models found." >&2
         exit 1
     fi
 
@@ -135,9 +136,9 @@ if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
         backend="${pair##*	}"
 
         mapfile -t models < <(
-            jq -r --arg producer "$producer" --arg backend "$backend" '
+            jq -r --arg producer "$producer" --arg backend "$backend" --argjson enable_variants "$ENABLE_VARIANTS" '
                 .data[]
-                | select(.litellm_params.tags | index("base"))
+                | select($enable_variants or (.litellm_params.tags | index("base")))
                 | select(.litellm_params.tags | index($producer))
                 | select(.litellm_params.tags | index($backend))
                 | .model_name
@@ -146,7 +147,7 @@ if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
         [[ ${#models[@]} -eq 0 ]] && continue
 
         write_toml "$producer" "$backend" \
-            "litellm_params.tags contains \"base\" + \"${producer}\" + \"${backend}\"" \
+            "${VARIANT_FILTER_DESC} + \"${producer}\" + \"${backend}\"" \
             "${models[@]}"
     done
 
@@ -159,16 +160,20 @@ else
 
     has_tags="$(jq '[.data[] | select(has("tags")) | .tags // [] | length] | add // 0' "$tmpjson")"
 
-    if [[ "$has_tags" -gt 0 ]]; then
+    if $ENABLE_VARIANTS; then
+        mapfile -t models < <(
+            jq -r '.data[].id' "$tmpjson" | sort -u
+        )
+        filter_desc="all models (variants)"
+    elif [[ "$has_tags" -gt 0 ]]; then
         mapfile -t models < <(
             jq -r '.data[] | select((.tags // []) | index("base")) | .id' "$tmpjson" | sort -u
         )
         filter_desc="tags contains \"base\""
     else
-        mapfile -t models < <(
-            jq -r '.data[].id' "$tmpjson" | sort -u
-        )
-        filter_desc="all models (no tags exposed by endpoint)"
+        echo "WARN: direct backend has no tags — skipping non-variants file (use --variants to include all models)" >&2
+        echo "Done." >&2
+        exit 0
     fi
 
     if [[ ${#models[@]} -eq 0 ]]; then

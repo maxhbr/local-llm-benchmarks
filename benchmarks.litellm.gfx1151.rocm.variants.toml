@@ -2,7 +2,7 @@
 # Endpoint backend: litellm
 # Producer: gfx1151   Backend: rocm
 # Source: http://litellm.thing.vserver.wg0.maxhbr.local/v1/model/info
-# Filter: litellm_params.tags contains "base" + "gfx1151" + "rocm"
+# Filter: all models (variants) + "gfx1151" + "rocm"
 
 output_dir = "./benchmarks"
 
@@ -10,16 +10,28 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.vserver.wg0"
 url        = "http://litellm.thing.vserver.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy", "llama-benchmark", "llama-benchmark-v1", "llama-benchmark-v2"]
+benchmarks = ["smoke", "llama-benchy"]
 
   [[endpoints.models]]
   name = "gfx1151:ROCm0:gemma-4-31B-it-BF16"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_NL"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_NL-196k"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_NL-49k"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_XS"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_XS-196k"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_XS-49k"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-Q3_K_S"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-Q3_K_S-196k"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:MiniMax-M2.7-UD-Q3_K_S-49k"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
   [[endpoints.models]]
@@ -29,10 +41,54 @@ benchmarks = ["smoke", "llama-benchy", "llama-benchmark", "llama-benchmark-v1", 
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0-general-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0-instruct-general-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0-instruct-reasoning-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0-precise-coding-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0-q8_0"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0-general-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0-instruct-general-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0-instruct-reasoning-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0-precise-coding-tasks"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0-q8_0"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-instruct-general"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-instruct-reasoning"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-thinking-coding"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16-thinking-general"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-general"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-instruct-reasoning"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-coding"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16-thinking-general"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-general"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-instruct-reasoning"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-coding"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0-thinking-general"

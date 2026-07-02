@@ -2,7 +2,7 @@
 # Endpoint backend: direct
 # Producer: gfx1151   Backend: vulkan
 # Source: http://gfx1151.thing.wg0.maxhbr.local/v1/models
-# Filter: all models (no tags exposed by endpoint)
+# Filter: all models (variants)
 
 output_dir = "./benchmarks"
 
