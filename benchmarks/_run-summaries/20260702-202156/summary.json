@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260702-202156",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Ornith-1.0-35B-Q8_0",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 15.123844,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Ornith-1.0-35B-Q8_0",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 1161.618472,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Ornith-1.0-35B-Q8_0",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 6.136611,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Ornith-1.0-35B-Q8_0",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 1310.374514,
+      "error": null
+    }
+  ]
+}
