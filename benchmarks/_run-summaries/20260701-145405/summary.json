@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260701-145405",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-FP8",
+      "bench": "smoke",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 0.018965,
+      "error": "HTTP 400: Bad Request \u2014 {\"error\":{\"message\":\"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. Call `/v1/models` to view available models for your key.\",\"type\":\"None\",\"param\":\"None\",\"code\":\"400\",\"provider_specific_fields\":{\"error\":\"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. "
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-FP8",
+      "bench": "llama-benchy",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 2.229647,
+      "error": null
+    }
+  ]
+}

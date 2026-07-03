@@ -1,0 +1,21 @@
+==========================================================================================
+RUN SUMMARY  (20260630-184147)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0  | smoke          | 0   | 7.3      | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0  | llama-benchy   | 0   | 1080.6   | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0  | smoke          | 0   | 16.9     | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0  | llama-benchy   | 0   | 4363.2   | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-Q8_0      | smoke          | 0   | 13.4     | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-Q8_0      | llama-benchy   | 0   | 4043.9   | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16  | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16  | llama-benchy   | 1   | 58.5     | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:gemma-4-31B-it-BF16   | smoke          | 0   | 26.2     | OK
+litellm.thing.vserve | gfx1151:ROCm0:gemma-4-31B-it-BF16   | llama-benchy   | 0   | 6150.8   | OK
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-BF16      | smoke          | 1   | 7.9      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Qwen3.6-27B-BF16\nAvailable Model Group Fallbacks=None","type":null,")
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-27B-BF16      | llama-benchy   | 1   | 10.2     | FAIL (rc!=0)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-B | smoke          | 1   | 8.0      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-BF16\nAvailable Model Group Fallbacks=None","type)
+litellm.thing.vserve | gfx1151:ROCm0:Qwen3.6-35B-A3B-MTP-B | llama-benchy   | 1   | 9.2      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 14   OK: 8   FAIL: 6

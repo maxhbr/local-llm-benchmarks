@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260701-145200",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 2.379876,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "agent-bench",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 13.767974,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545:localhost:22545",
+      "bench": "aider",
+      "alias": "gfx1151:Qwen3.6-27B-FP8-ROCm:vllm-dockerized",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 3.081409,
+      "error": null
+    }
+  ]
+}

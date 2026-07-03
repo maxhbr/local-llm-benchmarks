@@ -1,0 +1,17 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (159385 > 1024). Running this sequence through the model will result in indexing errors
+llama-benchy (0.3.8)
+Date: 2026-07-01 14:54:06
+Benchmarking model: Qwen3.6-27B-FP8 at http://litellm.thing.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: Qwen3.6-27B-FP8 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+Falling back to 'gpt2' tokenizer as approximation.
+Loading text from cache: /home/mhuber/.cache/llama-benchy/cc6a0b5782734ee3b9069aa3b64cc62c.txt
+Total tokens available in text corpus: 159385
+Warming up...
+Warmup failed: HTTP 400: {"error":{"message":"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. Call `/v1/models` to view available models for your key.","type":"None","param":"None","code":"400","provider_specific_fields":{"error":"/chat/completions: Invalid model name passed in model=Qwen3.6-27B-FP8. Call `/v1/models` to view available models for your key."}}}

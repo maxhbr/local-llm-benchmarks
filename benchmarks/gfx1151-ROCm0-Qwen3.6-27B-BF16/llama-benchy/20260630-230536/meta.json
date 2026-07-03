@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260630-230536",
+  "host": "thing",
+  "bench": "llama-benchy",
+  "model": "gfx1151:ROCm0:Qwen3.6-27B-BF16",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-ROCm0-Qwen3.6-27B-BF16",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}
