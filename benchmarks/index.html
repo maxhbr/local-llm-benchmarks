@@ -25,6 +25,10 @@
       display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
     header h1 { margin: 0; font-size: 18px; font-weight: 600; }
     header .status { color: var(--muted); font-size: 13px; }
+    header select {
+      background: var(--panel-2); color: var(--fg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 4px 8px; font-size: 13px;
+    }
     main { padding: 16px 20px; }
     .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
       flex-wrap: wrap; align-items: flex-end; }
@@ -99,6 +103,13 @@
   <header>
     <h1>Local LLM Benchmarks</h1>
     <span class="status" id="status">loading…</span>
+    <label class="gpu-filter" style="margin-left: auto; color: var(--muted); font-size: 13px;
+           display: inline-flex; align-items: center; gap: 6px;">
+      Graphics card
+      <select id="gpuFilter">
+        <option value="" selected>all</option>
+      </select>
+    </label>
   </header>
   <main>
     <div class="tabs" role="tablist">
@@ -109,6 +120,7 @@
       <button class="tab" data-tab="seconds">Seconds per test case</button>
       <span class="tab-group">llama-benchy</span>
       <button class="tab" data-tab="llama">llama-benchy</button>
+      <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
       <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
       <span class="tab-group">agent bench</span>
       <button class="tab" data-tab="ab-leaderboard">Leaderboard</button>
@@ -255,6 +267,48 @@
         <span id="llamaStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlama"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-llamagraph">
+      <div class="controls">
+        <label>
+          Test
+          <select id="lgraphTest">
+            <option value="pp2048" selected>pp2048 (prompt)</option>
+            <option value="tg128">tg128 (generation)</option>
+          </select>
+        </label>
+        <label>
+          Concurrency
+          <select id="lgraphConc">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <label>
+          Metric
+          <select id="lgraphMetric">
+            <option value="t/s" selected>t/s</option>
+            <option value="t/s (req)">t/s (req)</option>
+            <option value="peak t/s">peak t/s</option>
+            <option value="peak t/s (req)">peak t/s (req)</option>
+            <option value="ttfr (ms)">ttfr (ms)</option>
+            <option value="est_ppt (ms)">est_ppt (ms)</option>
+            <option value="e2e_ttft (ms)">e2e_ttft (ms)</option>
+          </select>
+        </label>
+        <label>
+          Y scale
+          <select id="lgraphScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <span>X axis: depth — one line per model.</span>
+        <span id="lgraphStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlamaGraph"></canvas></div>
     </section>
 
     <section class="panel" id="panel-llamagrid">
@@ -516,21 +570,114 @@
     let chartPass = null;
     let chartTokens = null;
     let chartLlama = null;
+    let chartLlamaGraph = null;
     const DEPTHS = ["d0", "d8192", "d16384"];
     const DEPTH_X = { d0: 0, d8192: 8192, d16384: 16384 };
     const CONCURRENCIES = [1, 2, 4];
 
+    // ====================================================================
+    // GLOBAL GRAPHICS-CARD FILTER
+    // The GPU is encoded differently per data source:
+    //   - llama-benchy model:   "rtx5090:Model"      (":"-prefix)
+    //   - aider model:          "openai/rtx5090:Model" (optional "openai/" then ":"-prefix)
+    //   - aider folder:         "rtx5090-Model"      ("-"-prefix, fallback)
+    //   - agent-bench run:      r.host === "rtx5090" (host field is the GPU)
+    // Anything without a recognizable known-GPU marker is grouped as "other".
+    // ====================================================================
+    const KNOWN_GPUS = ["rtx5090", "gfx1151"];
+    let GPU_FILTER = ""; // "" = all
+
+    // Detect GPU from a model-name string (handles "openai/" and ":" prefixes).
+    function gpuFromModel(model) {
+      const s = String(model).replace(/^openai\//, "");
+      const seg = s.split(":")[0];
+      if (KNOWN_GPUS.includes(seg)) return seg;
+      // some aider folders use a "-" separator
+      const dash = s.split("-")[0];
+      if (KNOWN_GPUS.includes(dash)) return dash;
+      return "other";
+    }
+    // Detect GPU for an aider dataset (model field first, folder prefix fallback).
+    function gpuFromDataset(d) {
+      const fromModel = gpuFromModel(d.model);
+      if (fromModel !== "other") return fromModel;
+      const folderSeg = String(d.folder || "").split("-")[0];
+      return KNOWN_GPUS.includes(folderSeg) ? folderSeg : "other";
+    }
+    // Detect GPU for an agent-bench run: host is the GPU when it's a known one.
+    function gpuFromHost(host) {
+      return KNOWN_GPUS.includes(host) ? host : "other";
+    }
+
+    const gpuMatches = (gpu) => !GPU_FILTER || gpu === GPU_FILTER;
+
+    // Filtered views of each data source, honoring the global GPU filter.
+    function filteredDatasets() {
+      return DATASETS.filter(d => gpuMatches(gpuFromDataset(d)));
+    }
+    function filteredLlamaRows() {
+      return LLAMA_ROWS.filter(r => gpuMatches(gpuFromModel(r.model)));
+    }
+
+    function sortGpus(gpus) {
+      return gpus.sort((a, b) => {
+        const ai = KNOWN_GPUS.indexOf(a), bi = KNOWN_GPUS.indexOf(b);
+        if (ai !== -1 || bi !== -1) return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+        return a.localeCompare(b);
+      });
+    }
+
+    // Populate the header selector from every data source we have loaded.
+    function populateGpuFilter() {
+      const sel = document.getElementById("gpuFilter");
+      const set = new Set();
+      DATASETS.forEach(d => set.add(gpuFromDataset(d)));
+      LLAMA_ROWS.forEach(r => set.add(gpuFromModel(r.model)));
+      if (window.AgentBench && window.AgentBench.getRuns) {
+        window.AgentBench.getRuns().forEach(r => set.add(gpuFromHost(r.host)));
+      }
+      const gpus = sortGpus([...set]);
+      const prev = sel.value;
+      for (let i = sel.options.length - 1; i >= 1; i--) sel.remove(i);
+      gpus.forEach(g => {
+        const opt = document.createElement("option");
+        opt.value = g;
+        opt.textContent = g;
+        sel.appendChild(opt);
+      });
+      // restore prior selection if still available
+      if (prev && gpus.includes(prev)) sel.value = prev;
+      else { sel.value = ""; GPU_FILTER = ""; }
+    }
+
+    // Re-render every visible chart/table after the filter changes.
+    function applyGpuFilter() {
+      GPU_FILTER = document.getElementById("gpuFilter").value;
+      renderPass();
+      renderPtable();
+      renderTokens();
+      renderSeconds();
+      renderLlama();
+      renderLlamaGraph();
+      populateGridModels();
+      renderGrid();
+      if (window.AgentBench && window.AgentBench.refresh) window.AgentBench.refresh();
+    }
+
     function populateGridModels() {
       const sel = document.getElementById("gridModel");
-      const models = [...new Set(LLAMA_ROWS.map(r => r.model))].sort();
+      const prev = sel.value;
+      const models = [...new Set(filteredLlamaRows().map(r => r.model))].sort();
       sel.innerHTML = "";
       models.forEach((m, i) => {
         const opt = document.createElement("option");
         opt.value = m;
         opt.textContent = m;
-        if (i === 0) opt.selected = true;
         sel.appendChild(opt);
       });
+      // keep prior model if still present, otherwise select the first
+      if (prev && models.includes(prev)) sel.value = prev;
+      else if (models.length) sel.selectedIndex = 0;
     }
 
     function renderGrid() {
@@ -666,7 +813,7 @@
     }
 
     function buildPassDatasets(metric, minTasks) {
-      return DATASETS
+      return filteredDatasets()
         .filter(d => tasksOf(d) >= minTasks)
         .map(d => {
           const tasks = tasksOf(d);
@@ -690,7 +837,7 @@
     // with fill: '-1' so Chart.js fills the band between them.
     function buildBandDatasets(showLines, minTasks) {
       const datasets = [];
-      DATASETS.filter(d => tasksOf(d) >= minTasks).forEach(d => {
+      filteredDatasets().filter(d => tasksOf(d) >= minTasks).forEach(d => {
         const tasks = tasksOf(d);
         const base = `${d.folder} / ${d.baseName}`;
         const label = `${base}  [${tasks}]`;
@@ -729,7 +876,7 @@
     }
 
     function buildTokenDatasets(metric) {
-      return DATASETS.map(d => {
+      return filteredDatasets().map(d => {
         const label = `${d.shortModel}${d.editFormat ? ` (${d.editFormat})` : ""}`;
         const color = colorFor(label + d.path);
         const yFn = metric === "total_tokens"
@@ -810,7 +957,7 @@
         visibleRuns = datasets.length;
         title = `${metric} (%)`;
       }
-      const hidden = DATASETS.length - visibleRuns;
+      const hidden = filteredDatasets().length - visibleRuns;
       document.getElementById("passStatus").textContent =
         `${visibleRuns} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
       if (chartPass) chartPass.destroy();
@@ -860,7 +1007,7 @@
       const sort = document.getElementById("llamaSort").value;
       const statusEl2 = document.getElementById("llamaStatus");
 
-      let filtered = LLAMA_ROWS.filter(r =>
+      let filtered = filteredLlamaRows().filter(r =>
         r.test === test && r.depth === depth && r.concurrency === conc
                           && typeof r[metric] === "number");
 
@@ -931,6 +1078,90 @@
       });
     }
 
+    // Line chart: depth (x) vs metric (y), one line per model. Test + concurrency are fixed.
+    function renderLlamaGraph() {
+      const test = document.getElementById("lgraphTest").value;
+      const conc = Number(document.getElementById("lgraphConc").value);
+      const metric = document.getElementById("lgraphMetric").value;
+      const scale = document.getElementById("lgraphScale").value;
+      const statusEl4 = document.getElementById("lgraphStatus");
+
+      const rows = filteredLlamaRows().filter(r =>
+        r.test === test && r.concurrency === conc && typeof r[metric] === "number");
+
+      // group rows by model, then place each on the depth axis
+      const byModel = new Map();
+      for (const r of rows) {
+        if (!byModel.has(r.model)) byModel.set(r.model, {});
+        byModel.get(r.model)[r.depth] = r[metric];
+      }
+
+      const models = [...byModel.keys()].sort();
+      const datasets = models.map(model => {
+        const vals = byModel.get(model);
+        const color = colorFor(model);
+        return {
+          label: model,
+          data: DEPTHS.map(d => ({ x: DEPTH_X[d], y: d in vals ? vals[d] : null })),
+          borderColor: color,
+          backgroundColor: color,
+          tension: 0.2,
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          borderWidth: 2,
+          spanGaps: true,
+        };
+      });
+
+      statusEl4.textContent = `${models.length} models`;
+
+      if (chartLlamaGraph) chartLlamaGraph.destroy();
+      chartLlamaGraph = new Chart(document.getElementById("chartLlamaGraph"), {
+        type: "line",
+        data: { datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "nearest", intersect: false },
+          plugins: {
+            legend: { position: "bottom", labels: { color: "#e6e6e6", boxWidth: 12 } },
+            tooltip: {
+              callbacks: {
+                title: items => items.length ? `depth = ${items[0].parsed.x}` : "",
+                label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: "linear",
+              title: { display: true, text: "depth", color: "#9aa3b2" },
+              min: Math.min(...DEPTHS.map(d => DEPTH_X[d])),
+              max: Math.max(...DEPTHS.map(d => DEPTH_X[d])),
+              afterBuildTicks: axis => {
+                axis.ticks = DEPTHS.map(d => ({ value: DEPTH_X[d] }));
+              },
+              ticks: {
+                color: "#9aa3b2",
+                callback: v => {
+                  const d = DEPTHS.find(k => DEPTH_X[k] === v);
+                  return d ?? v;
+                },
+              },
+              grid: { color: "#262b36" },
+            },
+            y: {
+              type: scale,
+              title: { display: true, text: metric, color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2" },
+              grid: { color: "#262b36" },
+              beginAtZero: scale === "linear",
+            },
+          },
+        },
+      });
+    }
+
     // Re-purpose plugin error-bars for horizontal bars (errorBarPlugin only handles vertical y).
     // For indexAxis: 'y' the error bars need to be drawn along the x axis instead.
     // Override with a more general implementation:
@@ -977,7 +1208,7 @@
     let chartSeconds = null;
     function renderSeconds() {
       const scale = document.getElementById("secondsScale").value;
-      const datasets = DATASETS.map(d => {
+      const datasets = filteredDatasets().map(d => {
         const label = `${d.folder} / ${d.baseName}`;
         const color = colorFor(label);
         return {
@@ -1003,7 +1234,7 @@
     function renderPtable() {
       const sort = document.getElementById("ptableSort").value;
       const minTasks = Math.max(0, Number(document.getElementById("ptableMinTasks").value) || 0);
-      const allItems = DATASETS.map(d => {
+      const allItems = filteredDatasets().map(d => {
         const last = d.rows[d.rows.length - 1] || {};
         const tasks = typeof last.test_cases === "number" ? last.test_cases : d.rows.length;
         return {
@@ -1108,8 +1339,11 @@
     document.getElementById("secondsScale").addEventListener("change", renderSeconds);
     ["llamaTest", "llamaDepth", "llamaConc", "llamaMetric", "llamaSort"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlama));
+    ["lgraphTest", "lgraphConc", "lgraphMetric", "lgraphScale"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderLlamaGraph));
     ["gridTest", "gridScale", "gridModel"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderGrid));
+    document.getElementById("gpuFilter").addEventListener("change", applyGpuFilter);
 
     (async () => {
       try {
@@ -1122,11 +1356,13 @@
         ]);
         statusEl.textContent =
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
+        populateGpuFilter();
         renderPass();
         renderPtable();
         renderTokens();
         renderSeconds();
         renderLlama();
+        renderLlamaGraph();
         populateGridModels();
         renderGrid();
       } catch (e) {
@@ -1148,6 +1384,12 @@
       let loaded = false;
       let loadStarted = false;
       let charts = { bars: null, timeline: null, scatter: null };
+
+      // Runs visible under the current global graphics-card filter.
+      // For agent-bench the host field is the GPU (rtx5090 / gfx1151 / …).
+      function viewRuns() {
+        return RUNS.filter(r => gpuMatches(gpuFromHost(r.host)));
+      }
 
       // ---- formatting helpers (separate from outer colorFor to avoid shadowing) ----
       function fmtNum(v, digits = 2) {
@@ -1199,11 +1441,12 @@
       }
 
       function renderKpis() {
-        const total = RUNS.length;
-        const withData = RUNS.filter(r => r.schema !== "empty").length;
-        const models = new Set(RUNS.map(r => `${r.host}:${r.model}`)).size;
-        const successful = RUNS.filter(r => (r.final_success_rate ?? 0) > 0).length;
-        const perfect    = RUNS.filter(r => (r.final_success_rate ?? 0) >= 1).length;
+        const view = viewRuns();
+        const total = view.length;
+        const withData = view.filter(r => r.schema !== "empty").length;
+        const models = new Set(view.map(r => `${r.host}:${r.model}`)).size;
+        const successful = view.filter(r => (r.final_success_rate ?? 0) > 0).length;
+        const perfect    = view.filter(r => (r.final_success_rate ?? 0) >= 1).length;
         const generated  = MANIFEST.generated_at || "—";
         const kpis = [
           ["runs",              total],
@@ -1246,7 +1489,7 @@
         const minRuns = Number(document.getElementById("abLbMinRuns").value) || 0;
         const hideErr   = document.getElementById("abLbHideErrored").checked;
         const hideEmpty = document.getElementById("abLbHideEmpty").checked;
-        let rows = RUNS.slice();
+        let rows = viewRuns();
         if (host) rows = rows.filter(r => r.host === host);
         if (filter) rows = rows.filter(r =>
           (r.model + " " + r.host + " " + r.run).toLowerCase().includes(filter));
@@ -1270,7 +1513,7 @@
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("abTblLb").innerHTML = head + body;
-        document.getElementById("abLbStatus").textContent = `${rows.length} / ${RUNS.length} rows`;
+        document.getElementById("abLbStatus").textContent = `${rows.length} / ${viewRuns().length} rows`;
         document.querySelectorAll("#abTblLb thead th").forEach(th => {
           const col = th.dataset.col;
           const cdef = LB_COLS.find(c => c.key === col);
@@ -1302,7 +1545,7 @@
       ];
       function bestPerModel(metric) {
         const groups = new Map();
-        for (const r of RUNS) {
+        for (const r of viewRuns()) {
           if (r.schema === "empty") continue;
           const key = `${r.host}::${r.model}`;
           const v = r[metric];
@@ -1331,7 +1574,7 @@
       // ---------- METRIC BARS ----------
       function aggregatePerModel(metric, mode) {
         const groups = new Map();
-        for (const r of RUNS) {
+        for (const r of viewRuns()) {
           if (r.schema === "empty") continue;
           const v = r[metric];
           if (v === null || v === undefined) continue;
@@ -1408,7 +1651,7 @@
         const metric = document.getElementById("abTlMetric").value;
         const group  = document.getElementById("abTlGroup").value;
         const host   = document.getElementById("abTlHost").value;
-        const rows = RUNS.filter(r => r.schema !== "empty"
+        const rows = viewRuns().filter(r => r.schema !== "empty"
           && r[metric] !== null && r[metric] !== undefined
           && (!host || r.host === host));
         const grouped = new Map();
@@ -1476,7 +1719,7 @@
       // ---------- SCATTER ----------
       function pickAggForScatter(metric, mode) {
         if (mode === "all") {
-          return RUNS.filter(r => r.schema !== "empty"
+          return viewRuns().filter(r => r.schema !== "empty"
             && r[metric] !== null && r[metric] !== undefined);
         }
         return aggregatePerModel(metric, mode).map(r => r.representative).filter(Boolean);
@@ -1555,7 +1798,7 @@
       ];
       function applyRaw() {
         const f = document.getElementById("abRawFilter").value.trim().toLowerCase();
-        const rows = RUNS.filter(r => !f ||
+        const rows = viewRuns().filter(r => !f ||
           (r.run + " " + r.host + " " + r.model).toLowerCase().includes(f))
           .slice().sort((a, b) => (a.ts || "").localeCompare(b.ts || "")).reverse();
         const head = "<thead><tr>" + RAW_COLS.map(c => `<th>${c.label}</th>`).join("") + "</tr></thead>";
@@ -1564,7 +1807,7 @@
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("abTblRaw").innerHTML = head + body;
-        document.getElementById("abRawStatus").textContent = `${rows.length} / ${RUNS.length} rows`;
+        document.getElementById("abRawStatus").textContent = `${rows.length} / ${viewRuns().length} rows`;
       }
 
       // ---------- bootstrap on demand ----------
@@ -1597,6 +1840,8 @@
           applyBm();
           applyRaw();
           loaded = true;
+          // hosts add GPU options not present in the other data sources
+          populateGpuFilter();
         } catch (e) {
           loadStarted = false;
           const cur = errorsEl.textContent;
@@ -1605,7 +1850,9 @@
         }
       }
 
+      let currentTab = null;
       function onTabActivated(tabId) {
+        currentTab = tabId;
         load().then(() => {
           if (!loaded) return;
           // Charts must render only when their canvas is visible.
@@ -1615,7 +1862,20 @@
         });
       }
 
-      return { onTabActivated, load };
+      // Re-render after the global graphics-card filter changes.
+      function refresh() {
+        if (!loaded) return;
+        renderKpis();
+        applyLb();
+        applyBm();
+        applyRaw();
+        // canvas charts only render while their tab is visible
+        if (currentTab === "ab-bars")     renderBars();
+        if (currentTab === "ab-timeline") renderTimeline();
+        if (currentTab === "ab-scatter")  renderScatter();
+      }
+
+      return { onTabActivated, load, refresh, getRuns: () => RUNS };
     })();
   </script>
 </body>

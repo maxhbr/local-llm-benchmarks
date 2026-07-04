@@ -1,9 +1,0 @@
-{
-  "timestamp": "20260621-222348",
-  "host": "thing",
-  "git_rev": null,
-  "bench": "agent-bench",
-  "model": "localhost:22545:localhost:22545",
-  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
-  "run_name": "Qwen3.6-27B-GGUF.BF16.splitted.1-2"
-}
