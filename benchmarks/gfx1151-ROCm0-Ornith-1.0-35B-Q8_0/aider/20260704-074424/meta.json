@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260704-074424",
+  "host": "thing",
+  "bench": "aider",
+  "model": "gfx1151:ROCm0:Ornith-1.0-35B-Q8_0",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}
