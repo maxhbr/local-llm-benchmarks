@@ -28742,3 +28742,10 @@ Model: openai/gfx1151:ROCm0:Ornith-1.0-35B-Q8_0 with whole edit format
 Git repo: none
 Repo-map: disabled
 Added robot_simulator.go to the chat.
+^C[?25h
+
+^C again to exit
+
+response: 
+lazy_comments: 0
+^C

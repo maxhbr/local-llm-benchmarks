@@ -15,6 +15,8 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:gemma-4-31B-it-BF16"
   [[endpoints.models]]
+  name = "gfx1151:InternScience-Agents-A1-Q8_0"
+  [[endpoints.models]]
   name = "gfx1151:MiniMax-M2.7-UD-IQ4_NL"
   [[endpoints.models]]
   name = "gfx1151:MiniMax-M2.7-UD-IQ4_XS"
@@ -42,3 +44,5 @@ benchmarks = ["smoke", "llama-benchy"]
   name = "gfx1151:Qwen3.6-35B-A3B-MTP-BF16"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.6-35B-A3B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen-AgentWorld-35B-A3B-Q8_0"
