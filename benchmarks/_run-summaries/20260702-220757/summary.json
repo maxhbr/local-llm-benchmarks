@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260702-220757",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Ornith-1.0-35B-Q8_0",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 120987.084397,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Ornith-1.0-35B-Q8_0",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 16275.049121,
+      "error": null
+    }
+  ]
+}

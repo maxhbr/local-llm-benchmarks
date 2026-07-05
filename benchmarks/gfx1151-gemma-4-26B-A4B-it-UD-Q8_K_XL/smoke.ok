@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-26T12:49:50",
+  "timestamp": "2026-07-04T21:40:02",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
-  "error": "TimeoutError: timed out",
-  "duration_s": 60.087982
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 12.307491
 }

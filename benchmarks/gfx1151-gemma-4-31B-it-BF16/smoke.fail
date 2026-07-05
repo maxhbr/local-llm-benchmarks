@@ -1,7 +1,0 @@
-{
-  "timestamp": "2026-06-26T12:50:50",
-  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
-  "model": "gfx1151:gemma-4-31B-it-BF16",
-  "error": "TimeoutError: timed out",
-  "duration_s": 60.084359
-}

@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-07-04T23:00:08",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "gfx1151:MiniMax-M2.7-UD-Q3_K_S",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 37.2037
+}

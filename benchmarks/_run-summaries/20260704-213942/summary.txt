@@ -1,0 +1,63 @@
+==========================================================================================
+RUN SUMMARY  (20260704-213942)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-qat-q4_0 | smoke          | 0   | 8.4      | OK
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-qat-q4_0 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_ | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_ | smoke          | 0   | 12.3     | OK
+litellm.thing.vserve | gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-BF16         | smoke          | 0   | 41.8     | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-BF16         | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-qat-q4_0     | smoke          | 0   | 15.4     | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-qat-q4_0     | llama-benchy   | 0   | 4593.0   | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-UD-Q4_K_XL   | smoke          | 0   | 15.4     | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-UD-Q5_K_XL   | smoke          | 0   | 15.9     | OK
+litellm.thing.vserve | gfx1151:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:InternScience-Agents-A1-Q8_ | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:InternScience-Agents-A1-Q8_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-IQ4_NL      | smoke          | 0   | 43.5     | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-IQ4_NL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-IQ4_XS      | smoke          | 0   | 43.5     | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-IQ4_XS      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-Q3_K_S      | smoke          | 0   | 37.2     | OK
+litellm.thing.vserve | gfx1151:MiniMax-M2.7-UD-Q3_K_S      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | smoke          | 0   | 14.3     | OK
+litellm.thing.vserve | gfx1151:NVIDIA-Nemotron-3-Nano-Omni | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:NVIDIA-Nemotron-3-Super-120 | smoke          | 0   | 35.1     | OK
+litellm.thing.vserve | gfx1151:NVIDIA-Nemotron-3-Super-120 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q8_0         | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Ornith-1.0-35B-Q8_0         | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3-235B-A22B-Instruct-Q2 | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3-235B-A22B-Instruct-Q2 | llama-benchy   | 0   | 7576.3   | OK
+litellm.thing.vserve | gfx1151:qwen3.5-122B-A10B-Q5_K_M    | smoke          | 0   | 35.2     | OK
+litellm.thing.vserve | gfx1151:qwen3.5-122B-A10B-Q5_K_M    | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.5-9B-Q5_K_M           | smoke          | 0   | 6.3      | OK
+litellm.thing.vserve | gfx1151:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-MTP-Q8_0        | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-MTP-Q8_0        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q6_K-MTP        | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q6_K-MTP        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q8_0            | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-Q8_0            | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-BF16        | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-BF16        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-MTP-BF16    | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-Q8_0        | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-Q8_0        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | gfx1151:TheDrummer_Skyfall-31B-v4.2 | smoke          | 0   | 15.2     | OK
+litellm.thing.vserve | gfx1151:TheDrummer_Skyfall-31B-v4.2 | llama-benchy   | 0   | 5808.0   | OK
+------------------------------------------------------------------------------------------
+Total: 56   OK: 56   FAIL: 0
