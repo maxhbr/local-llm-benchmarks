@@ -13,7 +13,19 @@ api_key    = "EMPTY"
 benchmarks = ["smoke", "llama-benchy"]
 
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-26B-A4B-it-qat-q4_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:gemma-4-31B-it-BF16"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-31B-it-qat-q4_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:InternScience-Agents-A1-Q8_0"
   [[endpoints.models]]
@@ -37,7 +49,15 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-27B-MTP-Q8_0"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-Q6_K-MTP"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-27B-Q8_0"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.6-27B-UD-Q6_K_XL"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-BF16"
   [[endpoints.models]]
@@ -45,4 +65,6 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-Q8_0"
   [[endpoints.models]]
-  name = "gfx1151:ROCm0:Qwen-AgentWorld-35B-A3B-Q8_0"
+  name = "gfx1151:ROCm0:Qwen3.6-35B-A3B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:TheDrummer_Skyfall-31B-v4.2-Q6_K"

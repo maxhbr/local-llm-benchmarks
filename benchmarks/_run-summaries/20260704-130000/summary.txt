@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260704-130000)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:InternScience-Agents-A1-Q8_ | smoke          | 0   | 17.0     | OK
+litellm.thing.vserve | gfx1151:InternScience-Agents-A1-Q8_ | llama-benchy   | 0   | 1154.7   | OK
+litellm.thing.vserve | gfx1151:Qwen-AgentWorld-35B-A3B-Q8_ | smoke          | 0   | 14.5     | OK
+litellm.thing.vserve | gfx1151:Qwen-AgentWorld-35B-A3B-Q8_ | llama-benchy   | 0   | 1078.4   | OK
+------------------------------------------------------------------------------------------
+Total: 4   OK: 4   FAIL: 0
