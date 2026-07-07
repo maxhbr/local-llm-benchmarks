@@ -27,6 +27,8 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:InternScience-Agents-A1-Q4_K_M"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:InternScience-Agents-A1-Q8_0"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_NL"
