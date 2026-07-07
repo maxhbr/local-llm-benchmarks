@@ -66,6 +66,47 @@ def get_test_cases_count(block: list[str]) -> int | None:
     return None
 
 
+def repair_wrapped_lines(block: list[str]) -> list[str]:
+    """
+    Repair terminal-wrapped lines within a YAML block.
+
+    Aider prints its YAML summary through a terminal-aware console (rich).
+    When the captured terminal width is narrow, long scalar values such as
+    ``model: openai/rtx5090:Some-Long-Model-Name-Q4_K_M`` are hard-wrapped
+    onto a following line that has no leading indentation::
+
+        - dirname: 2026-...-Some-Long-Model-Name-Q4_K_M
+          test_cases: 14
+          model:
+    openai/rtx5090:Some-Long-Model-Name-Q4_K_M
+          edit_format: whole
+
+    Written out verbatim this is invalid YAML: the unindented ``openai/...``
+    line is parsed as the start of a new top-level document, producing errors
+    like "end of the stream or a document separator is expected".
+
+    In a well-formed block of this schema every line after ``- dirname:`` is
+    indented, so any unindented line is a wrap fragment.  Merge each fragment
+    back into the preceding line, re-inserting a single separating space when
+    the preceding line does not already end with whitespace.
+    """
+    repaired: list[str] = []
+    for line in block:
+        is_wrap_fragment = (
+            bool(repaired)
+            and line != ''
+            and not line[0].isspace()
+            and not line.startswith('- ')
+        )
+        if is_wrap_fragment:
+            prev = repaired[-1]
+            sep = '' if prev[-1].isspace() else ' '
+            repaired[-1] = prev + sep + line
+        else:
+            repaired.append(line)
+    return repaired
+
+
 def deduplicate_blocks(blocks: list[list[str]]) -> list[list[str]]:
     """
     Deduplicate blocks by test_cases count, keeping the last occurrence.
@@ -122,6 +163,7 @@ def process_benchmark(benchmark_dir: str, bench_type: str = 'aider') -> bool:
 
     clean_content = strip_ansi(content)
     blocks = extract_yaml_blocks(clean_content)
+    blocks = [repair_wrapped_lines(b) for b in blocks]
 
     if not blocks:
         print(f"  Skipping: no YAML blocks found")
