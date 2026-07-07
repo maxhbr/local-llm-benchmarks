@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-25T23:07:59",
+  "timestamp": "2026-07-07T10:00:15",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K",
-  "error": "TimeoutError: timed out",
-  "duration_s": 60.05324
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=TheDrummer_Skyfall-31B-v4.2-Q6_K failed to load. Received Model Group=rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K\\nAvailable Model Group Fallbacks=None\",\"type\":null,\"param\":null,\"code\":\"500\"}}",
+  "duration_s": 37.926962
 }

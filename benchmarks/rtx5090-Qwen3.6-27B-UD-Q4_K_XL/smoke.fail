@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-25T23:06:21",
+  "timestamp": "2026-07-07T09:59:37",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "rtx5090:Qwen3.6-27B-UD-Q4_K_XL",
-  "error": "TimeoutError: timed out",
-  "duration_s": 61.126448
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Qwen3.6-27B-UD-Q4_K_XL failed to load. Received Model Group=rtx5090:Qwen3.6-27B-UD-Q4_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":null,\"param\":null,\"code\":\"500\"}}",
+  "duration_s": 30.285216
 }
