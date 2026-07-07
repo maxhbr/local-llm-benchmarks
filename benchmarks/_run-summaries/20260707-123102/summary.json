@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260707-123102",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 7.999236,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 192.602326,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 38735.385562,
+      "error": null
+    }
+  ]
+}
