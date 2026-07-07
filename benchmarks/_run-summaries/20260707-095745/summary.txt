@@ -1,0 +1,33 @@
+==========================================================================================
+RUN SUMMARY  (20260707-095745)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | smoke          | 1   | 39.4     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=gemma-4-26B-A4B-it-UD-Q8_K_XL failed to load. Received Model Group=rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_ | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | smoke          | 0   | 8.7      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-qat-q4_0     | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | smoke          | 1   | 33.1     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=gemma-4-31B-it-UD-Q5_K_XL failed to load. Received Model Group=rtx5090:gemma-4-31B-it-UD-Q5_K_XL\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:gemma-4-31B-it-UD-Q5_K_XL   | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.5-9B-Q5_K_M           | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-Q6_K-MTP        | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | smoke          | 1   | 30.3     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Qwen3.6-27B-UD-Q4_K_XL failed to load. Received Model Group=rtx5090:Qwen3.6-27B-UD-Q4_K_XL\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-UD-Q6_K_XL      | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llama-benchy   | 0   | 0.0      | OK
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | smoke          | 1   | 37.9     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=TheDrummer_Skyfall-31B-v4.2-Q6_K failed to load. Received Model Group=rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:TheDrummer_Skyfall-31B-v4.2 | llama-benchy   | 1   | 47.1     | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 26   OK: 21   FAIL: 5

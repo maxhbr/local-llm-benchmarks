@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-25T23:02:43",
+  "timestamp": "2026-07-07T09:58:33",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "rtx5090:gemma-4-31B-it-qat-q4_0",
-  "error": "TimeoutError: timed out",
-  "duration_s": 60.088416
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 8.700541
 }

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-06-25T23:01:43",
+  "timestamp": "2026-07-07T09:58:25",
   "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
   "model": "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL",
-  "error": "TimeoutError: timed out",
-  "duration_s": 60.028807
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=gemma-4-26B-A4B-it-UD-Q8_K_XL failed to load. Received Model Group=rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":null,\"param\":null,\"code\":\"500\"}}",
+  "duration_s": 39.409778
 }
