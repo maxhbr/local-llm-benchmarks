@@ -10,6 +10,7 @@
     "gfx1151-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
     "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
+    "rtx5090-InternScience-Agents-A1-Q4_K_M/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-Q6_K-MTP/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider.computed.yaml",
@@ -21,6 +22,7 @@
     "rtx5090-Qwen3.6-35B-A3B-UD-Q2_K_XL/aider.computed.yaml",
     "rtx5090-Qwen3.6-35B-A3B-UD-Q3_K_XL/aider.computed.yaml",
     "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL/aider.computed.yaml",
+    "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml"
   ]
