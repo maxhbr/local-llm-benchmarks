@@ -1,0 +1,10 @@
+==========================================================================================
+RUN SUMMARY  (20260707-114514)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:InternScience-Agents-A1-Q4_ | smoke          | 1   | 7.3      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=InternScience-Agents-A1-Q4_K_M failed to load. Received Model Group=rtx5090:InternScience-Agents-A1-Q4_K_M\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:InternScience-Agents-A1-Q4_ | llama-benchy   | 1   | 8.2      | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:InternScience-Agents-A1-Q4_ | aider          | 130 | 195.3    | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 3   OK: 0   FAIL: 3

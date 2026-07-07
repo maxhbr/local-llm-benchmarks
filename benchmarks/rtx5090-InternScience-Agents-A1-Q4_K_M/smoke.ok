@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-07-07T12:31:10",
+  "endpoint": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+  "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 7.999236
+}
