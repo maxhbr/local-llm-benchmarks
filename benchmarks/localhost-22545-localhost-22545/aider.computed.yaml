@@ -1,0 +1,27 @@
+- dirname: 2026-06-22-06-20-47--Qwen3.6-35B-GGUF.BF16.splitted.2-3
+  test_cases: 1
+  model: openai/localhost:22545:localhost:22545
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 0.0
+  pass_num_1: 0
+  pass_num_2: 0
+  percent_cases_well_formed: 100.0
+  error_outputs: 0
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 8
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 0
+  prompt_tokens: 31176
+  completion_tokens: 26616
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/localhost:22545:localhost:22545
+  date: 2026-06-22
+  versions: 0.86.3.dev
+  seconds_per_case: 2709.2
+  total_cost: 0.0000
