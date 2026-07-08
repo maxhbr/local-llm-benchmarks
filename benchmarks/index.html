@@ -118,6 +118,7 @@
       <button class="tab" data-tab="passtable">Pass-rate table</button>
       <button class="tab" data-tab="tokens">Tokens per test case</button>
       <button class="tab" data-tab="seconds">Seconds per test case</button>
+      <button class="tab" data-tab="scatterpass">Seconds vs pass rate</button>
       <span class="tab-group">llama-benchy</span>
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
@@ -200,6 +201,7 @@
             <option value="logarithmic">log</option>
           </select>
         </label>
+        <label><input id="tokenPerSec" type="checkbox"> tokens / second</label>
         <span>X axis: test_cases — label = model.</span>
       </div>
       <div class="chart-wrap"><canvas id="chartTokens"></canvas></div>
@@ -217,6 +219,33 @@
         <span>X axis: test_cases — one line per benchmark file. Y: seconds_per_case.</span>
       </div>
       <div class="chart-wrap"><canvas id="chartSeconds"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-scatterpass">
+      <div class="controls">
+        <label>
+          Metric
+          <select id="scatterPassMetric">
+            <option value="pass_rate_2" selected>pass_rate_2 (final)</option>
+            <option value="pass_rate_1">pass_rate_1 (first try)</option>
+          </select>
+        </label>
+        <label>
+          Min tasks
+          <input id="scatterPassMinTasks" type="number" min="0" step="1" value="20"
+                 style="width: 5em;">
+        </label>
+        <label>
+          X scale
+          <select id="scatterPassScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <span>X axis: seconds_per_case — Y axis: pass rate (%). One point per benchmark file (final values).</span>
+        <span id="scatterPassStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap"><canvas id="chartScatterPass"></canvas></div>
     </section>
 
     <section class="panel" id="panel-llama">
@@ -657,6 +686,7 @@
       renderPtable();
       renderTokens();
       renderSeconds();
+      renderScatterPass();
       renderLlama();
       renderLlamaGraph();
       populateGridModels();
@@ -875,13 +905,20 @@
       return datasets;
     }
 
-    function buildTokenDatasets(metric) {
+    function buildTokenDatasets(metric, perSecond = false) {
       return filteredDatasets().map(d => {
         const label = `${d.shortModel}${d.editFormat ? ` (${d.editFormat})` : ""}`;
         const color = colorFor(label + d.path);
-        const yFn = metric === "total_tokens"
+        const baseFn = metric === "total_tokens"
           ? (r => (r.prompt_tokens || 0) + (r.completion_tokens || 0))
           : (r => r[metric]);
+        const yFn = perSecond
+          ? (r => {
+              const v = baseFn(r);
+              return typeof r.seconds_per_case === "number" && r.seconds_per_case > 0
+                ? v / r.seconds_per_case : null;
+            })
+          : baseFn;
         return {
           label,
           data: d.rows.map(r => ({ x: r.test_cases, y: yFn(r) })),
@@ -1230,6 +1267,85 @@
       });
     }
 
+    // Scatter: seconds_per_case (x) vs pass rate (y) — one point per test_case row,
+    // one series per benchmark file. Shows the speed/quality tradeoff per run.
+    let chartScatterPass = null;
+    function buildScatterPassDatasets(metric, minTasks) {
+      return filteredDatasets()
+        .filter(d => tasksOf(d) >= minTasks)
+        .map(d => {
+          const tasks = tasksOf(d);
+          const base = `${d.folder} / ${d.baseName}`;
+          const label = `${base}  [${tasks}]`;
+          const color = colorFor(base);
+          // Only the last (most up-to-date) row per benchmark file.
+          const last = [...d.rows]
+            .reverse()
+            .find(r => typeof r.seconds_per_case === "number"
+                     && typeof r[metric] === "number");
+          return {
+            label,
+            data: last ? [{ x: last.seconds_per_case, y: last[metric] }] : [],
+            borderColor: color,
+            backgroundColor: color,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            showLine: false,
+          };
+        });
+    }
+    function renderScatterPass() {
+      const metric   = document.getElementById("scatterPassMetric").value;
+      const minTasks = Math.max(0, Number(document.getElementById("scatterPassMinTasks").value) || 0);
+      const scale    = document.getElementById("scatterPassScale").value;
+      const datasets = buildScatterPassDatasets(metric, minTasks);
+      const visibleRuns = datasets.length;
+      const hidden = filteredDatasets().length - visibleRuns;
+      document.getElementById("scatterPassStatus").textContent =
+        `${visibleRuns} points` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
+      if (chartScatterPass) chartScatterPass.destroy();
+      chartScatterPass = new Chart(document.getElementById("chartScatterPass"), {
+        type: "scatter",
+        data: { datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "nearest", intersect: false },
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: { color: "#e6e6e6", boxWidth: 12 },
+            },
+            tooltip: {
+              callbacks: {
+                title: () => "",
+                label: ctx => {
+                  const v = ctx.parsed;
+                  return `${ctx.dataset.label}:  ${v.x.toFixed(1)} s/case,  ${v.y.toFixed(1)}%`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: scale,
+              title: { display: true, text: "Seconds per test case", color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2" },
+              grid: { color: "#262b36" },
+            },
+            y: {
+              type: "linear",
+              title: { display: true, text: `${metric} (%)`, color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2", callback: v => `${v}%` },
+              grid: { color: "#262b36" },
+              min: 0,
+              max: 100,
+            },
+          },
+        },
+      });
+    }
+
     let chartPtable = null;
     function renderPtable() {
       const sort = document.getElementById("ptableSort").value;
@@ -1315,13 +1431,15 @@
     }
 
     function renderTokens() {
-      const metric = document.getElementById("tokenMetric").value;
-      const scale = document.getElementById("tokenScale").value;
-      const datasets = buildTokenDatasets(metric);
+      const metric   = document.getElementById("tokenMetric").value;
+      const scale    = document.getElementById("tokenScale").value;
+      const perSec   = document.getElementById("tokenPerSec").checked;
+      const datasets = buildTokenDatasets(metric, perSec);
       if (chartTokens) chartTokens.destroy();
-      const title = metric === "total_tokens"
+      let title = metric === "total_tokens"
         ? "prompt + completion tokens (cumulative)"
         : `${metric} (cumulative)`;
+      if (perSec) title = `${metric} / seconds_per_case`;
       chartTokens = new Chart(document.getElementById("chartTokens"), {
         type: "line",
         data: { datasets },
@@ -1336,7 +1454,11 @@
     document.getElementById("ptableMinTasks").addEventListener("input", renderPtable);
     document.getElementById("tokenMetric").addEventListener("change", renderTokens);
     document.getElementById("tokenScale").addEventListener("change", renderTokens);
+    document.getElementById("tokenPerSec").addEventListener("change", renderTokens);
     document.getElementById("secondsScale").addEventListener("change", renderSeconds);
+    ["scatterPassMetric", "scatterPassScale"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderScatterPass));
+    document.getElementById("scatterPassMinTasks").addEventListener("input", renderScatterPass);
     ["llamaTest", "llamaDepth", "llamaConc", "llamaMetric", "llamaSort"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlama));
     ["lgraphTest", "lgraphConc", "lgraphMetric", "lgraphScale"].forEach(id =>
@@ -1361,6 +1483,7 @@
         renderPtable();
         renderTokens();
         renderSeconds();
+        renderScatterPass();
         renderLlama();
         renderLlamaGraph();
         populateGridModels();
