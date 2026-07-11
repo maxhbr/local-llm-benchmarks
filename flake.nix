@@ -110,6 +110,7 @@
           pyEnv
           podman
           docker
+          entr
         ]);
         # llama-benchy installs pre-built wheels (numpy, tokenizers, ...) that
         # need libstdc++ and libz from a stable LD path.

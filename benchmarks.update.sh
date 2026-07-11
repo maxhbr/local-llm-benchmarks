@@ -9,11 +9,12 @@
 #   3. scripts/find-fastest.py --benchmarks-dir benchmarks/ -o benchmarks/find-fastest.md
 #        -> writes the ranking report
 #   4. python3 -m http.server --directory benchmarks <port>
-#        -> serves the benchmarks folder over HTTP
+#        -> serves the benchmarks folder over HTTP   (skip with --no-serve)
 #
 # Usage:
-#   ./benchmarks.update.sh                 # use default benchmarks/ dir
-#   ./benchmarks.update.sh path/to/bench   # use a custom benchmarks dir
+#   ./benchmarks.update.sh                       # use default benchmarks/ dir
+#   ./benchmarks.update.sh path/to/bench         # use a custom benchmarks dir
+#   ./benchmarks.update.sh --no-serve [benchdir] # regenerate only, do not serve
 #
 set -euo pipefail
 
@@ -21,7 +22,18 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
 cd "$SCRIPT_DIR"
 
-BENCH_DIR="${1:-benchmarks}"
+SERVE=1
+BENCH_DIR="benchmarks"
+for arg in "$@"; do
+    case "$arg" in
+        --no-serve|--update-only) SERVE=0 ;;
+        -h|--help)
+            sed -n '2,/^set -euo/p' "$0" | sed 's/^# \{0,1\}//'
+            exit 0
+            ;;
+        *) BENCH_DIR="$arg" ;;
+    esac
+done
 PY="${PYTHON:-python3}"
 
 if [[ ! -d "$BENCH_DIR" ]]; then
@@ -47,6 +59,10 @@ echo "Wrote $CSV_OUT"
 step "3/4  find-fastest.py --benchmarks-dir $BENCH_DIR -o $FASTEST_OUT"
 "$PY" scripts/find-fastest.py --benchmarks-dir "$BENCH_DIR" -o "$FASTEST_OUT"
 
-step "4/4  http.server --directory $BENCH_DIR :$HTTP_PORT"
-printf '\n\033[1;32mAll done. Serving %s at http://localhost:%s/\033[0m\n' "$BENCH_DIR" "$HTTP_PORT"
-exec "$PY" -m http.server --directory "$BENCH_DIR" "$HTTP_PORT"
+if [[ "$SERVE" -eq 1 ]]; then
+    step "4/4  http.server --directory $BENCH_DIR :$HTTP_PORT"
+    printf '\n\033[1;32mAll done. Serving %s at http://localhost:%s/\033[0m\n' "$BENCH_DIR" "$HTTP_PORT"
+    exec "$PY" -m http.server --directory "$BENCH_DIR" "$HTTP_PORT"
+else
+    printf '\n\033[1;32mUpdate complete (--no-serve: HTTP server not started).\033[0m\n'
+fi
