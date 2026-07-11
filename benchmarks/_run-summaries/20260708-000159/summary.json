@@ -1,0 +1,18 @@
+{
+  "timestamp": "20260708-000159",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.vserver.wg0",
+      "endpoint_url": "http://litellm.thing.vserver.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.6-35B-A3B-Q8_0",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 272770.865683,
+      "error": null
+    }
+  ]
+}

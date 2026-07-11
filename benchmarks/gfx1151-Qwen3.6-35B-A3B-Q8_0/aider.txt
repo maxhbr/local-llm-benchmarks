@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/gfx1151-Qwen3.6-35B-A3B-Q8_0/aider/20260708-000159/stats.txt
