@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260711-124916",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://host.containers.internal:8000/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "llama-benchy",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.010054,
+      "error": null
+    },
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://host.containers.internal:8000/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "agent-bench",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.355551,
+      "error": null
+    },
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://host.containers.internal:8000/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "aider",
+      "alias": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 17.940501,
+      "error": "interrupted"
+    }
+  ]
+}

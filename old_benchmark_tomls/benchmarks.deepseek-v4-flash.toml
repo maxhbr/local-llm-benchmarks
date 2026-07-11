@@ -13,9 +13,9 @@ output_dir = "./benchmarks"
 
 [[endpoints]]
 name       = "vllm.thing"
-url        = "http://localhost:22545/v1"
+url        = "http://localhost:8000/v1"
 api_key    = "EMPTY"
-benchmarks = ["aider"] # "llama-benchy", "agent-bench", 
+benchmarks = ["llama-benchy", "agent-bench", "aider"] # 
 
 
   [[endpoints.models]]

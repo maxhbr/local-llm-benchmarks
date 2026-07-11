@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260711-125128",
+  "host": "thing",
+  "bench": "aider",
+  "model": "deepseek-v4-flash",
+  "endpoint": "http://host.containers.internal:8000/v1",
+  "container_endpoint": "http://host.containers.internal:8000/v1",
+  "run_name": "DeepSeek-V4-Flash-IQ2XXS-MTP",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}
