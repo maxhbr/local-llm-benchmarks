@@ -39,4 +39,6 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-UD-Q5_K_XL"
   [[endpoints.models]]
+  name = "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP"
+  [[endpoints.models]]
   name = "TheDrummer_Skyfall-31B-v4.2-Q6_K"
