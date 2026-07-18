@@ -1,0 +1,9 @@
+==========================================================================================
+RUN SUMMARY  (20260717-233717)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | gfx1151:Hy3-Q2_K_L                  | smoke          | 1   | 5.8      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'src': 'llama-swap', 'error': 'unspecific error: upstream command exited prematurely'}. Received Model Group=gfx1151:Hy3-Q2_K_L\nAvailable Model Group Fallbacks=None","type":null,"param":null,)
+litellm.thing.vserve | gfx1151:Hy3-Q2_K_L                  | llama-benchy   | 1   | 8.7      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 2   OK: 0   FAIL: 2

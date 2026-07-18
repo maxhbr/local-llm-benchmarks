@@ -1,0 +1,32 @@
+Using pre-existing 2026-07-18-00-15-37--gfx1151:Hy3-Q2_K_L-split.1-4
+──────────────────────── /benchmarks/2026-07-18-00-15-37--gfx1151:Hy3-Q2_K_L-split.1-4 ─────────────────────────
+- dirname: 2026-07-18-00-15-37--gfx1151:Hy3-Q2_K_L-split.1-4
+  test_cases: 225
+  model: openai/localhost:22545:localhost:22545
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 7.6
+  pass_rate_2: 23.1
+  pass_num_1: 17
+  pass_num_2: 52
+  percent_cases_well_formed: 97.3
+  error_outputs: 6
+  num_malformed_responses: 6
+  num_with_malformed_responses: 6
+  user_asks: 311
+  lazy_comments: 2
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 0
+  prompt_tokens: 2398858
+  completion_tokens: 730860
+  test_timeouts: 2
+  total_tests: 225
+  command: aider --model openai/localhost:22545:localhost:22545
+  date: 2026-07-18
+  versions: 0.86.3.dev
+  seconds_per_case: 316.0
+  total_cost: 0.0000
+
+costs: $0.0000/test-case, $0.00 total, $0.00 projected
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
