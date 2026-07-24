@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260718-021427",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "localhost:22545:localhost:22545",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151:Hy3-Q2_K_L-split.1-4"
+}
