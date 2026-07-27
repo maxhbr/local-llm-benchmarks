@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260723-143317",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-NVFP4",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 0.520591,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"code\":500,\"message\":\"model name=Qwen3.6-27B-NVFP4 failed to load\",\"type\":\"server_error\"}}"
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-27B-NVFP4",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 2.591795,
+      "error": null
+    }
+  ]
+}

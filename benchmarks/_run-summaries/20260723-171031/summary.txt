@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260723-171031)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-NVFP4-MTP       | smoke          | 1   | 6.8      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Qwen3.6-27B-NVFP4-MTP failed to load. Received Model Group=rtx5090:Qwen3.6-27B-NVFP4-MTP\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-NVFP4-MTP       | llama-benchy   | 1   | 9.3      | FAIL (rc!=0)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-NVFP4           | smoke          | 130 | -        | FAIL (interrupted)
+litellm.thing.vserve | rtx5090:Qwen3.6-27B-NVFP4           | llama-benchy   | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 0   FAIL: 4
