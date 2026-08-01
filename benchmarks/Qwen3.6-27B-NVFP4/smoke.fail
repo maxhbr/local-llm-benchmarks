@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-07-23T14:33:17",
+  "endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+  "model": "Qwen3.6-27B-NVFP4",
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"code\":500,\"message\":\"model name=Qwen3.6-27B-NVFP4 failed to load\",\"type\":\"server_error\"}}",
+  "duration_s": 0.520591
+}
