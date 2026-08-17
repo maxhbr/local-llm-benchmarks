@@ -862,3 +862,30 @@
   versions: 0.86.3.dev
   seconds_per_case: 1016.2
   total_cost: 0.0000
+- dirname: 2026-07-11-10-51-33--DeepSeek-V4-Flash-IQ2XXS-MTP
+  test_cases: 33
+  model: openai/deepseek-v4-flash
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 33.3
+  pass_rate_2: 63.6
+  pass_num_1: 11
+  pass_num_2: 21
+  percent_cases_well_formed: 100.0
+  error_outputs: 2
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 4
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 2
+  prompt_tokens: 133184
+  completion_tokens: 326630
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/deepseek-v4-flash
+  date: 2026-07-11
+  versions: 0.86.3.dev
+  seconds_per_case: 1079.9
+  total_cost: 0.0000
