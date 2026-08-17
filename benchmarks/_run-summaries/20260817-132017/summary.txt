@@ -1,0 +1,15 @@
+==========================================================================================
+RUN SUMMARY  (20260817-132017)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-ABL-Q5_K_M      | smoke          | 0   | 10.0     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-ABL-Q5_K_M      | llama-benchy   | 0   | 463.5    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q4_K_XL      | smoke          | 0   | 7.9      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q4_K_XL      | llama-benchy   | 0   | 490.3    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q5_K_XL      | smoke          | 0   | 10.5     | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q5_K_XL      | llama-benchy   | 0   | 516.9    | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q6_K_XL      | smoke          | 1   | 42.2     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Qwen3.8-27B-UD-Q6_K_XL failed to load. Received Model Group=rtx5090:Qwen3.8-27B-UD-Q6_K_XL\nAvailable Model Group Fallbacks=None","type":null,"param":null,"code":"500"}})
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q6_K_XL      | llama-benchy   | 1   | 36.9     | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 8   OK: 6   FAIL: 2

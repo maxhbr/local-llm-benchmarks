@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260801-101821",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "llama-benchy",
+      "alias": "gguf/DeepSeek-V4-Flash-Layers37-42Q4KExperts-OtherExpertLayersIQ2XXSGateUp-Q2KDown-AProjQ8-SExpQ8-OutQ8-chat-v2-imatrix-fixed-0731",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 983.839046,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "agent-bench",
+      "alias": "gguf/DeepSeek-V4-Flash-Layers37-42Q4KExperts-OtherExpertLayersIQ2XXSGateUp-Q2KDown-AProjQ8-SExpQ8-OutQ8-chat-v2-imatrix-fixed-0731",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "ds4",
+      "endpoint_url": "http://localhost:22545/v1",
+      "api_key": "EMPTY",
+      "model": "deepseek-v4-flash",
+      "bench": "aider",
+      "alias": "gguf/DeepSeek-V4-Flash-Layers37-42Q4KExperts-OtherExpertLayersIQ2XXSGateUp-Q2KDown-AProjQ8-SExpQ8-OutQ8-chat-v2-imatrix-fixed-0731",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}
