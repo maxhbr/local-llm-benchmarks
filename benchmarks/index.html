@@ -97,6 +97,37 @@
       border-radius: 6px; padding: 10px 12px; }
     .kpi .label { color: var(--muted); font-size: 12px; }
     .kpi .value { font-size: 22px; font-weight: 600; margin-top: 2px; }
+
+    /* --- dual-thumb quantization slider (two overlaid range inputs) --- */
+    .bit-filter { display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 13px; }
+    .bit-filter .bitvals { font-variant-numeric: tabular-nums; min-width: 8.5em; }
+    .dualrange { position: relative; width: 160px; height: 20px; }
+    .dualrange input[type=range] {
+      position: absolute; left: 0; top: 0; width: 100%; margin: 0;
+      background: none; pointer-events: none; -webkit-appearance: none; appearance: none;
+    }
+    .dualrange input[type=range]::-webkit-slider-runnable-track {
+      height: 4px; background: transparent;
+    }
+    .dualrange input[type=range]::-moz-range-track { height: 4px; background: transparent; }
+    .dualrange input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; pointer-events: auto; height: 14px; width: 14px;
+      border-radius: 50%; background: var(--accent); border: 1px solid #0d1117;
+      margin-top: -5px; cursor: pointer;
+    }
+    .dualrange input[type=range]::-moz-range-thumb {
+      pointer-events: auto; height: 14px; width: 14px; border-radius: 50%;
+      background: var(--accent); border: 1px solid #0d1117; cursor: pointer;
+    }
+    .dualrange .track {
+      position: absolute; left: 0; right: 0; top: 8px; height: 4px;
+      border-radius: 2px; background: var(--panel-2); border: 1px solid var(--border);
+    }
+    .dualrange .track .sel {
+      position: absolute; top: -1px; height: 4px; background: var(--accent);
+      border-radius: 2px;
+    }
   </style>
 </head>
 <body>
@@ -109,6 +140,15 @@
       <select id="gpuFilter">
         <option value="" selected>all</option>
       </select>
+    </label>
+    <label class="bit-filter" title="Quantization bits deduced from the model name (Q4_K_M, IQ2_XS, BF16, FP8, int4, …). Models with an unknown quantization are hidden while this filter is narrowed.">
+      Quantization
+      <span class="dualrange">
+        <span class="track"><span class="sel" id="bitSel"></span></span>
+        <input id="bitMin" type="range" min="1" max="16" step="1" value="1">
+        <input id="bitMax" type="range" min="1" max="16" step="1" value="16">
+      </span>
+      <span class="bitvals" id="bitVals">1–16 bit</span>
     </label>
   </header>
   <main>
@@ -123,6 +163,7 @@
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
       <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
+      <button class="tab" data-tab="llamavs">llama-benchy vs</button>
       <span class="tab-group">agent bench</span>
       <button class="tab" data-tab="ab-leaderboard">Leaderboard</button>
       <button class="tab" data-tab="ab-bestmodel">Best per model</button>
@@ -365,6 +406,49 @@
       <div id="chartGrid" style="width: 100%; height: 75vh; min-height: 480px;"></div>
     </section>
 
+    <section class="panel" id="panel-llamavs">
+      <div class="controls">
+        <label>
+          Concurrency
+          <select id="lvsConc">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+          </select>
+        </label>
+        <label>
+          Metric
+          <select id="lvsMetric">
+            <option value="t/s" selected>t/s</option>
+            <option value="t/s (req)">t/s (req)</option>
+            <option value="peak t/s">peak t/s</option>
+            <option value="peak t/s (req)">peak t/s (req)</option>
+            <option value="ttfr (ms)">ttfr (ms)</option>
+            <option value="est_ppt (ms)">est_ppt (ms)</option>
+            <option value="e2e_ttft (ms)">e2e_ttft (ms)</option>
+          </select>
+        </label>
+        <label>
+          X scale
+          <select id="lvsXScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <label>
+          Y scale
+          <select id="lvsYScale">
+            <option value="linear" selected>linear</option>
+            <option value="logarithmic">log</option>
+          </select>
+        </label>
+        <span>X axis: pp2048 (prompt) — Y axis: tg128 (generation).
+          One line per model, one point per depth (d0 → d16384).</span>
+        <span id="lvsStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlamaVs"></canvas></div>
+    </section>
+
     <!-- ============================================================
          AGENT BENCH SCOREBOARDS — data from
          _agent-bench-scoreboards/manifest.json
@@ -600,9 +684,11 @@
     let chartTokens = null;
     let chartLlama = null;
     let chartLlamaGraph = null;
+    let chartLlamaVs = null;
     const DEPTHS = ["d0", "d8192", "d16384"];
     const DEPTH_X = { d0: 0, d8192: 8192, d16384: 16384 };
     const CONCURRENCIES = [1, 2, 4];
+    const DEPTH_STYLE = { d0: "circle", d8192: "triangle", d16384: "rect" };
 
     // ====================================================================
     // GLOBAL GRAPHICS-CARD FILTER
@@ -640,12 +726,74 @@
 
     const gpuMatches = (gpu) => !GPU_FILTER || gpu === GPU_FILTER;
 
-    // Filtered views of each data source, honoring the global GPU filter.
+    // ====================================================================
+    // GLOBAL QUANTIZATION (BITS-PER-WEIGHT) FILTER
+    // The bit size is deduced heuristically from the model name, e.g.
+    //   Q4_K_M / UD-Q5_K_XL / q4_0 / Q8_0  -> 4 / 5 / 4 / 8
+    //   IQ2_XS / IQ2XXS / UD-IQ1_M         -> 2 / 2 / 1
+    //   BF16 / F16 / FP8 / NVFP4 / MXFP4   -> 16 / 16 / 8 / 4 / 4
+    //   int4-AutoRound / INT8              -> 4 / 8
+    // When nothing matches the model's bit size is unknown (null); such
+    // entries are hidden as soon as the range is narrowed at all.
+    // ====================================================================
+    const BIT_MIN_LIMIT = 1, BIT_MAX_LIMIT = 16;
+    let BIT_MIN = BIT_MIN_LIMIT, BIT_MAX = BIT_MAX_LIMIT;
+
+    const BIT_PATTERNS = [
+      /(?:^|[^a-z0-9])(?:ud[-_]?)?i?q(\d{1,2})(?![0-9])/i,   // Q4_K_M, IQ2_XS, IQ2XXS, q4_0
+      /(?:^|[^a-z0-9])(?:nv|mx)?fp(\d{1,2})(?![0-9])/i,       // FP8, NVFP4, MXFP4
+      /(?:^|[^a-z0-9])b?f(\d{1,2})(?![0-9])/i,                // BF16, F16, F32
+      /(?:^|[^a-z0-9])u?int(\d{1,2})(?![0-9])/i,              // int4, uint8, INT8
+      /(?:^|[^a-z0-9])(\d{1,2})bit(?![0-9])/i,                // 4bit, 8-bit
+    ];
+
+    // Deduce bits-per-weight from a model / folder name. Returns null when unknown.
+    function bitsFromName(name) {
+      const s = String(name || "").replace(/^openai\//, "").replace(/\.gguf\b/i, "");
+      for (const re of BIT_PATTERNS) {
+        const m = s.match(re);
+        if (!m) continue;
+        const n = Number(m[1]);
+        if (Number.isFinite(n) && n >= 1 && n <= 32) return Math.min(n, BIT_MAX_LIMIT);
+      }
+      return null;
+    }
+
+    const bitFilterActive = () => BIT_MIN > BIT_MIN_LIMIT || BIT_MAX < BIT_MAX_LIMIT;
+    // Unknown bit size (null) passes only while the filter is at its full range.
+    function bitsMatch(bits) {
+      if (!bitFilterActive()) return true;
+      if (bits == null) return false;
+      return bits >= BIT_MIN && bits <= BIT_MAX;
+    }
+    // Datasets carry both a model and a folder name — either may reveal the quant.
+    function bitsFromDataset(d) {
+      return bitsFromName(d.model) ?? bitsFromName(d.baseName) ?? bitsFromName(d.folder);
+    }
+
+    // Filtered views of each data source, honoring the global GPU + quant filters.
     function filteredDatasets() {
-      return DATASETS.filter(d => gpuMatches(gpuFromDataset(d)));
+      return DATASETS.filter(d => gpuMatches(gpuFromDataset(d)) && bitsMatch(bitsFromDataset(d)));
     }
     function filteredLlamaRows() {
-      return LLAMA_ROWS.filter(r => gpuMatches(gpuFromModel(r.model)));
+      return LLAMA_ROWS.filter(r =>
+        gpuMatches(gpuFromModel(r.model)) && bitsMatch(bitsFromName(r.model)));
+    }
+
+    // Keep the two range thumbs ordered, update the label + selected track, re-render.
+    function applyBitFilter() {
+      const minEl = document.getElementById("bitMin");
+      const maxEl = document.getElementById("bitMax");
+      let lo = Number(minEl.value), hi = Number(maxEl.value);
+      if (lo > hi) { const t = lo; lo = hi; hi = t; minEl.value = lo; maxEl.value = hi; }
+      BIT_MIN = lo; BIT_MAX = hi;
+      document.getElementById("bitVals").textContent =
+        lo === hi ? `${lo} bit` : `${lo}\u2013${hi} bit`;
+      const span = BIT_MAX_LIMIT - BIT_MIN_LIMIT;
+      const sel = document.getElementById("bitSel");
+      sel.style.left  = `${((lo - BIT_MIN_LIMIT) / span) * 100}%`;
+      sel.style.right = `${((BIT_MAX_LIMIT - hi) / span) * 100}%`;
+      renderAll();
     }
 
     function sortGpus(gpus) {
@@ -679,9 +827,8 @@
       else { sel.value = ""; GPU_FILTER = ""; }
     }
 
-    // Re-render every visible chart/table after the filter changes.
-    function applyGpuFilter() {
-      GPU_FILTER = document.getElementById("gpuFilter").value;
+    // Re-render every visible chart/table after a filter changes.
+    function renderAll() {
       renderPass();
       renderPtable();
       renderTokens();
@@ -689,9 +836,15 @@
       renderScatterPass();
       renderLlama();
       renderLlamaGraph();
+      renderLlamaVs();
       populateGridModels();
       renderGrid();
       if (window.AgentBench && window.AgentBench.refresh) window.AgentBench.refresh();
+    }
+
+    function applyGpuFilter() {
+      GPU_FILTER = document.getElementById("gpuFilter").value;
+      renderAll();
     }
 
     function populateGridModels() {
@@ -1199,6 +1352,101 @@
       });
     }
 
+    // Scatter: pp2048 (x) vs tg128 (y) — one line per model, one point per depth.
+    function renderLlamaVs() {
+      const conc   = Number(document.getElementById("lvsConc").value);
+      const metric = document.getElementById("lvsMetric").value;
+      const xScale = document.getElementById("lvsXScale").value;
+      const yScale = document.getElementById("lvsYScale").value;
+      const statusEl5 = document.getElementById("lvsStatus");
+
+      const rows = filteredLlamaRows().filter(r =>
+        r.concurrency === conc && typeof r[metric] === "number");
+
+      // group by model, then depth: { [depth]: { pp2048: value, tg128: value } }
+      const byModel = new Map();
+      for (const r of rows) {
+        if (r.test !== "pp2048" && r.test !== "tg128") continue;
+        if (!DEPTHS.includes(r.depth)) continue;
+        if (!byModel.has(r.model)) byModel.set(r.model, {});
+        const perDepth = byModel.get(r.model);
+        if (!perDepth[r.depth]) perDepth[r.depth] = {};
+        perDepth[r.depth][r.test] = r[metric];
+      }
+
+      const models = [...byModel.keys()].sort();
+      let points = 0;
+      const datasets = [];
+      models.forEach(model => {
+        const perDepth = byModel.get(model);
+        // Points in depth order (d0 → d16384) so the connecting line follows depth.
+        const data = DEPTHS
+          .map(d => ({ d, v: perDepth[d] || {} }))
+          .filter(({ v }) => typeof v.pp2048 === "number" && typeof v.tg128 === "number")
+          .map(({ d, v }) => ({ x: v.pp2048, y: v.tg128, depth: d }));
+        if (!data.length) return;
+        points += data.length;
+        const color = colorFor(model);
+        datasets.push({
+          label: model,
+          data,
+          borderColor: color,
+          backgroundColor: color,
+          pointRadius: 6,
+          pointHoverRadius: 9,
+          // distinct marker per depth: d0 = circle, d8192 = triangle, d16384 = square
+          pointStyle: data.map(p => DEPTH_STYLE[p.depth] || "circle"),
+          showLine: true,
+          borderWidth: 2,
+          tension: 0,
+        });
+      });
+
+      const missing = models.length - datasets.length;
+      statusEl5.textContent = `${datasets.length} models, ${points} points`
+        + (missing ? `  (${missing} missing pp2048 or tg128)` : "");
+
+      if (chartLlamaVs) chartLlamaVs.destroy();
+      chartLlamaVs = new Chart(document.getElementById("chartLlamaVs"), {
+        type: "scatter",
+        data: { datasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: "nearest", intersect: false },
+          plugins: {
+            legend: { position: "bottom", labels: { color: "#e6e6e6", boxWidth: 12 } },
+            tooltip: {
+              callbacks: {
+                title: () => "",
+                label: ctx => {
+                  const d = ctx.raw?.depth ?? "?";
+                  return `${ctx.dataset.label} @ ${d}:  pp2048 ${ctx.parsed.x.toFixed(2)},`
+                    + `  tg128 ${ctx.parsed.y.toFixed(2)}  (${metric})`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: xScale,
+              title: { display: true, text: `pp2048 — ${metric}`, color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2" },
+              grid: { color: "#262b36" },
+              beginAtZero: xScale === "linear",
+            },
+            y: {
+              type: yScale,
+              title: { display: true, text: `tg128 — ${metric}`, color: "#9aa3b2" },
+              ticks: { color: "#9aa3b2" },
+              grid: { color: "#262b36" },
+              beginAtZero: yScale === "linear",
+            },
+          },
+        },
+      });
+    }
+
     // Re-purpose plugin error-bars for horizontal bars (errorBarPlugin only handles vertical y).
     // For indexAxis: 'y' the error bars need to be drawn along the x axis instead.
     // Override with a more general implementation:
@@ -1463,9 +1711,13 @@
       document.getElementById(id).addEventListener("change", renderLlama));
     ["lgraphTest", "lgraphConc", "lgraphMetric", "lgraphScale"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlamaGraph));
+    ["lvsConc", "lvsMetric", "lvsXScale", "lvsYScale"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderLlamaVs));
     ["gridTest", "gridScale", "gridModel"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderGrid));
     document.getElementById("gpuFilter").addEventListener("change", applyGpuFilter);
+    ["bitMin", "bitMax"].forEach(id =>
+      document.getElementById(id).addEventListener("input", applyBitFilter));
 
     (async () => {
       try {
@@ -1479,15 +1731,7 @@
         statusEl.textContent =
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         populateGpuFilter();
-        renderPass();
-        renderPtable();
-        renderTokens();
-        renderSeconds();
-        renderScatterPass();
-        renderLlama();
-        renderLlamaGraph();
-        populateGridModels();
-        renderGrid();
+        applyBitFilter();  // sets the slider label/track and renders everything
       } catch (e) {
         statusEl.textContent = "failed to load";
         errorsEl.textContent = String(e);
@@ -1511,7 +1755,8 @@
       // Runs visible under the current global graphics-card filter.
       // For agent-bench the host field is the GPU (rtx5090 / gfx1151 / …).
       function viewRuns() {
-        return RUNS.filter(r => gpuMatches(gpuFromHost(r.host)));
+        return RUNS.filter(r =>
+          gpuMatches(gpuFromHost(r.host)) && bitsMatch(bitsFromName(r.model)));
       }
 
       // ---- formatting helpers (separate from outer colorFor to avoid shadowing) ----
