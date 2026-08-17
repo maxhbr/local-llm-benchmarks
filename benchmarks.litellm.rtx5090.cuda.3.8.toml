@@ -10,7 +10,7 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.wg0"
 url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy"]
+benchmarks = ["aider"]
 
   [[endpoints.models]]
   name = "rtx5090:Qwen3.8-27B-ABL-Q5_K_M"
