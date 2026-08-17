@@ -1,0 +1,152 @@
+
+============================================================
+RUNNING BENCHMARK: deepseek-v4-flash (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 17.38s (7.19 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 8.32 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks to summarize findings. The schema requires tool_name, mass_kg, volu
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 17.14s (7.29 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 8.29 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks to summarize findings. However, the system says we must only respon
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0].
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 17.02s (7.29 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 8.29 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only? The user says "Summarize the findings for the engineering team." But the system says 
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 15.60s (7.18 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 8.3 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks to summarize findings. However, the system says we must only respon
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 17.13s (7.3 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 8.29 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks for a summary. The schema requires tool_name, mass_kg, volume_m3. B
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 17.13s (7.3 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 8.3 tok/s | finish=length | thinking=0chars | Summary: We need to respond with a JSON object matching the schema? The user says "Summarize the findings for the engineering tea
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 17.37s (7.31 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 8.29 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks to summarize findings. The schema requires tool_name, mass_kg, volu
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 17.49s (7.32 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 8.29 tok/s | finish=length | thinking=0chars | Summary: We need to respond with a summary. The user asked to summarize findings for engineering team. We should provide a concis
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 17.13s (7.3 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 8.3 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks to summarize findings. The schema requires tool_name, mass_kg, volu
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 17.13s (7.3 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 8.3 tok/s | finish=length | thinking=0chars | Summary: We need to respond with JSON only, but the user asks for a summary. The schema requires tool_name, mass_kg, volume_m3. B
+   -> Step 3 FAIL: 9000 not found in summary numbers [3.0, 3.0].
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 7.28  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 8.3  (over 10 trials with tokens)
+  Final success rate    : 0%
