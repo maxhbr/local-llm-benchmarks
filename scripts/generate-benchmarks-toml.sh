@@ -21,8 +21,8 @@
 
 set -euo pipefail
 
-ENDPOINT_URL="${ENDPOINT_URL:-http://litellm.thing.vserver.wg0.maxhbr.local/v1}"
-ENDPOINT_NAME="${ENDPOINT_NAME:-litellm.thing.vserver.wg0}"
+ENDPOINT_URL="${ENDPOINT_URL:-http://litellm.thing.wg0.maxhbr.local/v1}"
+ENDPOINT_NAME="${ENDPOINT_NAME:-litellm.thing.wg0}"
 ENDPOINT_BACKEND="${ENDPOINT_BACKEND:-litellm}"
 ENABLE_VARIANTS="${ENABLE_VARIANTS:-false}"
 ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
