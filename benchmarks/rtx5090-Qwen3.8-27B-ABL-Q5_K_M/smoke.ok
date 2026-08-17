@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-17T13:20:27",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Qwen3.8-27B-ABL-Q5_K_M",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 9.973417
+}
