@@ -1,0 +1,17 @@
+==========================================================================================
+RUN SUMMARY  (20260817-140950)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_ | smoke          | 1   | 6.1      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_M\nAvailable Model Group Fallbacks=None","type":)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_ | llama-benchy   | 1   | 7.9      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_X | smoke          | 1   | 5.8      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_XL\nAvailable Model Group Fallbacks=None","type":)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_X | llama-benchy   | 1   | 7.5      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_X | smoke          | 1   | 5.6      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_XL\nAvailable Model Group Fallbacks=None","type":)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_X | llama-benchy   | 1   | 7.5      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q6_K_X | smoke          | 130 | -        | FAIL (interrupted)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q6_K_X | llama-benchy   | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_X | smoke          | -   | -        | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_X | llama-benchy   | -   | -        | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 10   OK: 0   FAIL: 10
