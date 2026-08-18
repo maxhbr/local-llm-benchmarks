@@ -317512,3 +317512,66 @@ litellm.BadGatewayError: BadGatewayError: OpenAIException - Error code: 502
 The API provider's servers are down or overloaded.
 Retrying in 2.0 seconds...
 
+litellm.Timeout: APITimeoutError - Request timed out. Error_str: Request timed out.
+The API provider timed out without returning a response. They may be down or overloaded.
+Retrying in 4.0 seconds...
+
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 8.0 seconds...
+litellm.BadGatewayError: BadGatewayError: OpenAIException - Error code: 502
+The API provider's servers are down or overloaded.
+Retrying in 16.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 32.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 64.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 128.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 256.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 512.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 1024.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 2048.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 4096.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 8192.0 seconds...
+litellm.InternalServerError: InternalServerError: OpenAIException - litellm.InternalServerError: InternalServerError: OpenAIException - Connection error.. Received 
+Model Group=rtx5090:Qwen3.8-27B-UD-Q5_K_XL
+Available Model Group Fallbacks=None
+The API provider's servers are down or overloaded.
+Retrying in 16384.0 seconds...
+^C^C
