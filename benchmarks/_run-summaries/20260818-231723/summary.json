@@ -1,0 +1,126 @@
+{
+  "timestamp": "20260818-231723",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 4.995101,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_M\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-ABL-Q5_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 7.587922,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 5.558587,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 7.515282,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 5.610565,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q5_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 7.188626,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q6_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 5.322722,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q6_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q6_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 7.738712,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 5.439069,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 7.912105,
+      "error": null
+    }
+  ]
+}
