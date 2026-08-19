@@ -25,10 +25,11 @@
       display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
     header h1 { margin: 0; font-size: 18px; font-weight: 600; }
     header .status { color: var(--muted); font-size: 13px; }
-    header select {
+    header select, header input[type=search] {
       background: var(--panel-2); color: var(--fg); border: 1px solid var(--border);
       border-radius: 4px; padding: 4px 8px; font-size: 13px;
     }
+    header input[type=search] { font-family: inherit; }
     main { padding: 16px 20px; }
     .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
       flex-wrap: wrap; align-items: flex-end; }
@@ -149,6 +150,12 @@
         <input id="bitMax" type="range" min="1" max="16" step="1" value="16">
       </span>
       <span class="bitvals" id="bitVals">1–16 bit</span>
+    </label>
+    <label class="text-filter" title="Wildcard filter on the model / folder name. Use * and ? as wildcards, e.g. &quot;Qwen*Q5&quot;. Several patterns can be separated by spaces or commas (match any); prefix a pattern with - or ! to exclude it."
+           style="color: var(--muted); font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
+      Filter
+      <input id="textFilter" type="search" placeholder="Qwen*Q5" autocomplete="off" spellcheck="false"
+             style="width: 180px;">
     </label>
   </header>
   <main>
@@ -727,6 +734,44 @@
     const gpuMatches = (gpu) => !GPU_FILTER || gpu === GPU_FILTER;
 
     // ====================================================================
+    // GLOBAL FREE-TEXT (WILDCARD) NAME FILTER
+    // "Qwen*Q5" -> /qwen.*q5/  (unanchored, case-insensitive)
+    // Several patterns separated by spaces/commas match ANY of them;
+    // a pattern prefixed with "-" or "!" excludes matches.
+    // ====================================================================
+    let TEXT_INCLUDE = []; // RegExp[]
+    let TEXT_EXCLUDE = []; // RegExp[]
+
+    function wildcardToRegex(pattern) {
+      const body = pattern
+        .replace(/[.+^${}()|[\]\\]/g, "\\$&") // escape regex specials (keep * and ?)
+        .replace(/\*/g, ".*")
+        .replace(/\?/g, ".");
+      try { return new RegExp(body, "i"); } catch { return null; }
+    }
+
+    function setTextFilter(raw) {
+      TEXT_INCLUDE = [];
+      TEXT_EXCLUDE = [];
+      String(raw || "").split(/[\s,]+/).filter(Boolean).forEach(tok => {
+        const neg = tok[0] === "-" || tok[0] === "!";
+        const pat = neg ? tok.slice(1) : tok;
+        if (!pat) return;
+        const re = wildcardToRegex(pat);
+        if (re) (neg ? TEXT_EXCLUDE : TEXT_INCLUDE).push(re);
+      });
+    }
+
+    // True when any of the given name candidates satisfies the text filter.
+    function textMatches(...names) {
+      if (!TEXT_INCLUDE.length && !TEXT_EXCLUDE.length) return true;
+      const cands = names.map(n => String(n || "")).filter(Boolean);
+      if (TEXT_EXCLUDE.some(re => cands.some(c => re.test(c)))) return false;
+      if (!TEXT_INCLUDE.length) return true;
+      return TEXT_INCLUDE.some(re => cands.some(c => re.test(c)));
+    }
+
+    // ====================================================================
     // GLOBAL QUANTIZATION (BITS-PER-WEIGHT) FILTER
     // The bit size is deduced heuristically from the model name, e.g.
     //   Q4_K_M / UD-Q5_K_XL / q4_0 / Q8_0  -> 4 / 5 / 4 / 8
@@ -773,11 +818,13 @@
 
     // Filtered views of each data source, honoring the global GPU + quant filters.
     function filteredDatasets() {
-      return DATASETS.filter(d => gpuMatches(gpuFromDataset(d)) && bitsMatch(bitsFromDataset(d)));
+      return DATASETS.filter(d => gpuMatches(gpuFromDataset(d)) && bitsMatch(bitsFromDataset(d))
+        && textMatches(d.model, d.baseName, d.folder));
     }
     function filteredLlamaRows() {
       return LLAMA_ROWS.filter(r =>
-        gpuMatches(gpuFromModel(r.model)) && bitsMatch(bitsFromName(r.model)));
+        gpuMatches(gpuFromModel(r.model)) && bitsMatch(bitsFromName(r.model))
+        && textMatches(r.model));
     }
 
     // Keep the two range thumbs ordered, update the label + selected track, re-render.
@@ -1695,6 +1742,16 @@
       });
     }
 
+    // Free-text wildcard filter (debounced so typing stays responsive).
+    (function () {
+      const el = document.getElementById("textFilter");
+      let t = null;
+      el.addEventListener("input", () => {
+        clearTimeout(t);
+        t = setTimeout(() => { setTextFilter(el.value); renderAll(); }, 150);
+      });
+    })();
+
     document.getElementById("passView").addEventListener("change", renderPass);
     document.getElementById("passMetric").addEventListener("change", renderPass);
     document.getElementById("passMinTasks").addEventListener("input", renderPass);
@@ -1756,7 +1813,8 @@
       // For agent-bench the host field is the GPU (rtx5090 / gfx1151 / …).
       function viewRuns() {
         return RUNS.filter(r =>
-          gpuMatches(gpuFromHost(r.host)) && bitsMatch(bitsFromName(r.model)));
+          gpuMatches(gpuFromHost(r.host)) && bitsMatch(bitsFromName(r.model))
+          && textMatches(r.model, r.host));
       }
 
       // ---- formatting helpers (separate from outer colorFor to avoid shadowing) ----
