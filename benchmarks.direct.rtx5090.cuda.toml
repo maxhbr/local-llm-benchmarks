@@ -35,6 +35,8 @@ benchmarks = ["smoke", "llama-benchy"]
   [[endpoints.models]]
   name = "Qwen3.8-27B-ABL-Q5_K_M"
   [[endpoints.models]]
+  name = "Qwen3.8-27B-MTP-Q4_0"
+  [[endpoints.models]]
   name = "Qwen3.8-27B-Q6_K-MTP"
   [[endpoints.models]]
   name = "Qwen3.8-27B-UD-Q4_K_XL"
