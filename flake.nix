@@ -1,5 +1,5 @@
 {
-  description = "Local LLM Benchmarks - unified runners for aider, llama-benchy, terminal-bench and agent_bench";
+  description = "Local LLM Benchmarks - unified runners for aider, llama-benchy, terminal-bench, tool-eval-bench and agent_bench";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/e9a7635a57597d9754eccebdfc7045e6c8600e6b";
 
@@ -20,6 +20,7 @@
         cp ${./aider-polyglot-benchmarks.sh}     $out/aider-polyglot-benchmarks.sh
         cp ${./llama-benchy-benchmarks.sh}       $out/llama-benchy-benchmarks.sh
         cp ${./terminal-bench-benchmarks.sh}     $out/terminal-bench-benchmarks.sh
+        cp ${./tool-eval-bench-benchmarks.sh}    $out/tool-eval-bench-benchmarks.sh
         cp ${./agent_bench.py}                   $out/agent_bench.py
         cp ${./run_benchmarks.py}                $out/run_benchmarks.py
         chmod +x $out/*.sh $out/*.py
@@ -64,6 +65,15 @@
         runtimeInputs = with pkgs; [ uv python3 ];
       };
 
+      # tool-eval-bench: agentic tool-call quality benchmark (69 scenarios) +
+      # integrated llama-bench-style throughput.  Installs/upgrades the tool via
+      # `uv tool install` at runtime, so it needs uv + python3 like terminal-bench.
+      tool-eval-bench-bench = mkBenchScript {
+        name = "tool-eval-bench-bench";
+        srcFile = "tool-eval-bench-benchmarks.sh";
+        runtimeInputs = with pkgs; [ uv python3 ];
+      };
+
       agent-bench = pkgs.writeShellApplication {
         name = "agent-bench";
         runtimeInputs = commonRuntime;
@@ -72,7 +82,7 @@
         '';
       };
 
-      # Single entrypoint: reads a TOML matrix and dispatches to the four
+      # Single entrypoint: reads a TOML matrix and dispatches to the
       # per-benchmark wrappers.  Needs python3 >= 3.11 for stdlib `tomllib`.
       run-benchmarks = pkgs.writeShellApplication {
         name = "run-benchmarks";
@@ -81,6 +91,7 @@
           aider-bench
           llama-benchy-bench
           terminal-bench
+          tool-eval-bench-bench
           agent-bench
         ];
         text = ''
@@ -90,7 +101,7 @@
     in
     {
       packages.${system} = {
-        inherit aider-bench llama-benchy-bench terminal-bench agent-bench run-benchmarks;
+        inherit aider-bench llama-benchy-bench terminal-bench tool-eval-bench-bench agent-bench run-benchmarks;
         default = run-benchmarks;
       };
 
@@ -98,6 +109,7 @@
         aider-bench        = { type = "app"; program = "${aider-bench}/bin/aider-bench"; };
         llama-benchy-bench = { type = "app"; program = "${llama-benchy-bench}/bin/llama-benchy-bench"; };
         terminal-bench     = { type = "app"; program = "${terminal-bench}/bin/terminal-bench"; };
+        tool-eval-bench-bench = { type = "app"; program = "${tool-eval-bench-bench}/bin/tool-eval-bench-bench"; };
         agent-bench        = { type = "app"; program = "${agent-bench}/bin/agent-bench"; };
         run-benchmarks     = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };
         default            = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };

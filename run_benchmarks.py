@@ -15,6 +15,7 @@ Available benchmarks (matches the flake apps and the *.sh / *.py drivers):
     llama-benchy   -> llama-benchy-benchmarks.sh
     aider          -> aider-polyglot-benchmarks.sh
     terminal-bench -> terminal-bench-benchmarks.sh
+    tool-eval-bench -> tool-eval-bench-benchmarks.sh
     agent-bench    -> agent_bench.py
 
 Usage:
@@ -90,6 +91,7 @@ BENCHMARKS: dict[str, str | None] = {
     "llama-benchy":   "llama-benchy-benchmarks.sh",
     "aider":          "aider-polyglot-benchmarks.sh",
     "terminal-bench": "terminal-bench-benchmarks.sh",
+    "tool-eval-bench": "tool-eval-bench-benchmarks.sh",
     "agent-bench":    "agent_bench.py",
     "smoke":          None,  # inline: simple liveness check, writes smoke.ok
 }
@@ -257,6 +259,7 @@ WRAPPERS: dict[str, str] = {
     "llama-benchy":   "llama-benchy-bench",
     "aider":          "aider-bench",
     "terminal-bench": "terminal-bench",
+    "tool-eval-bench": "tool-eval-bench-bench",
     "agent-bench":    "agent-bench",
     # "smoke" is intentionally absent — handled inline by run_smoke_job().
 }
