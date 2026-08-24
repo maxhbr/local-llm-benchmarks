@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T15:32:39",
+  "generated_at": "2026-08-24T19:55:00",
   "column_count": 36,
   "row_count": 225,
   "columns": [
@@ -325,7 +325,7 @@
       "edit_format": "whole",
       "model": "openai/Qwen3.8-27B-NVFP4-RTX5090",
       "run_dir": "20260824-135355",
-      "num_tests_run": 4
+      "num_tests_run": 5
     }
   ],
   "rows": [
@@ -5027,6 +5027,12 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1"
+        },
+        "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
         }
       }
     },

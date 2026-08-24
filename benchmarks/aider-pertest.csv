@@ -47,7 +47,7 @@ go/octal,go,octal,,,PASS,PASS,,,PASS,,FAIL,,,PASS,,PASS,,,PASS,PASS,FAIL,,,,PASS
 go/paasio,go,paasio,,,EXEC,PASS,,,,,PASS,,,FAIL,,EXEC,,,EXEC,PASS,EXEC,,EXEC,,,,FAIL,,PASS,,EXEC,,,,,FAIL,,
 go/palindrome-products,go,palindrome-products,,,PASS,FAIL,,,,,FAIL,,FAIL,FAIL,,FAIL,PASS,,FAIL,FAIL,FAIL,,,,,,FAIL,,FAIL,,FAIL,,,,,FAIL,,
 go/pig-latin,go,pig-latin,,,PASS,PASS,,,,,PASS,,,PASS,,PASS,,,PASS,PASS,PASS,,,,,,PASS,,PASS,,PASS,,PASS,,,PASS,,
-go/poker,go,poker,,,FAIL,FAIL,,,FAIL,,FAIL,,,FAIL,,FAIL,,FAIL,FAIL,FAIL,FAIL,,,,,,,FAIL,FAIL,,PASS,,FAIL,,FAIL,EXEC,,
+go/poker,go,poker,,,FAIL,FAIL,,,FAIL,,FAIL,,,FAIL,,FAIL,,FAIL,FAIL,FAIL,FAIL,,,,,,,FAIL,FAIL,,PASS,,FAIL,,FAIL,EXEC,,FAIL
 go/pov,go,pov,,,FAIL,EXEC,,,,,FAIL,,,PASS,,FAIL,,,PASS,FAIL,PASS,,,,,,PASS,,PASS,,PASS,,,,,PASS,,
 go/protein-translation,go,protein-translation,,,FAIL,FAIL,,,,,FAIL,,,FAIL,,FAIL,,,PASS,PASS,PASS,,,,,,,,PASS,,,,,,,PASS,,
 go/react,go,react,,,FAIL,FAIL,,,,,PASS,,,PASS,,PASS,,FAIL,FAIL,FAIL,PASS,,,,,,,,PASS,,PASS,,,,PASS,PASS,,
