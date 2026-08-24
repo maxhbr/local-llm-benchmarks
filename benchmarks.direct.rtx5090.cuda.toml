@@ -11,6 +11,7 @@ name       = "rtx5090.thing.wg0.maxhbr.local"
 url        = "http://rtx5090.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
 benchmarks = ["smoke", "llama-benchy"]
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
   name = "gemma-4-26B-A4B-it-qat-q4_0"

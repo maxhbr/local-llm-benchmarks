@@ -18,6 +18,12 @@
 # Output filename:
 #     benchmarks.<ENDPOINT_BACKEND>.<producer>.<backend>.toml
 #   (appends .variants when ENABLE_VARIANTS=true)
+#
+# Benchmarks: BENCHMARKS is the active list (comma-separated, default
+# "smoke, llama-benchy").  The full set of ids is ALL_BENCHMARKS below
+# (matches the BENCHMARKS map in run_benchmarks.py); ids NOT in the active
+# list are written as a "# remaining options:" comment line directly
+# after the benchmarks array, so options stay visible without being enabled.
 
 set -euo pipefail
 
@@ -73,7 +79,54 @@ benchmarks_toml_array() {
     printf '%s' "$out"
 }
 
+# Trim + split "a, b, c" into one id per line.
+benchmarks_iter() {
+    local raw="$1"
+    local IFS=','
+    local -a parts
+    local p
+    read -r -a parts <<<"$raw"
+    for p in "${parts[@]}"; do
+        p="${p#"${p%%[![:space:]]*}"}"
+        p="${p%"${p##*[![:space:]]*}"}"
+        [[ -n "$p" ]] && printf '%s\n' "$p"
+    done
+    return 0
+}
+
+# Full set of benchmark ids known to run_benchmarks.py's BENCHMARKS map
+# (verify with `run_benchmarks.py --list-benchmarks`).
+ALL_BENCHMARKS=(agent-bench aider llama-benchy smoke terminal-bench tool-eval-bench)
+
+# Print the "# remaining options:" comment line for the ids that are NOT in the
+# given comma-separated active list.  Empty string when every option is active.
+benchmarks_options_comment() {
+    local active p
+    active="$(benchmarks_iter "$1")"
+    local -a remaining=()
+    for p in "${ALL_BENCHMARKS[@]}"; do
+        grep -qxF -- "$p" <<<"$active" || remaining+=("$p")
+    done
+    if (( ${#remaining[@]} == 0 )); then
+        printf '%s' ""
+    else
+        local out="# remaining options:"
+        local first=1
+        for p in "${remaining[@]}"; do
+            if (( first )); then
+                out+=" \"$p\""
+                first=0
+            else
+                out+=", \"$p\""
+            fi
+        done
+        printf '%s' "$out"
+    fi
+}
+
 BENCHMARKS_ARRAY="$(benchmarks_toml_array "$BENCHMARKS")"
+# Kept unselected options visible in the written files as a comment line.
+BENCHMARKS_OPTIONS_COMMENT="$(benchmarks_options_comment "$BENCHMARKS")"
 
 # Model filter: restrict to "base" tagged models, or all models for variants.
 if $ENABLE_VARIANTS; then
@@ -104,7 +157,11 @@ write_toml() {
         printf 'name       = "%s"\n' "$ENDPOINT_NAME"
         printf 'url        = "%s"\n' "$ENDPOINT_URL"
         printf 'api_key    = "%s"\n' "$API_KEY"
-        printf 'benchmarks = %s\n\n' "$BENCHMARKS_ARRAY"
+        printf 'benchmarks = %s\n' "$BENCHMARKS_ARRAY"
+        if [[ -n "$BENCHMARKS_OPTIONS_COMMENT" ]]; then
+            printf '%s\n' "$BENCHMARKS_OPTIONS_COMMENT"
+        fi
+        printf '\n'
         for m in "${models[@]}"; do
             printf '  [[endpoints.models]]\n'
             printf '  name = "%s"\n' "$m"
