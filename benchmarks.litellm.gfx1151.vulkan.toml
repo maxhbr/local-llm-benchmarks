@@ -14,6 +14,20 @@ benchmarks = ["llama-benchy"]
 # remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
+  name = "gfx1151:gemma-4-26B-A4B-it-qat-q4_0"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-BF16"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-qat-q4_0"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:gemma-4-31B-it-UD-Q5_K_XL"
+  [[endpoints.models]]
   name = "gfx1151:Hy3-Q2_K_L"
   [[endpoints.models]]
   name = "gfx1151:InternScience-Agents-A1-Q4_K_M"
@@ -33,6 +47,8 @@ benchmarks = ["llama-benchy"]
   name = "gfx1151:Ornith-1.0-35B-Q8_0"
   [[endpoints.models]]
   name = "gfx1151:Qwen3-235B-A22B-Instruct-Q2_K_L"
+  [[endpoints.models]]
+  name = "gfx1151:qwen3.5-122B-A10B-Q5_K_M"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.5-9B-Q5_K_M"
   [[endpoints.models]]
@@ -67,19 +83,3 @@ benchmarks = ["llama-benchy"]
   name = "gfx1151:Qwen3.8-27B-UD-Q8_K_XL"
   [[endpoints.models]]
   name = "gfx1151:TheDrummer_Skyfall-31B-v4.2-Q6_K"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q6_K_XL"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-26B-A4B-it-qat-q4_0"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-31B-it-BF16"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-31B-it-UD-Q4_K_XL"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-31B-it-UD-Q5_K_XL"
-  [[endpoints.models]]
-  name = "gfx1151:gemma-4-31B-it-qat-q4_0"
-  [[endpoints.models]]
-  name = "gfx1151:qwen3.5-122B-A10B-Q5_K_M"

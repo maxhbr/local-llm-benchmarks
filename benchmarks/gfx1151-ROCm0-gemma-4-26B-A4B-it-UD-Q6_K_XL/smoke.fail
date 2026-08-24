@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-24T22:15:31",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q6_K_XL",
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:ROCm0:gemma-4-26B-A4B-it-UD-Q6_K_XL\\nAvailable Model Group Fallbacks=None\",",
+  "duration_s": 5.256303
+}
