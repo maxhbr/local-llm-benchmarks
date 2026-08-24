@@ -1,6 +1,6 @@
 ---
 name: create-bench-toml
-description: Create a new benchmark TOML config for run_benchmarks.py by interviewing the user (endpoint URL/port, endpoint name, model, alias), listing available models via the service's /v1/models endpoint, and writing a ready-to-run benchmarks.*.toml. Use when the user asks to "add a new benchmark config", "create a toml for <service>", "benchmark the service on port X", or similar.
+description: Create a new benchmark TOML config for run_benchmarks.py by interviewing the user (endpoint URL/port, endpoint name, model, alias), listing available models via the service's /v1/models endpoint, and writing a ready-to-run benchmarks.*.toml for any of the six benchmarks (smoke, llama-benchy, agent-bench, aider, terminal-bench, tool-eval-bench), or auto-generating configs for a LiteLLM/single-endpoint fleet via scripts/generate-benchmarks-toml.sh. Use when the user asks to "add a new benchmark config", "create a toml for <service>", "benchmark the service on port X", or similar.
 ---
 
 # Create a Benchmark TOML
@@ -46,19 +46,28 @@ Confirm with the user.
 
 ## Step 4 — Pick benchmarks
 
-Show the available benchmark ids and let the user choose (default:
-`llama-benchy` + `agent-bench`):
+Show the full benchmark table and let the user choose (default:
+`["smoke", "llama-benchy"]`). The canonical id list lives in the
+`BENCHMARKS` map in `run_benchmarks.py`; verify with
+`./run_benchmarks.py --list-benchmarks`.
 
-| id             | what it runs                              |
-|----------------|-------------------------------------------|
-| `smoke`        | tiny connectivity check (skip existing ok marker) |
-| `llama-benchy` | llama-benchy-benchmarks.sh                |
-| `agent-bench`  | agent_bench.py (tool-calling structured output) |
-| `aider`        | aider-polyglot-benchmarks.sh (needs a coder-ish model) |
-| `terminal-bench` | terminal-bench-benchmarks.sh (reasoning) |
+| id                | driver                       | what it runs |
+|-------------------|------------------------------|--------------|
+| `smoke`             | (inline in run_benchmarks.py) | tiny liveness check ("Say 'pong'"); writes `smoke.ok` / `smoke.fail`, skips if ok marker exists |
+| `llama-benchy`      | `llama-benchy-benchmarks.sh` | prompt/decode tokens-per-second sweep (pp2048, tg128, …) |
+| `agent-bench`       | `agent_bench.py` | structured tool-call + unit-conversion + summary task; scoreboard in `benchmarks/_agent-bench-scoreboards/` |
+| `aider`             | `aider-polyglot-benchmarks.sh` | Aider polyglot coding exercises in a container (needs a coder-ish model) |
+| `terminal-bench`    | `terminal-bench-benchmarks.sh` | terminal-task agent benchmark via Harbor (reasoning) |
+| `tool-eval-bench`   | `tool-eval-bench-benchmarks.sh` | 69 multi-turn tool-call quality scenarios (`--short` 15, `--hardmode` 84); endpoint must support the OpenAI `tools` API; optional `--perf` throughput sweep |
 
-If `aider` is selected, ask whether the model is good at `diff` editing
-and set `edit_format = "diff"` on the model entry (default is `"whole"`).
+Selection notes:
+
+- `aider` needs a coder-ish model. If it is selected, ask whether the model
+  is good at `diff` editing and set `edit_format = "diff"` on the model entry
+  (default is `"whole"`).
+- `terminal-bench` and `tool-eval-bench` are slow; leave them out for a
+  quick run.
+- `smoke` is always cheap and a good default gate; include it by default.
 
 ## Step 5 — Write the TOML
 
@@ -73,7 +82,8 @@ output_dir = "./benchmarks"
 name       = "<endpoint-name>"
 url        = "http://<host>:<port>/v1"
 api_key    = "EMPTY"
-benchmarks = ["<bench1>", "<bench2>"]
+benchmarks = ["smoke", "llama-benchy"]
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
   name = "<exact model id from /v1/models>"
@@ -84,6 +94,15 @@ benchmarks = ["<bench1>", "<bench2>"]
 
 Omit the `[[endpoints.models]]` block entirely if the user wants every
 model the service reports.
+
+Benchmark list convention: the active `benchmarks` array stays minimal — by
+default only `["smoke", "llama-benchy"]`. The options that are *not* active
+are written as a comment line directly after the array, so they stay visible
+without being enabled. If the user picks a different subset, move the chosen
+ids into the active array and keep only the unchosen ones in the comment
+(drop the comment once every option is active). This mirrors
+`scripts/generate-benchmarks-toml.sh`, which also defaults to
+`BENCHMARKS="smoke, llama-benchy"`.
 
 ## Step 6 — Verify and hand over the run command
 
@@ -102,3 +121,35 @@ benchmarks). Then give the user the commands to run for real:
 
 Results land in `./benchmarks/<alias>/<bench>/<timestamp>/` with a
 summary at `benchmarks/_run-summaries/<ts>/summary.{json,txt}`.
+
+## Related scripts
+
+Alternative to the interview above when the endpoint is already running,
+`scripts/generate-benchmarks-toml.sh` generates the TOMLs straight from it:
+
+- `ENDPOINT_BACKEND=litellm` (default): queries `/model/info` and writes one
+  `benchmarks.litellm.<producer>.<backend>.toml` per (producer, backend) tag
+  pair found on the models (`.variants` suffix to include all models).
+- `ENDPOINT_BACKEND=direct`: queries `/models` of a plain
+  llama-swap/llama-server host; requires `ENDPOINT_PRODUCER` and
+  `ENDPOINT_BACKEND_LABEL`.
+- The benchmark list is taken from the `BENCHMARKS` env var, comma-separated,
+  default `smoke, llama-benchy`. Example:
+
+  ```bash
+  BENCHMARKS="smoke,llama-benchy,aider" \
+  ENDPOINT_URL=http://localhost:1234/v1 \
+  ENDPOINT_NAME=local \
+  ENDPOINT_BACKEND=direct \
+  ENDPOINT_PRODUCER=rtx5090 ENDPOINT_BACKEND_LABEL=cuda \
+  ./scripts/generate-benchmarks-toml.sh
+  ```
+
+Post-result helpers in `scripts/` (mention if the user asks to analyse runs):
+
+- `extract-aider-stats.py <benchmark-dir>` — aider cumulative
+  pass-rate per test count into YAML + `datasets.json`
+- `find-fastest.py` — rank models by throughput from llama-benchy.md tables
+- `generate-agent-bench-manifest.py` / `generate-aider-pertest-manifest.py`
+  — per-test case × model matrices for the dashboards
+- `llama-benchy-md-to-csv.py` — llama-benchy.md → CSV
