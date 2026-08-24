@@ -1,0 +1,16 @@
+# Local ninfer (dockerized) serving Qwen3.8-27B NVFP4 on an RTX 5090.
+# Service listens on IPv4 only (127.0.0.1:22545); `localhost` resolves to
+# IPv6 and gets connection-reset.
+
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4"
+url        = "http://127.0.0.1:22545/v1"
+api_key    = "EMPTY"
+benchmarks = ["smoke", "llama-benchy", "aider"]
+
+  [[endpoints.models]]
+  name = "localhost:22545"
+  alias = "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4"
+  # edit_format = "diff"          # optional; default is "whole"

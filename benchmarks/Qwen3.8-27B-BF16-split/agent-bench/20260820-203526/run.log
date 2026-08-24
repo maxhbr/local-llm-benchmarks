@@ -1,0 +1,168 @@
+
+============================================================
+RUNNING BENCHMARK: /models/unsloth-Qwen3.8-27B-GGUF/BF16/Qwen3.8-27B-BF16-00001-of-00002.gguf (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 33.55s (3.67 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 5.4 tok/s | finish=stop | thinking=619chars | Summary: The alloy sample has a calculated density of **9,000 kg/m³**.
+
+- **Mass:** 4.5 kg  
+- **Displaced volume:** 0.0005 m³  
+
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 27.56s (5.52 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 5.27 tok/s | finish=stop | thinking=346chars | Summary: The new alloy sample has a calculated density of **9,000 kg/m³**.
+
+This was determined from:
+- **Mass:** 4.5 kg
+- **Disp
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 24.64s (5.56 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 5.36 tok/s | finish=stop | thinking=424chars | Summary: The new alloy sample has a calculated density of **9,000 kg/m³** (equivalent to **9.0 g/cm³**).
+
+This was determined fro
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 23.41s (5.55 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=1406chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 22.74s (5.5 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=1502chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 24.17s (5.5 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=755chars | Summary: The alloy sample has a calculated density of **9,000 kg/m³** (equivalent to **9.0 g/cm³**).
+
+- **Mass:** 4.5 kg  
+- **Di
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 27.54s (5.52 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 5.34 tok/s | finish=stop | thinking=391chars | Summary: The new alloy sample has a measured density of **9,000 kg/m³**.
+
+- **Mass:** 4.5 kg  
+- **Displaced volume:** 0.0005 m³ 
+   -> Step 3 OK: Final answer correct (9000 kg/m³ found).
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 25.21s (5.55 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=1484chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 25.38s (5.44 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=1431chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 27.75s (5.51 tok/s) | Raw: {
+  "tool_name": "calculate_density",
+  "mass_kg": 4.5,
+  "volume_m3": 0.0005
+}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 5.41 tok/s | finish=length | thinking=1065chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 5.33  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 5.38  (over 10 trials with tokens)
+  Final success rate    : 50%

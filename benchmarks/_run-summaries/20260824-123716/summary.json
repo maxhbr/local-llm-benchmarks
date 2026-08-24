@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260824-123716",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545",
+      "bench": "smoke",
+      "alias": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545",
+      "bench": "aider",
+      "alias": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    }
+  ]
+}
