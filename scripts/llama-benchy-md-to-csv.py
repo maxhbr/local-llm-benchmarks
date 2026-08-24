@@ -15,6 +15,13 @@ Which is converted into a CSV row with the columns:
     est_ppt (ms), est_ppt (ms)_err,
     e2e_ttft (ms), e2e_ttft (ms)_err
 
+The `model` column uses the name of the directory the llama-benchy.md file
+lives in (i.e. the run's alias, or a slug of the model id when no alias was
+given) instead of the raw model cell from the table.  The raw cell can be an
+opaque endpoint id (e.g. a LiteLLM backend such as
+`localhost:22545:localhost:22545`), while the directory name is the
+human-readable key the dashboard and summaries expect.
+
 Usage:
     # Convert a single file (prints CSV to stdout):
     llama-benchy-md-to-csv.py benchmarks/<dir>/llama-benchy.md
@@ -120,8 +127,27 @@ def parse_value(cell: str) -> tuple[str, str]:
     return m.group("value"), (m.group("err") or "")
 
 
-def iter_rows(path: Path) -> Iterator[list[str]]:
-    """Yield CSV rows (as lists of strings) from a single llama-benchy.md file."""
+def model_key_for(path: Path, fallback: str = "") -> str:
+    """Derive the display key for the model from the file's location.
+
+    ``llama-benchy.md`` files live at ``<benchmarks-dir>/<model-dir>/llama-benchy.md``
+    and ``<model-dir>`` is the alias the runner assigned to the run (or a slug
+    of the model id when no alias was given).  Returns ``fallback`` when the
+    file is not one level below a model dir (empty parent, or an aggregate dir
+    such as ``_run-summaries``).
+    """
+    name = path.parent.name
+    if not name or name.startswith("_"):
+        return fallback
+    return name
+
+
+def iter_rows(path: Path, model_key: str | None = None) -> Iterator[list[str]]:
+    """Yield CSV rows (as lists of strings) from a single llama-benchy.md file.
+
+    ``model_key`` overrides the raw model cell in the first column; it is
+    typically the benchmark dir name (see :func:`model_key_for`).
+    """
     with path.open(encoding="utf-8") as f:
         lines = f.readlines()
 
@@ -160,7 +186,7 @@ def iter_rows(path: Path) -> Iterator[list[str]]:
             continue
         kind, depth, conc = parsed
 
-        out: list[str] = [model_cell, kind, depth, conc]
+        out: list[str] = [model_key or model_cell, kind, depth, conc]
         for cell in value_cells[: len(VALUE_COLUMNS)]:
             value, err = parse_value(cell)
             out.append(value)
@@ -217,7 +243,8 @@ def main(argv: list[str] | None = None) -> int:
             if not path.is_file():
                 print(f"warning: skipping missing file {path}", file=sys.stderr)
                 continue
-            yield from iter_rows(path)
+            model_key = model_key_for(path)
+            yield from iter_rows(path, model_key)
 
     if args.output:
         with open(args.output, "w", encoding="utf-8", newline="") as f:

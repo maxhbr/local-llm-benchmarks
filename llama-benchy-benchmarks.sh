@@ -25,7 +25,10 @@ Common options:
   --api-key <key>           API key (default: EMPTY)
   --output-dir <path>       Root directory for results (default: ./benchmarks)
   --work-dir <path>         Directory for cached clones/venvs (default: ./work)
-  --run-name <name>         Name suffix for this run (default: derived from --model)
+  --run-name <name>         Display name for this run: output dir suffix AND the
+                            name shown in the result table (default: derived from
+                            --model). When set, llama-benchy gets the alias as
+                            --model and the real API model id as --served-model-name.
   --rebuild                 Recreate the venv before running
   --shell-only              Drop into a shell with the venv activated; don't run benchmark
   --new                     Re-run even if the output symlink already exists
@@ -57,6 +60,7 @@ API_KEY="EMPTY"
 OUTPUT_DIR="./benchmarks"
 WORK_DIR="./work"
 RUN_NAME=""
+RUN_NAME_EXPLICIT=false
 PP="2048"
 TG="128"
 DEPTH="0 8192 16384"
@@ -78,7 +82,7 @@ while [[ $# -gt 0 ]]; do
         --api-key)                 API_KEY="$2"; shift 2 ;;
         --output-dir)              OUTPUT_DIR="$2"; shift 2 ;;
         --work-dir)                WORK_DIR="$2"; shift 2 ;;
-        --run-name)                RUN_NAME="$2"; shift 2 ;;
+        --run-name)                RUN_NAME="$2"; RUN_NAME_EXPLICIT=true; shift 2 ;;
         --pp)                      PP="$2"; shift 2 ;;
         --tg)                      TG="$2"; shift 2 ;;
         --depth)                   DEPTH="$2"; shift 2 ;;
@@ -174,7 +178,17 @@ write_meta \
 BENCHY_ARGS=(
     --base-url "$ENDPOINT"
     --api-key  "$API_KEY"
-    --model    "$MODEL"
+)
+# With an explicit --run-name (alias), show the alias in the result table's
+# model column (which flows into llama-benchy.csv / the dashboard) and send
+# the real API model id via --served-model-name.  Without one, keep the raw
+# --model as the display name (previous behaviour).
+if [[ "$RUN_NAME_EXPLICIT" == true ]]; then
+    BENCHY_ARGS+=( --model "$RUN_NAME" --served-model-name "$MODEL" )
+else
+    BENCHY_ARGS+=( --model "$MODEL" )
+fi
+BENCHY_ARGS+=(
     --pp       $PP
     --tg       $TG
     --depth    $DEPTH
