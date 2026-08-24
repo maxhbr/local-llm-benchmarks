@@ -1759,6 +1759,43 @@
       });
     }
 
+    // Horizontal one-sided whisker on the pass_rate_2 bar: from pass_rate_2
+    // (the bar's right end) out to theoretical_pass_rate_2, showing how high the
+    // value could be if no infrastructure error had occurred. Reads
+    // dataset.theoretical[i]. Adds no new dataset and no vertical height — the
+    // whisker is drawn over the existing bar, in the empty space to its right.
+    const ptableTheoreticalPlugin = {
+      id: "ptableTheoretical",
+      afterDatasetsDraw(chart) {
+        const { ctx, scales } = chart;
+        const xScale = scales.x;
+        chart.data.datasets.forEach((ds, dsIdx) => {
+          if (!ds.theoretical) return;
+          const meta = chart.getDatasetMeta(dsIdx);
+          ctx.save();
+          ctx.strokeStyle = "rgba(230,230,230,0.85)";
+          ctx.lineWidth = 1;
+          meta.data.forEach((bar, i) => {
+            const theo = ds.theoretical[i];
+            const val = ds.data[i];
+            if (theo == null || val == null || theo <= val) return;
+            const y = bar.y;
+            const x1 = xScale.getPixelForValue(val);   // end of the pass_rate_2 bar
+            const x2 = xScale.getPixelForValue(theo);  // theoretical value
+            const h = Number.isFinite(bar.height) ? bar.height : 0;
+            const cap = Math.min(4, h / 2 - 0.5);       // cap stays within the bar
+            ctx.beginPath();
+            ctx.moveTo(x1, y); ctx.lineTo(x2, y);        // whisker stem
+            if (cap > 0) {
+              ctx.moveTo(x2, y - cap); ctx.lineTo(x2, y + cap); // cap at theoretical end
+            }
+            ctx.stroke();
+          });
+          ctx.restore();
+        });
+      },
+    };
+
     let chartPtable = null;
     function renderPtable() {
       const sort = document.getElementById("ptableSort").value;
@@ -1772,6 +1809,8 @@
           tasks,
           pass_rate_1: typeof last.pass_rate_1 === "number" ? last.pass_rate_1 : 0,
           pass_rate_2: typeof last.pass_rate_2 === "number" ? last.pass_rate_2 : 0,
+          theoretical_pass_rate_2: typeof last.theoretical_pass_rate_2 === "number"
+            ? last.theoretical_pass_rate_2 : null,
         };
       });
       const items = allItems.filter(i => i.tasks >= minTasks);
@@ -1791,10 +1830,12 @@
       const labels = items.map(i => i.name);
       const data1 = items.map(i => i.pass_rate_1);
       const data2 = items.map(i => i.pass_rate_2);
+      const theoretical = items.map(i => i.theoretical_pass_rate_2);
 
       if (chartPtable) chartPtable.destroy();
       chartPtable = new Chart(document.getElementById("chartPtable"), {
         type: "bar",
+        plugins: [ptableTheoreticalPlugin],
         data: {
           labels,
           datasets: [
@@ -1805,6 +1846,7 @@
               borderWidth: 1 },
             { label: "pass_rate_2",
               data: data2,
+              theoretical,
               backgroundColor: "rgba(94,196,143,0.7)",
               borderColor: "rgba(94,196,143,1)",
               borderWidth: 1 },
@@ -1822,7 +1864,16 @@
                   const i = ctxs[0]?.dataIndex;
                   return i != null ? `${items[i].baseName}  (${items[i].tasks} tasks)` : "";
                 },
-                label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%`,
+                label: ctx => {
+                  const v = `${ctx.dataset.label}: ${ctx.parsed.x.toFixed(1)}%`;
+                  if (ctx.dataset.label === "pass_rate_2") {
+                    const t = items[ctx.dataIndex]?.theoretical_pass_rate_2;
+                    if (typeof t === "number" && t > ctx.parsed.x) {
+                      return `${v}  (theoretical: ${t.toFixed(1)}%)`;
+                    }
+                  }
+                  return v;
+                },
               },
             },
           },
