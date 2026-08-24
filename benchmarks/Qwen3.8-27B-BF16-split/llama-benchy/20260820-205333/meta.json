@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260820-205333",
+  "host": "thing",
+  "bench": "llama-benchy",
+  "model": "/models/unsloth-Qwen3.8-27B-GGUF/BF16/Qwen3.8-27B-BF16-00001-of-00002.gguf",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "run_name": "Qwen3.8-27B-BF16-split",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}

@@ -1,0 +1,6 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Terminated                 llama-benchy "${BENCHY_ARGS[@]}"

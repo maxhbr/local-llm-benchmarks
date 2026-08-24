@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260820-205328",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "Vulkan0-Vulkan1_Qwen3.8-27B-BF16-split",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "/models/unsloth-Qwen3.8-27B-GGUF/BF16/Qwen3.8-27B-BF16-00001-of-00002.gguf",
+      "bench": "smoke",
+      "alias": "Qwen3.8-27B-BF16-split",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 4.831622,
+      "error": null
+    },
+    {
+      "endpoint_name": "Vulkan0-Vulkan1_Qwen3.8-27B-BF16-split",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "/models/unsloth-Qwen3.8-27B-GGUF/BF16/Qwen3.8-27B-BF16-00001-of-00002.gguf",
+      "bench": "llama-benchy",
+      "alias": "Qwen3.8-27B-BF16-split",
+      "edit_format": "whole",
+      "returncode": 143,
+      "duration_s": 37.564956,
+      "error": null
+    }
+  ]
+}
