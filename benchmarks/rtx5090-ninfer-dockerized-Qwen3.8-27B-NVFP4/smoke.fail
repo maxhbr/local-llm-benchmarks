@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-24T13:51:31",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "model": "localhost:22545",
+  "error": "URLError: <urlopen error [Errno 111] Connection refused>",
+  "duration_s": 0.011213
+}

@@ -8,7 +8,7 @@ output_dir = "./benchmarks"
 name       = "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4"
 url        = "http://127.0.0.1:22545/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy", "aider"]
+benchmarks = ["smoke", "llama-benchy"]
 
   [[endpoints.models]]
   name = "localhost:22545"

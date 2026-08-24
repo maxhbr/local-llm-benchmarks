@@ -1,0 +1,30 @@
+{
+  "timestamp": "20260824-133148",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545",
+      "bench": "smoke",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.999342,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "localhost:22545",
+      "bench": "llama-benchy",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 298.633821,
+      "error": null
+    }
+  ]
+}
