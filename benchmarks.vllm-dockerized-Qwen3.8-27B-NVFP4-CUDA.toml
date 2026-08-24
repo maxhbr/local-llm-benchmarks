@@ -1,0 +1,15 @@
+# Local vLLM (dockerized) serving Qwen3.8-27B NVFP4 on an RTX 5090 (CUDA).
+# Service listens on 127.0.0.1:22545; vLLM reports model id `localhost:22545`.
+
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA"
+url        = "http://127.0.0.1:22548/v1"
+api_key    = "EMPTY"
+benchmarks = ["smoke", "llama-benchy", "aider"]
+
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-NVFP4-RTX5090"
+  alias = "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA"
+  # edit_format = "diff"          # optional; default is "whole"
