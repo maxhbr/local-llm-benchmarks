@@ -23,11 +23,97 @@ import sys
 
 ANSI_RE = re.compile(r'\x1b\[[0-9;]*m')
 TEST_CASES_RE = re.compile(r'^\s+test_cases:\s+(\d+)')
+RESULTS_RE = re.compile(r'^results:\s*$', re.MULTILINE)
+
+# Per-test execution-error signals (keys as they appear in each ``results:``
+# JSON block). A test that did not pass but shows any of these never got a fair
+# shot at solving the exercise — an infrastructure/deployment failure, not a
+# genuine coding failure. Mirrors ``ERR_SIGNALS`` in
+# ``generate-aider-pertest-manifest.py`` so the two views agree.
+ERR_SIGNAL_KEYS = (
+    'num_error_outputs',
+    'num_malformed_responses',
+    'syntax_errors',
+    'test_timeouts',
+    'num_exhausted_context_windows',
+)
 
 
 def strip_ansi(text: str) -> str:
     """Remove ANSI color/escape codes from text."""
     return ANSI_RE.sub('', text)
+
+
+def classify_test(obj: dict) -> tuple[bool, bool]:
+    """Classify one ``results:`` block into ``(passed, infra_recoverable)``.
+
+    * ``passed`` — the test passed on any try (``True in tests_outcomes``),
+      matching aider's ``pass_num_2`` and the per-test manifest's ``p2``.
+    * ``infra_recoverable`` — the test did NOT pass AND it never got a fair
+      shot: either it had an execution-error signal (see ``ERR_SIGNAL_KEYS``)
+      or ``tests_outcomes`` was absent (an exception case, ``status='error'``
+      in the per-test manifest). Such a test is counted as a pass for the
+      *theoretical* rate — the upper bound if no infrastructure error had
+      occurred — but never as a genuine coding failure.
+    """
+    outcomes = obj.get('tests_outcomes')
+    has_outcomes = isinstance(outcomes, list)
+    passed = bool(has_outcomes and outcomes and True in outcomes)
+    status_error = not has_outcomes
+    has_err_signal = any((obj.get(k) or 0) > 0 for k in ERR_SIGNAL_KEYS)
+    infra_recoverable = (not passed) and (has_err_signal or status_error)
+    return passed, infra_recoverable
+
+
+def parse_results_outcomes(content: str) -> list[tuple[bool, bool]]:
+    """Parse every ``results:`` JSON block (in file order) into a list of
+    ``(passed, infra_recoverable)`` tuples — one entry per test case, in the
+    order the run executed them."""
+    decoder = json.JSONDecoder()
+    outcomes: list[tuple[bool, bool]] = []
+    for m in RESULTS_RE.finditer(content):
+        brace = content.find('{', m.end())
+        if brace < 0:
+            continue
+        try:
+            obj, _end = decoder.raw_decode(content, brace)
+        except json.JSONDecodeError:
+            # truncated/malformed block (interrupted run) — skip, never abort
+            continue
+        if not isinstance(obj, dict):
+            continue
+        outcomes.append(classify_test(obj))
+    return outcomes
+
+
+def build_theoretical_snapshots(
+    yaml_blocks: list[list[str]],
+    outcomes: list[tuple[bool, bool]],
+) -> dict[int, tuple[int, int]]:
+    """Walk the run in order, pairing each YAML cumulative snapshot with the
+    per-test outcome that produced it, and return ``{test_cases:
+    (pass_num_2, theoretical_pass_num_2)}``.
+
+    The run.log interleaves one ``results:`` block then one ``- dirname:`` YAML
+    summary per test, so the *k*-th YAML block reflects the cumulative totals
+    after the first *k* tests. We therefore advance one outcome per YAML block
+    and snapshot the running counts at that block's ``test_cases`` value. The
+    map keeps the last snapshot per ``test_cases`` (matching
+    ``deduplicate_blocks``, which keeps the last block per count)."""
+    snapshots: dict[int, tuple[int, int]] = {}
+    pass_num = 0
+    infra_num = 0
+    for k, block in enumerate(yaml_blocks):
+        if k < len(outcomes):
+            passed, infra = outcomes[k]
+            if passed:
+                pass_num += 1
+            if infra:
+                infra_num += 1
+        tc = get_test_cases_count(block)
+        if tc is not None:
+            snapshots[tc] = (pass_num, pass_num + infra_num)
+    return snapshots
 
 
 def extract_yaml_blocks(content: str) -> list[list[str]]:
@@ -121,6 +207,38 @@ def deduplicate_blocks(blocks: list[list[str]]) -> list[list[str]]:
     return [seen[k] for k in sorted(seen.keys())]
 
 
+def inject_theoretical(
+    blocks: list[list[str]],
+    snapshots: dict[int, tuple[int, int]],
+) -> list[list[str]]:
+    """Add ``theoretical_pass_num_2`` and ``theoretical_pass_rate_2`` lines to
+    each block that has a snapshot. Inserted right after ``pass_num_2:`` to keep
+    the related pass-rate fields together. Blocks without a snapshot (e.g. a
+    run.log with no ``results:`` blocks) are left unchanged; the front end then
+    falls back to a flat band at ``pass_rate_2``."""
+    out: list[list[str]] = []
+    for block in blocks:
+        tc = get_test_cases_count(block)
+        snap = snapshots.get(tc)
+        if snap is None:
+            out.append(block)
+            continue
+        _pass_num, theo_num = snap
+        theo_rate = f'{100 * theo_num / tc:.1f}' if tc else '0.0'
+        insert_idx = len(block)
+        for i, line in enumerate(block):
+            if line.lstrip().startswith('pass_num_2:'):
+                insert_idx = i + 1
+                break
+        new_block = list(block)
+        new_block[insert_idx:insert_idx] = [
+            f'  theoretical_pass_num_2: {theo_num}',
+            f'  theoretical_pass_rate_2: {theo_rate}',
+        ]
+        out.append(new_block)
+    return out
+
+
 def find_latest_run_dir(benchmark_dir: str, bench_type: str = 'aider') -> str | None:
     """Find the most recent <bench_type>/<timestamp> subdirectory."""
     bench_dir = os.path.join(benchmark_dir, bench_type)
@@ -169,8 +287,17 @@ def process_benchmark(benchmark_dir: str, bench_type: str = 'aider') -> bool:
         print(f"  Skipping: no YAML blocks found")
         return False
 
+    # Theoretical-best pass_rate_2: parse the per-test ``results:`` blocks of
+    # the same run.log (in order) and, for each cumulative snapshot, count how
+    # many tests would have passed if every infrastructure error had instead
+    # been a success (i.e. passed + infra-recoverable). Injected as extra YAML
+    # fields so the front end can plot a band above pass_rate_2 with no formula.
+    outcomes = parse_results_outcomes(clean_content)
+    snapshots = build_theoretical_snapshots(blocks, outcomes)
     unique_blocks = deduplicate_blocks(blocks)
-    print(f"  {len(unique_blocks)} distinct entries")
+    unique_blocks = inject_theoretical(unique_blocks, snapshots)
+    print(f"  {len(unique_blocks)} distinct entries"
+          + (f" ({len(snapshots)} with theoretical)" if snapshots else ""))
 
     yaml_output = '\n'.join('\n'.join(block) for block in unique_blocks)
 

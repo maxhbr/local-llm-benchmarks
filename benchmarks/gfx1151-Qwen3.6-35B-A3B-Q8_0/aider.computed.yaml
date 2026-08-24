@@ -7,6 +7,8 @@
   pass_rate_2: 100.0
   pass_num_1: 0
   pass_num_2: 1
+  theoretical_pass_num_2: 1
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -34,6 +36,8 @@
   pass_rate_2: 100.0
   pass_num_1: 1
   pass_num_2: 2
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -61,6 +65,8 @@
   pass_rate_2: 100.0
   pass_num_1: 2
   pass_num_2: 3
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -88,6 +94,8 @@
   pass_rate_2: 100.0
   pass_num_1: 2
   pass_num_2: 4
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -115,6 +123,8 @@
   pass_rate_2: 100.0
   pass_num_1: 3
   pass_num_2: 5
+  theoretical_pass_num_2: 5
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -142,6 +152,8 @@
   pass_rate_2: 100.0
   pass_num_1: 3
   pass_num_2: 6
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -169,6 +181,8 @@
   pass_rate_2: 100.0
   pass_num_1: 3
   pass_num_2: 7
+  theoretical_pass_num_2: 7
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -196,6 +210,8 @@
   pass_rate_2: 100.0
   pass_num_1: 4
   pass_num_2: 8
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -223,6 +239,8 @@
   pass_rate_2: 100.0
   pass_num_1: 5
   pass_num_2: 9
+  theoretical_pass_num_2: 9
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -250,6 +268,8 @@
   pass_rate_2: 100.0
   pass_num_1: 6
   pass_num_2: 10
+  theoretical_pass_num_2: 10
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -277,6 +297,8 @@
   pass_rate_2: 100.0
   pass_num_1: 7
   pass_num_2: 11
+  theoretical_pass_num_2: 11
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -304,6 +326,8 @@
   pass_rate_2: 91.7
   pass_num_1: 7
   pass_num_2: 11
+  theoretical_pass_num_2: 11
+  theoretical_pass_rate_2: 91.7
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -331,6 +355,8 @@
   pass_rate_2: 92.3
   pass_num_1: 8
   pass_num_2: 12
+  theoretical_pass_num_2: 12
+  theoretical_pass_rate_2: 92.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -358,6 +384,8 @@
   pass_rate_2: 92.9
   pass_num_1: 8
   pass_num_2: 13
+  theoretical_pass_num_2: 13
+  theoretical_pass_rate_2: 92.9
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -385,6 +413,8 @@
   pass_rate_2: 86.7
   pass_num_1: 8
   pass_num_2: 13
+  theoretical_pass_num_2: 13
+  theoretical_pass_rate_2: 86.7
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -412,6 +442,8 @@
   pass_rate_2: 81.2
   pass_num_1: 8
   pass_num_2: 13
+  theoretical_pass_num_2: 13
+  theoretical_pass_rate_2: 81.2
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -439,6 +471,8 @@
   pass_rate_2: 82.4
   pass_num_1: 8
   pass_num_2: 14
+  theoretical_pass_num_2: 14
+  theoretical_pass_rate_2: 82.4
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -466,6 +500,8 @@
   pass_rate_2: 83.3
   pass_num_1: 9
   pass_num_2: 15
+  theoretical_pass_num_2: 15
+  theoretical_pass_rate_2: 83.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -493,6 +529,8 @@
   pass_rate_2: 78.9
   pass_num_1: 9
   pass_num_2: 15
+  theoretical_pass_num_2: 15
+  theoretical_pass_rate_2: 78.9
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -520,6 +558,8 @@
   pass_rate_2: 80.0
   pass_num_1: 10
   pass_num_2: 16
+  theoretical_pass_num_2: 16
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -547,6 +587,8 @@
   pass_rate_2: 81.0
   pass_num_1: 10
   pass_num_2: 17
+  theoretical_pass_num_2: 17
+  theoretical_pass_rate_2: 81.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -574,6 +616,8 @@
   pass_rate_2: 77.3
   pass_num_1: 10
   pass_num_2: 17
+  theoretical_pass_num_2: 17
+  theoretical_pass_rate_2: 77.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -601,6 +645,8 @@
   pass_rate_2: 78.3
   pass_num_1: 11
   pass_num_2: 18
+  theoretical_pass_num_2: 18
+  theoretical_pass_rate_2: 78.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -628,6 +674,8 @@
   pass_rate_2: 75.0
   pass_num_1: 11
   pass_num_2: 18
+  theoretical_pass_num_2: 18
+  theoretical_pass_rate_2: 75.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -655,6 +703,8 @@
   pass_rate_2: 76.0
   pass_num_1: 11
   pass_num_2: 19
+  theoretical_pass_num_2: 19
+  theoretical_pass_rate_2: 76.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -682,6 +732,8 @@
   pass_rate_2: 76.9
   pass_num_1: 11
   pass_num_2: 20
+  theoretical_pass_num_2: 20
+  theoretical_pass_rate_2: 76.9
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -709,6 +761,8 @@
   pass_rate_2: 77.8
   pass_num_1: 12
   pass_num_2: 21
+  theoretical_pass_num_2: 21
+  theoretical_pass_rate_2: 77.8
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -736,6 +790,8 @@
   pass_rate_2: 78.6
   pass_num_1: 12
   pass_num_2: 22
+  theoretical_pass_num_2: 22
+  theoretical_pass_rate_2: 78.6
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -763,6 +819,8 @@
   pass_rate_2: 79.3
   pass_num_1: 12
   pass_num_2: 23
+  theoretical_pass_num_2: 23
+  theoretical_pass_rate_2: 79.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -790,6 +848,8 @@
   pass_rate_2: 80.0
   pass_num_1: 13
   pass_num_2: 24
+  theoretical_pass_num_2: 24
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -817,6 +877,8 @@
   pass_rate_2: 80.6
   pass_num_1: 13
   pass_num_2: 25
+  theoretical_pass_num_2: 25
+  theoretical_pass_rate_2: 80.6
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -844,6 +906,8 @@
   pass_rate_2: 78.1
   pass_num_1: 13
   pass_num_2: 25
+  theoretical_pass_num_2: 25
+  theoretical_pass_rate_2: 78.1
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -871,6 +935,8 @@
   pass_rate_2: 78.8
   pass_num_1: 14
   pass_num_2: 26
+  theoretical_pass_num_2: 26
+  theoretical_pass_rate_2: 78.8
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -898,6 +964,8 @@
   pass_rate_2: 76.5
   pass_num_1: 14
   pass_num_2: 26
+  theoretical_pass_num_2: 26
+  theoretical_pass_rate_2: 76.5
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -925,6 +993,8 @@
   pass_rate_2: 77.1
   pass_num_1: 15
   pass_num_2: 27
+  theoretical_pass_num_2: 27
+  theoretical_pass_rate_2: 77.1
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -952,6 +1022,8 @@
   pass_rate_2: 77.8
   pass_num_1: 16
   pass_num_2: 28
+  theoretical_pass_num_2: 28
+  theoretical_pass_rate_2: 77.8
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -979,6 +1051,8 @@
   pass_rate_2: 78.4
   pass_num_1: 17
   pass_num_2: 29
+  theoretical_pass_num_2: 29
+  theoretical_pass_rate_2: 78.4
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1006,6 +1080,8 @@
   pass_rate_2: 76.3
   pass_num_1: 17
   pass_num_2: 29
+  theoretical_pass_num_2: 29
+  theoretical_pass_rate_2: 76.3
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1033,6 +1109,8 @@
   pass_rate_2: 76.9
   pass_num_1: 18
   pass_num_2: 30
+  theoretical_pass_num_2: 30
+  theoretical_pass_rate_2: 76.9
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1060,6 +1138,8 @@
   pass_rate_2: 77.5
   pass_num_1: 19
   pass_num_2: 31
+  theoretical_pass_num_2: 31
+  theoretical_pass_rate_2: 77.5
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1087,6 +1167,8 @@
   pass_rate_2: 78.0
   pass_num_1: 20
   pass_num_2: 32
+  theoretical_pass_num_2: 32
+  theoretical_pass_rate_2: 78.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1114,6 +1196,8 @@
   pass_rate_2: 78.6
   pass_num_1: 21
   pass_num_2: 33
+  theoretical_pass_num_2: 33
+  theoretical_pass_rate_2: 78.6
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1141,6 +1225,8 @@
   pass_rate_2: 79.1
   pass_num_1: 22
   pass_num_2: 34
+  theoretical_pass_num_2: 34
+  theoretical_pass_rate_2: 79.1
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1168,6 +1254,8 @@
   pass_rate_2: 79.5
   pass_num_1: 23
   pass_num_2: 35
+  theoretical_pass_num_2: 35
+  theoretical_pass_rate_2: 79.5
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1195,6 +1283,8 @@
   pass_rate_2: 80.0
   pass_num_1: 24
   pass_num_2: 36
+  theoretical_pass_num_2: 36
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1222,6 +1312,8 @@
   pass_rate_2: 80.4
   pass_num_1: 25
   pass_num_2: 37
+  theoretical_pass_num_2: 37
+  theoretical_pass_rate_2: 80.4
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1249,6 +1341,8 @@
   pass_rate_2: 78.7
   pass_num_1: 25
   pass_num_2: 37
+  theoretical_pass_num_2: 37
+  theoretical_pass_rate_2: 78.7
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1276,6 +1370,8 @@
   pass_rate_2: 79.2
   pass_num_1: 26
   pass_num_2: 38
+  theoretical_pass_num_2: 38
+  theoretical_pass_rate_2: 79.2
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1303,6 +1399,8 @@
   pass_rate_2: 79.6
   pass_num_1: 26
   pass_num_2: 39
+  theoretical_pass_num_2: 39
+  theoretical_pass_rate_2: 79.6
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -1330,6 +1428,8 @@
   pass_rate_2: 80.0
   pass_num_1: 26
   pass_num_2: 40
+  theoretical_pass_num_2: 40
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1357,6 +1457,8 @@
   pass_rate_2: 80.4
   pass_num_1: 27
   pass_num_2: 41
+  theoretical_pass_num_2: 41
+  theoretical_pass_rate_2: 80.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1384,6 +1486,8 @@
   pass_rate_2: 80.8
   pass_num_1: 27
   pass_num_2: 42
+  theoretical_pass_num_2: 42
+  theoretical_pass_rate_2: 80.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1411,6 +1515,8 @@
   pass_rate_2: 79.2
   pass_num_1: 27
   pass_num_2: 42
+  theoretical_pass_num_2: 42
+  theoretical_pass_rate_2: 79.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1438,6 +1544,8 @@
   pass_rate_2: 79.6
   pass_num_1: 27
   pass_num_2: 43
+  theoretical_pass_num_2: 43
+  theoretical_pass_rate_2: 79.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1465,6 +1573,8 @@
   pass_rate_2: 80.0
   pass_num_1: 27
   pass_num_2: 44
+  theoretical_pass_num_2: 44
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1492,6 +1602,8 @@
   pass_rate_2: 80.4
   pass_num_1: 27
   pass_num_2: 45
+  theoretical_pass_num_2: 45
+  theoretical_pass_rate_2: 80.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1519,6 +1631,8 @@
   pass_rate_2: 80.7
   pass_num_1: 27
   pass_num_2: 46
+  theoretical_pass_num_2: 46
+  theoretical_pass_rate_2: 80.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1546,6 +1660,8 @@
   pass_rate_2: 81.0
   pass_num_1: 27
   pass_num_2: 47
+  theoretical_pass_num_2: 47
+  theoretical_pass_rate_2: 81.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1573,6 +1689,8 @@
   pass_rate_2: 79.7
   pass_num_1: 27
   pass_num_2: 47
+  theoretical_pass_num_2: 47
+  theoretical_pass_rate_2: 79.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1600,6 +1718,8 @@
   pass_rate_2: 78.3
   pass_num_1: 27
   pass_num_2: 47
+  theoretical_pass_num_2: 48
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1627,6 +1747,8 @@
   pass_rate_2: 78.7
   pass_num_1: 28
   pass_num_2: 48
+  theoretical_pass_num_2: 49
+  theoretical_pass_rate_2: 80.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1654,6 +1776,8 @@
   pass_rate_2: 79.0
   pass_num_1: 28
   pass_num_2: 49
+  theoretical_pass_num_2: 50
+  theoretical_pass_rate_2: 80.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1681,6 +1805,8 @@
   pass_rate_2: 79.4
   pass_num_1: 28
   pass_num_2: 50
+  theoretical_pass_num_2: 51
+  theoretical_pass_rate_2: 81.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1708,6 +1834,8 @@
   pass_rate_2: 79.7
   pass_num_1: 29
   pass_num_2: 51
+  theoretical_pass_num_2: 52
+  theoretical_pass_rate_2: 81.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1735,6 +1863,8 @@
   pass_rate_2: 80.0
   pass_num_1: 30
   pass_num_2: 52
+  theoretical_pass_num_2: 53
+  theoretical_pass_rate_2: 81.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1762,6 +1892,8 @@
   pass_rate_2: 80.3
   pass_num_1: 30
   pass_num_2: 53
+  theoretical_pass_num_2: 54
+  theoretical_pass_rate_2: 81.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1789,6 +1921,8 @@
   pass_rate_2: 79.1
   pass_num_1: 30
   pass_num_2: 53
+  theoretical_pass_num_2: 54
+  theoretical_pass_rate_2: 80.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1816,6 +1950,8 @@
   pass_rate_2: 79.4
   pass_num_1: 30
   pass_num_2: 54
+  theoretical_pass_num_2: 55
+  theoretical_pass_rate_2: 80.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1843,6 +1979,8 @@
   pass_rate_2: 79.7
   pass_num_1: 30
   pass_num_2: 55
+  theoretical_pass_num_2: 56
+  theoretical_pass_rate_2: 81.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1870,6 +2008,8 @@
   pass_rate_2: 80.0
   pass_num_1: 30
   pass_num_2: 56
+  theoretical_pass_num_2: 57
+  theoretical_pass_rate_2: 81.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1897,6 +2037,8 @@
   pass_rate_2: 80.3
   pass_num_1: 30
   pass_num_2: 57
+  theoretical_pass_num_2: 58
+  theoretical_pass_rate_2: 81.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1924,6 +2066,8 @@
   pass_rate_2: 80.6
   pass_num_1: 30
   pass_num_2: 58
+  theoretical_pass_num_2: 59
+  theoretical_pass_rate_2: 81.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1951,6 +2095,8 @@
   pass_rate_2: 80.8
   pass_num_1: 31
   pass_num_2: 59
+  theoretical_pass_num_2: 60
+  theoretical_pass_rate_2: 82.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -1978,6 +2124,8 @@
   pass_rate_2: 81.1
   pass_num_1: 32
   pass_num_2: 60
+  theoretical_pass_num_2: 61
+  theoretical_pass_rate_2: 82.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2005,6 +2153,8 @@
   pass_rate_2: 80.0
   pass_num_1: 32
   pass_num_2: 60
+  theoretical_pass_num_2: 61
+  theoretical_pass_rate_2: 81.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2032,6 +2182,8 @@
   pass_rate_2: 80.3
   pass_num_1: 32
   pass_num_2: 61
+  theoretical_pass_num_2: 62
+  theoretical_pass_rate_2: 81.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2059,6 +2211,8 @@
   pass_rate_2: 80.5
   pass_num_1: 32
   pass_num_2: 62
+  theoretical_pass_num_2: 63
+  theoretical_pass_rate_2: 81.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2086,6 +2240,8 @@
   pass_rate_2: 80.8
   pass_num_1: 32
   pass_num_2: 63
+  theoretical_pass_num_2: 64
+  theoretical_pass_rate_2: 82.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2113,6 +2269,8 @@
   pass_rate_2: 81.0
   pass_num_1: 33
   pass_num_2: 64
+  theoretical_pass_num_2: 65
+  theoretical_pass_rate_2: 82.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2140,6 +2298,8 @@
   pass_rate_2: 81.2
   pass_num_1: 34
   pass_num_2: 65
+  theoretical_pass_num_2: 66
+  theoretical_pass_rate_2: 82.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2167,6 +2327,8 @@
   pass_rate_2: 81.5
   pass_num_1: 35
   pass_num_2: 66
+  theoretical_pass_num_2: 67
+  theoretical_pass_rate_2: 82.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2194,6 +2356,8 @@
   pass_rate_2: 81.7
   pass_num_1: 36
   pass_num_2: 67
+  theoretical_pass_num_2: 68
+  theoretical_pass_rate_2: 82.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2221,6 +2385,8 @@
   pass_rate_2: 80.7
   pass_num_1: 36
   pass_num_2: 67
+  theoretical_pass_num_2: 68
+  theoretical_pass_rate_2: 81.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2248,6 +2414,8 @@
   pass_rate_2: 81.0
   pass_num_1: 36
   pass_num_2: 68
+  theoretical_pass_num_2: 69
+  theoretical_pass_rate_2: 82.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2275,6 +2443,8 @@
   pass_rate_2: 81.2
   pass_num_1: 37
   pass_num_2: 69
+  theoretical_pass_num_2: 70
+  theoretical_pass_rate_2: 82.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2302,6 +2472,8 @@
   pass_rate_2: 80.2
   pass_num_1: 37
   pass_num_2: 69
+  theoretical_pass_num_2: 70
+  theoretical_pass_rate_2: 81.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2329,6 +2501,8 @@
   pass_rate_2: 79.3
   pass_num_1: 37
   pass_num_2: 69
+  theoretical_pass_num_2: 70
+  theoretical_pass_rate_2: 80.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2356,6 +2530,8 @@
   pass_rate_2: 79.5
   pass_num_1: 38
   pass_num_2: 70
+  theoretical_pass_num_2: 71
+  theoretical_pass_rate_2: 80.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2383,6 +2559,8 @@
   pass_rate_2: 79.8
   pass_num_1: 38
   pass_num_2: 71
+  theoretical_pass_num_2: 72
+  theoretical_pass_rate_2: 80.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2410,6 +2588,8 @@
   pass_rate_2: 80.0
   pass_num_1: 38
   pass_num_2: 72
+  theoretical_pass_num_2: 73
+  theoretical_pass_rate_2: 81.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2437,6 +2617,8 @@
   pass_rate_2: 79.1
   pass_num_1: 38
   pass_num_2: 72
+  theoretical_pass_num_2: 73
+  theoretical_pass_rate_2: 80.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2464,6 +2646,8 @@
   pass_rate_2: 78.3
   pass_num_1: 38
   pass_num_2: 72
+  theoretical_pass_num_2: 73
+  theoretical_pass_rate_2: 79.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2491,6 +2675,8 @@
   pass_rate_2: 78.5
   pass_num_1: 38
   pass_num_2: 73
+  theoretical_pass_num_2: 74
+  theoretical_pass_rate_2: 79.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2518,6 +2704,8 @@
   pass_rate_2: 78.7
   pass_num_1: 39
   pass_num_2: 74
+  theoretical_pass_num_2: 75
+  theoretical_pass_rate_2: 79.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2545,6 +2733,8 @@
   pass_rate_2: 78.9
   pass_num_1: 39
   pass_num_2: 75
+  theoretical_pass_num_2: 76
+  theoretical_pass_rate_2: 80.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2572,6 +2762,8 @@
   pass_rate_2: 79.2
   pass_num_1: 39
   pass_num_2: 76
+  theoretical_pass_num_2: 77
+  theoretical_pass_rate_2: 80.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2599,6 +2791,8 @@
   pass_rate_2: 79.4
   pass_num_1: 40
   pass_num_2: 77
+  theoretical_pass_num_2: 78
+  theoretical_pass_rate_2: 80.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2626,6 +2820,8 @@
   pass_rate_2: 79.6
   pass_num_1: 41
   pass_num_2: 78
+  theoretical_pass_num_2: 79
+  theoretical_pass_rate_2: 80.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2653,6 +2849,8 @@
   pass_rate_2: 79.8
   pass_num_1: 42
   pass_num_2: 79
+  theoretical_pass_num_2: 80
+  theoretical_pass_rate_2: 80.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2680,6 +2878,8 @@
   pass_rate_2: 80.0
   pass_num_1: 42
   pass_num_2: 80
+  theoretical_pass_num_2: 81
+  theoretical_pass_rate_2: 81.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2707,6 +2907,8 @@
   pass_rate_2: 80.2
   pass_num_1: 43
   pass_num_2: 81
+  theoretical_pass_num_2: 82
+  theoretical_pass_rate_2: 81.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2734,6 +2936,8 @@
   pass_rate_2: 80.4
   pass_num_1: 44
   pass_num_2: 82
+  theoretical_pass_num_2: 83
+  theoretical_pass_rate_2: 81.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2761,6 +2965,8 @@
   pass_rate_2: 79.6
   pass_num_1: 44
   pass_num_2: 82
+  theoretical_pass_num_2: 83
+  theoretical_pass_rate_2: 80.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2788,6 +2994,8 @@
   pass_rate_2: 78.8
   pass_num_1: 44
   pass_num_2: 82
+  theoretical_pass_num_2: 83
+  theoretical_pass_rate_2: 79.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2815,6 +3023,8 @@
   pass_rate_2: 78.1
   pass_num_1: 44
   pass_num_2: 82
+  theoretical_pass_num_2: 83
+  theoretical_pass_rate_2: 79.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2842,6 +3052,8 @@
   pass_rate_2: 78.3
   pass_num_1: 45
   pass_num_2: 83
+  theoretical_pass_num_2: 84
+  theoretical_pass_rate_2: 79.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2869,6 +3081,8 @@
   pass_rate_2: 77.6
   pass_num_1: 45
   pass_num_2: 83
+  theoretical_pass_num_2: 84
+  theoretical_pass_rate_2: 78.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2896,6 +3110,8 @@
   pass_rate_2: 77.8
   pass_num_1: 45
   pass_num_2: 84
+  theoretical_pass_num_2: 85
+  theoretical_pass_rate_2: 78.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2923,6 +3139,8 @@
   pass_rate_2: 78.0
   pass_num_1: 45
   pass_num_2: 85
+  theoretical_pass_num_2: 86
+  theoretical_pass_rate_2: 78.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2950,6 +3168,8 @@
   pass_rate_2: 78.2
   pass_num_1: 45
   pass_num_2: 86
+  theoretical_pass_num_2: 87
+  theoretical_pass_rate_2: 79.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -2977,6 +3197,8 @@
   pass_rate_2: 78.4
   pass_num_1: 46
   pass_num_2: 87
+  theoretical_pass_num_2: 88
+  theoretical_pass_rate_2: 79.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3004,6 +3226,8 @@
   pass_rate_2: 77.7
   pass_num_1: 46
   pass_num_2: 87
+  theoretical_pass_num_2: 88
+  theoretical_pass_rate_2: 78.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3031,6 +3255,8 @@
   pass_rate_2: 77.9
   pass_num_1: 47
   pass_num_2: 88
+  theoretical_pass_num_2: 89
+  theoretical_pass_rate_2: 78.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3058,6 +3284,8 @@
   pass_rate_2: 77.2
   pass_num_1: 47
   pass_num_2: 88
+  theoretical_pass_num_2: 89
+  theoretical_pass_rate_2: 78.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3085,6 +3313,8 @@
   pass_rate_2: 77.4
   pass_num_1: 47
   pass_num_2: 89
+  theoretical_pass_num_2: 90
+  theoretical_pass_rate_2: 78.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3112,6 +3342,8 @@
   pass_rate_2: 76.7
   pass_num_1: 47
   pass_num_2: 89
+  theoretical_pass_num_2: 90
+  theoretical_pass_rate_2: 77.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3139,6 +3371,8 @@
   pass_rate_2: 76.9
   pass_num_1: 48
   pass_num_2: 90
+  theoretical_pass_num_2: 91
+  theoretical_pass_rate_2: 77.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3166,6 +3400,8 @@
   pass_rate_2: 76.3
   pass_num_1: 48
   pass_num_2: 90
+  theoretical_pass_num_2: 91
+  theoretical_pass_rate_2: 77.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3193,6 +3429,8 @@
   pass_rate_2: 76.5
   pass_num_1: 49
   pass_num_2: 91
+  theoretical_pass_num_2: 92
+  theoretical_pass_rate_2: 77.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3220,6 +3458,8 @@
   pass_rate_2: 75.8
   pass_num_1: 49
   pass_num_2: 91
+  theoretical_pass_num_2: 92
+  theoretical_pass_rate_2: 76.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3247,6 +3487,8 @@
   pass_rate_2: 76.0
   pass_num_1: 50
   pass_num_2: 92
+  theoretical_pass_num_2: 93
+  theoretical_pass_rate_2: 76.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3274,6 +3516,8 @@
   pass_rate_2: 76.2
   pass_num_1: 51
   pass_num_2: 93
+  theoretical_pass_num_2: 94
+  theoretical_pass_rate_2: 77.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3301,6 +3545,8 @@
   pass_rate_2: 75.6
   pass_num_1: 51
   pass_num_2: 93
+  theoretical_pass_num_2: 94
+  theoretical_pass_rate_2: 76.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3328,6 +3574,8 @@
   pass_rate_2: 75.8
   pass_num_1: 52
   pass_num_2: 94
+  theoretical_pass_num_2: 95
+  theoretical_pass_rate_2: 76.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3355,6 +3603,8 @@
   pass_rate_2: 76.0
   pass_num_1: 53
   pass_num_2: 95
+  theoretical_pass_num_2: 96
+  theoretical_pass_rate_2: 76.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3382,6 +3632,8 @@
   pass_rate_2: 75.4
   pass_num_1: 53
   pass_num_2: 95
+  theoretical_pass_num_2: 96
+  theoretical_pass_rate_2: 76.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3409,6 +3661,8 @@
   pass_rate_2: 75.6
   pass_num_1: 53
   pass_num_2: 96
+  theoretical_pass_num_2: 97
+  theoretical_pass_rate_2: 76.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3436,6 +3690,8 @@
   pass_rate_2: 75.8
   pass_num_1: 54
   pass_num_2: 97
+  theoretical_pass_num_2: 98
+  theoretical_pass_rate_2: 76.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3463,6 +3719,8 @@
   pass_rate_2: 76.0
   pass_num_1: 55
   pass_num_2: 98
+  theoretical_pass_num_2: 99
+  theoretical_pass_rate_2: 76.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3490,6 +3748,8 @@
   pass_rate_2: 76.2
   pass_num_1: 56
   pass_num_2: 99
+  theoretical_pass_num_2: 100
+  theoretical_pass_rate_2: 76.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3517,6 +3777,8 @@
   pass_rate_2: 75.6
   pass_num_1: 56
   pass_num_2: 99
+  theoretical_pass_num_2: 100
+  theoretical_pass_rate_2: 76.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3544,6 +3806,8 @@
   pass_rate_2: 75.0
   pass_num_1: 56
   pass_num_2: 99
+  theoretical_pass_num_2: 100
+  theoretical_pass_rate_2: 75.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3571,6 +3835,8 @@
   pass_rate_2: 75.2
   pass_num_1: 56
   pass_num_2: 100
+  theoretical_pass_num_2: 101
+  theoretical_pass_rate_2: 75.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3598,6 +3864,8 @@
   pass_rate_2: 74.6
   pass_num_1: 56
   pass_num_2: 100
+  theoretical_pass_num_2: 101
+  theoretical_pass_rate_2: 75.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3625,6 +3893,8 @@
   pass_rate_2: 74.8
   pass_num_1: 56
   pass_num_2: 101
+  theoretical_pass_num_2: 102
+  theoretical_pass_rate_2: 75.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3652,6 +3922,8 @@
   pass_rate_2: 75.0
   pass_num_1: 57
   pass_num_2: 102
+  theoretical_pass_num_2: 103
+  theoretical_pass_rate_2: 75.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3679,6 +3951,8 @@
   pass_rate_2: 74.5
   pass_num_1: 57
   pass_num_2: 102
+  theoretical_pass_num_2: 103
+  theoretical_pass_rate_2: 75.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3706,6 +3980,8 @@
   pass_rate_2: 74.6
   pass_num_1: 58
   pass_num_2: 103
+  theoretical_pass_num_2: 104
+  theoretical_pass_rate_2: 75.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3733,6 +4009,8 @@
   pass_rate_2: 74.1
   pass_num_1: 58
   pass_num_2: 103
+  theoretical_pass_num_2: 104
+  theoretical_pass_rate_2: 74.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3760,6 +4038,8 @@
   pass_rate_2: 73.6
   pass_num_1: 58
   pass_num_2: 103
+  theoretical_pass_num_2: 104
+  theoretical_pass_rate_2: 74.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3787,6 +4067,8 @@
   pass_rate_2: 73.0
   pass_num_1: 58
   pass_num_2: 103
+  theoretical_pass_num_2: 104
+  theoretical_pass_rate_2: 73.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3814,6 +4096,8 @@
   pass_rate_2: 73.2
   pass_num_1: 59
   pass_num_2: 104
+  theoretical_pass_num_2: 105
+  theoretical_pass_rate_2: 73.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3841,6 +4125,8 @@
   pass_rate_2: 72.7
   pass_num_1: 59
   pass_num_2: 104
+  theoretical_pass_num_2: 105
+  theoretical_pass_rate_2: 73.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3868,6 +4154,8 @@
   pass_rate_2: 72.9
   pass_num_1: 59
   pass_num_2: 105
+  theoretical_pass_num_2: 106
+  theoretical_pass_rate_2: 73.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3895,6 +4183,8 @@
   pass_rate_2: 72.4
   pass_num_1: 59
   pass_num_2: 105
+  theoretical_pass_num_2: 106
+  theoretical_pass_rate_2: 73.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3922,6 +4212,8 @@
   pass_rate_2: 72.6
   pass_num_1: 60
   pass_num_2: 106
+  theoretical_pass_num_2: 107
+  theoretical_pass_rate_2: 73.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3949,6 +4241,8 @@
   pass_rate_2: 72.8
   pass_num_1: 61
   pass_num_2: 107
+  theoretical_pass_num_2: 108
+  theoretical_pass_rate_2: 73.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -3976,6 +4270,8 @@
   pass_rate_2: 72.3
   pass_num_1: 61
   pass_num_2: 107
+  theoretical_pass_num_2: 108
+  theoretical_pass_rate_2: 73.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4003,6 +4299,8 @@
   pass_rate_2: 71.8
   pass_num_1: 61
   pass_num_2: 107
+  theoretical_pass_num_2: 108
+  theoretical_pass_rate_2: 72.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4030,6 +4328,8 @@
   pass_rate_2: 71.3
   pass_num_1: 61
   pass_num_2: 107
+  theoretical_pass_num_2: 108
+  theoretical_pass_rate_2: 72.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4057,6 +4357,8 @@
   pass_rate_2: 71.5
   pass_num_1: 61
   pass_num_2: 108
+  theoretical_pass_num_2: 109
+  theoretical_pass_rate_2: 72.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4084,6 +4386,8 @@
   pass_rate_2: 71.7
   pass_num_1: 62
   pass_num_2: 109
+  theoretical_pass_num_2: 110
+  theoretical_pass_rate_2: 72.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4111,6 +4415,8 @@
   pass_rate_2: 71.2
   pass_num_1: 62
   pass_num_2: 109
+  theoretical_pass_num_2: 110
+  theoretical_pass_rate_2: 71.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4138,6 +4444,8 @@
   pass_rate_2: 71.4
   pass_num_1: 62
   pass_num_2: 110
+  theoretical_pass_num_2: 111
+  theoretical_pass_rate_2: 72.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4165,6 +4473,8 @@
   pass_rate_2: 71.6
   pass_num_1: 63
   pass_num_2: 111
+  theoretical_pass_num_2: 112
+  theoretical_pass_rate_2: 72.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4192,6 +4502,8 @@
   pass_rate_2: 71.8
   pass_num_1: 64
   pass_num_2: 112
+  theoretical_pass_num_2: 113
+  theoretical_pass_rate_2: 72.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4219,6 +4531,8 @@
   pass_rate_2: 72.0
   pass_num_1: 64
   pass_num_2: 113
+  theoretical_pass_num_2: 114
+  theoretical_pass_rate_2: 72.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4246,6 +4560,8 @@
   pass_rate_2: 72.2
   pass_num_1: 65
   pass_num_2: 114
+  theoretical_pass_num_2: 115
+  theoretical_pass_rate_2: 72.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4273,6 +4589,8 @@
   pass_rate_2: 72.3
   pass_num_1: 66
   pass_num_2: 115
+  theoretical_pass_num_2: 116
+  theoretical_pass_rate_2: 73.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4300,6 +4618,8 @@
   pass_rate_2: 72.5
   pass_num_1: 67
   pass_num_2: 116
+  theoretical_pass_num_2: 117
+  theoretical_pass_rate_2: 73.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4327,6 +4647,8 @@
   pass_rate_2: 72.7
   pass_num_1: 67
   pass_num_2: 117
+  theoretical_pass_num_2: 118
+  theoretical_pass_rate_2: 73.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4354,6 +4676,8 @@
   pass_rate_2: 72.8
   pass_num_1: 67
   pass_num_2: 118
+  theoretical_pass_num_2: 119
+  theoretical_pass_rate_2: 73.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4381,6 +4705,8 @@
   pass_rate_2: 73.0
   pass_num_1: 67
   pass_num_2: 119
+  theoretical_pass_num_2: 120
+  theoretical_pass_rate_2: 73.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4408,6 +4734,8 @@
   pass_rate_2: 73.2
   pass_num_1: 67
   pass_num_2: 120
+  theoretical_pass_num_2: 121
+  theoretical_pass_rate_2: 73.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4435,6 +4763,8 @@
   pass_rate_2: 72.7
   pass_num_1: 67
   pass_num_2: 120
+  theoretical_pass_num_2: 121
+  theoretical_pass_rate_2: 73.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4462,6 +4792,8 @@
   pass_rate_2: 72.3
   pass_num_1: 67
   pass_num_2: 120
+  theoretical_pass_num_2: 121
+  theoretical_pass_rate_2: 72.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4489,6 +4821,8 @@
   pass_rate_2: 72.5
   pass_num_1: 67
   pass_num_2: 121
+  theoretical_pass_num_2: 122
+  theoretical_pass_rate_2: 73.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4516,6 +4850,8 @@
   pass_rate_2: 72.6
   pass_num_1: 68
   pass_num_2: 122
+  theoretical_pass_num_2: 123
+  theoretical_pass_rate_2: 73.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4543,6 +4879,8 @@
   pass_rate_2: 72.8
   pass_num_1: 69
   pass_num_2: 123
+  theoretical_pass_num_2: 124
+  theoretical_pass_rate_2: 73.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4570,6 +4908,8 @@
   pass_rate_2: 72.9
   pass_num_1: 69
   pass_num_2: 124
+  theoretical_pass_num_2: 125
+  theoretical_pass_rate_2: 73.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4597,6 +4937,8 @@
   pass_rate_2: 72.5
   pass_num_1: 69
   pass_num_2: 124
+  theoretical_pass_num_2: 125
+  theoretical_pass_rate_2: 73.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4624,6 +4966,8 @@
   pass_rate_2: 72.1
   pass_num_1: 69
   pass_num_2: 124
+  theoretical_pass_num_2: 125
+  theoretical_pass_rate_2: 72.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4651,6 +4995,8 @@
   pass_rate_2: 71.7
   pass_num_1: 69
   pass_num_2: 124
+  theoretical_pass_num_2: 125
+  theoretical_pass_rate_2: 72.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4678,6 +5024,8 @@
   pass_rate_2: 71.3
   pass_num_1: 69
   pass_num_2: 124
+  theoretical_pass_num_2: 125
+  theoretical_pass_rate_2: 71.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4705,6 +5053,8 @@
   pass_rate_2: 71.4
   pass_num_1: 69
   pass_num_2: 125
+  theoretical_pass_num_2: 126
+  theoretical_pass_rate_2: 72.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4732,6 +5082,8 @@
   pass_rate_2: 71.6
   pass_num_1: 69
   pass_num_2: 126
+  theoretical_pass_num_2: 127
+  theoretical_pass_rate_2: 72.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4759,6 +5111,8 @@
   pass_rate_2: 71.8
   pass_num_1: 69
   pass_num_2: 127
+  theoretical_pass_num_2: 128
+  theoretical_pass_rate_2: 72.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4786,6 +5140,8 @@
   pass_rate_2: 71.9
   pass_num_1: 69
   pass_num_2: 128
+  theoretical_pass_num_2: 129
+  theoretical_pass_rate_2: 72.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4813,6 +5169,8 @@
   pass_rate_2: 72.1
   pass_num_1: 69
   pass_num_2: 129
+  theoretical_pass_num_2: 130
+  theoretical_pass_rate_2: 72.6
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4840,6 +5198,8 @@
   pass_rate_2: 71.7
   pass_num_1: 69
   pass_num_2: 129
+  theoretical_pass_num_2: 130
+  theoretical_pass_rate_2: 72.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4867,6 +5227,8 @@
   pass_rate_2: 71.8
   pass_num_1: 70
   pass_num_2: 130
+  theoretical_pass_num_2: 131
+  theoretical_pass_rate_2: 72.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4894,6 +5256,8 @@
   pass_rate_2: 71.4
   pass_num_1: 70
   pass_num_2: 130
+  theoretical_pass_num_2: 131
+  theoretical_pass_rate_2: 72.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4921,6 +5285,8 @@
   pass_rate_2: 71.6
   pass_num_1: 70
   pass_num_2: 131
+  theoretical_pass_num_2: 132
+  theoretical_pass_rate_2: 72.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4948,6 +5314,8 @@
   pass_rate_2: 71.2
   pass_num_1: 70
   pass_num_2: 131
+  theoretical_pass_num_2: 132
+  theoretical_pass_rate_2: 71.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -4975,6 +5343,8 @@
   pass_rate_2: 70.8
   pass_num_1: 70
   pass_num_2: 131
+  theoretical_pass_num_2: 132
+  theoretical_pass_rate_2: 71.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5002,6 +5372,8 @@
   pass_rate_2: 71.0
   pass_num_1: 71
   pass_num_2: 132
+  theoretical_pass_num_2: 133
+  theoretical_pass_rate_2: 71.5
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5029,6 +5401,8 @@
   pass_rate_2: 70.6
   pass_num_1: 71
   pass_num_2: 132
+  theoretical_pass_num_2: 133
+  theoretical_pass_rate_2: 71.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5056,6 +5430,8 @@
   pass_rate_2: 70.7
   pass_num_1: 71
   pass_num_2: 133
+  theoretical_pass_num_2: 134
+  theoretical_pass_rate_2: 71.3
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5083,6 +5459,8 @@
   pass_rate_2: 70.4
   pass_num_1: 71
   pass_num_2: 133
+  theoretical_pass_num_2: 134
+  theoretical_pass_rate_2: 70.9
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5110,6 +5488,8 @@
   pass_rate_2: 70.5
   pass_num_1: 72
   pass_num_2: 134
+  theoretical_pass_num_2: 135
+  theoretical_pass_rate_2: 71.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5137,6 +5517,8 @@
   pass_rate_2: 70.7
   pass_num_1: 73
   pass_num_2: 135
+  theoretical_pass_num_2: 136
+  theoretical_pass_rate_2: 71.2
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5164,6 +5546,8 @@
   pass_rate_2: 70.8
   pass_num_1: 74
   pass_num_2: 136
+  theoretical_pass_num_2: 137
+  theoretical_pass_rate_2: 71.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5191,6 +5575,8 @@
   pass_rate_2: 70.5
   pass_num_1: 74
   pass_num_2: 136
+  theoretical_pass_num_2: 137
+  theoretical_pass_rate_2: 71.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5218,6 +5604,8 @@
   pass_rate_2: 70.6
   pass_num_1: 74
   pass_num_2: 137
+  theoretical_pass_num_2: 138
+  theoretical_pass_rate_2: 71.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5245,6 +5633,8 @@
   pass_rate_2: 70.3
   pass_num_1: 74
   pass_num_2: 137
+  theoretical_pass_num_2: 138
+  theoretical_pass_rate_2: 70.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5272,6 +5662,8 @@
   pass_rate_2: 69.9
   pass_num_1: 74
   pass_num_2: 137
+  theoretical_pass_num_2: 138
+  theoretical_pass_rate_2: 70.4
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5299,6 +5691,8 @@
   pass_rate_2: 69.5
   pass_num_1: 74
   pass_num_2: 137
+  theoretical_pass_num_2: 138
+  theoretical_pass_rate_2: 70.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5326,6 +5720,8 @@
   pass_rate_2: 69.2
   pass_num_1: 74
   pass_num_2: 137
+  theoretical_pass_num_2: 138
+  theoretical_pass_rate_2: 69.7
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5353,6 +5749,8 @@
   pass_rate_2: 69.3
   pass_num_1: 74
   pass_num_2: 138
+  theoretical_pass_num_2: 139
+  theoretical_pass_rate_2: 69.8
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5380,6 +5778,8 @@
   pass_rate_2: 69.5
   pass_num_1: 75
   pass_num_2: 139
+  theoretical_pass_num_2: 140
+  theoretical_pass_rate_2: 70.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5407,6 +5807,8 @@
   pass_rate_2: 69.7
   pass_num_1: 75
   pass_num_2: 140
+  theoretical_pass_num_2: 141
+  theoretical_pass_rate_2: 70.1
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
@@ -5434,6 +5836,8 @@
   pass_rate_2: 69.8
   pass_num_1: 75
   pass_num_2: 141
+  theoretical_pass_num_2: 142
+  theoretical_pass_rate_2: 70.3
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5461,6 +5865,8 @@
   pass_rate_2: 70.0
   pass_num_1: 76
   pass_num_2: 142
+  theoretical_pass_num_2: 143
+  theoretical_pass_rate_2: 70.4
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5488,6 +5894,8 @@
   pass_rate_2: 70.1
   pass_num_1: 76
   pass_num_2: 143
+  theoretical_pass_num_2: 144
+  theoretical_pass_rate_2: 70.6
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5515,6 +5923,8 @@
   pass_rate_2: 70.2
   pass_num_1: 77
   pass_num_2: 144
+  theoretical_pass_num_2: 145
+  theoretical_pass_rate_2: 70.7
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5542,6 +5952,8 @@
   pass_rate_2: 69.9
   pass_num_1: 77
   pass_num_2: 144
+  theoretical_pass_num_2: 145
+  theoretical_pass_rate_2: 70.4
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5569,6 +5981,8 @@
   pass_rate_2: 69.6
   pass_num_1: 77
   pass_num_2: 144
+  theoretical_pass_num_2: 145
+  theoretical_pass_rate_2: 70.0
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5596,6 +6010,8 @@
   pass_rate_2: 69.7
   pass_num_1: 77
   pass_num_2: 145
+  theoretical_pass_num_2: 146
+  theoretical_pass_rate_2: 70.2
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5623,6 +6039,8 @@
   pass_rate_2: 69.9
   pass_num_1: 77
   pass_num_2: 146
+  theoretical_pass_num_2: 147
+  theoretical_pass_rate_2: 70.3
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5650,6 +6068,8 @@
   pass_rate_2: 69.5
   pass_num_1: 77
   pass_num_2: 146
+  theoretical_pass_num_2: 147
+  theoretical_pass_rate_2: 70.0
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5677,6 +6097,8 @@
   pass_rate_2: 69.7
   pass_num_1: 77
   pass_num_2: 147
+  theoretical_pass_num_2: 148
+  theoretical_pass_rate_2: 70.1
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5704,6 +6126,8 @@
   pass_rate_2: 69.8
   pass_num_1: 78
   pass_num_2: 148
+  theoretical_pass_num_2: 149
+  theoretical_pass_rate_2: 70.3
   percent_cases_well_formed: 100.0
   error_outputs: 5
   num_malformed_responses: 0
@@ -5731,6 +6155,8 @@
   pass_rate_2: 69.5
   pass_num_1: 78
   pass_num_2: 148
+  theoretical_pass_num_2: 150
+  theoretical_pass_rate_2: 70.4
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5758,6 +6184,8 @@
   pass_rate_2: 69.2
   pass_num_1: 78
   pass_num_2: 148
+  theoretical_pass_num_2: 150
+  theoretical_pass_rate_2: 70.1
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5785,6 +6213,8 @@
   pass_rate_2: 69.3
   pass_num_1: 79
   pass_num_2: 149
+  theoretical_pass_num_2: 151
+  theoretical_pass_rate_2: 70.2
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5812,6 +6242,8 @@
   pass_rate_2: 69.0
   pass_num_1: 79
   pass_num_2: 149
+  theoretical_pass_num_2: 151
+  theoretical_pass_rate_2: 69.9
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5839,6 +6271,8 @@
   pass_rate_2: 68.7
   pass_num_1: 79
   pass_num_2: 149
+  theoretical_pass_num_2: 151
+  theoretical_pass_rate_2: 69.6
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5866,6 +6300,8 @@
   pass_rate_2: 68.8
   pass_num_1: 79
   pass_num_2: 150
+  theoretical_pass_num_2: 152
+  theoretical_pass_rate_2: 69.7
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5893,6 +6329,8 @@
   pass_rate_2: 68.9
   pass_num_1: 79
   pass_num_2: 151
+  theoretical_pass_num_2: 153
+  theoretical_pass_rate_2: 69.9
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5920,6 +6358,8 @@
   pass_rate_2: 69.1
   pass_num_1: 79
   pass_num_2: 152
+  theoretical_pass_num_2: 154
+  theoretical_pass_rate_2: 70.0
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5947,6 +6387,8 @@
   pass_rate_2: 68.8
   pass_num_1: 79
   pass_num_2: 152
+  theoretical_pass_num_2: 154
+  theoretical_pass_rate_2: 69.7
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -5974,6 +6416,8 @@
   pass_rate_2: 68.9
   pass_num_1: 79
   pass_num_2: 153
+  theoretical_pass_num_2: 155
+  theoretical_pass_rate_2: 69.8
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -6001,6 +6445,8 @@
   pass_rate_2: 68.6
   pass_num_1: 79
   pass_num_2: 153
+  theoretical_pass_num_2: 155
+  theoretical_pass_rate_2: 69.5
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -6028,6 +6474,8 @@
   pass_rate_2: 68.8
   pass_num_1: 80
   pass_num_2: 154
+  theoretical_pass_num_2: 156
+  theoretical_pass_rate_2: 69.6
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0
@@ -6055,6 +6503,8 @@
   pass_rate_2: 68.9
   pass_num_1: 81
   pass_num_2: 155
+  theoretical_pass_num_2: 157
+  theoretical_pass_rate_2: 69.8
   percent_cases_well_formed: 100.0
   error_outputs: 6
   num_malformed_responses: 0

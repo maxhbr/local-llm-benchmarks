@@ -7,6 +7,8 @@
   pass_rate_2: 0.0
   pass_num_1: 0
   pass_num_2: 0
+  theoretical_pass_num_2: 1
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 2
   num_malformed_responses: 0

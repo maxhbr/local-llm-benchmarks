@@ -23,6 +23,8 @@
   versions: 0.86.3.dev
   seconds_per_case: 126.3
   total_cost: 0.0000
+  theoretical_pass_num_2: 1
+  theoretical_pass_rate_2: 100.0
 - dirname: 2026-06-07-22-16-05--rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks
   test_cases: 2
   model: openai/rtx5090:Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks
@@ -48,6 +50,8 @@
   versions: 0.86.3.dev
   seconds_per_case: 120.8
   total_cost: 0.0000
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 100.0
 - dirname: 2026-06-07-22-16-05--rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks
   test_cases: 3
   model: openai/rtx5090:Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks
@@ -57,6 +61,8 @@
   pass_rate_2: 100.0
   pass_num_1: 2
   pass_num_2: 3
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0

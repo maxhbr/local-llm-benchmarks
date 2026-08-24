@@ -198,6 +198,7 @@
           View
           <select id="passView">
             <option value="area" selected>area (band: pass_rate_1 → pass_rate_2)</option>
+            <option value="theoretical" title="Theoretical best pass_rate_2: a non-passing test is counted as a pass only when it never got a fair shot — it had an execution-error signal (error_outputs, malformed responses, syntax errors, test timeouts, exhausted context) or produced no outcome. Genuine coding failures are NOT recovered. Precomputed per-test from the run.log. Upper bound on pass_rate_2 if no infrastructure error had occurred.">area (Band: theoretical_pass_rate_2_without_errors → pass_rate_2)</option>
             <option value="lines">lines</option>
           </select>
         </label>
@@ -1158,6 +1159,66 @@
       return datasets;
     }
 
+    // Theoretical best pass_rate_2: precomputed per-test in
+    // extract-aider-stats.py and stored as the ``theoretical_pass_rate_2`` field
+    // of each *.computed.yaml snapshot. It counts a non-passing test as a pass
+    // only when that test never got a fair shot — it carried an execution-error
+    // signal (error_outputs / malformed / syntax_errors / test_timeouts /
+    // exhausted_context_windows) or produced no outcomes at all — so genuine
+    // coding failures are NOT recovered. Falls back to pass_rate_2 (a flat
+    // band) when the field is absent (e.g. an older run.log with no results:
+    // blocks).
+    function theoreticalPassRate2(row) {
+      const raw = row.theoretical_pass_rate_2;
+      if (raw == null) return Number(row.pass_rate_2) || 0;
+      const t = Number(raw);
+      return Number.isFinite(t) ? t : (Number(row.pass_rate_2) || 0);
+    }
+
+    // Band view: pass_rate_2 as the solid line, with a translucent area above it
+    // up to theoretical_pass_rate_2_without_errors (the ceiling). The solid line
+    // owns the fill (fill: "+1" toward the next dataset) so toggling it via the
+    // legend hides the line and its band together; the ceiling dataset is hidden
+    // from the legend and just provides the upper bound (drawn as a dashed line).
+    function buildTheoreticalBandDatasets(minTasks) {
+      const datasets = [];
+      filteredDatasets().filter(d => tasksOf(d) >= minTasks).forEach(d => {
+        const tasks = tasksOf(d);
+        const base = `${d.folder} / ${d.baseName}`;
+        const label = `${base}  [${tasks}]`;
+        const stroke = colorFor(base);
+        // translucent fill: hsl -> hsla
+        const fill = stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
+        // lower bound = pass_rate_2: the solid actual line; fills UP to the ceiling
+        datasets.push({
+          label,
+          data: d.rows.map(r => ({ x: r.test_cases, y: r.pass_rate_2 })),
+          borderColor: stroke,
+          backgroundColor: fill,
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.2,
+          fill: "+1",
+        });
+        // upper bound = theoretical_pass_rate_2_without_errors: the ceiling line
+        datasets.push({
+          label: `${label} (theoretical)`,
+          data: d.rows.map(r => ({ x: r.test_cases, y: theoreticalPassRate2(r) })),
+          borderColor: stroke,
+          backgroundColor: "rgba(0,0,0,0)",
+          borderWidth: 1,
+          borderDash: [4, 4],
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0.2,
+          fill: false,
+          _hideFromLegend: true,
+        });
+      });
+      return datasets;
+    }
+
     function buildTokenDatasets(metric, perSecond = false) {
       return filteredDatasets().map(d => {
         const label = `${d.shortModel}${d.editFormat ? ` (${d.editFormat})` : ""}`;
@@ -1235,13 +1296,17 @@
       const minTasks = Math.max(0, Number(document.getElementById("passMinTasks").value) || 0);
       const metricSel = document.getElementById("passMetric");
       // The metric selector only matters for the "lines" view.
-      metricSel.disabled = view === "area";
+      metricSel.disabled = view === "area" || view === "theoretical";
 
       let datasets, visibleRuns, title;
       if (view === "area") {
         datasets = buildBandDatasets(false, minTasks);
         visibleRuns = datasets.length / 2;
         title = "pass rate (%)  —  band = pass_rate_1 → pass_rate_2";
+      } else if (view === "theoretical") {
+        datasets = buildTheoreticalBandDatasets(minTasks);
+        visibleRuns = datasets.length / 2;
+        title = "pass_rate_2 (%)  —  band up to theoretical best (infra errors counted as passes)";
       } else {
         datasets = buildPassDatasets(metric, minTasks);
         visibleRuns = datasets.length;

@@ -7,6 +7,8 @@
   pass_rate_2: 100.0
   pass_num_1: 0
   pass_num_2: 1
+  theoretical_pass_num_2: 1
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -34,6 +36,8 @@
   pass_rate_2: 100.0
   pass_num_1: 1
   pass_num_2: 2
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 100.0
   percent_cases_well_formed: 100.0
   error_outputs: 0
   num_malformed_responses: 0
@@ -51,4 +55,62 @@
   date: 2026-08-24
   versions: 0.86.3.dev
   seconds_per_case: 317.3
+  total_cost: 0.0000
+- dirname: 2026-08-24-11-54-00--rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA
+  test_cases: 3
+  model: openai/Qwen3.8-27B-NVFP4-RTX5090
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 66.7
+  pass_rate_2: 100.0
+  pass_num_1: 2
+  pass_num_2: 3
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 100.0
+  percent_cases_well_formed: 100.0
+  error_outputs: 0
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 3
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 0
+  prompt_tokens: 14806
+  completion_tokens: 79967
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/Qwen3.8-27B-NVFP4-RTX5090
+  date: 2026-08-24
+  versions: 0.86.3.dev
+  seconds_per_case: 320.1
+  total_cost: 0.0000
+- dirname: 2026-08-24-11-54-00--rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA
+  test_cases: 4
+  model: openai/Qwen3.8-27B-NVFP4-RTX5090
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 50.0
+  pass_rate_2: 100.0
+  pass_num_1: 2
+  pass_num_2: 4
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 100.0
+  percent_cases_well_formed: 100.0
+  error_outputs: 0
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 3
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 0
+  prompt_tokens: 29824
+  completion_tokens: 90549
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/Qwen3.8-27B-NVFP4-RTX5090
+  date: 2026-08-24
+  versions: 0.86.3.dev
+  seconds_per_case: 272.7
   total_cost: 0.0000
