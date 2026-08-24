@@ -15,7 +15,6 @@
     "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
     "gfx1151-Qwen3.6-35B-A3B-Q8_0/aider.computed.yaml",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
-    "localhost-22545-localhost-22545/aider.computed.yaml",
     "rtx5090-InternScience-Agents-A1-Q4_K_M/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-Q6_K-MTP/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",

@@ -39,8 +39,15 @@ class BenchmarkResult:
     est_ppt: Optional[float]
 
 
-def parse_markdown_table(filepath: str) -> list[BenchmarkResult]:
-    """Parse a llama-benchy.md markdown table into structured results."""
+def parse_markdown_table(filepath: str, model_display: str | None = None) -> list[BenchmarkResult]:
+    """Parse a llama-benchy.md markdown table into structured results.
+
+    ``model_display`` (typically the benchmark dir name / run alias) is used as
+    the model name instead of the raw model cell, which can be an opaque
+    endpoint id (e.g. a LiteLLM backend such as
+    ``localhost:22545:localhost:22545``).  The GPU is still derived from the
+    raw cell's ``host:`` prefix when present.
+    """
     results: list[BenchmarkResult] = []
     with open(filepath, "r") as f:
         lines = f.readlines()
@@ -85,6 +92,10 @@ def parse_markdown_table(filepath: str) -> list[BenchmarkResult]:
             else:
                 gpu = "unknown"
                 model_name = model_full
+            # Prefer the dir name (run alias) for display; keep the raw cell
+            # for GPU detection.
+            if model_display:
+                model_name = model_display
 
             results.append(BenchmarkResult(
                 model_name=model_name,
@@ -285,7 +296,12 @@ def main(argv: list[str] | None = None) -> int:
 
     all_results: list[BenchmarkResult] = []
     for filepath in sorted(files):
-        all_results.extend(parse_markdown_table(filepath))
+        # Display name = the benchmark dir the file lives in (the run's alias);
+        # fall back to the raw model cell for files outside a model dir.
+        model_display = os.path.basename(os.path.dirname(filepath))
+        if not model_display or model_display.startswith("_"):
+            model_display = None
+        all_results.extend(parse_markdown_table(filepath, model_display))
 
     # Deduplicate by (model_name, gpu, test) keeping the row with non-null tps_total.
     seen: dict[tuple[str, str, str], BenchmarkResult] = {}
