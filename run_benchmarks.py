@@ -4,8 +4,11 @@
 Reads a TOML config that lists the OpenAI-compatible endpoints, the models to
 test on each endpoint, and which benchmarks to run for each model.  Each
 benchmark is invoked as a subprocess (one of the existing driver scripts in
-this repo) and run in continue-on-failure mode.  A final summary table is
-printed and persisted to ./benchmarks/_run-summaries/<ts>/summary.{json,txt}.
+this repo) and run in continue-on-failure mode.  A tiny "smoke" liveness
+check always runs first, for every model (it is implicit, no need to list it
+in the TOML); when it fails, the model's remaining benchmarks are skipped
+(shown as SKIP in the summary).  A final summary table is printed and
+persisted to ./benchmarks/_run-summaries/<ts>/summary.{json,txt}.
 
 When a [[endpoints]] section has no [[endpoints.models]], the script queries
 the endpoint's ``/v1/models`` and runs benchmarks for **every** model that
@@ -17,6 +20,12 @@ Available benchmarks (matches the flake apps and the *.sh / *.py drivers):
     terminal-bench -> terminal-bench-benchmarks.sh
     tool-eval-bench -> tool-eval-bench-benchmarks.sh
     agent-bench    -> agent_bench.py
+    smoke          -> run inline by this script itself (no driver)
+
+"smoke" always runs first, for every model — no need to list it in the TOML
+— and it gates that model: if the smoke job fails, the model's remaining
+benchmarks are skipped for this run (shown as SKIP in the summary).  To run a
+model without the smoke check, narrow with --only, e.g. --only aider.
 
 Usage:
     run_benchmarks.py [--config benchmarks.toml] [--dry-run] [--new]
@@ -41,6 +50,8 @@ Config schema (TOML):
                                            # endpoint still receives `name` as
                                            # the model id.
       benchmarks = ["llama-benchy", "aider", "agent-bench"]  # override
+      # ("smoke" need not be listed: it is always inserted first for every
+      # model and gates the others — on failure they are skipped for it)
 
       [[endpoints.models]]
       name = "gpt-oss-120b"
@@ -219,14 +230,12 @@ def build_plan(
             # --model filter matches either the real name or the alias
             if only_model and only_model not in (mname, malias):
                 continue
-            benches = mdl.get("benchmarks", default_benches)
             model_edit_format = mdl.get("edit_format", ep_edit_format)
-            if not benches:
-                print(
-                    f"!!! warning: {ep_name}/{mname} has no benchmarks selected; skipping",
-                    file=sys.stderr,
-                )
-                continue
+            # "smoke" is implicit: always placed first in the model's list (unless a
+            # --only filter drops it); when its run fails, the model's remaining benchmarks
+            # are skipped by the execution loop below (otherwise they
+            # waste warmup calls on a backend that can't respond).
+            benches = ["smoke"] + [b for b in mdl.get("benchmarks", default_benches) if b != "smoke"]
             for b in benches:
                 if b not in BENCHMARKS:
                     raise SystemExit(
@@ -409,7 +418,7 @@ def resolve_driver(bench: str, script_dir: Path) -> list[str]:
     return [wrapper]
 
 
-def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False) -> None:
+def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_new: bool = False, skipped: bool = False) -> None:
     # Inline benches: skip the subprocess-driver path entirely.
     if job.bench == "smoke":
         label = f"{job.alias} ({job.model})" if job.alias else job.model
@@ -451,6 +460,10 @@ def run_job(job: Job, output_dir: Path, script_dir: Path, dry_run: bool, force_n
     if dry_run:
         job.returncode = 0
         job.duration_s = 0.0
+        return
+
+    if skipped:
+        # The caller already set job.returncode=None / job.error; just don't execute.
         return
 
     start = datetime.now()
@@ -500,19 +513,28 @@ def write_summary(plan: Plan, ts: str) -> Path:
     lines.append("-" * 90)
     ok = 0
     fail = 0
+    skip = 0
     for j in plan.jobs:
-        status = "OK" if j.returncode == 0 else f"FAIL ({j.error or 'rc!=0'})"
-        if j.returncode == 0:
+        if j.returncode is None:
+            status = f"SKIP ({j.error or 'not run'})"
+            skip += 1
+        elif j.returncode == 0:
+            status = "OK"
             ok += 1
         else:
+            status = f"FAIL ({j.error or 'rc!=0'})"
             fail += 1
         dur = f"{j.duration_s:.1f}" if j.duration_s is not None else "-"
+
         rc = "-" if j.returncode is None else str(j.returncode)
         lines.append(
             f"{j.endpoint_name:<20.20} | {j.display_name:<35.35} | {j.bench:<14} | {rc:<3} | {dur:<8} | {status}"
         )
     lines.append("-" * 90)
-    lines.append(f"Total: {len(plan.jobs)}   OK: {ok}   FAIL: {fail}")
+    total = f"Total: {len(plan.jobs)}   OK: {ok}   FAIL: {fail}"
+    if skip:
+        total += f"   SKIP: {skip}"
+    lines.append(total)
     text = "\n".join(lines) + "\n"
     txt_path.write_text(text)
     print("\n" + text)
@@ -537,7 +559,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--only",
         default=None,
-        help="Comma-separated subset of benchmarks to run (e.g. 'llama-benchy,agent-bench')",
+        help="Comma-separated subset of benchmarks to run (e.g. 'llama-benchy,agent-bench'); "
+             "'smoke' is in the plan only when explicitly listed here.",
     )
     p.add_argument("--endpoint", default=None, help="Run jobs only for this endpoint name")
     p.add_argument("--model", default=None, help="Run jobs only for this model name")
@@ -614,14 +637,29 @@ def main() -> int:
                 job.edit_format = args.edit_format
 
     try:
-        for job in plan.jobs:
-            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new)
+        for i, job in enumerate(plan.jobs):
+            # Smoke gate: skip a model's remaining benchmarks as soon as its
+            # smoke job fails — the backend can't even do a liveness check,
+            # so warmup-heavy benchmarks would only waste a roundtrip.
+            gated = False
+            if job.bench != "smoke":
+                smoke_job = next((j for j in reversed(plan.jobs[:i]) if j.bench == "smoke"), None)
+                gated = smoke_job is not None and smoke_job.returncode not in (None, 0)
+            if gated:
+                job.returncode = None
+                job.duration_s = None
+                job.error = "skipped: smoke failed"
+                label = f"{job.alias} ({job.model})" if job.alias else job.model
+                print(f"\n>>> [{job.endpoint_name}] {label} :: {job.bench}")
+                print(f"    SKIP: not run — smoke failed for this model")
+                continue
+            run_job(job, plan.output_dir, script_dir, args.dry_run, force_new=args.new, skipped=gated)
     except KeyboardInterrupt:
         print("\n!!! interrupted; writing partial summary", file=sys.stderr)
 
     write_summary(plan, ts)
 
-    any_fail = any((j.returncode or 0) != 0 for j in plan.jobs)
+    any_fail = any(j.returncode not in (0, None) for j in plan.jobs)
     return 1 if any_fail else 0
 
 

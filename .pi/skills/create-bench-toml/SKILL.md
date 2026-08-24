@@ -47,13 +47,14 @@ Confirm with the user.
 ## Step 4 — Pick benchmarks
 
 Show the full benchmark table and let the user choose (default:
-`["smoke", "llama-benchy"]`). The canonical id list lives in the
-`BENCHMARKS` map in `run_benchmarks.py`; verify with
+`["llama-benchy"]`; `smoke` is not an option or required — the runner
+always prepends it and gates the rest on it). The canonical id list lives in
+the `BENCHMARKS` map in `run_benchmarks.py`; verify with
 `./run_benchmarks.py --list-benchmarks`.
 
 | id                | driver                       | what it runs |
 |-------------------|------------------------------|--------------|
-| `smoke`             | (inline in run_benchmarks.py) | tiny liveness check ("Say 'pong'"); writes `smoke.ok` / `smoke.fail`, skips if ok marker exists |
+| `smoke`             | (inline in run_benchmarks.py) | tiny liveness check ("Say 'pong'"); always auto-run first for every model (never needs to be listed) and gates the others — on failure that model's remaining benchmarks are skipped; writes `smoke.ok` / `smoke.fail`, skips if ok marker exists |
 | `llama-benchy`      | `llama-benchy-benchmarks.sh` | prompt/decode tokens-per-second sweep (pp2048, tg128, …) |
 | `agent-bench`       | `agent_bench.py` | structured tool-call + unit-conversion + summary task; scoreboard in `benchmarks/_agent-bench-scoreboards/` |
 | `aider`             | `aider-polyglot-benchmarks.sh` | Aider polyglot coding exercises in a container (needs a coder-ish model) |
@@ -67,7 +68,9 @@ Selection notes:
   (default is `"whole"`).
 - `terminal-bench` and `tool-eval-bench` are slow; leave them out for a
   quick run.
-- `smoke` is always cheap and a good default gate; include it by default.
+- `smoke` needs no selection: it always runs first for each model and, when
+  it fails, the model's remaining benchmarks are skipped for that run.
+  (`--only` entries without `smoke` drop the check too.)
 
 ## Step 5 — Write the TOML
 
@@ -82,7 +85,7 @@ output_dir = "./benchmarks"
 name       = "<endpoint-name>"
 url        = "http://<host>:<port>/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy"]
+benchmarks = ["llama-benchy"]
 # remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
@@ -96,13 +99,15 @@ Omit the `[[endpoints.models]]` block entirely if the user wants every
 model the service reports.
 
 Benchmark list convention: the active `benchmarks` array stays minimal — by
-default only `["smoke", "llama-benchy"]`. The options that are *not* active
-are written as a comment line directly after the array, so they stay visible
-without being enabled. If the user picks a different subset, move the chosen
-ids into the active array and keep only the unchosen ones in the comment
-(drop the comment once every option is active). This mirrors
+default only `["llama-benchy"]`.  `smoke` is deliberately **not** listed:
+`run_benchmarks.py` auto-inserts it first for every model and skips the
+model's remaining benchmarks when it fails.  The options that are *not*
+active are written as a comment line directly after the array, so they stay
+visible without being enabled. If the user picks a different subset, move the
+chosen ids into the active array and keep only the unchosen ones in the
+comment (drop the comment once every option is active). This mirrors
 `scripts/generate-benchmarks-toml.sh`, which also defaults to
-`BENCHMARKS="smoke, llama-benchy"`.
+`BENCHMARKS="llama-benchy"`.
 
 ## Step 6 — Verify and hand over the run command
 
@@ -116,7 +121,8 @@ benchmarks). Then give the user the commands to run for real:
 ```bash
 ./run_benchmarks.py --config benchmarks.<endpoint-name>.toml            # run once
 ./run_benchmarks.py --config benchmarks.<endpoint-name>.toml --new      # re-run, ignoring existing outputs
-./run_benchmarks.py --config benchmarks.<endpoint-name>.toml --only smoke,agent-bench
+./run_benchmarks.py --config benchmarks.<endpoint-name>.toml --only agent-bench
+# ^ only agent-bench: no auto smoke and no file default (llama-benchy)
 ```
 
 Results land in `./benchmarks/<alias>/<bench>/<timestamp>/` with a
@@ -133,11 +139,12 @@ Alternative to the interview above when the endpoint is already running,
 - `ENDPOINT_BACKEND=direct`: queries `/models` of a plain
   llama-swap/llama-server host; requires `ENDPOINT_PRODUCER` and
   `ENDPOINT_BACKEND_LABEL`.
-- The benchmark list is taken from the `BENCHMARKS` env var, comma-separated,
-  default `smoke, llama-benchy`. Example:
+- The benchmark list is taken from the `BENCHMARKS` env var, comma-separated;
+  active default is `llama-benchy` only — `smoke` is implicit in the runner,
+  not a choice.  Example:
 
   ```bash
-  BENCHMARKS="smoke,llama-benchy,aider" \
+  BENCHMARKS="llama-benchy,aider" \
   ENDPOINT_URL=http://localhost:1234/v1 \
   ENDPOINT_NAME=local \
   ENDPOINT_BACKEND=direct \

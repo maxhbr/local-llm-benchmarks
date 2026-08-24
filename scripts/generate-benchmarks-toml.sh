@@ -20,10 +20,12 @@
 #   (appends .variants when ENABLE_VARIANTS=true)
 #
 # Benchmarks: BENCHMARKS is the active list (comma-separated, default
-# "smoke, llama-benchy").  The full set of ids is ALL_BENCHMARKS below
-# (matches the BENCHMARKS map in run_benchmarks.py); ids NOT in the active
-# list are written as a "# remaining options:" comment line directly
-# after the benchmarks array, so options stay visible without being enabled.
+# "llama-benchy").  "smoke" is not a selectable option: the runner always
+# prepends it (and gates the rest on it).  The full set of selectable ids is
+# ALL_BENCHMARKS below (matches the BENCHMARKS map in run_benchmarks.py,
+# sans the implicit "smoke"); ids NOT in the active list are written as a
+# "# remaining options:" comment line directly after the benchmarks array,
+# so options stay visible without being enabled.
 
 set -euo pipefail
 
@@ -35,11 +37,12 @@ ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
 ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
-BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy}"
+BENCHMARKS="${BENCHMARKS:-llama-benchy}"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
 OUT_DIR="${OUT_DIR:-${REPO_ROOT}}"
+mkdir -p "$OUT_DIR"
 
 case "$ENDPOINT_BACKEND" in
     litellm) INFO_URL="${ENDPOINT_URL%/}/model/info" ;;
@@ -94,9 +97,10 @@ benchmarks_iter() {
     return 0
 }
 
-# Full set of benchmark ids known to run_benchmarks.py's BENCHMARKS map
-# (verify with `run_benchmarks.py --list-benchmarks`).
-ALL_BENCHMARKS=(agent-bench aider llama-benchy smoke terminal-bench tool-eval-bench)
+# Full set of selectable benchmark ids known to run_benchmarks.py's BENCHMARKS
+# map (verify with `run_benchmarks.py --list-benchmarks`).  "smoke" is
+# deliberately absent: the runner always runs it and gates the others on it.
+ALL_BENCHMARKS=(agent-bench aider llama-benchy terminal-bench tool-eval-bench)
 
 # Print the "# remaining options:" comment line for the ids that are NOT in the
 # given comma-separated active list.  Empty string when every option is active.
