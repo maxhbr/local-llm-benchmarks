@@ -73,6 +73,11 @@
     table.grid th.sort-desc::after { content: " ▼"; color: var(--accent); }
     table.grid td.num { text-align: right; font-variant-numeric: tabular-nums; }
     table.grid tr:hover td { background: rgba(110, 168, 254, 0.06); }
+    /* Sticky left-most column for the per-test matrix grid. */
+    table.grid th.rowkey, table.grid td.rowkey {
+      position: sticky; left: 0; background: var(--panel-2); z-index: 2;
+    }
+    table.grid th.rowkey { z-index: 3; } /* corner cell, above both sticky axes */
     .scrollwrap { max-height: 78vh; overflow: auto; border: 1px solid var(--border);
       border-radius: 6px; }
     .pill {
@@ -88,6 +93,12 @@
     .badge.warn { color: #3b2705; background: var(--warn); }
     .badge.bad  { color: #3b0a0a; background: var(--bad); }
     .badge.zero { color: var(--muted); background: var(--panel-2); border: 1px solid var(--border); }
+    /* Per-test matrix: model pass-rate as a second header line, and the
+       per-test pass-rate in the sticky row label. */
+    .grid th .colrate { display: block; font-weight: 400; font-size: 11px;
+      color: var(--muted); font-variant-numeric: tabular-nums; }
+    .grid td.rowkey .rk-rate { color: var(--muted); font-size: 11px;
+      font-variant-numeric: tabular-nums; margin-left: 6px; }
     details.errcell { max-width: 360px; white-space: normal; }
     details.errcell summary { cursor: pointer; color: var(--muted); font-size: 12px; }
     details.errcell ul { margin: 4px 0 0; padding-left: 16px; font-size: 12px;
@@ -166,6 +177,7 @@
       <button class="tab" data-tab="tokens">Tokens per test case</button>
       <button class="tab" data-tab="seconds">Seconds per test case</button>
       <button class="tab" data-tab="scatterpass">Seconds vs pass rate</button>
+      <button class="tab" data-tab="aidermatrix">Per-test matrix</button>
       <span class="tab-group">llama-benchy</span>
       <button class="tab" data-tab="llama">llama-benchy</button>
       <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
@@ -294,6 +306,43 @@
         <span id="scatterPassStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap"><canvas id="chartScatterPass"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-aidermatrix">
+      <div class="controls">
+        <label>
+          Metric
+          <select id="aptMetric">
+            <option value="p2" selected>pass (any try)</option>
+            <option value="p1">pass (first try)</option>
+          </select>
+        </label>
+        <label>
+          Min tasks
+          <input id="aptMinTasks" type="number" min="0" step="1" value="0"
+                 style="width: 5em;" title="hide models that ran fewer than this many tests">
+        </label>
+        <label>
+          Min pass rate
+          <input id="aptMinPass" type="range" min="0" max="100" step="1" value="0"
+                 style="vertical-align: middle; width: 8em;"
+                 title="hide models whose pass rate (on the tests they ran) is below this">
+          <span id="aptMinPassVal">0%</span>
+        </label>
+        <label>
+          Lang
+          <select id="aptLang"><option value="">all</option></select>
+        </label>
+        <label><input id="aptHideFull" type="checkbox"> hide fully-passed rows</label>
+        <label><input id="aptHideEmpty" type="checkbox"> hide rows no model ran</label>
+        <label>
+          Filter
+          <input id="aptFilter" type="search" placeholder="exercise…" autocomplete="off"
+                 style="width: 14em;">
+        </label>
+        <span id="aptStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="scrollwrap"><table class="grid" id="aptTbl"></table></div>
     </section>
 
     <section class="panel" id="panel-llama">
@@ -635,6 +684,9 @@
         if (id.startsWith("ab-") && window.AgentBench) {
           window.AgentBench.onTabActivated(id);
         }
+        if (id === "aidermatrix" && window.AiderPerTest) {
+          window.AiderPerTest.onTabActivated(id);
+        }
       });
     });
 
@@ -887,6 +939,7 @@
       populateGridModels();
       renderGrid();
       if (window.AgentBench && window.AgentBench.refresh) window.AgentBench.refresh();
+      if (window.AiderPerTest && window.AiderPerTest.refresh) window.AiderPerTest.refresh();
     }
 
     function applyGpuFilter() {
@@ -2302,6 +2355,207 @@
       }
 
       return { onTabActivated, load, refresh, getRuns: () => RUNS };
+    })();
+
+    // ====================================================================
+    // AIDER PER-TEST MATRIX
+    // Self-contained module. Lazily loads aider-pertest.json on first visit
+    // to the "Per-test matrix" tab and renders a pass/fail grid of
+    // test-case (rows) × model (columns), keyed on <lang>/<exercise> identity
+    // (aider runs tests in random order, so order is never meaningful).
+    // ====================================================================
+    window.AiderPerTest = (function () {
+      const MANIFEST_URL = "aider-pertest.json";
+      let MANIFEST = null;
+      let COLS = [];
+      let ROWS = [];
+      let loaded = false;
+      let loadStarted = false;
+      let currentTab = null;
+
+      // GPU/quant for a column, mirroring the aider-dataset helpers: model field
+      // first (has the "openai/<host>:" prefix), folder dash-prefix as fallback.
+      function gpuOf(c) {
+        const m = gpuFromModel(c.model);
+        if (m !== "other") return m;
+        const seg = String(c.folder || "").split("-")[0];
+        return KNOWN_GPUS.includes(seg) ? seg : "other";
+      }
+      function bitsOf(c) {
+        return bitsFromName(c.model) ?? bitsFromName(c.folder);
+      }
+      // Columns visible under the current global GPU + quant + text filter.
+      function viewColumns() {
+        return COLS.filter(c =>
+          gpuMatches(gpuOf(c)) && bitsMatch(bitsOf(c))
+          && textMatches(c.model, c.folder, c.bench));
+      }
+
+      // Pretty short model label: strip openai/<host>: prefix (same as loadAll).
+      function shortModel(c) {
+        return String(c.model || c.folder || "").replace(/^openai\//, "").replace(/^[^:]+:/, "");
+      }
+
+      function populateLangs() {
+        const sel = document.getElementById("aptLang");
+        const langs = [...new Set(ROWS.map(r => r.lang).filter(Boolean))].sort();
+        const prev = sel.value;
+        while (sel.options.length > 1) sel.remove(1);
+        langs.forEach(l => {
+          const o = document.createElement("option");
+          o.value = l; o.textContent = l;
+          sel.appendChild(o);
+        });
+        if (prev && langs.includes(prev)) sel.value = prev;
+      }
+
+      function render() {
+        const tbl = document.getElementById("aptTbl");
+        const metric = document.getElementById("aptMetric").value; // p2 | p1
+        const lang = document.getElementById("aptLang").value;
+        const hideFull = document.getElementById("aptHideFull").checked;
+        const hideEmpty = document.getElementById("aptHideEmpty").checked;
+        const q = document.getElementById("aptFilter").value.trim().toLowerCase();
+
+        const minTasks = parseInt(document.getElementById("aptMinTasks").value, 10) || 0;
+        const minPassPct = parseInt(document.getElementById("aptMinPass").value, 10) || 0;
+        const minPass = minPassPct / 100;
+        document.getElementById("aptMinPassVal").textContent = minPassPct + "%";
+
+        // Per-column pass rate over all rows (the model's suite pass rate), for the
+        // selected metric. Computed over every row so it is a stable model-quality
+        // measure independent of the Lang/Filter row filters.
+        const allCols = viewColumns();
+        const colRate = {};
+        for (const c of allCols) {
+          let ran = 0, pass = 0;
+          for (const r of ROWS) {
+            const cell = r.results[c.column_id];
+            if (cell && cell.status === "ran") { ran++; if (cell[metric] === true) pass++; }
+          }
+          colRate[c.column_id] = ran ? pass / ran : 0;
+        }
+        const cols = allCols
+          .filter(c => (c.num_tests_run || 0) >= minTasks)
+          .filter(c => colRate[c.column_id] >= minPass)
+          .slice().sort((a, b) =>
+            (a.folder + a.bench).localeCompare(b.folder + b.bench));
+
+        // Header: sticky corner + one <th> per visible column.
+        const head = ["<thead><tr>",
+          `<th class="rowkey">test case</th>`,
+          ...cols.map(c => {
+            const sm = shortModel(c);
+            const pill = c.bench === "aider-diff"
+              ? ` <span class="pill">diff</span>` : "";
+            const tip = `${c.folder} / ${c.bench} · edit ${c.edit_format || "?"} · run ${c.run_dir} · ${c.num_tests_run} tests · ${Math.round(colRate[c.column_id] * 100)}% pass`;
+            return `<th title="${esc(tip)}"><span class="colname">${esc(sm)}${pill}</span><span class="colrate">${Math.round(colRate[c.column_id] * 100)}%</span></th>`;
+          }),
+          "</tr></thead>"].join("");
+
+        // Filter + sort rows.
+        let rows = ROWS.filter(r =>
+          (!lang || r.lang === lang) &&
+          (!q || (r.row_id + " " + r.exercise).toLowerCase().includes(q)));
+
+        if (hideEmpty || hideFull) {
+          rows = rows.filter(r => {
+            const cells = cols.map(c => r.results[c.column_id]).filter(Boolean);
+            const ran = cells.filter(c => c.status === "ran");
+            if (hideEmpty && ran.length === 0) return false;
+            if (hideFull && ran.length > 0 && ran.every(c => c[metric] === true)) return false;
+            return true;
+          });
+        }
+        // Sort: most passes among visible columns first, then row_id.
+        rows.sort((a, b) => {
+          const pa = cols.reduce((n, c) => n + ((a.results[c.column_id] || {})[metric] ? 1 : 0), 0);
+          const pb = cols.reduce((n, c) => n + ((b.results[c.column_id] || {})[metric] ? 1 : 0), 0);
+          return pb - pa || a.row_id.localeCompare(b.row_id);
+        });
+
+        const body = "<tbody>" + rows.map(r => {
+          const tds = cols.map(c => {
+            const cell = r.results[c.column_id];
+            if (!cell) return "<td></td>";
+            if (cell.status === "error") return `<td><span class="badge zero" title="error">E</span></td>`;
+            const v = cell[metric];
+            const tip = `${v ? "PASS" : "FAIL"} (try ${cell.n ?? "?"}: p1=${cell.p1} p2=${cell.p2})`;
+            if (v) return `<td><span class="badge good" title="${tip}">✓</span></td>`;
+            if (cell.err) return `<td><span class="badge warn" title="${esc(tip + " · exec errors: " + (cell.errd || "yes"))}">⚠</span></td>`;
+            return `<td><span class="badge bad" title="${tip}">✗</span></td>`;
+          }).join("");
+          // Per-test pass rate over the visible columns only; models that did
+          // not execute this test (no cell / not "ran") do not contribute.
+          let rRan = 0, rPass = 0;
+          for (const c of cols) {
+            const cell = r.results[c.column_id];
+            if (cell && cell.status === "ran") { rRan++; if (cell[metric] === true) rPass++; }
+          }
+          const rateStr = rRan ? `${Math.round(rPass / rRan * 100)}%` : "—";
+          return `<tr><td class="rowkey" title="${esc(r.lang + "/" + r.exercise + " · " + rPass + "/" + rRan + " models passed")}">${esc(r.row_id)}<span class="rk-rate">${rateStr}</span></td>${tds}</tr>`;
+        }).join("") + "</tbody>";
+
+        tbl.innerHTML = head + body;
+
+        const passing = rows.reduce((n, r) =>
+          n + cols.reduce((m, c) => m + ((r.results[c.column_id] || {})[metric] ? 1 : 0), 0), 0);
+        const ran = rows.reduce((n, r) =>
+          n + cols.reduce((m, c) => m + (r.results[c.column_id] && r.results[c.column_id].status === "ran" ? 1 : 0), 0), 0);
+        const execErr = rows.reduce((n, r) =>
+          n + cols.reduce((m, c) => {
+            const cell = r.results[c.column_id];
+            return m + (cell && cell.err && cell[metric] !== true ? 1 : 0);
+          }, 0), 0);
+        document.getElementById("aptStatus").textContent =
+          `${rows.length} rows · ${cols.length} models · ${passing}/${ran} cells passing · ${execErr} exec errors`;
+      }
+
+      function esc(s) {
+        return String(s == null ? "" : s)
+          .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function wireListeners() {
+        ["aptMetric", "aptMinTasks", "aptMinPass", "aptLang", "aptHideFull", "aptHideEmpty", "aptFilter"]
+          .forEach(id => document.getElementById(id).addEventListener("input", render));
+      }
+
+      async function load() {
+        if (loaded || loadStarted) return;
+        loadStarted = true;
+        try {
+          const res = await fetch(MANIFEST_URL, { cache: "no-cache" });
+          if (!res.ok) throw new Error(`${MANIFEST_URL}: ${res.status} ${res.statusText}`);
+          MANIFEST = await res.json();
+          COLS = MANIFEST.columns || [];
+          ROWS = MANIFEST.rows || [];
+          populateLangs();
+          wireListeners();
+          render();
+          loaded = true;
+        } catch (e) {
+          loadStarted = false;
+          const cur = errorsEl.textContent;
+          errorsEl.textContent = (cur ? cur + "\n" : "") +
+            `aider-pertest: ${e.message || e}`;
+        }
+      }
+
+      function onTabActivated(tabId) {
+        currentTab = tabId;
+        load().then(() => { if (loaded) render(); });
+      }
+
+      // Re-render after a global GPU/quant/text filter change.
+      function refresh() {
+        if (!loaded) return;
+        populateLangs();
+        render();
+      }
+
+      return { onTabActivated, load, refresh };
     })();
   </script>
 </body>

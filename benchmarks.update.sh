@@ -4,11 +4,13 @@
 # Runs, in order:
 #   1. scripts/extract-aider-stats.py --all benchmarks/
 #        -> writes benchmarks/<run>/aider.computed.yaml and benchmarks/datasets.json
-#   2. scripts/llama-benchy-md-to-csv.py --all benchmarks/ -o benchmarks/llama-benchy.csv
+#   2. scripts/generate-aider-pertest-manifest.py --root benchmarks/
+#        -> writes benchmarks/aider-pertest.json + .csv (per-test-case × model matrix)
+#   3. scripts/llama-benchy-md-to-csv.py --all benchmarks/ -o benchmarks/llama-benchy.csv
 #        -> writes the master CSV
-#   3. scripts/find-fastest.py --benchmarks-dir benchmarks/ -o benchmarks/find-fastest.md
+#   4. scripts/find-fastest.py --benchmarks-dir benchmarks/ -o benchmarks/find-fastest.md
 #        -> writes the ranking report
-#   4. python3 -m http.server --directory benchmarks <port>
+#   5. python3 -m http.server --directory benchmarks <port>
 #        -> serves the benchmarks folder over HTTP   (skip with --no-serve)
 #
 # Usage:
@@ -49,18 +51,21 @@ step() {
     printf '\n\033[1;36m==> %s\033[0m\n' "$*"
 }
 
-step "1/4  extract-aider-stats.py --all $BENCH_DIR"
+step "1/5  extract-aider-stats.py --all $BENCH_DIR"
 "$PY" scripts/extract-aider-stats.py --all "$BENCH_DIR"
 
-step "2/4  llama-benchy-md-to-csv.py --all $BENCH_DIR -o $CSV_OUT"
+step "2/5  generate-aider-pertest-manifest.py --root $BENCH_DIR"
+"$PY" scripts/generate-aider-pertest-manifest.py --root "$BENCH_DIR"
+
+step "3/5  llama-benchy-md-to-csv.py --all $BENCH_DIR -o $CSV_OUT"
 "$PY" scripts/llama-benchy-md-to-csv.py --all "$BENCH_DIR" -o "$CSV_OUT"
 echo "Wrote $CSV_OUT"
 
-step "3/4  find-fastest.py --benchmarks-dir $BENCH_DIR -o $FASTEST_OUT"
+step "4/5  find-fastest.py --benchmarks-dir $BENCH_DIR -o $FASTEST_OUT"
 "$PY" scripts/find-fastest.py --benchmarks-dir "$BENCH_DIR" -o "$FASTEST_OUT"
 
 if [[ "$SERVE" -eq 1 ]]; then
-    step "4/4  http.server --directory $BENCH_DIR :$HTTP_PORT"
+    step "5/5  http.server --directory $BENCH_DIR :$HTTP_PORT"
     printf '\n\033[1;32mAll done. Serving %s at http://localhost:%s/\033[0m\n' "$BENCH_DIR" "$HTTP_PORT"
     exec "$PY" -m http.server --directory "$BENCH_DIR" "$HTTP_PORT"
 else
