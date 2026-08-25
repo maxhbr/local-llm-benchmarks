@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260825-161511",
+  "host": "thing",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "Qwen3.8-27B-NVFP4-RTX5090",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "run_name": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA"
+}
