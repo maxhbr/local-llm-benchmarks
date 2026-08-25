@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260825-152856",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.8-27B-NVFP4-RTX5090",
+      "bench": "smoke",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.8-27B-NVFP4-RTX5090",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 477.300649,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.8-27B-NVFP4-RTX5090",
+      "bench": "agent-bench",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 42.823168,
+      "error": null
+    },
+    {
+      "endpoint_name": "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.8-27B-NVFP4-RTX5090",
+      "bench": "terminal-bench",
+      "alias": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 1002.942523,
+      "error": "interrupted"
+    }
+  ]
+}

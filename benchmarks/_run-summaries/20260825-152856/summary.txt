@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260825-152856)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+vllm-dockerized-Qwen | rtx5090-vllm-dockerized-Qwen3.8-27B | smoke          | 0   | 0.0      | OK
+vllm-dockerized-Qwen | rtx5090-vllm-dockerized-Qwen3.8-27B | tool-eval-bench | 0   | 477.3    | OK
+vllm-dockerized-Qwen | rtx5090-vllm-dockerized-Qwen3.8-27B | agent-bench    | 0   | 42.8     | OK
+vllm-dockerized-Qwen | rtx5090-vllm-dockerized-Qwen3.8-27B | terminal-bench | 130 | 1002.9   | FAIL (interrupted)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 3   FAIL: 1

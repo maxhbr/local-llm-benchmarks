@@ -1,0 +1,16 @@
+{
+  "turn_1_tps": 81.11,
+  "json_valid_rate": 0.6,
+  "tool_name_ok_rate": 0.6,
+  "math_conversion_rate": 0.6,
+  "turn_2_tps": 83.2,
+  "final_success_rate": 0.0,
+  "runs": 10,
+  "temp0_final_response": "{\n  \"tool_name\": \"calculate_density\",\n  \"mass_kg\": 4.5,\n  \"volume_m3\": 0.0005\n}",
+  "errors": [
+    "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing an object at line 4 column 21 [type=json_invalid, input_value='{\\n  \"tool_name\": \"calcu...\\n  \"volume_m3\": 0.0005', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid",
+    "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing an object at line 4 column 16 [type=json_invalid, input_value='{\\n  \"tool_name\": \"calcu... 4.5,\\n  \"volume_m3\": 0', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid",
+    "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 4 column 14 [type=json_invalid, input_value='{\\n  \"tool_name\": \"calcu...\": 4.5,\\n  \"volume_m3\":', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid",
+    "validation: 1 validation error for ToolCallSchema\n  Invalid JSON: EOF while parsing a value at line 4 column 14 [type=json_invalid, input_value='{\\n  \"tool_name\": \"calcu...\": 4.5,\\n  \"volume_m3\":', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.12/v/json_invalid"
+  ]
+}

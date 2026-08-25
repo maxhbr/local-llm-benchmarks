@@ -1,4 +1,5 @@
 work/
+jobs/
 # benchmarks/
 *.cmd
 __pycache__/
