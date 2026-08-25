@@ -110,6 +110,10 @@
       color: var(--muted); font-variant-numeric: tabular-nums; }
     .grid td.rowkey .rk-rate { color: var(--muted); font-size: 11px;
       font-variant-numeric: tabular-nums; margin-left: 6px; }
+    /* llama-benchy factor heatmap cells */
+    table.grid td.lf { font-weight: 600; }
+    table.grid td.lf-win { color: #bbf7d0; }
+    table.grid td.lf-lose { color: #fecaca; }
     details.errcell { max-width: 360px; white-space: normal; }
     details.errcell summary { cursor: pointer; color: var(--muted); font-size: 12px; }
     details.errcell ul { margin: 4px 0 0; padding-left: 16px; font-size: 12px;
@@ -197,6 +201,7 @@
         <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
         <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
         <button class="tab" data-tab="llamavs">llama-benchy vs</button>
+        <button class="tab" data-tab="llamafactor">llama-benchy factor</button>
       </div>
       <div class="tab-section" data-group="agent-bench">
         <span class="tab-group">agent bench</span>
@@ -521,6 +526,51 @@
         <span id="lvsStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlamaVs"></canvas></div>
+    </section>
+
+    <section class="panel" id="panel-llamafactor">
+      <div class="controls">
+        <label>
+          GPU A
+          <select id="lfGpuA"></select>
+        </label>
+        <label>
+          GPU B
+          <select id="lfGpuB"></select>
+        </label>
+        <label>
+          View
+          <select id="lfView">
+            <option value="summary" selected>summary (key metrics + overall)</option>
+            <option value="matrix">matrix (test × depth/conc)</option>
+          </select>
+        </label>
+        <span id="lfMatrixOnly" style="display: none">
+          <label>
+            Test
+            <select id="lfTest">
+              <option value="tg128" selected>tg128 (generation)</option>
+              <option value="pp2048">pp2048 (prompt)</option>
+            </select>
+          </label>
+          <label>
+            Metric
+            <select id="lfMetric">
+              <option value="t/s" selected>t/s</option>
+              <option value="t/s (req)">t/s (req)</option>
+              <option value="peak t/s">peak t/s</option>
+              <option value="peak t/s (req)">peak t/s (req)</option>
+              <option value="ttfr (ms)">ttfr (ms)</option>
+              <option value="est_ppt (ms)">est_ppt (ms)</option>
+              <option value="e2e_ttft (ms)">e2e_ttft (ms)</option>
+            </select>
+          </label>
+        </span>
+        <span>Factor = GPU A is N× faster than GPU B (latency cols inverted; &gt;1 ⇒ A wins).
+          Test + Metric apply only to the matrix view. Models run on both GPUs only.</span>
+        <span id="lfStatus" style="color: var(--muted);"></span>
+      </div>
+      <div class="scrollwrap" style="max-height: 74vh;"><table class="grid" id="lfTbl"></table></div>
     </section>
 
     <!-- ============================================================
@@ -999,6 +1049,7 @@
       renderLlama();
       renderLlamaGraph();
       renderLlamaVs();
+      renderLlamaFactor();
       populateGridModels();
       renderGrid();
       if (window.AgentBench && window.AgentBench.refresh) window.AgentBench.refresh();
@@ -1674,6 +1725,208 @@
       });
     }
 
+    // ====================================================================
+    // llama-benchy FACTOR — GPU A vs GPU B.
+    // Reads LLAMA_ROWS directly (not filteredLlamaRows, so the global GPU
+    // filter does not hide either side) and pairs models present on BOTH
+    // selected GPUs. Factor = "GPU A is N× faster than GPU B":
+    //   throughput metrics (t/s …):  A / B   (higher is better)
+    //   latency metrics (ms):        B / A   (lower is better, inverted so >1 ⇒ A wins)
+    // Honors the global quant (bits) and free-text filters on the model key.
+    // ====================================================================
+    const LF_LATENCY_METRICS = new Set(["ttfr (ms)", "est_ppt (ms)", "e2e_ttft (ms)"]);
+    const LF_ALL_METRICS = ["t/s", "t/s (req)", "peak t/s", "peak t/s (req)",
+                            "ttfr (ms)", "est_ppt (ms)", "e2e_ttft (ms)"];
+    let lfSort = { col: null, dir: "desc" };
+
+    function lfEsc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    // Strip a GPU prefix ("rtx5090-" / "gfx1151-") from a model name. Returns
+    // null when the model is not on that GPU (so unmatched models are dropped).
+    function lfModelKey(model, gpu) {
+      const p = gpu + "-";
+      return String(model || "").startsWith(p) ? model.slice(p.length) : null;
+    }
+    // key -> { test: { depth: { conc: row } } } for one GPU.
+    function lfIndex(gpu) {
+      const map = new Map();
+      for (const r of LLAMA_ROWS) {
+        const key = lfModelKey(r.model, gpu);
+        if (key == null) continue;
+        let t = map.get(key);
+        if (!t) { t = {}; map.set(key, t); }
+        (t[r.test]   || (t[r.test]   = {}));
+        (t[r.test][r.depth] || (t[r.test][r.depth] = {}));
+        t[r.test][r.depth][String(r.concurrency)] = r;
+      }
+      return map;
+    }
+    function lfRow(ent, test, depth, conc) {
+      return ent && ent[test] && ent[test][depth] && ent[test][depth][conc] || null;
+    }
+    function lfGet(ent, test, depth, conc, metric) {
+      const r = lfRow(ent, test, depth, conc);
+      return r ? r[metric] : null;
+    }
+    function lfFactor(aVal, bVal, metric) {
+      if (typeof aVal !== "number" || typeof bVal !== "number" || !aVal || !bVal) return null;
+      return LF_LATENCY_METRICS.has(metric) ? bVal / aVal : aVal / bVal;
+    }
+    // Geometric mean of every d0 (base-depth) factor for a matched model:
+    // throughput A/B, latency B/A. Returns null when no comparable d0 cells.
+    function lfOverall(aEnt, bEnt) {
+      let logs = 0, n = 0;
+      for (const test of ["tg128", "pp2048"]) {
+        for (const conc of ["1", "2", "4"]) {
+          const ar = lfRow(aEnt, test, "d0", conc);
+          const br = lfRow(bEnt, test, "d0", conc);
+          if (!ar || !br) continue;
+          for (const m of LF_ALL_METRICS) {
+            const f = lfFactor(ar[m], br[m], m);
+            if (f && f > 0) { logs += Math.log(f); n++; }
+          }
+        }
+      }
+      return n ? Math.exp(logs / n) : null;
+    }
+    // Geometric mean of a list of factors (ignores null/≤0). Returns null if none.
+    function lfGeomean(vals) {
+      let logs = 0, n = 0;
+      for (const f of vals) {
+        if (typeof f === "number" && f > 0) { logs += Math.log(f); n++; }
+      }
+      return n ? Math.exp(logs / n) : null;
+    }
+    // Format a marginal-average factor for a header / row-key cell (muted, no heatmap).
+    function lfAvgStr(v) {
+      return (v == null || !isFinite(v)) ? "—" : v.toFixed(2) + "×";
+    }
+    function lfCellTd(f) {
+      if (f == null || !isFinite(f)) return '<td class="num lf">—</td>';
+      const mag = Math.min(1, Math.abs(Math.log2(f)) / 3); // ~3 stops (8×)
+      const a = (0.10 + 0.32 * mag).toFixed(2);
+      const bg = f >= 1 ? `rgba(110,231,183,${a})` : `rgba(248,113,113,${a})`;
+      const cls = f >= 1 ? "lf-win" : "lf-lose";
+      return `<td class="num lf ${cls}" style="background:${bg}">${f.toFixed(2)}×</td>`;
+    }
+
+    function populateLfGpus() {
+      const set = new Set(KNOWN_GPUS);
+      for (const r of LLAMA_ROWS) {
+        const g = gpuFromModel(r.model);
+        if (g !== "other") set.add(g);
+      }
+      const gpus = sortGpus([...set]);
+      for (const id of ["lfGpuA", "lfGpuB"]) {
+        const sel = document.getElementById(id);
+        const prev = sel.value;
+        sel.innerHTML = "";
+        gpus.forEach(g => {
+          const o = document.createElement("option");
+          o.value = g; o.textContent = g;
+          sel.appendChild(o);
+        });
+        if (prev && gpus.includes(prev)) sel.value = prev;
+      }
+      const a = document.getElementById("lfGpuA");
+      const b = document.getElementById("lfGpuB");
+      if (gpus.includes("rtx5090")) a.value = "rtx5090"; else if (gpus.length) a.selectedIndex = 0;
+      if (gpus.includes("gfx1151")) b.value = "gfx1151"; else if (gpus.length > 1) b.selectedIndex = 1;
+      if (a.value && a.value === b.value) b.selectedIndex = (gpus.length > 1 ? 1 : 0);
+    }
+
+    function renderLlamaFactor() {
+      const tbl = document.getElementById("lfTbl");
+      const st  = document.getElementById("lfStatus");
+      const gpuA = document.getElementById("lfGpuA").value;
+      const gpuB = document.getElementById("lfGpuB").value;
+      const view = document.getElementById("lfView").value;
+      const matrixOnly = document.getElementById("lfMatrixOnly");
+      if (matrixOnly) matrixOnly.style.display = view === "matrix" ? "" : "none";
+      if (!gpuA || !gpuB || gpuA === gpuB) {
+        tbl.innerHTML = "";
+        st.textContent = "pick two different GPUs";
+        return;
+      }
+      const aIdx = lfIndex(gpuA), bIdx = lfIndex(gpuB);
+      let keys = [...aIdx.keys()].filter(k => bIdx.has(k))
+        .filter(k => bitsMatch(bitsFromName(k)) && textMatches(k));
+
+      let cols; // [{ key, label, get: (aEnt,bEnt) => factor|null }]
+      if (view === "summary") {
+        cols = [
+          { key: "gen_c1", label: "gen c1 (t/s)",
+            get: (a, b) => lfFactor(lfGet(a, "tg128",  "d0", "1", "t/s"),      lfGet(b, "tg128",  "d0", "1", "t/s"),      "t/s") },
+          { key: "gen_c4",  label: "gen c4 t/s(req)",
+            get: (a, b) => lfFactor(lfGet(a, "tg128",  "d0", "4", "t/s (req)"), lfGet(b, "tg128",  "d0", "4", "t/s (req)"), "t/s (req)") },
+          { key: "pp_c1",   label: "prefill c1 (t/s)",
+            get: (a, b) => lfFactor(lfGet(a, "pp2048", "d0", "1", "t/s"),      lfGet(b, "pp2048", "d0", "1", "t/s"),      "t/s") },
+          { key: "pp_c4",   label: "prefill c4 t/s(req)",
+            get: (a, b) => lfFactor(lfGet(a, "pp2048", "d0", "4", "t/s (req)"), lfGet(b, "pp2048", "d0", "4", "t/s (req)"), "t/s (req)") },
+          { key: "overall", label: "overall (geo-mean d0)", get: (a, b) => lfOverall(a, b) },
+        ];
+      } else {
+        const test   = document.getElementById("lfTest").value;
+        const metric = document.getElementById("lfMetric").value;
+        const combos = [
+          ["d0", "1"], ["d0", "2"], ["d0", "4"],
+          ["d8192", "1"], ["d8192", "2"], ["d8192", "4"],
+          ["d16384", "1"], ["d16384", "2"], ["d16384", "4"],
+        ];
+        cols = combos.map(([d, c]) => ({
+          key: `${d}_${c}`, label: `${d} c${c}`,
+          get: (a, b) => lfFactor(lfGet(a, test, d, c, metric), lfGet(b, test, d, c, metric), metric),
+        }));
+      }
+
+      let rows = keys.map(k => ({ key: k, vals: cols.map(c => c.get(aIdx.get(k), bIdx.get(k))) }));
+      if (lfSort.col && cols.some(c => c.key === lfSort.col)) {
+        const ci = cols.findIndex(c => c.key === lfSort.col);
+        rows.sort((x, y) => {
+          const a = x.vals[ci], b = y.vals[ci];
+          if (a == null && b == null) return 0;
+          if (a == null) return 1;     // nulls last
+          if (b == null) return -1;
+          return lfSort.dir === "asc" ? a - b : b - a;
+        });
+      } else {
+        rows.sort((x, y) => x.key.localeCompare(y.key));
+      }
+
+      // Marginal geo-means: per-row (across the displayed columns) and
+      // per-column (across the displayed rows). Shown in the column headers
+      // (via .colrate) and the sticky row-key cell (via .rk-rate), reusing the
+      // same styling as the per-test matrix tab.
+      const colAvgs = cols.map((_, ci) => lfGeomean(rows.map(r => r.vals[ci])));
+      const rowAvgs = rows.map(r => lfGeomean(r.vals));
+
+      const head = "<thead><tr>" +
+        [`<th class="rowkey" data-col="__key">model<span class="colrate">row avg</span></th>`]
+          .concat(cols.map((c, ci) => {
+            const sc = lfSort.col === c.key ? (lfSort.dir === "asc" ? "sort-asc" : "sort-desc") : "";
+            return `<th class="${sc}" data-col="${c.key}">${c.label}<span class="colrate">avg ${lfAvgStr(colAvgs[ci])}</span></th>`;
+          })).join("") + "</tr></thead>";
+      const body = "<tbody>" + rows.map((r, ri) =>
+        `<tr><td class="rowkey">${lfEsc(r.key)}<span class="rk-rate">${lfAvgStr(rowAvgs[ri])}</span></td>` +
+        r.vals.map(f => lfCellTd(f)).join("") + "</tr>"
+      ).join("") + "</tbody>";
+      tbl.innerHTML = head + body;
+      st.textContent = `${rows.length} models · ${gpuA} ÷ ${gpuB}  (>1 ⇒ ${gpuA} faster)`;
+
+      tbl.querySelectorAll("thead th").forEach(th => {
+        const col = th.dataset.col;
+        if (!col) return;
+        th.addEventListener("click", () => {
+          if (lfSort.col === col) lfSort.dir = lfSort.dir === "asc" ? "desc" : "asc";
+          else { lfSort.col = col; lfSort.dir = "desc"; }
+          renderLlamaFactor();
+        });
+      });
+    }
+
     // Re-purpose plugin error-bars for horizontal bars (errorBarPlugin only handles vertical y).
     // For indexAxis: 'y' the error bars need to be drawn along the x axis instead.
     // Override with a more general implementation:
@@ -2001,6 +2254,8 @@
       document.getElementById(id).addEventListener("change", renderLlamaGraph));
     ["lvsConc", "lvsMetric", "lvsXScale", "lvsYScale"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlamaVs));
+    ["lfGpuA", "lfGpuB", "lfView", "lfTest", "lfMetric"].forEach(id =>
+      document.getElementById(id).addEventListener("change", renderLlamaFactor));
     ["gridTest", "gridScale", "gridModel"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderGrid));
     document.getElementById("gpuFilter").addEventListener("change", applyGpuFilter);
@@ -2019,6 +2274,7 @@
         statusEl.textContent =
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         populateGpuFilter();
+        populateLfGpus();
         applyBitFilter();  // sets the slider label/track and renders everything
       } catch (e) {
         statusEl.textContent = "failed to load";
