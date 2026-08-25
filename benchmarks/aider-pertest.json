@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T21:52:30",
+  "generated_at": "2026-08-25T22:25:49",
   "column_count": 36,
   "row_count": 225,
   "columns": [
@@ -253,7 +253,7 @@
       "edit_format": "whole",
       "model": "openai/Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
       "run_dir": "20260825-202708",
-      "num_tests_run": 36
+      "num_tests_run": 48
     },
     {
       "column_id": "rtx5090-Qwen3.8-27B-ABL-Q5_K_M|aider",
@@ -922,6 +922,12 @@
           "status": "ran"
         },
         "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -2204,6 +2210,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
           "p1": false,
           "p2": true,
@@ -2968,6 +2980,12 @@
           "p1": false,
           "p2": true,
           "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
           "status": "ran"
         },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
@@ -6419,6 +6437,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
           "p1": true,
           "p2": true,
@@ -8753,6 +8777,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.8-27B-UD-Q5_K_XL|aider": {
@@ -11421,6 +11451,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
           "p1": false,
           "p2": true,
@@ -11498,6 +11534,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
@@ -12254,6 +12296,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
           "p1": false,
           "p2": false,
@@ -12531,6 +12579,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.8-27B-MTP-Q4_0|aider": {
@@ -15538,6 +15592,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.8-27B-ABL-Q5_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -16115,6 +16175,12 @@
           "status": "ran"
         },
         "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
@@ -18374,6 +18440,12 @@
           "status": "ran"
         },
         "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP|aider": {
           "p1": true,
           "p2": true,
           "n": 1,

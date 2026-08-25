@@ -7,7 +7,9 @@
 #   litellm (default): queries /model/info; each model carries
 #     .litellm_params.tags including a producer ("rtx5090"/"gfx1151") and a
 #     backend ("cuda"/"vulkan"/"rocm"). One output file is produced per
-#     (producer, backend) pair discovered among base-tagged models.
+#     (producer, backend) pair discovered among base-tagged models. Models
+#     that are not tagged with either known producer are collected into a
+#     single "others" file (benchmarks.<backend>.others.toml).
 #
 #   direct: queries /models (a plain llama-swap / llama-server host). The
 #     producer and backend are not always present in the tags, so they must be
@@ -140,14 +142,19 @@ else
 fi
 
 write_toml() {
-    local producer="$1" backend="$2" filter_desc="$3"
-    shift 3
+    # $1 out_label   - filename segment after "benchmarks.${ENDPOINT_BACKEND}."
+    #                 (e.g. "rtx5090.cuda" or "others")
+    # $2 producer    - shown in the header comment
+    # $3 backend     - shown in the header comment
+    # $4 filter_desc - shown in the header comment
+    local out_label="$1" producer="$2" backend="$3" filter_desc="$4"
+    shift 4
     local -a models=("$@")
     local variants_suffix=""
     if $ENABLE_VARIANTS; then
         variants_suffix=".variants"
     fi
-    local out_file="${OUT_DIR}/benchmarks.${ENDPOINT_BACKEND}.${producer}.${backend}${variants_suffix}.toml"
+    local out_file="${OUT_DIR}/benchmarks.${ENDPOINT_BACKEND}.${out_label}${variants_suffix}.toml"
 
     echo "Writing ${out_file} (${#models[@]} models)" >&2
     {
@@ -194,7 +201,24 @@ if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
         ' "$tmpjson" | sort -u
     )
 
-    if [[ ${#pairs[@]} -eq 0 ]]; then
+    # Models that don't belong to a known producer (rtx5090/gfx1151) go into a
+    # single "others" bucket.  In base mode a model counts as canonical when it
+    # is not tagged "variant" or "alias"; this also picks up untagged entries
+    # (e.g. cloud-API or direct-server models that carry no kind tag at all).
+    mapfile -t others < <(
+        jq -r --argjson enable_variants "$ENABLE_VARIANTS" '
+            .data[]
+            | (.litellm_params.tags // []) as $t
+            | select(
+                ($enable_variants or (($t | index("variant") | not) and ($t | index("alias") | not)))
+                and (($t | index("rtx5090")) | not)
+                and (($t | index("gfx1151")) | not)
+              )
+            | .model_name
+        ' "$tmpjson" | sort -u
+    )
+
+    if [[ ${#pairs[@]} -eq 0 && ${#others[@]} -eq 0 ]]; then
         echo "No models found." >&2
         exit 1
     fi
@@ -214,10 +238,21 @@ if [[ "$ENDPOINT_BACKEND" == "litellm" ]]; then
         )
         [[ ${#models[@]} -eq 0 ]] && continue
 
-        write_toml "$producer" "$backend" \
+        write_toml "${producer}.${backend}" "$producer" "$backend" \
             "${VARIANT_FILTER_DESC} + \"${producer}\" + \"${backend}\"" \
             "${models[@]}"
     done
+
+    if [[ ${#others[@]} -gt 0 ]]; then
+        if $ENABLE_VARIANTS; then
+            others_filter='all models (variants) + not "rtx5090" + not "gfx1151"'
+        else
+            others_filter='canonical (not "variant", not "alias") + not "rtx5090" + not "gfx1151"'
+        fi
+        write_toml "others" "others" "(mixed)" "$others_filter" "${others[@]}"
+    else
+        echo "No 'others' models found, skipping others file." >&2
+    fi
 
 else
     # direct: producer/backend can't be discovered reliably, so require them.
@@ -249,7 +284,7 @@ else
         exit 1
     fi
 
-    write_toml "$ENDPOINT_PRODUCER" "$ENDPOINT_BACKEND_LABEL" "$filter_desc" "${models[@]}"
+    write_toml "${ENDPOINT_PRODUCER}.${ENDPOINT_BACKEND_LABEL}" "$ENDPOINT_PRODUCER" "$ENDPOINT_BACKEND_LABEL" "$filter_desc" "${models[@]}"
 fi
 
 echo "Done." >&2
