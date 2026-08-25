@@ -1,7 +1,0 @@
-{
-  "timestamp": "2026-08-25T19:59:09",
-  "endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
-  "model": "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
-  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"code\":500,\"message\":\"model name=Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP failed to load\",\"type\":\"server_error\"}}",
-  "duration_s": 0.052032
-}
