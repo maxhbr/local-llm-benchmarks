@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-25T11:23:49",
-  "column_count": 36,
+  "generated_at": "2026-08-25T15:24:10",
+  "column_count": 35,
   "row_count": 225,
   "columns": [
     {
@@ -308,15 +308,6 @@
       "model": "openai/rtx5090:gemma-4-31B-it-qat-q4_0",
       "run_dir": "20260606-131137",
       "num_tests_run": 225
-    },
-    {
-      "column_id": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4|aider",
-      "folder": "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4",
-      "bench": "aider",
-      "edit_format": "whole",
-      "model": "openai/localhost:22545",
-      "run_dir": "20260824-124035",
-      "num_tests_run": 4
     },
     {
       "column_id": "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider",
@@ -2512,14 +2503,6 @@
           "p2": true,
           "n": 2,
           "status": "ran"
-        },
-        "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4|aider": {
-          "p1": false,
-          "p2": true,
-          "n": 2,
-          "status": "ran",
-          "err": true,
-          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9588,14 +9571,6 @@
           "p2": true,
           "n": 2,
           "status": "ran"
-        },
-        "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4|aider": {
-          "p1": false,
-          "p2": false,
-          "n": 2,
-          "status": "ran",
-          "err": true,
-          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15346,14 +15321,6 @@
           "p2": false,
           "n": 2,
           "status": "ran"
-        },
-        "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4|aider": {
-          "p1": false,
-          "p2": false,
-          "n": 2,
-          "status": "ran",
-          "err": true,
-          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18424,14 +18391,6 @@
           "p2": true,
           "n": 2,
           "status": "ran"
-        },
-        "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4|aider": {
-          "p1": false,
-          "p2": false,
-          "n": 2,
-          "status": "ran",
-          "err": true,
-          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },

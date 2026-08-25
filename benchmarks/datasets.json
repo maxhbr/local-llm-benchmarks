@@ -34,7 +34,6 @@
     "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml",
-    "rtx5090-ninfer-dockerized-Qwen3.8-27B-NVFP4/aider.computed.yaml",
     "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider.computed.yaml"
   ]
 }
