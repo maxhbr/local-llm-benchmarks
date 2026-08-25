@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-24T19:55:00",
+  "generated_at": "2026-08-25T11:23:49",
   "column_count": 36,
   "row_count": 225,
   "columns": [
@@ -21892,7 +21892,9 @@
     "rtx5090-gemma-4-26B-A4B-it-qat-q4_0/aider/20260611-083518: no per-test blocks",
     "rtx5090-gemma-4-31B-it-UD-Q5_K_XL/aider/20260612-090249: no per-test blocks",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121713: no per-test blocks",
-    "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121725: no per-test blocks"
+    "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121725: no per-test blocks",
+    "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-202902: no per-test blocks",
+    "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-205224: no per-test blocks"
   ],
   "fallback_keys": []
 }
