@@ -10,7 +10,9 @@
 #        -> writes the master CSV
 #   4. scripts/find-fastest.py --benchmarks-dir benchmarks/ -o benchmarks/find-fastest.md
 #        -> writes the ranking report
-#   5. python3 -m http.server --directory benchmarks <port>
+#   5. scripts/generate-tool-eval-manifest.py --root benchmarks
+#        -> writes benchmarks/_tool-eval-scoreboards/manifest.json (tool-eval-bench runs)
+#   6. python3 -m http.server --directory benchmarks <port>
 #        -> serves the benchmarks folder over HTTP   (skip with --no-serve)
 #
 # Usage:
@@ -61,11 +63,16 @@ step "3/5  llama-benchy-md-to-csv.py --all $BENCH_DIR -o $CSV_OUT"
 "$PY" scripts/llama-benchy-md-to-csv.py --all "$BENCH_DIR" -o "$CSV_OUT"
 echo "Wrote $CSV_OUT"
 
-step "4/5  find-fastest.py --benchmarks-dir $BENCH_DIR -o $FASTEST_OUT"
+step "4/6  find-fastest.py --benchmarks-dir $BENCH_DIR -o $FASTEST_OUT"
 "$PY" scripts/find-fastest.py --benchmarks-dir "$BENCH_DIR" -o "$FASTEST_OUT"
 
+TOOL_EVAL_OUT="$BENCH_DIR/_tool-eval-scoreboards/manifest.json"
+step "5/6  generate-tool-eval-manifest.py --root $BENCH_DIR"
+"$PY" scripts/generate-tool-eval-manifest.py --root "$BENCH_DIR" -o "$TOOL_EVAL_OUT"
+echo "Wrote $TOOL_EVAL_OUT"
+
 if [[ "$SERVE" -eq 1 ]]; then
-    step "5/5  http.server --directory $BENCH_DIR :$HTTP_PORT"
+    step "6/6  http.server --directory $BENCH_DIR :$HTTP_PORT"
     printf '\n\033[1;32mAll done. Serving %s at http://localhost:%s/\033[0m\n' "$BENCH_DIR" "$HTTP_PORT"
     exec "$PY" -m http.server --directory "$BENCH_DIR" "$HTTP_PORT"
 else
