@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-24T22:16:37",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Hy3-Q2_K_L",
+  "reply": "pong",
+  "duration_s": 40.335966
+}

@@ -18,6 +18,14 @@
 # Output filename:
 #     benchmarks.<ENDPOINT_BACKEND>.<producer>.<backend>.toml
 #   (appends .variants when ENABLE_VARIANTS=true)
+#
+# Benchmarks: BENCHMARKS is the active list (comma-separated, default
+# "llama-benchy").  "smoke" is not a selectable option: the runner always
+# prepends it (and gates the rest on it).  The full set of selectable ids is
+# ALL_BENCHMARKS below (matches the BENCHMARKS map in run_benchmarks.py,
+# sans the implicit "smoke"); ids NOT in the active list are written as a
+# "# remaining options:" comment line directly after the benchmarks array,
+# so options stay visible without being enabled.
 
 set -euo pipefail
 
@@ -29,11 +37,12 @@ ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
 ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
-BENCHMARKS="${BENCHMARKS:-smoke, llama-benchy}"
+BENCHMARKS="${BENCHMARKS:-llama-benchy}"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
 OUT_DIR="${OUT_DIR:-${REPO_ROOT}}"
+mkdir -p "$OUT_DIR"
 
 case "$ENDPOINT_BACKEND" in
     litellm) INFO_URL="${ENDPOINT_URL%/}/model/info" ;;
@@ -73,7 +82,55 @@ benchmarks_toml_array() {
     printf '%s' "$out"
 }
 
+# Trim + split "a, b, c" into one id per line.
+benchmarks_iter() {
+    local raw="$1"
+    local IFS=','
+    local -a parts
+    local p
+    read -r -a parts <<<"$raw"
+    for p in "${parts[@]}"; do
+        p="${p#"${p%%[![:space:]]*}"}"
+        p="${p%"${p##*[![:space:]]*}"}"
+        [[ -n "$p" ]] && printf '%s\n' "$p"
+    done
+    return 0
+}
+
+# Full set of selectable benchmark ids known to run_benchmarks.py's BENCHMARKS
+# map (verify with `run_benchmarks.py --list-benchmarks`).  "smoke" is
+# deliberately absent: the runner always runs it and gates the others on it.
+ALL_BENCHMARKS=(agent-bench aider llama-benchy terminal-bench tool-eval-bench)
+
+# Print the "# remaining options:" comment line for the ids that are NOT in the
+# given comma-separated active list.  Empty string when every option is active.
+benchmarks_options_comment() {
+    local active p
+    active="$(benchmarks_iter "$1")"
+    local -a remaining=()
+    for p in "${ALL_BENCHMARKS[@]}"; do
+        grep -qxF -- "$p" <<<"$active" || remaining+=("$p")
+    done
+    if (( ${#remaining[@]} == 0 )); then
+        printf '%s' ""
+    else
+        local out="# remaining options:"
+        local first=1
+        for p in "${remaining[@]}"; do
+            if (( first )); then
+                out+=" \"$p\""
+                first=0
+            else
+                out+=", \"$p\""
+            fi
+        done
+        printf '%s' "$out"
+    fi
+}
+
 BENCHMARKS_ARRAY="$(benchmarks_toml_array "$BENCHMARKS")"
+# Kept unselected options visible in the written files as a comment line.
+BENCHMARKS_OPTIONS_COMMENT="$(benchmarks_options_comment "$BENCHMARKS")"
 
 # Model filter: restrict to "base" tagged models, or all models for variants.
 if $ENABLE_VARIANTS; then
@@ -104,7 +161,11 @@ write_toml() {
         printf 'name       = "%s"\n' "$ENDPOINT_NAME"
         printf 'url        = "%s"\n' "$ENDPOINT_URL"
         printf 'api_key    = "%s"\n' "$API_KEY"
-        printf 'benchmarks = %s\n\n' "$BENCHMARKS_ARRAY"
+        printf 'benchmarks = %s\n' "$BENCHMARKS_ARRAY"
+        if [[ -n "$BENCHMARKS_OPTIONS_COMMENT" ]]; then
+            printf '%s\n' "$BENCHMARKS_OPTIONS_COMMENT"
+        fi
+        printf '\n'
         for m in "${models[@]}"; do
             printf '  [[endpoints.models]]\n'
             printf '  name = "%s"\n' "$m"
