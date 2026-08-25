@@ -65,6 +65,14 @@ def parse_run_timestamp(name: str) -> str | None:
 # constant.  Verified against scores.max_points / total_scenarios.
 POINTS_PER_SCENARIO = 2
 
+# Denominator for ``comparable_score``: the full suite's maximum points.  A run
+# whose inference server died mid-suite has its ``scores.max_points`` shrink to
+# only the scenarios that ran (e.g. 36 for 18/69), so the raw ``final_score``
+# (total/max) rewards *not running* checks.  ``comparable_score`` divides
+# total_points by this fixed full-suite max so every run is ranked on the same
+# scale regardless of how many scenarios actually executed.
+FULL_SUITE_MAX_POINTS = 138
+
 
 def _title_from_raw_log(raw_log: str) -> str | None:
     """result.json scenario entries have no ``title`` field, but the first line
@@ -127,14 +135,34 @@ def parse_result_json(d: dict[str, Any]) -> dict[str, Any]:
     cfg = d.get("config", {})
     md = d.get("metadata", {})
 
+    # Completion data: tool-eval-bench excludes scenarios that failed with a
+    # server_error (infrastructure failure) from scoring, so ``scores.max_points``
+    # shrinks to only the scenarios that ran.  Surface the completion rate and the
+    # excluded count so the dashboard can tell a 89%-of-36 run from a 88%-of-138
+    # run, and compute a full-suite comparable score on a common denominator.
+    excluded = sc.get("excluded_scenarios") or []
+    scenario_rows = sc.get("scenario_results", [])
+    total_points = sc.get("total_points")
+    completion_rate = sc.get("completion_rate")
+    if completion_rate is None and scenario_rows:
+        ran = len(scenario_rows) - len(excluded)
+        completion_rate = round(ran / len(scenario_rows) * 100, 1)
+    comparable_score = None
+    if total_points is not None:
+        comparable_score = round(total_points / FULL_SUITE_MAX_POINTS * 100)
+
     report: dict[str, Any] = {
         "schema_version": d.get("schema_version"),
         "version": d.get("tool_eval_bench_version"),
         "run_id": d.get("run_id"),
         "status": d.get("status"),
         "final_score": d.get("final_score"),
-        "total_points": sc.get("total_points"),
+        "total_points": total_points,
         "max_points": sc.get("max_points"),
+        "comparable_score": comparable_score,
+        "completion_rate": completion_rate,
+        "excluded_count": len(excluded),
+        "scenarios_run": len(scenario_rows) - len(excluded),
         "rating": d.get("rating"),
         "deployability": d.get("deployability"),
         "responsiveness": d.get("responsiveness"),
@@ -147,7 +175,7 @@ def parse_result_json(d: dict[str, Any]) -> dict[str, Any]:
         "safety_gate": d.get("safety_gate"),
         "safety_warnings": d.get("safety_warnings", []),
         "categories": _parse_categories(sc.get("category_scores", [])),
-        "scenarios": _parse_scenarios(sc.get("scenario_results", [])),
+        "scenarios": _parse_scenarios(scenario_rows),
     }
 
     # Structured context mirrors for the dashboard's "Run Context" panel.

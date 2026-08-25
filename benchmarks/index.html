@@ -735,7 +735,7 @@
         <label>Model filter
           <input id="tebLbFilter" type="text" placeholder="substring…" style="width: 14em;">
         </label>
-        <span>One row per run. Click a column header to sort.</span>
+        <span>One row per run. Default sort: comp score (full-suite score; a run that skipped checks via server errors ranks below one that ran them all). Click a column header to sort.</span>
         <span id="tebLbStatus" style="color: var(--muted);"></span>
       </div>
       <div class="scrollwrap"><table class="grid" id="tebTblLb"></table></div>
@@ -782,7 +782,8 @@
         </label>
         <label>Y
           <select id="tebSpY">
-            <option value="final_score" selected>final_score</option>
+            <option value="comparable_score" selected>comparable_score</option>
+            <option value="final_score">final_score (raw)</option>
             <option value="deployability">deployability</option>
             <option value="responsiveness">responsiveness</option>
             <option value="total_points">total_points</option>
@@ -3167,19 +3168,21 @@
       // ---------- KPIs ----------
       function renderKpis() {
         const view = viewRuns();
-        const scores = view.map(r => r.report.final_score).filter(v => v != null);
-        const best = scores.length ? Math.max(...scores) : "—";
-        const mean = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : "—";
+        const cs = view.map(r => r.report.comparable_score).filter(v => v != null);
+        const best = cs.length ? Math.max(...cs) : "—";
+        const mean = cs.length ? Math.round(cs.reduce((a, b) => a + b, 0) / cs.length) : "—";
         const sweeps = view.filter(r => r.report.scenarios.every(s => s.status === "pass")).length;
+        const full = view.filter(r => (r.report.completion_rate ?? 0) >= 100).length;
         const nScen = view.length ? view[0].report.scenarios.length : 0;
         const gen = MANIFEST.generated_at || "—";
         const kpis = [
           ["runs",           view.length],
-          ["best score",     best],
-          ["mean score",     mean],
-          ["clean sweeps",   sweeps],
-          ["scenarios/run",  nScen],
-          ["manifest built", gen],
+          ["best comp score", best],
+          ["mean comp score", mean],
+          ["full completions", full],
+          ["clean sweeps",    sweeps],
+          ["scenarios/run",   nScen],
+          ["manifest built",  gen],
         ];
         document.getElementById("tebKpis").innerHTML = kpis.map(([k, v]) =>
           `<div class="kpi"><div class="label">${k}</div><div class="value">${v}</div></div>`
@@ -3191,9 +3194,27 @@
         { key: "ts",     label: "when",    render: r => r.ts ? r.ts.replace("T", " ") : r.run },
         { key: "gpu",    label: "gpu",     render: r => gpuPill(r) },
         { key: "model",  label: "model",   render: r => esc(shortModel(r)) },
-        { key: "final_score",   label: "score",  num: true, render: r => scoreBadge(r.report.final_score) },
+        { key: "comparable_score", label: "comp score", num: true,
+          render: r => scoreBadge(r.report.comparable_score),
+          tip: "score over the FULL suite (total_points / 138 × 100). "
+             + "Unlike final_score this uses a fixed denominator, so a run "
+             + "that skipped most checks (server errors) can't rank above "
+             + "one that ran them all." },
+        { key: "final_score",   label: "raw score", num: true,
+          render: r => scoreBadge(r.report.final_score),
+          tip: "tool-eval-bench's own score: total_points / max_points. "
+             + "max_points shrinks to only the scenarios that ran, so this "
+             + "rewards not running checks — compare with comp score." },
+        { key: "completion_rate", label: "completion", num: true,
+          render: r => {
+            if (r.report.completion_rate == null) return "—";
+            const cls = r.report.completion_rate < 100 ? "warn" : "good";
+            const tip = `${r.report.scenarios_run}/${r.report.scenarios.length} scenarios ran (${r.report.excluded_count} excluded as server errors)`;
+            return `<span class="badge ${cls}" title="${esc(tip)}">${Math.round(r.report.completion_rate)}%</span>`;
+          } },
         { key: "rating",        label: "rating", render: r => esc(r.report.rating || "—") },
-        { key: "points",        label: "points", num: true, render: r => `${r.report.total_points}/${r.report.max_points}` },
+        { key: "points",        label: "points", num: true,
+          render: r => `${r.report.total_points}/${r.report.max_points}` },
         { key: "deployability",  label: "deploy",  num: true, render: r => scoreBadge(r.report.deployability) },
         { key: "responsiveness", label: "resp",    num: true, render: r => scoreBadge(r.report.responsiveness) },
         { key: "median_turn_ms",  label: "med turn", num: true, render: r => fmtNum(r.report.median_turn_ms, 0) },
@@ -3213,7 +3234,7 @@
             return `<span class="badge zero">${p}/${pa}/${f}</span>`;
           } },
       ];
-      let lbSort = { col: "final_score", dir: "desc" };
+      let lbSort = { col: "comparable_score", dir: "desc" };
       function lbVal(r, key) {
         switch (key) {
           case "ts":              return r.ts || "";
@@ -3238,7 +3259,8 @@
         const head = "<thead><tr>" + LB_COLS.map(c => {
           const sortCls = lbSort.col === c.key
             ? (lbSort.dir === "asc" ? "sort-asc" : "sort-desc") : "";
-          return `<th class="${sortCls}" data-col="${c.key}">${c.label}</th>`;
+          const tip = c.tip ? ` title="${esc(c.tip)}"` : "";
+          return `<th class="${sortCls}" data-col="${c.key}"${tip}>${c.label}</th>`;
         }).join("") + "</tr></thead>";
         const body = "<tbody>" + rows.map(r =>
           "<tr>" + LB_COLS.map(c =>
@@ -3338,7 +3360,15 @@
         const catByRun = {};
         for (const c of cols)
           catByRun[c.run] = new Map(c.report.categories.map(x => [x.category, x]));
-        const base = cols.length ? cols[0].report.categories : [];
+        // Union of categories across all visible runs (a run that skipped most
+        // of the suite only scored a subset — e.g. gemma-26B has 6, not 15).
+        // Show the full 15 so columns are comparable; missing runs render blank.
+        const catMap = new Map();
+        for (const c of cols)
+          for (const x of c.report.categories)
+            if (!catMap.has(x.category)) catMap.set(x.category, x);
+        const base = [...catMap.values()].sort((a, b) =>
+          String(a.category).localeCompare(String(b.category)));
         const head = ["<thead><tr>",
           `<th class="rowkey">category</th>`,
           ...cols.map(c => {
@@ -3349,12 +3379,15 @@
         const body = "<tbody>" + base.map(cat => {
           const tds = cols.map(c => {
             const cc = catByRun[c.run].get(cat.category);
-            if (!cc) return "<td></td>";
+            if (!cc) return `<td class="num" title="${esc(c.folder + " did not run this category")}"><span class="badge zero">—</span></td>`;
             const tip = `${cc.earned}/${cc.max} pts · pass ${cc.pass_count} partial ${cc.partial_count} fail ${cc.fail_count}`;
             return `<td title="${esc(tip)}">${pctBadge(cc.percent)}</td>`;
           }).join("");
           const label = `${cat.category} ${cat.label}`;
-          return `<tr><td class="rowkey" title="${esc(label + " · " + cat.earned + "/" + cat.max + " pts")}">${esc(label)}<span class="rk-rate">${cat.earned}/${cat.max}</span></td>${tds}</tr>`;
+          // show the max points from the first run that has this category
+          const ref = cols.map(c => catByRun[c.run].get(cat.category)).find(Boolean);
+          const maxStr = ref ? `${ref.earned}/${ref.max}` : "";
+          return `<tr><td class="rowkey" title="${esc(label + " · " + maxStr + " pts")}">${esc(label)}<span class="rk-rate">${maxStr}</span></td>${tds}</tr>`;
         }).join("") + "</tbody>";
         tbl.innerHTML = head + body;
         document.getElementById("tebCatStatus").textContent =
