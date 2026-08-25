@@ -1,0 +1,1 @@
+{"event": "error", "error": "model_not_available", "message": "Model 'gfx1151:Qwen3.8-27B-Q6_K-MTP' is listed in /v1/models but returned HTTP 502 on a test request: "}

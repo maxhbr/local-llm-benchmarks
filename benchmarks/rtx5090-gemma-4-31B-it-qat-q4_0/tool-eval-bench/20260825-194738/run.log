@@ -1,0 +1,2 @@
+{"event": "backend_detected", "backend": "llamacpp"}
+{"event": "error", "error": "model_not_available", "message": "Model 'gemma-4-31B-it-qat-q4_0' is listed in /v1/models but returned HTTP 500 on a test request: {\"error\":{\"code\":500,\"message\":\"model name=gemma-4-31B-it-qat-q4_0 failed to load\",\"type\":\"server_error\"}}"}

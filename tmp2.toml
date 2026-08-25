@@ -14,10 +14,6 @@ benchmarks = ["tool-eval-bench"]
 # remaining options: "agent-bench", "aider", "terminal-bench", 
 
   [[endpoints.models]]
-  name = "gfx1151:Qwen3.8-27B-MTP-Q8_0"
-  [[endpoints.models]]
-  name = "gfx1151:Qwen3.8-27B-Q6_K-MTP"
-  [[endpoints.models]]
   name = "gfx1151:Qwen3.8-27B-ABL-Q5_K_M"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.8-27B-MTP-Q4_0"
@@ -31,3 +27,5 @@ benchmarks = ["tool-eval-bench"]
   name = "gfx1151:Qwen3.8-27B-UD-Q5_K_XL"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.8-27B-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.8-27B-Q6_K-MTP"
