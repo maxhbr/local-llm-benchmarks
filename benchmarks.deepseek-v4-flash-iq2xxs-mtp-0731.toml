@@ -1,0 +1,11 @@
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "ds4"
+url        = "http://localhost:22546/v1"
+api_key    = "EMPTY"
+benchmarks = ["llama-benchy", "tool-eval-bench"] # , "agent-bench", "aider", "terminal-bench", "tool-eval-bench"]
+
+  [[endpoints.models]]
+  name = "deepseek-v4-flash"
+  alias = "DeepSeek-V4-Flash-IQ2XXS-MTP-0731"

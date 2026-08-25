@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260825-231148)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | smoke          | 0   | 0.0      | OK
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | llama-benchy   | 0   | 0.0      | OK
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | agent-bench    | 0   | 0.0      | OK
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | aider          | 0   | 0.0      | OK
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | terminal-bench | 0   | 0.0      | OK
+ds4                  | DeepSeek-V4-Flash-IQ2XXS-MTP-0731   | tool-eval-bench | 0   | 0.0      | OK
+------------------------------------------------------------------------------------------
+Total: 6   OK: 6   FAIL: 0
