@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-08-25T13:06:04",
-  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
-  "model": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
+  "timestamp": "2026-08-25T20:14:48",
+  "endpoint": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+  "model": "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
   "reply": "(empty content, finish_reason=length)",
-  "duration_s": 25.639989
+  "duration_s": 17.309717
 }

@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260825-201007",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.5-9B-Q5_K_M",
+      "bench": "smoke",
+      "alias": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 5.297971,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.5-9B-Q5_K_M",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090:Qwen3.5-9B-Q5_K_M",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 18.022548,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
+      "bench": "smoke",
+      "alias": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "rtx5090.thing.wg0.maxhbr.local",
+      "endpoint_url": "http://rtx5090.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}

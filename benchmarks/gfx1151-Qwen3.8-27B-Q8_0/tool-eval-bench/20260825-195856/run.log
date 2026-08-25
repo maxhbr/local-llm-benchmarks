@@ -1,0 +1,37 @@
+{"event": "scenario_start", "scenario_id": "TC-01", "title": "Direct Specialist Match", "category": "A", "index": 0, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-01", "status": "pass", "points": 2, "index": 0, "total": 69, "duration_seconds": 36.3}
+{"event": "scenario_start", "scenario_id": "TC-02", "title": "Distractor Resistance", "category": "A", "index": 1, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-02", "status": "pass", "points": 2, "index": 1, "total": 69, "duration_seconds": 35.32}
+{"event": "scenario_start", "scenario_id": "TC-03", "title": "Implicit Tool Need", "category": "A", "index": 2, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-03", "status": "pass", "points": 2, "index": 2, "total": 69, "duration_seconds": 43.14}
+{"event": "scenario_start", "scenario_id": "TC-04", "title": "Unit Handling", "category": "B", "index": 3, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-04", "status": "pass", "points": 2, "index": 3, "total": 69, "duration_seconds": 23.23}
+{"event": "scenario_start", "scenario_id": "TC-05", "title": "Date and Time Parsing", "category": "B", "index": 4, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-05", "status": "pass", "points": 2, "index": 4, "total": 69, "duration_seconds": 79.22}
+{"event": "scenario_start", "scenario_id": "TC-06", "title": "Multi-Value Extraction", "category": "B", "index": 5, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-06", "status": "pass", "points": 2, "index": 5, "total": 69, "duration_seconds": 33.29}
+{"event": "scenario_start", "scenario_id": "TC-07", "title": "Search \u2192 Read \u2192 Act", "category": "C", "index": 6, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-07", "status": "pass", "points": 2, "index": 6, "total": 69, "duration_seconds": 93.82}
+{"event": "scenario_start", "scenario_id": "TC-08", "title": "Conditional Branching", "category": "C", "index": 7, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-08", "status": "pass", "points": 2, "index": 7, "total": 69, "duration_seconds": 57.58}
+{"event": "scenario_start", "scenario_id": "TC-09", "title": "Parallel Independence", "category": "C", "index": 8, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-09", "status": "pass", "points": 2, "index": 8, "total": 69, "duration_seconds": 53.43}
+{"event": "scenario_start", "scenario_id": "TC-10", "title": "Trivial Knowledge", "category": "D", "index": 9, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-10", "status": "pass", "points": 2, "index": 9, "total": 69, "duration_seconds": 12.49}
+{"event": "scenario_start", "scenario_id": "TC-11", "title": "Simple Math", "category": "D", "index": 10, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-11", "status": "pass", "points": 2, "index": 10, "total": 69, "duration_seconds": 11.99}
+{"event": "scenario_start", "scenario_id": "TC-12", "title": "Impossible Request", "category": "D", "index": 11, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-12", "status": "pass", "points": 2, "index": 11, "total": 69, "duration_seconds": 42.39}
+{"event": "scenario_start", "scenario_id": "TC-13", "title": "Empty Results", "category": "E", "index": 12, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-13", "status": "pass", "points": 2, "index": 12, "total": 69, "duration_seconds": 48.18}
+{"event": "scenario_start", "scenario_id": "TC-14", "title": "Malformed Response", "category": "E", "index": 13, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-14", "status": "pass", "points": 2, "index": 13, "total": 69, "duration_seconds": 69.06}
+{"event": "scenario_start", "scenario_id": "TC-15", "title": "Conflicting Information", "category": "E", "index": 14, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-15", "status": "pass", "points": 2, "index": 14, "total": 69, "duration_seconds": 45.63}
+{"event": "scenario_start", "scenario_id": "TC-16", "title": "German Language Tool Call", "category": "F", "index": 15, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-16", "status": "pass", "points": 2, "index": 15, "total": 69, "duration_seconds": 35.16}
+{"event": "scenario_start", "scenario_id": "TC-17", "title": "Timezone-Aware Scheduling", "category": "F", "index": 16, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-17", "status": "pass", "points": 2, "index": 16, "total": 69, "duration_seconds": 49.88}
+{"event": "scenario_start", "scenario_id": "TC-18", "title": "Translate & Forward", "category": "F", "index": 17, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-18", "status": "pass", "points": 2, "index": 17, "total": 69, "duration_seconds": 54.46}
+{"event": "scenario_start", "scenario_id": "TC-19", "title": "Message Routing", "category": "G", "index": 18, "total": 69}
