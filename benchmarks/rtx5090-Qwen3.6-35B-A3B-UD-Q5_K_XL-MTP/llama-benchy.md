@@ -1,0 +1,1 @@
+/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/rtx5090-Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP/llama-benchy/20260825-130604/result.md
