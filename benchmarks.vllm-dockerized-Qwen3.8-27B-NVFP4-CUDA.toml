@@ -7,7 +7,8 @@ output_dir = "./benchmarks"
 name       = "vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA"
 url        = "http://127.0.0.1:22545/v1"
 api_key    = "EMPTY"
-benchmarks = ["smoke", "llama-benchy", "aider"]
+benchmarks = ["tool-eval-bench", "agent-bench", "terminal-bench"]
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
   name = "Qwen3.8-27B-NVFP4-RTX5090"
