@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T17:22:41",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Qwen3.8-27B-MTP-Q4_0",
+  "error": "HTTP 502: Bad Gateway",
+  "duration_s": 0.001765
+}

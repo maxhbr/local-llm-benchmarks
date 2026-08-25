@@ -1,0 +1,23 @@
+==========================================================================================
+RUN SUMMARY  (20260825-172151)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-Q6_K-MTP        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-Q6_K-MTP        | tool-eval-bench | 3   | 0.3      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-ABL-Q5_K_M      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-ABL-Q5_K_M      | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-MTP-Q4_0        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-MTP-Q4_0        | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-Q8_0            | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-Q8_0            | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q8_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q8_K_XL      | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q4_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q4_K_XL      | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q5_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q5_K_XL      | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q6_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-UD-Q6_K_XL      | tool-eval-bench | 3   | 0.2      | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 16   OK: 8   FAIL: 8

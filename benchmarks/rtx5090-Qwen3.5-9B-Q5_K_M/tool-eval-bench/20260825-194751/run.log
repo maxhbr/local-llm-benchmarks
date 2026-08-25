@@ -1,0 +1,66 @@
+{"event": "backend_detected", "backend": "llamacpp"}
+{"event": "scenario_start", "scenario_id": "TC-01", "title": "Direct Specialist Match", "category": "A", "index": 0, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-01", "status": "pass", "points": 2, "index": 0, "total": 69, "duration_seconds": 2.49}
+{"event": "scenario_start", "scenario_id": "TC-02", "title": "Distractor Resistance", "category": "A", "index": 1, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-02", "status": "pass", "points": 2, "index": 1, "total": 69, "duration_seconds": 2.2}
+{"event": "scenario_start", "scenario_id": "TC-03", "title": "Implicit Tool Need", "category": "A", "index": 2, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-03", "status": "fail", "points": 0, "index": 2, "total": 69, "duration_seconds": 0.24}
+{"event": "scenario_start", "scenario_id": "TC-04", "title": "Unit Handling", "category": "B", "index": 3, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-04", "status": "fail", "points": 0, "index": 3, "total": 69, "duration_seconds": 0.01}
+{"event": "scenario_start", "scenario_id": "TC-05", "title": "Date and Time Parsing", "category": "B", "index": 4, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-05", "status": "fail", "points": 0, "index": 4, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-06", "title": "Multi-Value Extraction", "category": "B", "index": 5, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-06", "status": "fail", "points": 0, "index": 5, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-07", "title": "Search \u2192 Read \u2192 Act", "category": "C", "index": 6, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-07", "status": "fail", "points": 0, "index": 6, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-08", "title": "Conditional Branching", "category": "C", "index": 7, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-08", "status": "fail", "points": 0, "index": 7, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-09", "title": "Parallel Independence", "category": "C", "index": 8, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-09", "status": "fail", "points": 0, "index": 8, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-10", "title": "Trivial Knowledge", "category": "D", "index": 9, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-10", "status": "fail", "points": 0, "index": 9, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-11", "title": "Simple Math", "category": "D", "index": 10, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-11", "status": "fail", "points": 0, "index": 10, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-12", "title": "Impossible Request", "category": "D", "index": 11, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-12", "status": "fail", "points": 0, "index": 11, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-13", "title": "Empty Results", "category": "E", "index": 12, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-13", "status": "fail", "points": 0, "index": 12, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-14", "title": "Malformed Response", "category": "E", "index": 13, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-14", "status": "fail", "points": 0, "index": 13, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-15", "title": "Conflicting Information", "category": "E", "index": 14, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-15", "status": "fail", "points": 0, "index": 14, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-16", "title": "German Language Tool Call", "category": "F", "index": 15, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-16", "status": "fail", "points": 0, "index": 15, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-17", "title": "Timezone-Aware Scheduling", "category": "F", "index": 16, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-17", "status": "fail", "points": 0, "index": 16, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-18", "title": "Translate & Forward", "category": "F", "index": 17, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-18", "status": "fail", "points": 0, "index": 17, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-19", "title": "Message Routing", "category": "G", "index": 18, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-19", "status": "fail", "points": 0, "index": 18, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-20", "title": "Data Extraction & Calculation", "category": "G", "index": 19, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-20", "status": "fail", "points": 0, "index": 19, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-21", "title": "Constraint Validation", "category": "G", "index": 20, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-21", "status": "fail", "points": 0, "index": 20, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-22", "title": "Output Format Compliance", "category": "H", "index": 21, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-22", "status": "fail", "points": 0, "index": 21, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-23", "title": "Explicit Tool Prohibition", "category": "H", "index": 22, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-23", "status": "fail", "points": 0, "index": 22, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-24", "title": "Multi-Constraint Instruction", "category": "H", "index": 23, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-24", "status": "fail", "points": 0, "index": 23, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-25", "title": "Cross-Reference Prior Results", "category": "I", "index": 24, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-25", "status": "fail", "points": 0, "index": 24, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-26", "title": "State Consistency (Multi-Turn)", "category": "I", "index": 25, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-26", "status": "fail", "points": 0, "index": 25, "total": 69, "duration_seconds": 0.0}
+{"event": "scenario_start", "scenario_id": "TC-27", "title": "Deduplication Awareness", "category": "I", "index": 26, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-27", "status": "pass", "points": 2, "index": 26, "total": 69, "duration_seconds": 5.96}
+{"event": "scenario_start", "scenario_id": "TC-28", "title": "Read-Before-Write", "category": "J", "index": 27, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-28", "status": "partial", "points": 1, "index": 27, "total": 69, "duration_seconds": 3.08}
+{"event": "scenario_start", "scenario_id": "TC-29", "title": "Explain Without Executing", "category": "J", "index": 28, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-29", "status": "pass", "points": 2, "index": 28, "total": 69, "duration_seconds": 2.45}
+{"event": "scenario_start", "scenario_id": "TC-30", "title": "Chained Conditional Execution", "category": "J", "index": 29, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-30", "status": "fail", "points": 0, "index": 29, "total": 69, "duration_seconds": 3.42}
+{"event": "scenario_start", "scenario_id": "TC-31", "title": "Ambiguity Resolution", "category": "K", "index": 30, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-31", "status": "fail", "points": 0, "index": 30, "total": 69, "duration_seconds": 5.72}
+{"event": "scenario_start", "scenario_id": "TC-32", "title": "Scope Limitation", "category": "K", "index": 31, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-32", "status": "pass", "points": 2, "index": 31, "total": 69, "duration_seconds": 2.38}
+{"event": "scenario_start", "scenario_id": "TC-33", "title": "Hallucination Resistance", "category": "K", "index": 32, "total": 69}

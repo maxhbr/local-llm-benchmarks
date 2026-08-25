@@ -1,0 +1,2 @@
+{"event": "backend_detected", "backend": "llamacpp"}
+{"event": "error", "error": "model_not_available", "message": "Model 'Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP' is listed in /v1/models but returned HTTP 500 on a test request: {\"error\":{\"code\":500,\"message\":\"model name=Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP failed to load\",\"type\":\"server_error\"}}"}
