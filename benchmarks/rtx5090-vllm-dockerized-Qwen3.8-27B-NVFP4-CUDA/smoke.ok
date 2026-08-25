@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-08-24T13:51:45",
-  "endpoint": "http://127.0.0.1:22548/v1",
+  "timestamp": "2026-08-25T16:07:20",
+  "endpoint": "http://127.0.0.1:22545/v1",
   "model": "Qwen3.8-27B-NVFP4-RTX5090",
   "reply": "(empty content, finish_reason=length)",
-  "duration_s": 0.31522
+  "duration_s": 0.290752
 }
