@@ -1,49 +1,30 @@
 #!/usr/bin/env python3
-"""Compile every ``<folder>/tool-eval-bench/<timestamp>/result.md`` report into a
-single ``manifest.json`` that the dashboard (``benchmarks/index.html``) loads with
-one fetch.
+"""Compile every ``<folder>/tool-eval-bench/<timestamp>/result.json`` report into
+a single ``manifest.json`` that the dashboard (``benchmarks/index.html``) loads
+with one fetch.
 
-Each tool-eval-bench run directory contains:
+Each run directory contains:
 
-    <folder>/tool-eval-bench/<timestamp>/
-        meta.json     # run parameters (host, model, run_name, timestamp, ...)
-        result.md     # the human-readable Markdown report (the source of truth)
-        run.log       # console log (optional; only the wall-clock duration is read)
+    meta.json     # run parameters (host, model, run_name, timestamp, ...)
+    result.json   # machine-readable report (the ONLY result source; produced by
+                  #               the driver via --json-file — see
+                  #               tool-eval-bench-benchmarks.sh)
 
-This script parses ``result.md`` (header bullets + the Category Scores,
-Scenario Results and Performance-by-Difficulty tables) and normalizes it to:
+This script reads ``result.json`` (structured, authoritative) together with the
+``meta.json`` sidecar.  The Markdown ``result.md`` is intentionally NOT read —
+it is a human-readable artifact only.
+
+Note: tool-eval-bench's result.json does not carry the per-scenario difficulty
+tier (the ★ column from the Markdown report), so the manifest omits difficulty
+data.  If that is needed, ask tool-eval-bench to emit it in JSON.
+
+Normalized output (see ``build_run`` for the full shape):
 
     {
-      "generated_at": "2026-08-25T...",
-      "count": 1,
+      "generated_at": "...",
+      "count": N,
       "skipped": [...],
-      "runs": [
-        {
-          "run":   "20260825-152901",
-          "folder":"rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA",
-          "ts":    "2026-08-25T15:29:01",
-          "host":  "thing",                 # machine hostname (meta.json), informational
-          "model": "Qwen3.8-27B-NVFP4-RTX5090",
-          "report": {
-            "run_id": "...", "date": "...", "version": "...",
-            "final_score": 88, "total_points_earned": 122, "total_points_max": 138,
-            "rating": "★★★★ Good",
-            "tool_def_overhead_tokens": 4742, "num_tools": 52,
-            "tool_def_overhead_chars": 18970,
-            "deployability": 82, "quality": 88, "responsiveness": 68,
-            "median_turn_s": 1.8, "duration_s": 470.7,
-            "run_context": { "backend": "vllm", ... },
-            "inference_engine": { "engine": "vLLM 0.27.1", ... },
-            "categories": [ {"category": "...", "earned": 6, "max": 6, "percent": 100}, ... ],
-            "scenarios": [ {"id": "TC-01", "title": "...", "diff": 1,
-                            "status": "pass", "points_earned": 2, "points_max": 2,
-                            "failure": null, "summary": "..."}, ... ],
-            "difficulty": [ {"tier": "Trivial", "level": 1, "scenarios": 4,
-                            "passed": 4, "rate": 1.0}, ... ]
-          },
-          "meta": { ...selected meta.json fields... }
-        }, ...
-      ]
+      "runs": [ { run, folder, ts, host, model, report, meta }, ... ]
     }
 
 Usage:
@@ -75,284 +56,135 @@ def parse_run_timestamp(name: str) -> str | None:
     return d.isoformat(timespec="seconds")
 
 
-def decode_entities(s: str) -> str:
-    """Decode the handful of HTML entities tool-eval-bench emits in its tables."""
-    return (s.replace("&amp;", "&")
-             .replace("&lt;", "<")
-             .replace("&gt;", ">")
-             .replace("&quot;", '"')
-             .replace("&#39;", "'"))
-
-
-def clean_cell(s: str) -> str:
-    """Trim a table cell and decode HTML entities, keeping inner text."""
-    return decode_entities(s.strip())
-
-
-def _int(v: Any) -> int | None:
-    try:
-        return int(str(v).strip())
-    except (TypeError, ValueError):
-        return None
-
-
-def _float(v: Any) -> float | None:
-    try:
-        return float(str(v).strip())
-    except (TypeError, ValueError):
-        return None
-
-
 # ---------------------------------------------------------------------------
-# result.md parsing
+# result.json parsing
 # ---------------------------------------------------------------------------
 
-# A markdown table row: leading "| ... |" with pipe-separated cells.
-TableRow = tuple[list[str], list[str]]  # (header_cells, body_cells) — handled inline
+# Every scenario in this benchmark is worth 2 points (69 scenarios × 2 = 138
+# max_points), and result.json does not carry a per-scenario max — hence the
+# constant.  Verified against scores.max_points / total_scenarios.
+POINTS_PER_SCENARIO = 2
 
 
-def _table_rows(lines: list[str], start: int) -> tuple[list[list[str]], int]:
-    """Starting at the table header line index ``start``, return all body rows
-    (each a list of cell strings) and the index of the first line after the table."""
-    header = [c.strip() for c in lines[start].strip().strip("|").split("|")]
-    body: list[list[str]] = []
-    i = start + 1
-    # skip the separator row (---|---|...)
-    if i < len(lines) and re.match(r"^\s*\|?[\s:|-]+\|?\s*$", lines[i]):
-        i += 1
-    ncol = len(header)
-    while i < len(lines):
-        line = lines[i]
-        if not line.strip() or not line.lstrip().startswith("|"):
-            break
-        cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        # A summary that contained a literal "|" would over-split; rejoin the
-        # trailing cells back into the last column so we always have ncol columns.
-        if len(cells) > ncol:
-            cells = cells[: ncol - 1] + [" | ".join(cells[ncol - 1:])]
-        body.append([decode_entities(c) for c in cells])
-        i += 1
-    return body, i
-
-
-def _find_table(lines: list[str], header_re: str) -> list[list[str]] | None:
-    """Find the first table whose header row matches ``header_re`` (against the
-    raw header line) and return its body rows, or None."""
-    rx = re.compile(header_re)
-    for idx, line in enumerate(lines):
-        if line.lstrip().startswith("|") and rx.search(line):
-            body, _ = _table_rows(lines, idx)
-            return body
+def _title_from_raw_log(raw_log: str) -> str | None:
+    """result.json scenario entries have no ``title`` field, but the first line
+    of ``raw_log`` is ``scenario=TC-01 <Title>``.  Strip the leading id so the
+    title matches the Markdown table (e.g. "Direct Specialist Match")."""
+    for line in raw_log.splitlines():
+        if line.startswith("scenario="):
+            title = line[len("scenario="):].strip()
+            return re.sub(r"^TC-\d+\s+", "", title)
     return None
 
 
-_HEADER_BULLETS = {
-    "Run ID": "run_id",
-    "Date": "date",
-    "tool-eval-bench": "version",
-    "Final Score": "final_score",
-    "Total Points": "total_points",
-    "Rating": "rating",
-    "Tool Definition Overhead": "tool_def_overhead",
-    "Deployability": "deployability",
-    "Quality": "quality",
-    "Responsiveness": "responsiveness",
-}
-
-
-def _parse_header(lines: list[str]) -> dict[str, Any]:
-    """Parse the leading ``- **Key**: value`` bullets (up to the first blank line
-    or the first table)."""
-    out: dict[str, Any] = {}
-    for line in lines:
-        s = line.strip()
-        if not s:
-            # a single blank line separates the rating block from the rest;
-            # keep scanning until we hit a table or section heading
-            continue
-        # A section heading ("## Run Context") or a table row ends the header.
-        if s.startswith("##") or s.startswith("|"):
-            break
-        # Skip the H1 title line ("# Tool-Call Benchmark — ...").
-        if s.startswith("#"):
-            continue
-        m = re.match(r"^-\s*\*\*(.+?)\*\*\s*:\s*(.*)$", s)
-        if not m:
-            continue
-        key_raw, val = m.group(1).strip(), m.group(2).strip()
-        field = _HEADER_BULLETS.get(key_raw)
-        if field is None:
-            continue
-        # strip surrounding markdown bold/backticks
-        val = re.sub(r"^\*\*(.+?)\*\*$", r"\1", val)
-
-        if field == "final_score":
-            m2 = re.search(r"(\d+)\s*/\s*100", val)
-            out["final_score"] = _int(m2.group(1)) if m2 else None
-        elif field == "total_points":
-            m2 = re.search(r"(\d+)\s*/\s*(\d+)", val)
-            if m2:
-                out["total_points_earned"] = _int(m2.group(1))
-                out["total_points_max"] = _int(m2.group(2))
-        elif field == "rating":
-            out["rating"] = val
-        elif field == "tool_def_overhead":
-            # "~4,742 tokens (52 tools, 18,970 chars)"
-            m2 = re.search(r"~?([\d,]+)\s*tokens", val)
-            out["tool_def_overhead_tokens"] = (
-                int(m2.group(1).replace(",", "")) if m2 else None)
-            m3 = re.search(r"(\d+)\s*tools?", val)
-            out["num_tools"] = _int(m3.group(1)) if m3 else None
-            m4 = re.search(r"([\d,]+)\s*chars", val)
-            out["tool_def_overhead_chars"] = (
-                int(m4.group(1).replace(",", "")) if m4 else None)
-        elif field in ("deployability", "quality", "responsiveness"):
-            m2 = re.search(r"(\d+)\s*/\s*100", val)
-            out[field] = _int(m2.group(1)) if m2 else None
-            if field == "responsiveness":
-                m3 = re.search(r"median turn:\s*([\d.]+)s", val)
-                out["median_turn_s"] = _float(m3.group(1)) if m3 else None
-        else:
-            # strip backticks
-            out[field] = re.sub(r"^`(.+)`$", r"\1", val)
-    return out
-
-
-def _parse_kv_table(body: list[list[str]]) -> dict[str, str]:
-    out: dict[str, str] = {}
-    for row in body:
-        if len(row) < 2:
-            continue
-        k = clean_cell(row[0])
-        v = clean_cell(row[1])
-        out[k] = re.sub(r"^`(.+)`$", r"\1", v)
-    return out
-
-
-def _parse_categories(body: list[list[str]]) -> list[dict[str, Any]]:
-    cats = []
-    for row in body:
-        if len(row) < 4:
-            continue
-        cats.append({
-            "category": clean_cell(row[0]),
-            "earned": _int(row[1]),
-            "max": _int(row[2]),
-            "percent": _float(row[3].rstrip("%")) if row[3].strip() else None,
-        })
-    return cats
-
-
-_STATUS_MAP = {
-    "pass": "pass",
-    "partial": "partial",
-    "fail": "fail",
-}
-
-
-def _parse_scenarios(body: list[list[str]]) -> list[dict[str, Any]]:
+def _parse_scenarios(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     scs = []
-    for row in body:
-        if len(row) < 7:
-            continue
-        sid = clean_cell(row[0])
-        if not re.match(r"^TC-\d+$", sid):
-            continue
-        status_raw = clean_cell(row[3]).lower()
-        # "✅ pass" / "⚠️ partial" / "❌ fail" — keep the last word
-        status = None
-        for word in status_raw.split():
-            if word in _STATUS_MAP:
-                status = _STATUS_MAP[word]
-                break
-        if status is None:
-            status = status_raw or None
-        pts = clean_cell(row[4])
-        m = re.match(r"(\d+)\s*/\s*(\d+)", pts)
-        fail = clean_cell(row[5])
+    for s in rows:
+        sid = s.get("scenario_id", "")
         scs.append({
             "id": sid,
-            "title": clean_cell(row[1]),
-            "diff": row[2].count("★") or None,
-            "status": status,
-            "points_earned": _int(m.group(1)) if m else None,
-            "points_max": _int(m.group(2)) if m else None,
-            "failure": None if fail in ("", "—", "-") else fail,
-            "summary": clean_cell(row[6]),
+            "title": _title_from_raw_log(s.get("raw_log") or ""),
+            "status": s.get("status"),
+            "points": s.get("points"),
+            "points_max": POINTS_PER_SCENARIO,
+            "summary": s.get("summary"),
+            "note": s.get("note"),
+            "failure_kind": s.get("failure_kind"),
+            "duration_s": s.get("duration_seconds"),
+            "turn_count": s.get("turn_count"),
+            "ttft_ms": s.get("ttft_ms"),
+            "turn_latencies_ms": s.get("turn_latencies_ms"),
+            "prompt_tokens": s.get("prompt_tokens"),
+            "completion_tokens": s.get("completion_tokens"),
+            "total_tokens": s.get("total_tokens"),
+            "tool_call_arg_bytes": s.get("tool_call_arg_bytes"),
+            "tool_calls_made": s.get("tool_calls_made"),
+            "expected_behavior": s.get("expected_behavior"),
+            "parallel_tool_turns": s.get("parallel_tool_turns"),
         })
     return scs
 
 
-def _parse_difficulty(body: list[list[str]]) -> list[dict[str, Any]]:
-    tiers = []
-    for row in body:
-        if len(row) < 4:
-            continue
-        tier_cell = clean_cell(row[0])
-        m = re.search(r"\((\d+)\)", tier_cell)
-        rate = clean_cell(row[3]).rstrip("%")
-        tiers.append({
-            "tier": re.sub(r"\s*\(\d+\)\s*$", "", tier_cell),
-            "level": _int(m.group(1)) if m else None,
-            "scenarios": _int(row[1]),
-            "passed": _int(row[2]),
-            "rate": (_float(rate) / 100.0) if rate not in ("", "—") else None,
+def _parse_categories(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    cats = []
+    for c in rows:
+        cats.append({
+            "category": c.get("category"),
+            "label": c.get("label"),
+            "earned": c.get("earned"),
+            "max": c.get("max"),
+            "percent": c.get("percent"),
+            "pass_count": c.get("pass_count"),
+            "partial_count": c.get("partial_count"),
+            "fail_count": c.get("fail_count"),
         })
-    return tiers
+    return cats
 
 
-def parse_result_md(text: str) -> dict[str, Any]:
-    """Parse a tool-eval-bench ``result.md`` into a normalized report dict."""
-    lines = text.splitlines()
-    report: dict[str, Any] = _parse_header(lines)
+def parse_result_json(d: dict[str, Any]) -> dict[str, Any]:
+    """Normalize a tool-eval-bench ``result.json`` into the report shape."""
+    sc = d.get("scores", {})
+    cfg = d.get("config", {})
+    md = d.get("metadata", {})
 
-    rc = _find_table(lines, r"Parameter\s*\|\s*Value") or \
-         _find_table(lines, r"^\|\s*Parameter\b")
-    if rc is not None:
-        report["run_context"] = _parse_kv_table(rc)
+    report: dict[str, Any] = {
+        "schema_version": d.get("schema_version"),
+        "version": d.get("tool_eval_bench_version"),
+        "run_id": d.get("run_id"),
+        "status": d.get("status"),
+        "final_score": d.get("final_score"),
+        "total_points": sc.get("total_points"),
+        "max_points": sc.get("max_points"),
+        "rating": d.get("rating"),
+        "deployability": d.get("deployability"),
+        "responsiveness": d.get("responsiveness"),
+        "median_turn_ms": sc.get("median_turn_ms"),
+        "alpha": sc.get("alpha"),
+        "total_tokens": sc.get("total_tokens"),
+        "token_efficiency": sc.get("token_efficiency"),
+        "worst_category": sc.get("worst_category"),
+        "worst_category_percent": sc.get("worst_category_percent"),
+        "safety_gate": d.get("safety_gate"),
+        "safety_warnings": d.get("safety_warnings", []),
+        "categories": _parse_categories(sc.get("category_scores", [])),
+        "scenarios": _parse_scenarios(sc.get("scenario_results", [])),
+    }
 
-    ie = _find_table(lines, r"^\|\s*Property\s*\|\s*Value")
-    if ie is not None:
-        report["inference_engine"] = _parse_kv_table(ie)
-
-    cats = _find_table(lines, r"^\|\s*Category\s*\|\s*Earned\s*\|\s*Max\s*\|\s*Percent")
-    if cats is not None:
-        report["categories"] = _parse_categories(cats)
-    else:
-        report["categories"] = []
-
-    scs = _find_table(lines, r"^\|\s*ID\s*\|\s*Title\s*\|\s*Diff\s*\|\s*Status")
-    if scs is not None:
-        report["scenarios"] = _parse_scenarios(scs)
-    else:
-        report["scenarios"] = []
-
-    diff = _find_table(lines, r"^\|\s*Tier\s*\|\s*Scenarios\s*\|\s*Passed\s*\|\s*Rate")
-    if diff is not None:
-        report["difficulty"] = _parse_difficulty(diff)
-    else:
-        report["difficulty"] = []
-
+    # Structured context mirrors for the dashboard's "Run Context" panel.
+    # config carries the run knobs; metadata carries the engine + the
+    # scenario selector string ("all (69)").
+    report["run_context"] = {
+        "Backend": cfg.get("backend"),
+        "Server": cfg.get("base_url"),
+        "Model (API)": cfg.get("model"),
+        "Temperature": cfg.get("temperature"),
+        "Seed": cfg.get("seed"),
+        "Max Turns": cfg.get("max_turns"),
+        "Timeout": cfg.get("timeout_seconds"),
+        "Scenarios": md.get("scenario_selector"),
+        "Parallel": cfg.get("concurrency"),
+        "Error Rate": cfg.get("error_rate"),
+        "Alpha": cfg.get("alpha"),
+        "Config Fingerprint": cfg.get("config_fingerprint"),
+    }
+    report["inference_engine"] = {
+        "Engine": (f"{md.get('engine_name', '')} {md.get('engine_version', '')}").strip() or None,
+        "Max Model Length": md.get("max_model_len"),
+        "Host": md.get("hostname"),
+        "Platform": md.get("platform_info"),
+        "Python": md.get("python_version"),
+        "Git SHA": md.get("git_sha"),
+        "Thinking Enabled": md.get("thinking_enabled"),
+    }
     return report
-
-
-def parse_duration_s(log_path: str) -> float | None:
-    """Best-effort: pull "Completed in 470.7s" from the run.log."""
-    try:
-        with open(log_path, encoding="utf-8", errors="replace") as f:
-            for line in f:
-                m = re.search(r"Completed in\s+([\d.]+)s", line)
-                if m:
-                    return _float(m.group(1))
-    except OSError:
-        return None
-    return None
 
 
 # ---------------------------------------------------------------------------
 # manifest assembly
 # ---------------------------------------------------------------------------
 
+# meta.json fields folded into each run entry (complement result.json with the
+# run-invocation flags + the unmasked endpoint + the human run_name).
 META_KEEP = (
     "timestamp", "host", "bench", "model", "endpoint", "run_name",
     "short", "hardmode", "hardmode_only", "categories", "scenarios", "seed",
@@ -361,11 +193,12 @@ META_KEEP = (
 
 
 def build_run(folder: str, run: str, run_dir: str) -> dict[str, Any] | None:
-    meta_path = os.path.join(run_dir, "meta.json")
-    md_path = os.path.join(run_dir, "result.md")
-    if not os.path.isfile(md_path):
+    json_path = os.path.join(run_dir, "result.json")
+    if not os.path.isfile(json_path):
         return None
+
     meta: dict[str, Any] = {}
+    meta_path = os.path.join(run_dir, "meta.json")
     if os.path.isfile(meta_path):
         try:
             with open(meta_path, encoding="utf-8") as f:
@@ -373,23 +206,16 @@ def build_run(folder: str, run: str, run_dir: str) -> dict[str, Any] | None:
         except Exception:  # noqa: BLE001
             meta = {}
 
-    with open(md_path, encoding="utf-8") as f:
-        text = f.read()
-    report = parse_result_md(text)
-
-    # duration from run.log (optional)
-    dur = parse_duration_s(os.path.join(run_dir, "run.log"))
-    if dur is not None:
-        report["duration_s"] = dur
+    with open(json_path, encoding="utf-8") as f:
+        jdata = json.load(f)
+    report = parse_result_json(jdata)
 
     meta_host = str(meta.get("host") or "")
     meta_model = str(meta.get("model") or report.get("run_id") or folder)
 
-    # ts: prefer meta timestamp, fall back to the dir name.
     ts = parse_run_timestamp(run)
     meta_ts = meta.get("timestamp")
     if meta_ts:
-        # meta "20260825-152901" -> same format; keep the parsed iso form.
         parsed = parse_run_timestamp(str(meta_ts))
         if parsed:
             ts = parsed
@@ -421,8 +247,8 @@ def build_manifest(root: str) -> dict[str, Any]:
             run_dir = os.path.join(teb, run)
             if not os.path.isdir(run_dir):
                 continue
-            if not os.path.isfile(os.path.join(run_dir, "result.md")):
-                skipped.append(f"{folder}/tool-eval-bench/{run}: no result.md")
+            if not os.path.isfile(os.path.join(run_dir, "result.json")):
+                skipped.append(f"{folder}/tool-eval-bench/{run}: no result.json")
                 continue
             try:
                 entry = build_run(folder, run, run_dir)
