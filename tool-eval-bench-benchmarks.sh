@@ -353,6 +353,14 @@ init_run_dir "$OUTPUT_DIR" "$RUN_NAME" "$BENCH_TAG"
 # meta-writing still work after the cd.
 RUN_DIR_ABS="$(cd "$RUN_DIR" && pwd)"
 
+# Also emit a machine-readable JSON report beside result.md, so downstream
+# tooling (scripts/generate-tool-eval-manifest.py) reads structured data
+# instead of scraping the Markdown.  tool-eval-bench writes it directly to
+# the given path; a fallback below also scavenges runs/ for a *.json if it
+# happens to nest there like the .md reports do.  Added after init_run_dir so
+# $RUN_DIR_ABS is known, and before write_cmd so run.cmd records it too.
+TEB_ARGS+=( --json-file "$RUN_DIR_ABS/result.json" )
+
 write_meta \
     "bench=tool-eval-bench" \
     "model=$MODEL" \
@@ -471,6 +479,21 @@ if [[ -n "$LATEST_REPORT" ]]; then
     link_latest_result "$RESULT_FILE" "$BENCH_TAG" || true
 fi
 
+# Flatten the JSON report to result.json in the run dir, mirroring result.md.
+# --json-file (added to TEB_ARGS above) writes it directly to the run dir; if
+# it nested under runs/ instead, copy the newest *.json found there.
+JSON_FILE="$RUN_DIR_ABS/result.json"
+if [[ ! -f "$JSON_FILE" && -d "$RUN_DIR_ABS/runs" ]]; then
+    LATEST_JSON="$(find "$RUN_DIR_ABS/runs" -type f -name '*.json' \
+        -printf '%T+\t%p\n' 2>/dev/null | sort -r | head -1 | cut -f2-)"
+    if [[ -n "$LATEST_JSON" ]]; then
+        cp -f "$LATEST_JSON" "$JSON_FILE" || true
+    fi
+fi
+if [[ -f "$JSON_FILE" ]]; then
+    link_latest_result "$JSON_FILE" "$BENCH_TAG" || true
+fi
+
 echo ""
 echo ">>> Benchmark complete."
 echo ">>> Run dir:     $RUN_DIR_ABS"
@@ -483,6 +506,11 @@ else
 fi
 echo ">>> Meta:        $META_FILE"
 echo ">>> Cmd:         $CMD_FILE"
+if [[ -f "$JSON_FILE" ]]; then
+    echo ">>> JSON:        $JSON_FILE"
+else
+    echo ">>> JSON:         (none — --json-file produced no result.json; check the log)"
+fi
 
 if [[ -f "$RESULT_FILE" ]]; then
     echo ""
