@@ -33,12 +33,23 @@
     main { padding: 16px 20px; }
     .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
       flex-wrap: wrap; align-items: flex-end; }
+    /* Each group is a logical wrapper. display:contents keeps the original flat
+       tab-row layout while letting us hide a whole group's tabs at once. */
+    .tab-section { display: contents; }
     .tabs .tab-group {
       font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
       color: var(--muted); padding: 0 8px 6px; border-left: 1px solid var(--border);
-      margin-left: 4px; align-self: center; user-select: none;
+      margin-left: 4px; align-self: center; user-select: none; cursor: pointer;
     }
-    .tabs .tab-group:first-of-type { border-left: none; margin-left: 0; padding-left: 0; }
+    /* collapsible indicator: ▾ when open, ▸ (rotated) when collapsed */
+    .tabs .tab-group::after {
+      content: "▾"; font-size: 9px; margin-left: 5px; opacity: 0.6;
+      display: inline-block; transition: transform 0.15s ease;
+    }
+    .tab-section.collapsed .tab-group::after { transform: rotate(-90deg); }
+    .tabs .tab-group:hover, .tabs .tab-group.open { color: var(--fg); }
+    .tab-section:first-child .tab-group { border-left: none; margin-left: 0; padding-left: 0; }
+    .tab-section.collapsed .tab { display: none; }
     .tab {
       background: transparent; color: var(--muted); border: 1px solid transparent;
       border-bottom: none; padding: 8px 14px; cursor: pointer; font-size: 14px;
@@ -171,25 +182,31 @@
   </header>
   <main>
     <div class="tabs" role="tablist">
-      <span class="tab-group">aider</span>
-      <button class="tab active" data-tab="pass">Pass rate</button>
-      <button class="tab" data-tab="passtable">Pass-rate table</button>
-      <button class="tab" data-tab="tokens">Tokens per test case</button>
-      <button class="tab" data-tab="seconds">Seconds per test case</button>
-      <button class="tab" data-tab="scatterpass">Seconds vs pass rate</button>
-      <button class="tab" data-tab="aidermatrix">Per-test matrix</button>
-      <span class="tab-group">llama-benchy</span>
-      <button class="tab" data-tab="llama">llama-benchy</button>
-      <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
-      <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
-      <button class="tab" data-tab="llamavs">llama-benchy vs</button>
-      <span class="tab-group">agent bench</span>
-      <button class="tab" data-tab="ab-leaderboard">Leaderboard</button>
-      <button class="tab" data-tab="ab-bestmodel">Best per model</button>
-      <button class="tab" data-tab="ab-bars">Metric bars</button>
-      <button class="tab" data-tab="ab-timeline">Timeline</button>
-      <button class="tab" data-tab="ab-scatter">Speed vs success</button>
-      <button class="tab" data-tab="ab-runs">All runs (raw)</button>
+      <div class="tab-section" data-group="aider">
+        <span class="tab-group">aider</span>
+        <button class="tab active" data-tab="pass">Pass rate</button>
+        <button class="tab" data-tab="passtable">Pass-rate table</button>
+        <button class="tab" data-tab="tokens">Tokens per test case</button>
+        <button class="tab" data-tab="seconds">Seconds per test case</button>
+        <button class="tab" data-tab="scatterpass">Seconds vs pass rate</button>
+        <button class="tab" data-tab="aidermatrix">Per-test matrix</button>
+      </div>
+      <div class="tab-section" data-group="llama-benchy">
+        <span class="tab-group">llama-benchy</span>
+        <button class="tab" data-tab="llama">llama-benchy</button>
+        <button class="tab" data-tab="llamagraph">llama-benchy graph</button>
+        <button class="tab" data-tab="llamagrid">llama-benchy grid</button>
+        <button class="tab" data-tab="llamavs">llama-benchy vs</button>
+      </div>
+      <div class="tab-section" data-group="agent-bench">
+        <span class="tab-group">agent bench</span>
+        <button class="tab" data-tab="ab-leaderboard">Leaderboard</button>
+        <button class="tab" data-tab="ab-bestmodel">Best per model</button>
+        <button class="tab" data-tab="ab-bars">Metric bars</button>
+        <button class="tab" data-tab="ab-timeline">Timeline</button>
+        <button class="tab" data-tab="ab-scatter">Speed vs success</button>
+        <button class="tab" data-tab="ab-runs">All runs (raw)</button>
+      </div>
     </div>
 
     <section class="panel active" id="panel-pass">
@@ -671,25 +688,70 @@
     const statusEl = document.getElementById("status");
     const errorsEl = document.getElementById("errors");
 
-    // --- Tabs ---
-    document.querySelectorAll(".tab").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b === btn));
-        const id = btn.dataset.tab;
-        document.querySelectorAll(".panel").forEach(p =>
-          p.classList.toggle("active", p.id === `panel-${id}`));
-        if (id === "llamagrid" && window.Plotly) {
-          const el = document.getElementById("chartGrid");
-          if (el && el.data) Plotly.Plots.resize(el);
-        }
-        if (id.startsWith("ab-") && window.AgentBench) {
-          window.AgentBench.onTabActivated(id);
-        }
-        if (id === "aidermatrix" && window.AiderPerTest) {
-          window.AiderPerTest.onTabActivated(id);
+    // --- Tabs (collapsible groups) ---
+    // Only one group's tabs are visible at a time; the others are collapsed to
+    // just their header. Clicking a collapsed header opens that group and jumps
+    // to its first tab; clicking the header of the already-open group cycles to
+    // the next tab within that group (so e.g. a 2nd click on LLAMA-BENCHY reaches
+    // "llama-benchy graph", the 2nd tab).
+    function selectTab(id) {
+      document.querySelectorAll(".tab").forEach(b =>
+        b.classList.toggle("active", b.dataset.tab === id));
+      document.querySelectorAll(".panel").forEach(p =>
+        p.classList.toggle("active", p.id === `panel-${id}`));
+      if (id === "llamagrid" && window.Plotly) {
+        const el = document.getElementById("chartGrid");
+        if (el && el.data) Plotly.Plots.resize(el);
+      }
+      if (id.startsWith("ab-") && window.AgentBench) {
+        window.AgentBench.onTabActivated(id);
+      }
+      if (id === "aidermatrix" && window.AiderPerTest) {
+        window.AiderPerTest.onTabActivated(id);
+      }
+    }
+
+    function setGroupOpen(group) {
+      document.querySelectorAll(".tab-section").forEach(s => {
+        const open = s.dataset.group === group;
+        s.classList.toggle("collapsed", !open);
+        s.querySelector(".tab-group").classList.toggle("open", open);
+      });
+    }
+
+    function openGroup(group) {
+      setGroupOpen(group);
+      const first = document.querySelector(`.tab-section[data-group="${group}"] .tab`);
+      if (first) selectTab(first.dataset.tab);
+    }
+
+    function cycleNextTab(group) {
+      const tabs = [...document.querySelectorAll(`.tab-section[data-group="${group}"] .tab`)];
+      const idx = tabs.findIndex(t => t.classList.contains("active"));
+      const next = tabs[(idx + 1) % tabs.length];
+      if (next) selectTab(next.dataset.tab);
+    }
+
+    document.querySelectorAll(".tab").forEach(btn =>
+      btn.addEventListener("click", () => selectTab(btn.dataset.tab)));
+
+    document.querySelectorAll(".tab-section .tab-group").forEach(hdr => {
+      hdr.addEventListener("click", () => {
+        const section = hdr.closest(".tab-section");
+        if (section.classList.contains("collapsed")) {
+          openGroup(section.dataset.group);
+        } else {
+          cycleNextTab(section.dataset.group);
         }
       });
     });
+
+    // Initial state: open whichever group holds the active tab, collapse the rest.
+    {
+      const active = document.querySelector(".tab.active");
+      const group = active ? active.closest(".tab-section").dataset.group : null;
+      if (group) setGroupOpen(group);
+    }
 
     // --- Deterministic color from string ---
     function colorFor(name) {
