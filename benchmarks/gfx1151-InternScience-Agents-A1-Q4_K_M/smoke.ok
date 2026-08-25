@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T00:39:30",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:InternScience-Agents-A1-Q4_K_M",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 11.583201
+}
