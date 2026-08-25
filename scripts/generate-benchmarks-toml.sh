@@ -169,6 +169,13 @@ write_toml() {
         for m in "${models[@]}"; do
             printf '  [[endpoints.models]]\n'
             printf '  name = "%s"\n' "$m"
+            # Direct endpoints serve raw model ids with no producer tag, so add a
+            # producer-prefixed alias.  Per-model output dirs are driven off the
+            # alias (after slugifying ':' -> '-'), so they line up with the
+            # litellm/vllm routes, which name models "<producer>:<id>".
+            if [[ "$ENDPOINT_BACKEND" == "direct" ]]; then
+                printf '  alias = "%s:%s"\n' "$producer" "$m"
+            fi
         done
     } >"$out_file"
 }
