@@ -3109,7 +3109,7 @@
       function viewRuns() {
         return RUNS.filter(r =>
           gpuMatches(gpuOf(r)) && bitsMatch(bitsOf(r))
-          && textMatches(r.model, r.folder));
+          && textMatches(r.model, r.folder, r.meta && r.meta.run_name));
       }
 
       // ---- formatting helpers ----
@@ -3127,11 +3127,22 @@
         const g = gpuOf(r);
         return g !== "other" ? `<span class="pill host-${g}">${g}</span>` : "";
       }
-      // Short model label: drop a leading "<gpu>:"/"<gpu>-" tag and a trailing
-      // "-<gpu>" tag so e.g. "gfx1151:Qwen3.8-…" / "Qwen3.8-…-RTX5090" collapse
-      // to the bare model name.
+      // The run's alias: the friendly run_name the runner assigned (recorded in
+      // meta.json), falling back to the benchmark folder (the slugified
+      // run_name) and then the raw model id. This is what every other benchmark
+      // displays — llama-benchy's CSV "model" column IS the folder/alias — so
+      // tool-eval shows it too, instead of the often-ugly model id (e.g.
+      // "skainet/zai-org/GLM-5.2" -> alias "GLM-5.2"; "deepseek-v4-flash" ->
+      // alias "DeepSeek-V4-Flash-IQ2XXS-MTP-0731").
+      function aliasOf(r) {
+        return String((r.meta && r.meta.run_name) || r.folder || r.model || "");
+      }
+      // Short display label: start from the alias, then drop a leading
+      // "<gpu>:"/"<gpu>-" tag and a trailing "-<gpu>" tag so e.g.
+      // "gfx1151:Qwen3.8-…" / "Qwen3.8-…-RTX5090" collapse to the bare name —
+      // the GPU is already shown as a pill in its own column.
       function shortModel(r) {
-        let s = String(r.model || r.folder || "").replace(/^openai\//, "");
+        let s = aliasOf(r).replace(/^openai\//, "");
         const seg = s.split(/[-:]/)[0];
         if (KNOWN_GPUS.includes(seg)) s = s.replace(/^[^-:]+[-:]/, "");
         return s.replace(TRAIL_GPU, "");
@@ -3249,7 +3260,8 @@
         const filter = document.getElementById("tebLbFilter").value.trim().toLowerCase();
         let rows = viewRuns();
         if (filter) rows = rows.filter(r =>
-          (r.model + " " + r.folder + " " + r.run).toLowerCase().includes(filter));
+          (r.model + " " + r.folder + " " + (r.meta && r.meta.run_name || "")
+           + " " + r.run).toLowerCase().includes(filter));
         rows.sort((a, b) => {
           const av = lbVal(a, lbSort.col), bv = lbVal(b, lbSort.col);
           if (av < bv) return lbSort.dir === "asc" ? -1 : 1;
