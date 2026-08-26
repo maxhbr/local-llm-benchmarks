@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T23:04:04",
+  "endpoint": "http://localhost:4000/v1",
+  "model": "skainet-external/moonshotai/Kimi-K3",
+  "reply": "<think>The user wants me to say 'pong' and nothing else. This is</think>",
+  "duration_s": 1.598537
+}

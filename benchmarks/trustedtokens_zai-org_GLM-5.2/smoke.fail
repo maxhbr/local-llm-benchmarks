@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T22:55:39",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "trustedtokens/zai-org/GLM-5.2",
+  "error": "HTTP 502: Bad Gateway",
+  "duration_s": 0.022979
+}

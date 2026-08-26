@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T22:48:05",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "trustedtokens/google/gemma-4-31B-it",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 1.232292
+}

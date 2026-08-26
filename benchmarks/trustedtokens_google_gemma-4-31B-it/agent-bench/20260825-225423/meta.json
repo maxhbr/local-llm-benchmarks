@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260825-225423",
+  "host": "f13",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "trustedtokens/google/gemma-4-31B-it",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "trustedtokens_google_gemma-4-31B-it"
+}

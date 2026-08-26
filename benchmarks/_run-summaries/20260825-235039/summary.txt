@@ -1,0 +1,16 @@
+==========================================================================================
+RUN SUMMARY  (20260825-235039)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-4000         | Kimi-K3                             | smoke          | 0   | 0.0      | OK
+litellm-4000         | Kimi-K3                             | llama-benchy   | 0   | 0.0      | OK
+litellm-4000         | Kimi-K3                             | tool-eval-bench | 0   | 0.0      | OK
+litellm-4000         | GLM-5.2                             | smoke          | 0   | 1.7      | OK
+litellm-4000         | GLM-5.2                             | llama-benchy   | 0   | 108.0    | OK
+litellm-4000         | GLM-5.2                             | tool-eval-bench | 0   | 368.9    | OK
+litellm-4000         | trustedtokens/deepseek-ai/DeepSeek- | smoke          | 0   | 0.0      | OK
+litellm-4000         | trustedtokens/deepseek-ai/DeepSeek- | llama-benchy   | 0   | 0.0      | OK
+litellm-4000         | trustedtokens/deepseek-ai/DeepSeek- | tool-eval-bench | 0   | 0.0      | OK
+------------------------------------------------------------------------------------------
+Total: 9   OK: 9   FAIL: 0

@@ -1,0 +1,114 @@
+{
+  "timestamp": "20260825-235039",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet-external/moonshotai/Kimi-K3",
+      "bench": "smoke",
+      "alias": "Kimi-K3",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet-external/moonshotai/Kimi-K3",
+      "bench": "llama-benchy",
+      "alias": "Kimi-K3",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.020613,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet-external/moonshotai/Kimi-K3",
+      "bench": "tool-eval-bench",
+      "alias": "Kimi-K3",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.009486,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet/zai-org/GLM-5.2",
+      "bench": "smoke",
+      "alias": "GLM-5.2",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 1.684677,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet/zai-org/GLM-5.2",
+      "bench": "llama-benchy",
+      "alias": "GLM-5.2",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 108.000151,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "skainet/zai-org/GLM-5.2",
+      "bench": "tool-eval-bench",
+      "alias": "GLM-5.2",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 368.93488,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.010398,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0093,
+      "error": null
+    }
+  ]
+}

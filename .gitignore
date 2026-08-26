@@ -8,6 +8,7 @@ __pycache__/
 # SQLite history under data/.  The headline report is flattened to result.md in
 # the run dir (tracked, like llama-benchy); these nested internals are kept on
 # disk for --resume/--history but ignored by git.
-benchmarks/*/tool-eval-bench/*/runs/
-benchmarks/*/tool-eval-bench/*/data/
+tool-eval-bench/*/runs/
+tool-eval-bench/*/data/
 
+*skainet*

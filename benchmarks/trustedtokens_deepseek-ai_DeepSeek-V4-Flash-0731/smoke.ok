@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-25T22:31:55",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731",
+  "reply": "pong",
+  "duration_s": 1.130783
+}

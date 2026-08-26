@@ -1,0 +1,112 @@
+
+============================================================
+RUNNING BENCHMARK: trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731 (10 trials)
+============================================================
+
+--- Trial 1/10 (temp=0.0) ---
+  [Trial 1][Turn 1] Requesting Structured Tool Call...
+   -> 2.69s (31.6 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 1][Turn 2] Feeding observation back...
+   -> 60.18 tok/s | finish=length | thinking=1453chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 2/10 (temp=0.3) ---
+  [Trial 2][Turn 1] Requesting Structured Tool Call...
+   -> 2.04s (38.67 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 2][Turn 2] Feeding observation back...
+   -> 61.1 tok/s | finish=length | thinking=1446chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 3/10 (temp=0.3) ---
+  [Trial 3][Turn 1] Requesting Structured Tool Call...
+   -> 2.35s (40.91 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 3][Turn 2] Feeding observation back...
+   -> 56.27 tok/s | finish=length | thinking=1435chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 4/10 (temp=0.3) ---
+  [Trial 4][Turn 1] Requesting Structured Tool Call...
+   -> 2.39s (40.12 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 4][Turn 2] Feeding observation back...
+   -> 52.27 tok/s | finish=length | thinking=1388chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 5/10 (temp=0.3) ---
+  [Trial 5][Turn 1] Requesting Structured Tool Call...
+   -> 2.13s (31.52 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 5][Turn 2] Feeding observation back...
+   -> 58.83 tok/s | finish=length | thinking=1464chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 6/10 (temp=0.3) ---
+  [Trial 6][Turn 1] Requesting Structured Tool Call...
+   -> 2.40s (32.95 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 6][Turn 2] Feeding observation back...
+   -> 65.56 tok/s | finish=length | thinking=1448chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 7/10 (temp=0.3) ---
+  [Trial 7][Turn 1] Requesting Structured Tool Call...
+   -> 2.24s (35.28 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 7][Turn 2] Feeding observation back...
+   -> 61.05 tok/s | finish=length | thinking=1407chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 8/10 (temp=0.3) ---
+  [Trial 8][Turn 1] Requesting Structured Tool Call...
+   -> 2.91s (27.15 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 8][Turn 2] Feeding observation back...
+   -> 60.34 tok/s | finish=length | thinking=1401chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 9/10 (temp=0.3) ---
+  [Trial 9][Turn 1] Requesting Structured Tool Call...
+   -> 2.59s (30.48 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 9][Turn 2] Feeding observation back...
+   -> 56.76 tok/s | finish=length | thinking=1338chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Trial 10/10 (temp=0.3) ---
+  [Trial 10][Turn 1] Requesting Structured Tool Call...
+   -> 2.50s (31.59 tok/s) | Raw: {"tool_name":"calculate_density","mass_kg":4.5,"volume_m3":0.0005}
+   -> Step 1 OK: Valid JSON.
+   -> Step 1b OK: Correct tool_name.
+   -> Step 2 OK: Correct unit conversions.
+  [Trial 10][Turn 2] Feeding observation back...
+   -> 61.39 tok/s | finish=length | thinking=1412chars | Summary: 
+   -> Step 3 FAIL: 9000 not found in summary numbers [].
+
+--- Aggregated over 10 trials ---
+  Avg Turn-1 TPS        : 34.03  (over 10 trials with tokens)
+  JSON valid rate       : 100%
+  Tool-name correct rate: 100%
+  Math conversion rate  : 100%
+  Avg Turn-2 TPS        : 59.38  (over 10 trials with tokens)
+  Final success rate    : 0%

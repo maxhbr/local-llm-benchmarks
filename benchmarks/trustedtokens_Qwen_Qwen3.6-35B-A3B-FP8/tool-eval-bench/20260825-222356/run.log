@@ -121,3 +121,28 @@
 {"event": "scenario_start", "scenario_id": "TC-61", "title": "Async Polling", "category": "C", "index": 60, "total": 69}
 {"event": "scenario_result", "scenario_id": "TC-61", "status": "partial", "points": 1, "index": 60, "total": 69, "duration_seconds": 6.1}
 {"event": "scenario_start", "scenario_id": "TC-62", "title": "5-Turn Research Chain", "category": "I", "index": 61, "total": 69}
+Evaluator error in scenario TC-62:
+Traceback (most recent call last):
+  File "/home/mhuber/MINE/REPOS/local-llm-benchmarks/work/uv-tools/tool-eval-bench/lib/python3.13/site-packages/tool_eval_bench/runner/orchestrator.py", line 562, in run_scenario
+    evaluation = scenario.evaluate(state)
+  File "/home/mhuber/MINE/REPOS/local-llm-benchmarks/work/uv-tools/tool-eval-bench/lib/python3.13/site-packages/tool_eval_bench/evals/scenarios_planning.py", line 1339, in _tc62_eval
+    email_calls[-1].user_phase is not None and email_calls[-1].user_phase >= 4
+    ~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+{"event": "scenario_result", "scenario_id": "TC-62", "status": "fail", "points": 0, "index": 61, "total": 69, "duration_seconds": 27.7}
+{"event": "scenario_start", "scenario_id": "TC-63", "title": "Accumulating Constraints", "category": "I", "index": 62, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-63", "status": "fail", "points": 0, "index": 62, "total": 69, "duration_seconds": 13.47}
+{"event": "scenario_start", "scenario_id": "TC-64", "title": "Simple Schema Compliance", "category": "O", "index": 63, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-64", "status": "pass", "points": 2, "index": 63, "total": 69, "duration_seconds": 6.74}
+{"event": "scenario_start", "scenario_id": "TC-65", "title": "Tool \u2192 Structured Output", "category": "O", "index": 64, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-65", "status": "pass", "points": 2, "index": 64, "total": 69, "duration_seconds": 3.89}
+{"event": "scenario_start", "scenario_id": "TC-66", "title": "Nested Schema (Array of Objects)", "category": "O", "index": 65, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-66", "status": "pass", "points": 2, "index": 65, "total": 69, "duration_seconds": 3.92}
+{"event": "scenario_start", "scenario_id": "TC-67", "title": "Enum Constraint + Analysis", "category": "O", "index": 66, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-67", "status": "pass", "points": 2, "index": 66, "total": 69, "duration_seconds": 3.53}
+{"event": "scenario_start", "scenario_id": "TC-68", "title": "Schema Violation Resistance", "category": "O", "index": 67, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-68", "status": "pass", "points": 2, "index": 67, "total": 69, "duration_seconds": 2.62}
+{"event": "scenario_start", "scenario_id": "TC-69", "title": "Multi-Tool \u2192 Complex Schema", "category": "O", "index": 68, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-69", "status": "pass", "points": 2, "index": 68, "total": 69, "duration_seconds": 4.96}
+{"event": "benchmark_complete", "json_file": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/trustedtokens_Qwen_Qwen3.6-35B-A3B-FP8/tool-eval-bench/20260825-222356/result.json", "final_score": 86}

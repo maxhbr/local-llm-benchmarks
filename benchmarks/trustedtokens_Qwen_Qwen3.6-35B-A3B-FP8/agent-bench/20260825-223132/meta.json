@@ -1,0 +1,9 @@
+{
+  "timestamp": "20260825-223132",
+  "host": "f13",
+  "git_rev": null,
+  "bench": "agent-bench",
+  "model": "trustedtokens/Qwen/Qwen3.6-35B-A3B-FP8",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "trustedtokens_Qwen_Qwen3.6-35B-A3B-FP8"
+}
