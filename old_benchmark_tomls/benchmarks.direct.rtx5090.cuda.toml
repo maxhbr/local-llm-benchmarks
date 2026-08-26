@@ -10,35 +10,57 @@ output_dir = "./benchmarks"
 name       = "rtx5090.thing.wg0.maxhbr.local"
 url        = "http://rtx5090.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["llama-benchy", "agent-bench"]
+benchmarks = ["llama-benchy"]
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]
   name = "gemma-4-26B-A4B-it-qat-q4_0"
+  alias = "rtx5090:gemma-4-26B-A4B-it-qat-q4_0"
   [[endpoints.models]]
   name = "gemma-4-26B-A4B-it-UD-Q6_K_XL"
+  alias = "rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_XL"
   [[endpoints.models]]
   name = "gemma-4-26B-A4B-it-UD-Q8_K_XL"
+  alias = "rtx5090:gemma-4-26B-A4B-it-UD-Q8_K_XL"
   [[endpoints.models]]
   name = "gemma-4-31B-it-qat-q4_0"
+  alias = "rtx5090:gemma-4-31B-it-qat-q4_0"
   [[endpoints.models]]
   name = "gemma-4-31B-it-UD-Q4_K_XL"
+  alias = "rtx5090:gemma-4-31B-it-UD-Q4_K_XL"
   [[endpoints.models]]
   name = "gemma-4-31B-it-UD-Q5_K_XL"
+  alias = "rtx5090:gemma-4-31B-it-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "InternScience-Agents-A1-Q4_K_M"
+  alias = "rtx5090:InternScience-Agents-A1-Q4_K_M"
   [[endpoints.models]]
   name = "Qwen3.5-9B-Q5_K_M"
-  [[endpoints.models]]
-  name = "Qwen3.6-27B-Q8_0"
-  [[endpoints.models]]
-  name = "Qwen3.6-27B-UD-Q4_K_XL"
-  [[endpoints.models]]
-  name = "Qwen3.6-27B-UD-Q5_K_XL"
-  [[endpoints.models]]
-  name = "Qwen3.6-27B-UD-Q6_K_XL"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-UD-IQ1_M"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-UD-Q2_K_XL"
-  [[endpoints.models]]
-  name = "Qwen3.6-35B-A3B-UD-Q3_K_XL"
+  alias = "rtx5090:Qwen3.5-9B-Q5_K_M"
   [[endpoints.models]]
   name = "Qwen3.6-35B-A3B-UD-Q5_K_XL"
+  alias = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP"
+  alias = "rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL-MTP"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-ABL-Q5_K_M"
+  alias = "rtx5090:Qwen3.8-27B-ABL-Q5_K_M"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-MTP-Q4_0"
+  alias = "rtx5090:Qwen3.8-27B-MTP-Q4_0"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-Q6_K-MTP"
+  alias = "rtx5090:Qwen3.8-27B-Q6_K-MTP"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-UD-Q4_K_XL"
+  alias = "rtx5090:Qwen3.8-27B-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-UD-Q5_K_XL"
+  alias = "rtx5090:Qwen3.8-27B-UD-Q5_K_XL"
+  [[endpoints.models]]
+  name = "Qwen3.8-27B-UD-Q6_K_XL"
+  alias = "rtx5090:Qwen3.8-27B-UD-Q6_K_XL"
+  [[endpoints.models]]
+  name = "TheDrummer_Skyfall-31B-v4.2-Q6_K"
+  alias = "rtx5090:TheDrummer_Skyfall-31B-v4.2-Q6_K"

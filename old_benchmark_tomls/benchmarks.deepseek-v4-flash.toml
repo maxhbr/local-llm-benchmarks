@@ -12,12 +12,12 @@
 output_dir = "./benchmarks"
 
 [[endpoints]]
-name       = "vllm.thing"
-url        = "http://localhost:8000/v1"
+name       = "ds4"
+url        = "http://localhost:22545/v1"
 api_key    = "EMPTY"
 benchmarks = ["llama-benchy", "agent-bench", "aider"] # 
 
 
   [[endpoints.models]]
   name = "deepseek-v4-flash"
-  alias = "DeepSeek-V4-Flash-IQ2XXS-MTP"
+  alias = "gguf/DeepSeek-V4-Flash-Layers37-42Q4KExperts-OtherExpertLayersIQ2XXSGateUp-Q2KDown-AProjQ8-SExpQ8-OutQ8-chat-v2-imatrix-fixed-0731"
