@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260827-112354",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 6.019821,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS\\nAvailable Model Group Fallbacks=None\",\"type\":"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 5.208763,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL\\nAvailable Model Group Fallbacks=None\",\"type\""
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    }
+  ]
+}

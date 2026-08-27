@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260827-111645)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-IQ4_X | smoke          | 1   | 5.9      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS\nAvailable Model Group Fallbacks=None","type":)
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-IQ4_X | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_ | smoke          | 1   | 5.8      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL\nAvailable Model Group Fallbacks=None","type")
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_ | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 0   FAIL: 2   SKIP: 2
