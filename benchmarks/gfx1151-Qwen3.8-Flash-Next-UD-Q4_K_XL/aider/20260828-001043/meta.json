@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260828-001043",
+  "host": "thing",
+  "bench": "aider",
+  "model": "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}
