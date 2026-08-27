@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260827-175627)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-IQ4_X | smoke          | 0   | 35.4     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-IQ4_X | llama-benchy   | 0   | 3377.0   | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_ | smoke          | 0   | 43.3     | OK
+litellm.thing.wg0    | gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_ | llama-benchy   | 0   | 3746.0   | OK
+------------------------------------------------------------------------------------------
+Total: 4   OK: 4   FAIL: 0

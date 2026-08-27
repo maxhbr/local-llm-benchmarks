@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260827-175627",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 35.391105,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 3376.96508,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 43.338312,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 3745.992256,
+      "error": null
+    }
+  ]
+}
