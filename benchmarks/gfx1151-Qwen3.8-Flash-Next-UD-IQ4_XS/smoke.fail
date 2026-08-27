@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-27T11:24:00",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS",
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS\\nAvailable Model Group Fallbacks=None\",\"type\":",
+  "duration_s": 6.019821
+}

@@ -82,4 +82,8 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.8-27B-UD-Q8_K_XL"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-IQ4_XS"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-Q4_K_XL"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:TheDrummer_Skyfall-31B-v4.2-Q6_K"
