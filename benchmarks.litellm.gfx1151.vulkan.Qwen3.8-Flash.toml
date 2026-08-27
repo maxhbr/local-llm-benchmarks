@@ -10,8 +10,8 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.wg0"
 url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["tool-eval-bench"]
-# remaining options: "agent-bench", "aider", "terminal-bench", "llama-benchy"
+benchmarks = ["aider"]
+# remaining options: "agent-bench", "aider", "terminal-bench", "llama-benchy", "tool-eval-bench"
 
   # [[endpoints.models]]
   # name = "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS"
