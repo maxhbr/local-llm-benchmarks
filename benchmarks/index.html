@@ -332,7 +332,7 @@
             <option value="logarithmic">log</option>
           </select>
         </label>
-        <span>X axis: seconds_per_case — Y axis: pass rate (%). One point per benchmark file (final values).</span>
+        <span>X axis: seconds_per_case — Y axis: pass rate (%). One point per benchmark file (final values). Dashed line per GPU: Pareto frontier — no same-GPU point is faster and better.</span>
         <span id="scatterPassStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap"><canvas id="chartScatterPass"></canvas></div>
@@ -789,7 +789,7 @@
             <option value="total_points">total_points</option>
           </select>
         </label>
-        <span>One point per run, colored by GPU.</span>
+        <span>One point per run, colored by GPU. Dashed line per GPU: Pareto frontier — no same-GPU point is faster and better (hidden when X isn't a cost metric).</span>
         <span id="tebSpStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap"><canvas id="tebChartScatter"></canvas></div>
@@ -2078,27 +2078,72 @@
     // Scatter: seconds_per_case (x) vs pass rate (y) — one point per test_case row,
     // one series per benchmark file. Shows the speed/quality tradeoff per run.
     let chartScatterPass = null;
-    function buildScatterPassDatasets(metric, minTasks) {
+    function scatterPassPoints(metric, minTasks) {
       return filteredDatasets()
         .filter(d => tasksOf(d) >= minTasks)
         .map(d => {
           const tasks = tasksOf(d);
           const base = `${d.folder} / ${d.baseName}`;
-          const label = `${base}  [${tasks}]`;
-          const color = colorFor(base);
           // Only the last (most up-to-date) row per benchmark file.
           const last = [...d.rows]
             .reverse()
             .find(r => typeof r.seconds_per_case === "number"
                      && typeof r[metric] === "number");
+          return last ? {
+            gpu: gpuFromDataset(d),
+            label: `${base}  [${tasks}]`,
+            color: colorFor(base),
+            x: last.seconds_per_case,
+            y: last[metric],
+          } : null;
+        })
+        .filter(Boolean);
+    }
+    function buildScatterPassDatasets(metric, minTasks) {
+      return scatterPassPoints(metric, minTasks).map(p => ({
+        label: p.label,
+        data: [{ x: p.x, y: p.y }],
+        borderColor: p.color,
+        backgroundColor: p.color,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        showLine: false,
+      }));
+    }
+    // Frontier barrier per GPU: a point is on its GPU's Pareto frontier when no
+    // other point of the same GPU is faster-or-equal AND has a higher-or-equal
+    // pass rate (at least one strict). Connected in speed order the frontier
+    // points form a barrier — every other same-GPU point lies on or below it.
+    const GPU_FRONTIER_COLORS = {
+      rtx5090: "#ff9f43",
+      gfx1151: "#4ecdc4",
+      other:   "#9aa3b2",
+    };
+    function buildScatterPassFrontierDatasets(metric, minTasks) {
+      const byGpu = new Map();
+      scatterPassPoints(metric, minTasks).forEach(p => {
+        if (!byGpu.has(p.gpu)) byGpu.set(p.gpu, []);
+        byGpu.get(p.gpu).push(p);
+      });
+      return [...byGpu.entries()]
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([gpu, pts]) => {
+          const frontier = pts.filter(p => !pts.some(q =>
+            (q.x <= p.x && q.y >= p.y) && (q.x < p.x || q.y > p.y)));
+          frontier.sort((a, b) => a.x - b.x || a.y - b.y);
+          const color = GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`);
           return {
-            label,
-            data: last ? [{ x: last.seconds_per_case, y: last[metric] }] : [],
+            label: `frontier: ${gpu}`,
+            data: frontier.map(p => ({ x: p.x, y: p.y })),
             borderColor: color,
             backgroundColor: color,
-            pointRadius: 5,
-            pointHoverRadius: 8,
-            showLine: false,
+            showLine: true,
+            tension: 0,
+            borderDash: [6, 4],
+            borderWidth: 2,
+            pointRadius: 2.5,
+            pointHoverRadius: 5,
+            fill: false,
           };
         });
     }
@@ -2106,8 +2151,12 @@
       const metric   = document.getElementById("scatterPassMetric").value;
       const minTasks = Math.max(0, Number(document.getElementById("scatterPassMinTasks").value) || 0);
       const scale    = document.getElementById("scatterPassScale").value;
-      const datasets = buildScatterPassDatasets(metric, minTasks);
-      const visibleRuns = datasets.length;
+      const pointDatasets = buildScatterPassDatasets(metric, minTasks);
+      const datasets = [
+        ...pointDatasets,
+        ...buildScatterPassFrontierDatasets(metric, minTasks),
+      ];
+      const visibleRuns = pointDatasets.length;
       const hidden = filteredDatasets().length - visibleRuns;
       document.getElementById("scatterPassStatus").textContent =
         `${visibleRuns} points` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
@@ -3411,6 +3460,40 @@
         const v = r.report[key];
         return (v === null || v === undefined) ? null : v;
       }
+      // X metrics where lower = better (cost). The frontier barrier is only
+      // meaningful for these: for metrics like responsiveness higher = better,
+      // so "up-left = faster AND better" does not hold and the Pareto reading
+      // would be wrong.
+      const TEB_COST_X = new Set(["median_turn_ms", "total_tokens"]);
+      // Frontier barrier per GPU — same rule as the aider "Seconds vs pass rate"
+      // scatter: a point is on its GPU's Pareto frontier when no other point of
+      // the same GPU is faster-or-equal AND higher-or-equal (at least one
+      // strict). Connected in speed order the points form a barrier — every
+      // other same-GPU point lies on or below it.
+      function buildTebFrontierDatasets(byGpu, xKey, yKey) {
+        if (!TEB_COST_X.has(xKey)) return [];
+        return [...byGpu.entries()]
+          .sort((a, b) => String(a[0]).localeCompare(String(b[0])))
+          .map(([g, pts]) => {
+            const frontier = pts.filter(p => !pts.some(q =>
+              (q.x <= p.x && q.y >= p.y) && (q.x < p.x || q.y > p.y)));
+            frontier.sort((a, b) => a.x - b.x || a.y - b.y);
+            const color = GPU_FRONTIER_COLORS[g] || colorFor(`frontier:${g}`);
+            return {
+              label: `frontier: ${g}`,
+              data: frontier.map(p => ({ x: p.x, y: p.y, r: p.r })),
+              borderColor: color,
+              backgroundColor: color,
+              showLine: true,
+              tension: 0,
+              borderDash: [6, 4],
+              borderWidth: 2,
+              pointRadius: 2.5,
+              pointHoverRadius: 5,
+              fill: false,
+            };
+          });
+      }
       function renderScatter() {
         const xKey = document.getElementById("tebSpX").value;
         const yKey = document.getElementById("tebSpY").value;
@@ -3424,12 +3507,17 @@
         }
         const datasets = [];
         for (const [g, pts] of byGpu) {
-          const c = colorFor(g);
+          // colorFor('other') lands within a few degrees of colorFor('rtx5090'),
+          // making the two groups indistinguishable — fall back to a fixed
+          // distinct color for the "other" bucket (colorFor is used unchanged
+          // everywhere else).
+          const c = g === "other" ? "#e5c07b" : colorFor(g);
           datasets.push({
             label: g, data: pts,
             backgroundColor: c, borderColor: c, pointRadius: 6, pointHoverRadius: 8,
           });
         }
+        datasets.push(...buildTebFrontierDatasets(byGpu, xKey, yKey));
         document.getElementById("tebSpStatus").textContent = `${rows.length} points`;
         const ctx = document.getElementById("tebChartScatter").getContext("2d");
         if (charts.scatter) charts.scatter.destroy();
