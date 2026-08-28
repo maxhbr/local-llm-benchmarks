@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-26T07:02:49",
+  "generated_at": "2026-08-28T13:37:12",
   "column_count": 36,
   "row_count": 225,
   "columns": [
@@ -22115,6 +22115,7 @@
     "gfx1151-Qwen3.6-35B-A3B-UD-IQ1_M/aider/20260613-010755: no per-test blocks",
     "gfx1151-Qwen3.6-35B-A3B-UD-Q2_K_XL/aider/20260613-012420: no per-test blocks",
     "gfx1151-Qwen3.6-35B-A3B-UD-Q3_K_XL/aider/20260613-014137: no per-test blocks",
+    "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL/aider/20260828-001043: no per-test blocks",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider/20260626-120023: no per-test blocks",
     "gfx1151-ROCm0-Qwen3.6-35B-A3B-Q8_0/aider/20260708-000003: no per-test blocks",
     "gfx1151-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider/20260705-234910: no per-test blocks",
