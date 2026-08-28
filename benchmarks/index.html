@@ -30,6 +30,13 @@
       border-radius: 4px; padding: 4px 8px; font-size: 13px;
     }
     header input[type=search] { font-family: inherit; }
+    header .gpu-boxes { display: inline-flex; align-items: center; gap: 10px; }
+    header .gpu-boxes label {
+      display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+      color: var(--fg); font-size: 13px; background: var(--panel-2);
+      border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px;
+    }
+    header .gpu-boxes input[type=checkbox] { accent-color: var(--accent); margin: 0; }
     main { padding: 16px 20px; }
     .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px;
       flex-wrap: wrap; align-items: flex-end; }
@@ -161,13 +168,12 @@
   <header>
     <h1>Local LLM Benchmarks</h1>
     <span class="status" id="status">loading…</span>
-    <label class="gpu-filter" style="margin-left: auto; color: var(--muted); font-size: 13px;
+    <span class="gpu-filter" title="Show only the checked graphics cards. &quot;other&quot; groups every model without a known GPU prefix. Unchecking everything hides all data."
+          style="margin-left: auto; color: var(--muted); font-size: 13px;
            display: inline-flex; align-items: center; gap: 6px;">
       Graphics card
-      <select id="gpuFilter">
-        <option value="" selected>all</option>
-      </select>
-    </label>
+      <span class="gpu-boxes" id="gpuFilter"></span>
+    </span>
     <label class="bit-filter" title="Quantization bits deduced from the model name (Q4_K_M, IQ2_XS, BF16, FP8, int4, …). Models with an unknown quantization are hidden while this filter is narrowed.">
       Quantization
       <span class="dualrange">
@@ -959,7 +965,10 @@
     // Anything without a recognizable known-GPU marker is grouped as "other".
     // ====================================================================
     const KNOWN_GPUS = ["rtx5090", "gfx1151"];
-    let GPU_FILTER = ""; // "" = all
+    // Multi-select GPU filter: a Set of the GPU keys that are currently shown.
+    // Known GPUs start checked, "other" starts unchecked. An empty set hides
+    // everything (no GPU selected -> no data).
+    let GPU_FILTER = new Set(KNOWN_GPUS);
 
     // Detect GPU from a model-name string (handles "openai/" and ":" prefixes).
     function gpuFromModel(model) {
@@ -983,7 +992,7 @@
       return KNOWN_GPUS.includes(host) ? host : "other";
     }
 
-    const gpuMatches = (gpu) => !GPU_FILTER || gpu === GPU_FILTER;
+    const gpuMatches = (gpu) => GPU_FILTER.has(gpu);
 
     // ====================================================================
     // GLOBAL FREE-TEXT (WILDCARD) NAME FILTER
@@ -1103,10 +1112,11 @@
       });
     }
 
-    // Populate the header selector from every data source we have loaded.
+    // Populate the header checkbox group from every data source we have loaded.
     function populateGpuFilter() {
-      const sel = document.getElementById("gpuFilter");
-      const set = new Set();
+      const box = document.getElementById("gpuFilter");
+      const set = new Set(KNOWN_GPUS);
+      set.add("other");
       DATASETS.forEach(d => set.add(gpuFromDataset(d)));
       LLAMA_ROWS.forEach(r => set.add(gpuFromModel(r.model)));
       if (window.AgentBench && window.AgentBench.getRuns) {
@@ -1116,17 +1126,18 @@
         window.ToolEvalBench.gpus().forEach(g => set.add(g));
       }
       const gpus = sortGpus([...set]);
-      const prev = sel.value;
-      for (let i = sel.options.length - 1; i >= 1; i--) sel.remove(i);
+      box.innerHTML = "";
       gpus.forEach(g => {
-        const opt = document.createElement("option");
-        opt.value = g;
-        opt.textContent = g;
-        sel.appendChild(opt);
+        const label = document.createElement("label");
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.value = g;
+        cb.checked = GPU_FILTER.has(g);
+        cb.addEventListener("change", applyGpuFilter);
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode(g));
+        box.appendChild(label);
       });
-      // restore prior selection if still available
-      if (prev && gpus.includes(prev)) sel.value = prev;
-      else { sel.value = ""; GPU_FILTER = ""; }
     }
 
     // Re-render every visible chart/table after a filter changes.
@@ -1148,7 +1159,8 @@
     }
 
     function applyGpuFilter() {
-      GPU_FILTER = document.getElementById("gpuFilter").value;
+      const boxes = document.querySelectorAll("#gpuFilter input[type=checkbox]");
+      GPU_FILTER = new Set([...boxes].filter(cb => cb.checked).map(cb => cb.value));
       renderAll();
     }
 
@@ -2448,7 +2460,6 @@
       document.getElementById(id).addEventListener("change", renderLlamaFactor));
     ["gridTest", "gridScale", "gridModel"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderGrid));
-    document.getElementById("gpuFilter").addEventListener("change", applyGpuFilter);
     ["bitMin", "bitMax"].forEach(id =>
       document.getElementById(id).addEventListener("input", applyBitFilter));
 
