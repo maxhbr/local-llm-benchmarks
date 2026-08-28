@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T14:43:01",
+  "generated_at": "2026-08-28T17:47:25",
   "column_count": 36,
   "row_count": 225,
   "columns": [
@@ -22157,7 +22157,8 @@
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121713: no per-test blocks",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121725: no per-test blocks",
     "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-202902: no per-test blocks",
-    "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-205224: no per-test blocks"
+    "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-205224: no per-test blocks",
+    "trustedtokens_nvidia_NVIDIA-Nemotron-3.5-Lightning-30B-A3B/aider/20260828-160036: no per-test blocks"
   ],
   "fallback_keys": []
 }
