@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-28T16:00:35",
+  "endpoint": "http://localhost:4000/v1",
+  "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 0.28066
+}

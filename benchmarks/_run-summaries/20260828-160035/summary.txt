@@ -1,0 +1,16 @@
+==========================================================================================
+RUN SUMMARY  (20260828-160035)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-4000         | trustedtokens/nvidia/NVIDIA-Nemotro | smoke          | 0   | 0.3      | OK
+litellm-4000         | trustedtokens/nvidia/NVIDIA-Nemotro | aider          | 130 | 257.0    | FAIL (interrupted)
+litellm-4000         | trustedtokens/nvidia/NVIDIA-Nemotro | tool-eval-bench | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/Qwen/Qwen3.8-27B      | smoke          | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/Qwen/Qwen3.8-27B      | aider          | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/Qwen/Qwen3.8-27B      | tool-eval-bench | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/zai-org/GLM-5.3-Flash | smoke          | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/zai-org/GLM-5.3-Flash | aider          | -   | -        | SKIP (not run)
+litellm-4000         | trustedtokens/zai-org/GLM-5.3-Flash | tool-eval-bench | -   | -        | SKIP (not run)
+------------------------------------------------------------------------------------------
+Total: 9   OK: 1   FAIL: 1   SKIP: 7

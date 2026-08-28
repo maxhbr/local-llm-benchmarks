@@ -1,0 +1,114 @@
+{
+  "timestamp": "20260828-160035",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.28066,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 256.992706,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/Qwen/Qwen3.8-27B",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/Qwen/Qwen3.8-27B",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/Qwen/Qwen3.8-27B",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/zai-org/GLM-5.3-Flash",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/zai-org/GLM-5.3-Flash",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-4000",
+      "endpoint_url": "http://localhost:4000/v1",
+      "api_key": "EMPTY",
+      "model": "trustedtokens/zai-org/GLM-5.3-Flash",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}

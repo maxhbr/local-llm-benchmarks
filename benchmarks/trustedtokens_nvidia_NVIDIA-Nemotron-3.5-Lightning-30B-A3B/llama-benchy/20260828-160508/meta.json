@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260828-160508",
+  "host": "f13",
+  "bench": "llama-benchy",
+  "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+  "endpoint": "http://localhost:4000/v1",
+  "run_name": "trustedtokens_nvidia_NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}

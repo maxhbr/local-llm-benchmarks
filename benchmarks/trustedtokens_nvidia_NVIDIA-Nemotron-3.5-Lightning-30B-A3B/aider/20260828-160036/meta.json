@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260828-160036",
+  "host": "f13",
+  "bench": "aider",
+  "model": "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+  "endpoint": "http://localhost:4000/v1",
+  "container_endpoint": "http://host.containers.internal:4000/v1",
+  "run_name": "trustedtokens_nvidia_NVIDIA-Nemotron-3.5-Lightning-30B-A3B",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

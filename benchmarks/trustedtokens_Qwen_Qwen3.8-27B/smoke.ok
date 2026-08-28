@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-28T16:10:12",
+  "endpoint": "http://localhost:4000/v1",
+  "model": "trustedtokens/Qwen/Qwen3.8-27B",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 1.679437
+}
