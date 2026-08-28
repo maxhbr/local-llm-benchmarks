@@ -30,6 +30,15 @@
       border-radius: 4px; padding: 4px 8px; font-size: 13px;
     }
     header input[type=search] { font-family: inherit; }
+    header .mode-toggle { display: inline-flex; border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden; }
+    header .mode-toggle button {
+      background: var(--panel-2); color: var(--muted); border: 0; cursor: pointer;
+      font: inherit; font-size: 13px; padding: 4px 10px;
+    }
+    header .mode-toggle button.active { background: var(--accent); color: #0b0e14; }
+    /* highlight mode: non-matching table rows / cells stay visible but faded */
+    .dim { opacity: 0.32; }
     header .gpu-boxes { display: inline-flex; align-items: center; gap: 10px; }
     header .gpu-boxes label {
       display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
@@ -168,8 +177,17 @@
   <header>
     <h1>Local LLM Benchmarks</h1>
     <span class="status" id="status">loading…</span>
-    <span class="gpu-filter" title="Show only the checked graphics cards. &quot;other&quot; groups every model without a known GPU prefix. Unchecking everything hides all data."
+    <span class="filter-mode" title="How the global filters act: &quot;filter&quot; hides everything outside the filter, &quot;highlight&quot; keeps it visible but greys it out."
           style="margin-left: auto; color: var(--muted); font-size: 13px;
+           display: inline-flex; align-items: center; gap: 6px;">
+      Filters
+      <span class="mode-toggle" id="filterMode">
+        <button type="button" data-mode="filter" class="active">filter</button>
+        <button type="button" data-mode="highlight">highlight</button>
+      </span>
+    </span>
+    <span class="gpu-filter" title="Show only the checked graphics cards. &quot;other&quot; groups every model without a known GPU prefix. Unchecking everything hides all data (highlight mode: greys it out)."
+          style="color: var(--muted); font-size: 13px;
            display: inline-flex; align-items: center; gap: 6px;">
       Graphics card
       <span class="gpu-boxes" id="gpuFilter"></span>
@@ -965,6 +983,9 @@
     // Anything without a recognizable known-GPU marker is grouped as "other".
     // ====================================================================
     const KNOWN_GPUS = ["rtx5090", "gfx1151"];
+    // "filter" (hide non-matching) or "highlight" (grey out non-matching).
+    let FILTER_MODE = "filter";
+    const isHighlight = () => FILTER_MODE === "highlight";
     // Multi-select GPU filter: a Set of the GPU keys that are currently shown.
     // Known GPUs start checked, "other" starts unchecked. An empty set hides
     // everything (no GPU selected -> no data).
@@ -992,7 +1013,48 @@
       return KNOWN_GPUS.includes(host) ? host : "other";
     }
 
-    const gpuMatches = (gpu) => GPU_FILTER.has(gpu);
+    const gpuMatchesRaw = (gpu) => GPU_FILTER.has(gpu);
+    const gpuMatches = (gpu) => isHighlight() || gpuMatchesRaw(gpu);
+
+    // ====================================================================
+    // FILTER MODE — how the global filters (graphics card / quantization /
+    // free text) act on the data:
+    //   "filter"    (default) non-matching entries are removed entirely
+    //   "highlight"           non-matching entries stay visible but are
+    //                         greyed out (charts) / faded (tables)
+    // In highlight mode every gpuMatches/bitsMatch/textMatches call returns
+    // true (so nothing is dropped) and the renderers ask dimmed*() which
+    // entries to grey out instead.
+    // ====================================================================
+    // (FILTER_MODE / isHighlight are declared above the predicates.)
+
+    // True when an entry fails the raw filters while highlight mode is on.
+    function dimmed(gpu, bits, ...names) {
+      return isHighlight() &&
+        !(gpuMatchesRaw(gpu) && bitsMatchRaw(bits) && textMatchesRaw(...names));
+    }
+    const dimmedDataset = (d) =>
+      dimmed(gpuFromDataset(d), bitsFromDataset(d), d.model, d.baseName, d.folder);
+    const dimmedModel = (model) =>
+      dimmed(gpuFromModel(model), bitsFromName(model), model);
+    // Group-level (per graphics card) dimming, e.g. for frontier barriers.
+    const dimmedGpu = (gpu) => isHighlight() && !gpuMatchesRaw(gpu);
+    // Dimmed for a reason OTHER than the graphics card. Per-GPU frontier
+    // barriers use this so a frontier is always computed over the same points
+    // as in filter mode — the whole barrier is then greyed when its GPU is
+    // unchecked, instead of changing shape.
+    const dimmedNonGpu = (bits, ...names) =>
+      isHighlight() && !(bitsMatchRaw(bits) && textMatchesRaw(...names));
+    const dimmedNonGpuDataset = (d) =>
+      dimmedNonGpu(bitsFromDataset(d), d.model, d.baseName, d.folder);
+    const dimmedNonGpuModel = (model) => dimmedNonGpu(bitsFromName(model), model);
+
+    // Grey used for everything dimmed in highlight mode.
+    const DIM_COLOR = "rgba(140,148,160,0.35)";
+    const DIM_FILL  = "rgba(140,148,160,0.10)";
+    const dimC = (color, dim) => (dim ? DIM_COLOR : color);
+    // "  (n highlighted)" suffix for panel status lines (empty in filter mode).
+    const hlSuffix = (n) => (isHighlight() ? `  (${n} highlighted)` : "");
 
     // ====================================================================
     // GLOBAL FREE-TEXT (WILDCARD) NAME FILTER
@@ -1024,13 +1086,14 @@
     }
 
     // True when any of the given name candidates satisfies the text filter.
-    function textMatches(...names) {
+    function textMatchesRaw(...names) {
       if (!TEXT_INCLUDE.length && !TEXT_EXCLUDE.length) return true;
       const cands = names.map(n => String(n || "")).filter(Boolean);
       if (TEXT_EXCLUDE.some(re => cands.some(c => re.test(c)))) return false;
       if (!TEXT_INCLUDE.length) return true;
       return TEXT_INCLUDE.some(re => cands.some(c => re.test(c)));
     }
+    const textMatches = (...names) => isHighlight() || textMatchesRaw(...names);
 
     // ====================================================================
     // GLOBAL QUANTIZATION (BITS-PER-WEIGHT) FILTER
@@ -1067,11 +1130,12 @@
 
     const bitFilterActive = () => BIT_MIN > BIT_MIN_LIMIT || BIT_MAX < BIT_MAX_LIMIT;
     // Unknown bit size (null) passes only while the filter is at its full range.
-    function bitsMatch(bits) {
+    function bitsMatchRaw(bits) {
       if (!bitFilterActive()) return true;
       if (bits == null) return false;
       return bits >= BIT_MIN && bits <= BIT_MAX;
     }
+    const bitsMatch = (bits) => isHighlight() || bitsMatchRaw(bits);
     // Datasets carry both a model and a folder name — either may reveal the quant.
     function bitsFromDataset(d) {
       return bitsFromName(d.model) ?? bitsFromName(d.baseName) ?? bitsFromName(d.folder);
@@ -1172,7 +1236,9 @@
       models.forEach((m, i) => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.textContent = m;
+        // highlight mode keeps every model in the list — flag the ones that
+        // fall outside the current filters.
+        opt.textContent = dimmedModel(m) ? `${m}  (outside filter)` : m;
         sel.appendChild(opt);
       });
       // keep prior model if still present, otherwise select the first
@@ -1319,7 +1385,7 @@
           const tasks = tasksOf(d);
           const base = `${d.folder} / ${d.baseName}`;
           const label = `${base}  [${tasks}]`;
-          const color = colorFor(base);
+          const color = dimC(colorFor(base), dimmedDataset(d));
           return {
             label,
             data: d.rows.map(r => ({ x: r.test_cases, y: r[metric] })),
@@ -1341,9 +1407,11 @@
         const tasks = tasksOf(d);
         const base = `${d.folder} / ${d.baseName}`;
         const label = `${base}  [${tasks}]`;
-        const stroke = colorFor(base);
+        const dim = dimmedDataset(d);
+        const stroke = dimC(colorFor(base), dim);
         // translucent fill: hsl -> hsla
-        const fill = stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
+        const fill = dim ? DIM_FILL
+          : stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
         // lower bound (pass_rate_1) — invisible line, just a reference for the fill above
         datasets.push({
           label: `${label} (lower)`,
@@ -1402,9 +1470,11 @@
         const tasks = tasksOf(d);
         const base = `${d.folder} / ${d.baseName}`;
         const label = `${base}  [${tasks}]`;
-        const stroke = colorFor(base);
+        const dim = dimmedDataset(d);
+        const stroke = dimC(colorFor(base), dim);
         // translucent fill: hsl -> hsla
-        const fill = stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
+        const fill = dim ? DIM_FILL
+          : stroke.replace("hsl(", "hsla(").replace(")", " / 0.25)");
         // lower bound = pass_rate_2: the solid actual line; fills UP to the ceiling
         datasets.push({
           label,
@@ -1438,7 +1508,7 @@
     function buildTokenDatasets(metric, perSecond = false) {
       return filteredDatasets().map(d => {
         const label = `${d.shortModel}${d.editFormat ? ` (${d.editFormat})` : ""}`;
-        const color = colorFor(label + d.path);
+        const color = dimC(colorFor(label + d.path), dimmedDataset(d));
         const baseFn = metric === "total_tokens"
           ? (r => (r.prompt_tokens || 0) + (r.completion_tokens || 0))
           : (r => r[metric]);
@@ -1530,7 +1600,9 @@
       }
       const hidden = filteredDatasets().length - visibleRuns;
       document.getElementById("passStatus").textContent =
-        `${visibleRuns} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
+        `${visibleRuns} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "")
+        + hlSuffix(filteredDatasets()
+            .filter(d => tasksOf(d) >= minTasks && !dimmedDataset(d)).length);
       if (chartPass) chartPass.destroy();
       chartPass = new Chart(document.getElementById("chartPass"), {
         type: "line",
@@ -1593,12 +1665,13 @@
       else if (sort === "value-asc") items.sort((a, b) => a.value - b.value);
       else items.sort((a, b) => a.model.localeCompare(b.model));
 
-      statusEl2.textContent = `${items.length} models`;
+      statusEl2.textContent = `${items.length} models`
+        + hlSuffix(items.filter(i => !dimmedModel(i.model)).length);
 
       const labels = items.map(i => i.model);
       const data = items.map(i => i.value);
       const errors = items.map(i => i.err);
-      const colors = labels.map(m => colorFor(m));
+      const colors = labels.map(m => dimC(colorFor(m), dimmedModel(m)));
 
       if (chartLlama) chartLlama.destroy();
       chartLlama = new Chart(document.getElementById("chartLlama"), {
@@ -1670,7 +1743,7 @@
       const models = [...byModel.keys()].sort();
       const datasets = models.map(model => {
         const vals = byModel.get(model);
-        const color = colorFor(model);
+        const color = dimC(colorFor(model), dimmedModel(model));
         return {
           label: model,
           data: DEPTHS.map(d => ({ x: DEPTH_X[d], y: d in vals ? vals[d] : null })),
@@ -1684,7 +1757,8 @@
         };
       });
 
-      statusEl4.textContent = `${models.length} models`;
+      statusEl4.textContent = `${models.length} models`
+        + hlSuffix(models.filter(m => !dimmedModel(m)).length);
 
       if (chartLlamaGraph) chartLlamaGraph.destroy();
       chartLlamaGraph = new Chart(document.getElementById("chartLlamaGraph"), {
@@ -1749,11 +1823,13 @@
       });
       return [...byGpu.entries()]
         .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(([gpu, pts]) => {
+        .map(([gpu, all]) => {
+          const pts = all.filter(p => !dimmedNonGpuModel(p.model));
           const frontier = pts.filter(p => !pts.some(q =>
             ge(q.x, p.x) && ge(q.y, p.y) && (gt(q.x, p.x) || gt(q.y, p.y))));
           frontier.sort((a, b) => a.x - b.x || a.y - b.y);
-          const color = GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`);
+          const color = dimC(GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`),
+                             dimmedGpu(gpu));
           return {
             label: `frontier: ${gpu}`,
             data: frontier.map(p => ({ x: p.x, y: p.y, depth: "d0", model: p.model })),
@@ -1815,7 +1891,7 @@
           .map(({ d, v }) => ({ x: v.pp2048, y: v.tg128, depth: d }));
         if (!data.length) return;
         points += data.length;
-        const color = colorFor(model);
+        const color = dimC(colorFor(model), dimmedModel(model));
         datasets.push({
           label: model,
           data,
@@ -1835,7 +1911,8 @@
       const frontierDatasets = buildLlamaVsFrontierDatasets(d0Points, metric);
       statusEl5.textContent = `${datasets.length} models, ${points} points`
         + (depthSel === "lines" ? "" : `  (${depthSel} only)`)
-        + (missing ? `  (${missing} missing pp2048 or tg128)` : "");
+        + (missing ? `  (${missing} missing pp2048 or tg128)` : "")
+        + hlSuffix(datasets.filter(ds => !dimmedModel(ds.label)).length);
 
       if (chartLlamaVs) chartLlamaVs.destroy();
       chartLlamaVs = new Chart(document.getElementById("chartLlamaVs"), {
@@ -2035,7 +2112,13 @@
         }));
       }
 
-      let rows = keys.map(k => ({ key: k, vals: cols.map(c => c.get(aIdx.get(k), bIdx.get(k))) }));
+      let rows = keys.map(k => ({
+        key: k,
+        // the GPU filter never applies here (both GPUs are picked explicitly),
+        // so a row is dimmed only by the quant / text filters
+        dim: dimmedNonGpu(bitsFromName(k), k),
+        vals: cols.map(c => c.get(aIdx.get(k), bIdx.get(k))),
+      }));
       if (lfSort.col && cols.some(c => c.key === lfSort.col)) {
         const ci = cols.findIndex(c => c.key === lfSort.col);
         rows.sort((x, y) => {
@@ -2053,7 +2136,10 @@
       // per-column (across the displayed rows). Shown in the column headers
       // (via .colrate) and the sticky row-key cell (via .rk-rate), reusing the
       // same styling as the per-test matrix tab.
-      const colAvgs = cols.map((_, ci) => lfGeomean(rows.map(r => r.vals[ci])));
+      // column averages ignore dimmed (out-of-filter) rows so the marginal
+      // stats read the same in both filter modes
+      const colAvgs = cols.map((_, ci) =>
+        lfGeomean(rows.filter(r => !r.dim).map(r => r.vals[ci])));
       const rowAvgs = rows.map(r => lfGeomean(r.vals));
 
       const head = "<thead><tr>" +
@@ -2063,11 +2149,12 @@
             return `<th class="${sc}" data-col="${c.key}">${c.label}<span class="colrate">avg ${lfAvgStr(colAvgs[ci])}</span></th>`;
           })).join("") + "</tr></thead>";
       const body = "<tbody>" + rows.map((r, ri) =>
-        `<tr><td class="rowkey">${lfEsc(r.key)}<span class="rk-rate">${lfAvgStr(rowAvgs[ri])}</span></td>` +
+        `<tr class="${r.dim ? "dim" : ""}"><td class="rowkey">${lfEsc(r.key)}<span class="rk-rate">${lfAvgStr(rowAvgs[ri])}</span></td>` +
         r.vals.map(f => lfCellTd(f)).join("") + "</tr>"
       ).join("") + "</tbody>";
       tbl.innerHTML = head + body;
-      st.textContent = `${rows.length} models · ${gpuA} ÷ ${gpuB}  (>1 ⇒ ${gpuA} faster)`;
+      st.textContent = `${rows.length} models · ${gpuA} ÷ ${gpuB}  (>1 ⇒ ${gpuA} faster)`
+        + hlSuffix(rows.filter(r => !r.dim).length);
 
       tbl.querySelectorAll("thead th").forEach(th => {
         const col = th.dataset.col;
@@ -2128,7 +2215,7 @@
       const scale = document.getElementById("secondsScale").value;
       const datasets = filteredDatasets().map(d => {
         const label = `${d.folder} / ${d.baseName}`;
-        const color = colorFor(label);
+        const color = dimC(colorFor(label), dimmedDataset(d));
         return {
           label,
           data: d.rows.map(r => ({ x: r.test_cases, y: r.seconds_per_case })),
@@ -2164,8 +2251,10 @@
                      && typeof r[metric] === "number");
           return last ? {
             gpu: gpuFromDataset(d),
+            dim: dimmedDataset(d),
+            dimNonGpu: dimmedNonGpuDataset(d),
             label: `${base}  [${tasks}]`,
-            color: colorFor(base),
+            color: dimC(colorFor(base), dimmedDataset(d)),
             x: last.seconds_per_case,
             y: last[metric],
           } : null;
@@ -2200,11 +2289,13 @@
       });
       return [...byGpu.entries()]
         .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(([gpu, pts]) => {
+        .map(([gpu, all]) => {
+          const pts = all.filter(p => !p.dimNonGpu);
           const frontier = pts.filter(p => !pts.some(q =>
             (q.x <= p.x && q.y >= p.y) && (q.x < p.x || q.y > p.y)));
           frontier.sort((a, b) => a.x - b.x || a.y - b.y);
-          const color = GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`);
+          const color = dimC(GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`),
+                             dimmedGpu(gpu));
           return {
             label: `frontier: ${gpu}`,
             data: frontier.map(p => ({ x: p.x, y: p.y })),
@@ -2232,7 +2323,8 @@
       const visibleRuns = pointDatasets.length;
       const hidden = filteredDatasets().length - visibleRuns;
       document.getElementById("scatterPassStatus").textContent =
-        `${visibleRuns} points` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
+        `${visibleRuns} points` + (hidden ? `  (${hidden} hidden by min tasks)` : "")
+        + hlSuffix(scatterPassPoints(metric, minTasks).filter(p => !p.dim).length);
       if (chartScatterPass) chartScatterPass.destroy();
       chartScatterPass = new Chart(document.getElementById("chartScatterPass"), {
         type: "scatter",
@@ -2323,6 +2415,7 @@
         return {
           baseName: `${d.folder} / ${d.baseName}`,
           name: `${d.folder} / ${d.baseName}  [${tasks}]`,
+          dim: dimmedDataset(d),
           tasks,
           pass_rate_1: typeof last.pass_rate_1 === "number" ? last.pass_rate_1 : 0,
           pass_rate_2: typeof last.pass_rate_2 === "number" ? last.pass_rate_2 : 0,
@@ -2342,7 +2435,8 @@
 
       const hidden = allItems.length - items.length;
       document.getElementById("ptableStatus").textContent =
-        `${items.length} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "");
+        `${items.length} runs` + (hidden ? `  (${hidden} hidden by min tasks)` : "")
+        + hlSuffix(items.filter(i => !i.dim).length);
 
       const labels = items.map(i => i.name);
       const data1 = items.map(i => i.pass_rate_1);
@@ -2358,14 +2452,14 @@
           datasets: [
             { label: "pass_rate_1",
               data: data1,
-              backgroundColor: "rgba(110,168,254,0.7)",
-              borderColor: "rgba(110,168,254,1)",
+              backgroundColor: items.map(i => dimC("rgba(110,168,254,0.7)", i.dim)),
+              borderColor: items.map(i => dimC("rgba(110,168,254,1)", i.dim)),
               borderWidth: 1 },
             { label: "pass_rate_2",
               data: data2,
               theoretical,
-              backgroundColor: "rgba(94,196,143,0.7)",
-              borderColor: "rgba(94,196,143,1)",
+              backgroundColor: items.map(i => dimC("rgba(94,196,143,0.7)", i.dim)),
+              borderColor: items.map(i => dimC("rgba(94,196,143,1)", i.dim)),
               borderWidth: 1 },
           ],
         },
@@ -2462,6 +2556,14 @@
       document.getElementById(id).addEventListener("change", renderGrid));
     ["bitMin", "bitMax"].forEach(id =>
       document.getElementById(id).addEventListener("input", applyBitFilter));
+    document.querySelectorAll("#filterMode button").forEach(btn =>
+      btn.addEventListener("click", () => {
+        if (FILTER_MODE === btn.dataset.mode) return;
+        FILTER_MODE = btn.dataset.mode;
+        document.querySelectorAll("#filterMode button").forEach(b =>
+          b.classList.toggle("active", b.dataset.mode === FILTER_MODE));
+        renderAll();
+      }));
 
     (async () => {
       try {
@@ -2504,6 +2606,10 @@
           gpuMatches(gpuFromHost(r.host)) && bitsMatch(bitsFromName(r.model))
           && textMatches(r.model, r.host));
       }
+      // In highlight mode viewRuns() also returns the runs outside the filter;
+      // this says which of them must be greyed out.
+      const runDim = (r) =>
+        dimmed(gpuFromHost(r.host), bitsFromName(r.model), r.model, r.host);
 
       // ---- formatting helpers (separate from outer colorFor to avoid shadowing) ----
       function fmtNum(v, digits = 2) {
@@ -2555,7 +2661,7 @@
       }
 
       function renderKpis() {
-        const view = viewRuns();
+        const view = viewRuns().filter(r => !runDim(r)); // KPIs count matches only
         const total = view.length;
         const withData = view.filter(r => r.schema !== "empty").length;
         const models = new Set(view.map(r => `${r.host}:${r.model}`)).size;
@@ -2623,11 +2729,13 @@
           return `<th class="${sortCls}" data-col="${c.key}">${c.label}</th>`;
         }).join("") + "</tr></thead>";
         const body = "<tbody>" + rows.map(r =>
-          "<tr>" + LB_COLS.map(c =>
+          `<tr class="${runDim(r) ? "dim" : ""}">` + LB_COLS.map(c =>
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("abTblLb").innerHTML = head + body;
-        document.getElementById("abLbStatus").textContent = `${rows.length} / ${viewRuns().length} rows`;
+        document.getElementById("abLbStatus").textContent =
+          `${rows.length} / ${viewRuns().length} rows`
+          + hlSuffix(rows.filter(r => !runDim(r)).length);
         document.querySelectorAll("#abTblLb thead th").forEach(th => {
           const col = th.dataset.col;
           const cdef = LB_COLS.find(c => c.key === col);
@@ -2678,7 +2786,7 @@
           .sort((a, b) => (b[metric] ?? -Infinity) - (a[metric] ?? -Infinity));
         const head = "<thead><tr>" + BM_COLS.map(c => `<th>${c.label}</th>`).join("") + "</tr></thead>";
         const body = "<tbody>" + rows.map(r =>
-          "<tr>" + BM_COLS.map(c =>
+          `<tr class="${runDim(r) ? "dim" : ""}">` + BM_COLS.map(c =>
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("abTblBm").innerHTML = head + body;
@@ -2700,16 +2808,17 @@
         for (const [key, runs] of groups) {
           const [host, model] = key.split("::");
           let row;
+          const dim = runs.every(runDim);
           if (mode === "latest") {
             row = runs.slice().sort((a, b) => (a.ts || "").localeCompare(b.ts || "")).pop();
-            out.push({ host, model, value: row[metric], representative: row });
+            out.push({ host, model, dim, value: row[metric], representative: row });
           } else if (mode === "mean") {
             const vals = runs.map(r => r[metric]).filter(v => v !== null && v !== undefined);
             const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
-            out.push({ host, model, value: mean, n: vals.length });
+            out.push({ host, model, dim, value: mean, n: vals.length });
           } else { // best
             row = runs.slice().sort((a, b) => (b[metric] ?? -Infinity) - (a[metric] ?? -Infinity))[0];
-            out.push({ host, model, value: row[metric], representative: row });
+            out.push({ host, model, dim, value: row[metric], representative: row });
           }
         }
         return out;
@@ -2725,10 +2834,11 @@
         else if (sort === "value-asc")  rows.sort((a, b) => a.value - b.value);
         else rows.sort((a, b) => (a.host + a.model).localeCompare(b.host + b.model));
 
-        document.getElementById("abBarStatus").textContent = `${rows.length} models · ${agg}`;
+        document.getElementById("abBarStatus").textContent = `${rows.length} models · ${agg}`
+          + hlSuffix(rows.filter(r => !r.dim).length);
         const labels = rows.map(r => `${r.host}:${r.model}`);
         const values = rows.map(r => r.value);
-        const colors = labels.map(l => colorFor(l));
+        const colors = rows.map(r => dimC(colorFor(`${r.host}:${r.model}`), r.dim));
         const ctx = document.getElementById("abChartBars").getContext("2d");
         if (charts.bars) charts.bars.destroy();
         const isRate = metric.endsWith("_rate");
@@ -2782,7 +2892,7 @@
         const datasets = [];
         for (const [key, pts] of grouped) {
           pts.sort((a, b) => (a.x ?? 0) - (b.x ?? 0));
-          const c = colorFor(key);
+          const c = dimC(colorFor(key), pts.every(p => runDim(p.r)));
           datasets.push({
             label: key, data: pts, borderColor: c, backgroundColor: c,
             fill: false, tension: 0.2, pointRadius: 3, pointHoverRadius: 5,
@@ -2853,9 +2963,11 @@
         const datasets = [];
         for (const [host, pts] of byHost) {
           const c = colorFor(host || "(none)");
+          // per-point colors so single runs outside the filter grey out too
+          const cols = pts.map(p => dimC(c, runDim(p.r)));
           datasets.push({
             label: host || "(no host)", data: pts,
-            backgroundColor: c, borderColor: c, pointRadius: 5, pointHoverRadius: 7,
+            backgroundColor: cols, borderColor: cols, pointRadius: 5, pointHoverRadius: 7,
           });
         }
         document.getElementById("abScStatus").textContent = `${rows.length} points`;
@@ -2917,7 +3029,7 @@
           .slice().sort((a, b) => (a.ts || "").localeCompare(b.ts || "")).reverse();
         const head = "<thead><tr>" + RAW_COLS.map(c => `<th>${c.label}</th>`).join("") + "</tr></thead>";
         const body = "<tbody>" + rows.map(r =>
-          "<tr>" + RAW_COLS.map(c =>
+          `<tr class="${runDim(r) ? "dim" : ""}">` + RAW_COLS.map(c =>
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("abTblRaw").innerHTML = head + body;
@@ -3025,6 +3137,8 @@
           gpuMatches(gpuOf(c)) && bitsMatch(bitsOf(c))
           && textMatches(c.model, c.folder, c.bench));
       }
+      // Columns kept only because highlight mode shows everything: greyed out.
+      const colDim = (c) => dimmed(gpuOf(c), bitsOf(c), c.model, c.folder, c.bench);
 
       // Pretty short model label: strip openai/<host>: prefix (same as loadAll).
       function shortModel(c) {
@@ -3084,7 +3198,7 @@
             const pill = c.bench === "aider-diff"
               ? ` <span class="pill">diff</span>` : "";
             const tip = `${c.folder} / ${c.bench} · edit ${c.edit_format || "?"} · run ${c.run_dir} · ${c.num_tests_run} tests · ${Math.round(colRate[c.column_id] * 100)}% pass`;
-            return `<th title="${esc(tip)}"><span class="colname">${esc(sm)}${pill}</span><span class="colrate">${Math.round(colRate[c.column_id] * 100)}%</span></th>`;
+            return `<th class="${colDim(c) ? "dim" : ""}" title="${esc(tip)}"><span class="colname">${esc(sm)}${pill}</span><span class="colrate">${Math.round(colRate[c.column_id] * 100)}%</span></th>`;
           }),
           "</tr></thead>"].join("");
 
@@ -3111,14 +3225,15 @@
 
         const body = "<tbody>" + rows.map(r => {
           const tds = cols.map(c => {
+            const dc = colDim(c) ? ' class="dim"' : "";
             const cell = r.results[c.column_id];
-            if (!cell) return "<td></td>";
-            if (cell.status === "error") return `<td><span class="badge zero" title="error">E</span></td>`;
+            if (!cell) return `<td${dc}></td>`;
+            if (cell.status === "error") return `<td${dc}><span class="badge zero" title="error">E</span></td>`;
             const v = cell[metric];
             const tip = `${v ? "PASS" : "FAIL"} (try ${cell.n ?? "?"}: p1=${cell.p1} p2=${cell.p2})`;
-            if (v) return `<td><span class="badge good" title="${tip}">✓</span></td>`;
-            if (cell.err) return `<td><span class="badge warn" title="${esc(tip + " · exec errors: " + (cell.errd || "yes"))}">⚠</span></td>`;
-            return `<td><span class="badge bad" title="${tip}">✗</span></td>`;
+            if (v) return `<td${dc}><span class="badge good" title="${tip}">✓</span></td>`;
+            if (cell.err) return `<td${dc}><span class="badge warn" title="${esc(tip + " · exec errors: " + (cell.errd || "yes"))}">⚠</span></td>`;
+            return `<td${dc}><span class="badge bad" title="${tip}">✗</span></td>`;
           }).join("");
           // Per-test pass rate over the visible columns only; models that did
           // not execute this test (no cell / not "ran") do not contribute.
@@ -3143,7 +3258,8 @@
             return m + (cell && cell.err && cell[metric] !== true ? 1 : 0);
           }, 0), 0);
         document.getElementById("aptStatus").textContent =
-          `${rows.length} rows · ${cols.length} models · ${passing}/${ran} cells passing · ${execErr} exec errors`;
+          `${rows.length} rows · ${cols.length} models · ${passing}/${ran} cells passing · ${execErr} exec errors`
+          + hlSuffix(cols.filter(c => !colDim(c)).length);
       }
 
       function esc(s) {
@@ -3232,6 +3348,12 @@
           gpuMatches(gpuOf(r)) && bitsMatch(bitsOf(r))
           && textMatches(r.model, r.folder, r.meta && r.meta.run_name));
       }
+      // Runs kept only because highlight mode shows everything: greyed out.
+      const runDim = (r) =>
+        dimmed(gpuOf(r), bitsOf(r), r.model, r.folder, r.meta && r.meta.run_name);
+      // Dimmed for a reason other than the graphics card (frontier barriers).
+      const runDimNonGpu = (r) =>
+        dimmedNonGpu(bitsOf(r), r.model, r.folder, r.meta && r.meta.run_name);
 
       // ---- formatting helpers ----
       function fmtNum(v, digits = 2) {
@@ -3299,7 +3421,7 @@
 
       // ---------- KPIs ----------
       function renderKpis() {
-        const view = viewRuns();
+        const view = viewRuns().filter(r => !runDim(r)); // KPIs count matches only
         const cs = view.map(r => r.report.comparable_score).filter(v => v != null);
         const best = cs.length ? Math.max(...cs) : "—";
         const mean = cs.length ? Math.round(cs.reduce((a, b) => a + b, 0) / cs.length) : "—";
@@ -3396,12 +3518,13 @@
           return `<th class="${sortCls}" data-col="${c.key}"${tip}>${c.label}</th>`;
         }).join("") + "</tr></thead>";
         const body = "<tbody>" + rows.map(r =>
-          "<tr>" + LB_COLS.map(c =>
+          `<tr class="${runDim(r) ? "dim" : ""}">` + LB_COLS.map(c =>
             `<td class="${c.num ? "num" : ""}">${c.render(r)}</td>`).join("") + "</tr>"
         ).join("") + "</tbody>";
         document.getElementById("tebTblLb").innerHTML = head + body;
         document.getElementById("tebLbStatus").textContent =
-          `${rows.length} / ${viewRuns().length} rows`;
+          `${rows.length} / ${viewRuns().length} rows`
+          + hlSuffix(rows.filter(r => !runDim(r)).length);
         document.querySelectorAll("#tebTblLb thead th").forEach(th => {
           const col = th.dataset.col;
           const cdef = LB_COLS.find(c => c.key === col);
@@ -3458,13 +3581,14 @@
           `<th class="rowkey">scenario</th>`,
           ...cols.map(c => {
             const tip = `${c.folder} · ${c.report.scenarios.length} scenarios · score ${c.report.final_score}`;
-            return `<th title="${esc(tip)}"><span class="colname">${esc(shortModel(c))}</span> ${gpuPill(c)}<span class="colrate">${c.report.final_score}</span></th>`;
+            return `<th class="${runDim(c) ? "dim" : ""}" title="${esc(tip)}"><span class="colname">${esc(shortModel(c))}</span> ${gpuPill(c)}<span class="colrate">${c.report.final_score}</span></th>`;
           }),
           "</tr></thead>"].join("");
         const body = "<tbody>" + rows.map(s => {
           const tds = cols.map(c => {
+            const dc = runDim(c) ? ' class="dim"' : "";
             const cs = scByRun[c.run].get(s.id);
-            return cs ? `<td>${statusBadge(cs)}</td>` : "<td></td>";
+            return cs ? `<td${dc}>${statusBadge(cs)}</td>` : `<td${dc}></td>`;
           }).join("");
           let rRan = 0, rPass = 0;
           for (const c of cols) {
@@ -3482,7 +3606,8 @@
           return m + (cs && cs.status === "pass" ? 1 : 0);
         }, 0), 0);
         document.getElementById("tebScStatus").textContent =
-          `${rows.length} rows · ${cols.length} models · ${passing}/${cells} cells passing`;
+          `${rows.length} rows · ${cols.length} models · ${passing}/${cells} cells passing`
+          + hlSuffix(cols.filter(c => !runDim(c)).length);
       }
 
       // ---------- CATEGORY MATRIX (15 × models) ----------
@@ -3506,15 +3631,16 @@
           `<th class="rowkey">category</th>`,
           ...cols.map(c => {
             const tip = `${c.folder} · score ${c.report.final_score}`;
-            return `<th title="${esc(tip)}"><span class="colname">${esc(shortModel(c))}</span> ${gpuPill(c)}<span class="colrate">${c.report.final_score}</span></th>`;
+            return `<th class="${runDim(c) ? "dim" : ""}" title="${esc(tip)}"><span class="colname">${esc(shortModel(c))}</span> ${gpuPill(c)}<span class="colrate">${c.report.final_score}</span></th>`;
           }),
           "</tr></thead>"].join("");
         const body = "<tbody>" + base.map(cat => {
           const tds = cols.map(c => {
+            const dc = runDim(c) ? " dim" : "";
             const cc = catByRun[c.run].get(cat.category);
-            if (!cc) return `<td class="num" title="${esc(c.folder + " did not run this category")}"><span class="badge zero">—</span></td>`;
+            if (!cc) return `<td class="num${dc}" title="${esc(c.folder + " did not run this category")}"><span class="badge zero">—</span></td>`;
             const tip = `${cc.earned}/${cc.max} pts · pass ${cc.pass_count} partial ${cc.partial_count} fail ${cc.fail_count}`;
-            return `<td title="${esc(tip)}">${pctBadge(cc.percent)}</td>`;
+            return `<td class="${dc.trim()}" title="${esc(tip)}">${pctBadge(cc.percent)}</td>`;
           }).join("");
           const label = `${cat.category} ${cat.label}`;
           // show the max points from the first run that has this category
@@ -3524,7 +3650,8 @@
         }).join("") + "</tbody>";
         tbl.innerHTML = head + body;
         document.getElementById("tebCatStatus").textContent =
-          `${base.length} categories · ${cols.length} models`;
+          `${base.length} categories · ${cols.length} models`
+          + hlSuffix(cols.filter(c => !runDim(c)).length);
       }
 
       // ---------- SCATTER (score vs speed) ----------
@@ -3546,11 +3673,13 @@
         if (!TEB_COST_X.has(xKey)) return [];
         return [...byGpu.entries()]
           .sort((a, b) => String(a[0]).localeCompare(String(b[0])))
-          .map(([g, pts]) => {
+          .map(([g, all]) => {
+            const pts = all.filter(p => !runDimNonGpu(p.r));
             const frontier = pts.filter(p => !pts.some(q =>
               (q.x <= p.x && q.y >= p.y) && (q.x < p.x || q.y > p.y)));
             frontier.sort((a, b) => a.x - b.x || a.y - b.y);
-            const color = GPU_FRONTIER_COLORS[g] || colorFor(`frontier:${g}`);
+            const color = dimC(GPU_FRONTIER_COLORS[g] || colorFor(`frontier:${g}`),
+                               dimmedGpu(g));
             return {
               label: `frontier: ${g}`,
               data: frontier.map(p => ({ x: p.x, y: p.y, r: p.r })),
@@ -3584,13 +3713,15 @@
           // distinct color for the "other" bucket (colorFor is used unchanged
           // everywhere else).
           const c = g === "other" ? "#e5c07b" : colorFor(g);
+          const cols = pts.map(p => dimC(c, runDim(p.r)));
           datasets.push({
             label: g, data: pts,
-            backgroundColor: c, borderColor: c, pointRadius: 6, pointHoverRadius: 8,
+            backgroundColor: cols, borderColor: cols, pointRadius: 6, pointHoverRadius: 8,
           });
         }
         datasets.push(...buildTebFrontierDatasets(byGpu, xKey, yKey));
-        document.getElementById("tebSpStatus").textContent = `${rows.length} points`;
+        document.getElementById("tebSpStatus").textContent = `${rows.length} points`
+          + hlSuffix(rows.filter(r => !runDim(r)).length);
         const ctx = document.getElementById("tebChartScatter").getContext("2d");
         if (charts.scatter) charts.scatter.destroy();
         charts.scatter = new Chart(ctx, {
