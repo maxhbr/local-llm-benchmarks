@@ -515,6 +515,15 @@
           </select>
         </label>
         <label>
+          Depth
+          <select id="lvsDepth">
+            <option value="lines" selected>lines (all depths)</option>
+            <option value="d0">d0</option>
+            <option value="d8192">d8192</option>
+            <option value="d16384">d16384</option>
+          </select>
+        </label>
+        <label>
           X scale
           <select id="lvsXScale">
             <option value="linear" selected>linear</option>
@@ -529,7 +538,9 @@
           </select>
         </label>
         <span>X axis: pp2048 (prompt) — Y axis: tg128 (generation).
-          One line per model, one point per depth (d0 → d16384).</span>
+          Depth <em>lines</em> draws one line per model with one point per depth
+          (d0 → d16384); a single depth shows only those points.
+          Dashed barriers are the per-GPU Pareto frontier over the d0 points.</span>
         <span id="lvsStatus" style="color: var(--muted);"></span>
       </div>
       <div class="chart-wrap" style="height: 80vh;"><canvas id="chartLlamaVs"></canvas></div>
@@ -1710,10 +1721,48 @@
       });
     }
 
+    // Frontier barrier per GPU for the pp2048-vs-tg128 scatter. Both axes are
+    // throughput (more is better) for t/s metrics and latency (less is better)
+    // for the ms metrics, so "better" flips with the metric. A point is on its
+    // GPU's frontier when no other same-GPU point is better-or-equal on both
+    // axes and strictly better on one. Only the d0 point of each model counts.
+    function buildLlamaVsFrontierDatasets(d0Points, metric) {
+      const lower = LF_LATENCY_METRICS.has(metric);
+      const ge = (a, b) => (lower ? a <= b : a >= b); // a at least as good as b
+      const gt = (a, b) => (lower ? a <  b : a >  b); // a strictly better than b
+      const byGpu = new Map();
+      d0Points.forEach(p => {
+        if (!byGpu.has(p.gpu)) byGpu.set(p.gpu, []);
+        byGpu.get(p.gpu).push(p);
+      });
+      return [...byGpu.entries()]
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([gpu, pts]) => {
+          const frontier = pts.filter(p => !pts.some(q =>
+            ge(q.x, p.x) && ge(q.y, p.y) && (gt(q.x, p.x) || gt(q.y, p.y))));
+          frontier.sort((a, b) => a.x - b.x || a.y - b.y);
+          const color = GPU_FRONTIER_COLORS[gpu] || colorFor(`frontier:${gpu}`);
+          return {
+            label: `frontier: ${gpu}`,
+            data: frontier.map(p => ({ x: p.x, y: p.y, depth: "d0", model: p.model })),
+            borderColor: color,
+            backgroundColor: color,
+            showLine: true,
+            tension: 0,
+            borderDash: [6, 4],
+            borderWidth: 2,
+            pointRadius: 2.5,
+            pointHoverRadius: 5,
+            fill: false,
+          };
+        });
+    }
+
     // Scatter: pp2048 (x) vs tg128 (y) — one line per model, one point per depth.
     function renderLlamaVs() {
       const conc   = Number(document.getElementById("lvsConc").value);
       const metric = document.getElementById("lvsMetric").value;
+      const depthSel = document.getElementById("lvsDepth").value; // "lines" | depth
       const xScale = document.getElementById("lvsXScale").value;
       const yScale = document.getElementById("lvsYScale").value;
       const statusEl5 = document.getElementById("lvsStatus");
@@ -1733,12 +1782,22 @@
       }
 
       const models = [...byModel.keys()].sort();
+      const shownDepths = depthSel === "lines" ? DEPTHS : [depthSel];
       let points = 0;
       const datasets = [];
+      // d0 points of every model (independent of the depth selection) — the
+      // frontier barriers are always computed over the base depth.
+      const d0Points = [];
+      models.forEach(model => {
+        const v = byModel.get(model).d0 || {};
+        if (typeof v.pp2048 === "number" && typeof v.tg128 === "number") {
+          d0Points.push({ x: v.pp2048, y: v.tg128, gpu: gpuFromModel(model), model });
+        }
+      });
       models.forEach(model => {
         const perDepth = byModel.get(model);
         // Points in depth order (d0 → d16384) so the connecting line follows depth.
-        const data = DEPTHS
+        const data = shownDepths
           .map(d => ({ d, v: perDepth[d] || {} }))
           .filter(({ v }) => typeof v.pp2048 === "number" && typeof v.tg128 === "number")
           .map(({ d, v }) => ({ x: v.pp2048, y: v.tg128, depth: d }));
@@ -1754,20 +1813,22 @@
           pointHoverRadius: 9,
           // distinct marker per depth: d0 = circle, d8192 = triangle, d16384 = square
           pointStyle: data.map(p => DEPTH_STYLE[p.depth] || "circle"),
-          showLine: true,
+          showLine: depthSel === "lines",
           borderWidth: 2,
           tension: 0,
         });
       });
 
       const missing = models.length - datasets.length;
+      const frontierDatasets = buildLlamaVsFrontierDatasets(d0Points, metric);
       statusEl5.textContent = `${datasets.length} models, ${points} points`
+        + (depthSel === "lines" ? "" : `  (${depthSel} only)`)
         + (missing ? `  (${missing} missing pp2048 or tg128)` : "");
 
       if (chartLlamaVs) chartLlamaVs.destroy();
       chartLlamaVs = new Chart(document.getElementById("chartLlamaVs"), {
         type: "scatter",
-        data: { datasets },
+        data: { datasets: datasets.concat(frontierDatasets) },
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -2381,7 +2442,7 @@
       document.getElementById(id).addEventListener("change", renderLlama));
     ["lgraphTest", "lgraphConc", "lgraphMetric", "lgraphScale"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlamaGraph));
-    ["lvsConc", "lvsMetric", "lvsXScale", "lvsYScale"].forEach(id =>
+    ["lvsConc", "lvsMetric", "lvsDepth", "lvsXScale", "lvsYScale"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlamaVs));
     ["lfGpuA", "lfGpuB", "lfView", "lfTest", "lfMetric"].forEach(id =>
       document.getElementById(id).addEventListener("change", renderLlamaFactor));
