@@ -1,0 +1,10 @@
+==========================================================================================
+RUN SUMMARY  (20260828-203913)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL | smoke          | 1   | 31.2     | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL\nAvailable Model Group Fallbacks=None","type":n)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 3   OK: 0   FAIL: 1   SKIP: 2

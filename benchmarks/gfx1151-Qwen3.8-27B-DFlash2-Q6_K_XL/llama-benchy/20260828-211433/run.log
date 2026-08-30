@@ -1,0 +1,26 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (171736 > 1024). Running this sequence through the model will result in indexing errors
+llama-benchy (0.3.8)
+Date: 2026-08-28 21:14:34
+Benchmarking model: gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL at http://litellm.thing.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: Repo id must use alphanumeric chars, '-', '_' or '.'. The name cannot start or end with '-' or '.' and the maximum length is 96: 'gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL'.
+Falling back to 'gpt2' tokenizer as approximation.
+Downloading book from https://www.gutenberg.org/files/1661/1661-0.txt...
+Saved text to cache: /home/mhuber/.cache/llama-benchy/cc6a0b5782734ee3b9069aa3b64cc62c.txt
+Total tokens available in text corpus: 171736
+Warming up...
+Warmup (User only) complete. Delta: 11 tokens (Server: 33, Local: 22)
+Warmup (System+Empty) complete. Delta: 11 tokens (Server: 33, Local: 22)
+
+Running coherence test...
+Coherence test FAILED: Expected 'Paris'. Got: 
+  /nix/store/4h9rwg7s5gcpwi3mw9qnqira7rj5x91f-sharp.jinja
+  /nix/store/61zq5317c5xkz94v0q484k602kxw962z-nixos-rebuild.jinja
+  /nix/store/61zq5317c5xkz9...
+
+Benchmark failed due to coherence test failure.
