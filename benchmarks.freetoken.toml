@@ -1,0 +1,14 @@
+# Endpoint: http://localhost:1919/v1/models  (FreeToken-hosted NVIDIA, NVFP4)
+
+output_dir = "./benchmarks"
+
+[[endpoints]]
+name       = "freetoken"
+url        = "http://localhost:1919/v1"
+api_key    = "EMPTY"
+benchmarks = ["tool-eval-bench", "aider"] # "llama-benchy", 
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
+
+  [[endpoints.models]]
+  name  = "Qwen3.6-35B-A3B-NVFP4"
+  alias = "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4"

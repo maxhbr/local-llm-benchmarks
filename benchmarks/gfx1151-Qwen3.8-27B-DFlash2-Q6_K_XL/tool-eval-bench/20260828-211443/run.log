@@ -1,0 +1,5 @@
+{"event": "scenario_start", "scenario_id": "TC-01", "title": "Direct Specialist Match", "category": "A", "index": 0, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-01", "status": "fail", "points": 0, "index": 0, "total": 69, "duration_seconds": 229.55}
+{"event": "scenario_start", "scenario_id": "TC-02", "title": "Distractor Resistance", "category": "A", "index": 1, "total": 69}
+{"event": "scenario_result", "scenario_id": "TC-02", "status": "fail", "points": 0, "index": 1, "total": 69, "duration_seconds": 127.51}
+{"event": "scenario_start", "scenario_id": "TC-03", "title": "Implicit Tool Need", "category": "A", "index": 2, "total": 69}

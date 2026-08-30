@@ -28,6 +28,8 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
+  name = "gfx1151:GLM-5.3-Flash-UD-Q2_K_XL"
+  [[endpoints.models]]
   name = "gfx1151:Hy3-Q2_K_L"
   [[endpoints.models]]
   name = "gfx1151:InternScience-Agents-A1-Q4_K_M"
@@ -65,6 +67,8 @@ benchmarks = ["llama-benchy"]
   name = "gfx1151:Qwen3.6-35B-A3B-UD-Q8_K_XL-MTP"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.8-27B-ABL-Q5_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:Qwen3.8-27B-DFlash2-Q6_K_XL"
   [[endpoints.models]]
   name = "gfx1151:Qwen3.8-27B-MTP-Q4_0"
   [[endpoints.models]]

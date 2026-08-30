@@ -10,10 +10,12 @@ output_dir = "./benchmarks"
 name       = "litellm.thing.wg0"
 url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
-benchmarks = ["aider"]
+benchmarks = ["tool-eval-bench","aider"]
 # remaining options: "agent-bench", "aider", "terminal-bench", "llama-benchy", "tool-eval-bench"
 
   # [[endpoints.models]]
   # name = "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS"
+  # [[endpoints.models]]
+  # name = "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL"
   [[endpoints.models]]
-  name = "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL"
+  name = "gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential"
