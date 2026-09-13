@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260830-145843",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "smoke",
+      "alias": "sglang:Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "llama-benchy",
+      "alias": "sglang:Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "tool-eval-bench",
+      "alias": "sglang:Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "aider",
+      "alias": "sglang:Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    }
+  ]
+}

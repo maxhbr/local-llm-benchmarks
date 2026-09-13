@@ -18,11 +18,15 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "localhost:22546:localhost:22546"
   [[endpoints.models]]
-  name = "trustedtokens/deepseek-ai/DeepSeek-V4-Flash"
+  name = "trustedtokens/deepseek-ai/DeepSeek-V4.1-Flash"
   [[endpoints.models]]
   name = "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731"
   [[endpoints.models]]
+  name = "trustedtokens/deepseek-ai/DeepSeek-V4-Pro-0813"
+  [[endpoints.models]]
   name = "trustedtokens/google/gemma-4-31B-it"
+  [[endpoints.models]]
+  name = "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B"
   [[endpoints.models]]
   name = "trustedtokens/openai/gpt-oss-120b"
   [[endpoints.models]]
@@ -30,6 +34,12 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "trustedtokens/Qwen/Qwen3.6-35B-A3B-FP8"
   [[endpoints.models]]
+  name = "trustedtokens/Qwen/Qwen3.8-27B"
+  [[endpoints.models]]
   name = "trustedtokens/tngtech/DeepSeek-TNG-R1T2-Chimera"
   [[endpoints.models]]
   name = "trustedtokens/zai-org/GLM-5.2"
+  [[endpoints.models]]
+  name = "trustedtokens/zai-org/GLM-5.3"
+  [[endpoints.models]]
+  name = "trustedtokens/zai-org/GLM-5.3-Flash"

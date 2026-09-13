@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260830-153143",
+  "host": "thing",
+  "bench": "aider",
+  "model": "RadixArk/Qwen3.8-27B-NVFP4",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "container_endpoint": "http://host.containers.internal:22545/v1",
+  "run_name": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+  "edit_format": "diff",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

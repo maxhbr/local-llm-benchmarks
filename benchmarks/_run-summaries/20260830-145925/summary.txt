@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260830-145925)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+sglang-22545         | rtx5090-sglang-Qwen3.8-27B-NVFP4    | smoke          | 1   | 0.0      | FAIL (URLError: <urlopen error [Errno 111] Connection refused>)
+sglang-22545         | rtx5090-sglang-Qwen3.8-27B-NVFP4    | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+sglang-22545         | rtx5090-sglang-Qwen3.8-27B-NVFP4    | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+sglang-22545         | rtx5090-sglang-Qwen3.8-27B-NVFP4    | aider          | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 0   FAIL: 1   SKIP: 3
