@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260830-102239",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "freetoken",
+      "endpoint_url": "http://localhost:1919/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-NVFP4",
+      "bench": "smoke",
+      "alias": "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4",
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 60.045276,
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "endpoint_name": "freetoken",
+      "endpoint_url": "http://localhost:1919/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-NVFP4",
+      "bench": "llama-benchy",
+      "alias": "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "freetoken",
+      "endpoint_url": "http://localhost:1919/v1",
+      "api_key": "EMPTY",
+      "model": "Qwen3.6-35B-A3B-NVFP4",
+      "bench": "aider",
+      "alias": "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    }
+  ]
+}

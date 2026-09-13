@@ -6,7 +6,7 @@ output_dir = "./benchmarks"
 name       = "freetoken"
 url        = "http://localhost:1919/v1"
 api_key    = "EMPTY"
-benchmarks = ["tool-eval-bench", "aider"] # "llama-benchy", 
+benchmarks = ["llama-benchy", "tool-eval-bench" , "aider"] # "", 
 # remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
 
   [[endpoints.models]]

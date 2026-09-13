@@ -1,0 +1,16 @@
+==========================================================================================
+RUN SUMMARY  (20260913-194437)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q4_K_M        | smoke          | 0   | 6.8      | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q4_K_M        | llama-benchy   | 0   | 1037.6   | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q4_K_M        | tool-eval-bench | 0   | 648.5    | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q5_K_M        | smoke          | 0   | 6.2      | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q5_K_M        | llama-benchy   | 0   | 1145.7   | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q5_K_M        | tool-eval-bench | 0   | 394.6    | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q6_K          | smoke          | 0   | 7.0      | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q6_K          | llama-benchy   | 0   | 1246.2   | OK
+litellm.thing.wg0    | gfx1151:Nex-N2.5-mini-Q6_K          | tool-eval-bench | 0   | 425.1    | OK
+------------------------------------------------------------------------------------------
+Total: 9   OK: 9   FAIL: 0

@@ -30,8 +30,6 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:gemma-4-31B-it-UD-Q5_K_XL"
   [[endpoints.models]]
-  name = "gfx1151:ROCm0:GLM-5.3-Flash-UD-Q2_K_XL"
-  [[endpoints.models]]
   name = "gfx1151:ROCm0:Hy3-Q2_K_L"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:InternScience-Agents-A1-Q4_K_M"
@@ -43,6 +41,12 @@ benchmarks = ["llama-benchy"]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-IQ4_XS"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:MiniMax-M2.7-UD-Q3_K_S"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Nex-N2.5-mini-Q4_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Nex-N2.5-mini-Q5_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Nex-N2.5-mini-Q6_K"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:NVIDIA-Nemotron-3-Nano-Omni-Q8_0"
   [[endpoints.models]]
@@ -88,6 +92,10 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-IQ4_XS"
   [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-IQ4_XS-MTP"
+  [[endpoints.models]]
   name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-Q4_K_XL"
+  [[endpoints.models]]
+  name = "gfx1151:ROCm0:Qwen3.8-Flash-Next-UD-Q4_K_XL-MTP"
   [[endpoints.models]]
   name = "gfx1151:ROCm0:TheDrummer_Skyfall-31B-v4.2-Q6_K"

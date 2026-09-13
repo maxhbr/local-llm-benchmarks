@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-08-30T10:23:39",
+  "endpoint": "http://localhost:1919/v1",
+  "model": "Qwen3.6-35B-A3B-NVFP4",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.045276
+}

@@ -1,0 +1,10 @@
+==========================================================================================
+RUN SUMMARY  (20260830-102239)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+freetoken            | rtx5090-freetoken-qwen3.6-35b-a3b-n | smoke          | 1   | 60.0     | FAIL (TimeoutError: timed out)
+freetoken            | rtx5090-freetoken-qwen3.6-35b-a3b-n | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+freetoken            | rtx5090-freetoken-qwen3.6-35b-a3b-n | aider          | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 3   OK: 0   FAIL: 1   SKIP: 2

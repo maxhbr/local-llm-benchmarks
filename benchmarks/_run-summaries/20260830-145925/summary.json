@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260830-145925",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "smoke",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 1,
+      "duration_s": 0.011034,
+      "error": "URLError: <urlopen error [Errno 111] Connection refused>"
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "llama-benchy",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "aider",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    }
+  ]
+}

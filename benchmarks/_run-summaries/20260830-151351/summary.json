@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260830-151351",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "smoke",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 0,
+      "duration_s": 0.190259,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "llama-benchy",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 1,
+      "duration_s": 0.01013,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 1,
+      "duration_s": 0.007995,
+      "error": null
+    },
+    {
+      "endpoint_name": "sglang-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "RadixArk/Qwen3.8-27B-NVFP4",
+      "bench": "aider",
+      "alias": "rtx5090-sglang-Qwen3.8-27B-NVFP4",
+      "edit_format": "diff",
+      "returncode": 130,
+      "duration_s": 51.457145,
+      "error": "interrupted"
+    }
+  ]
+}
