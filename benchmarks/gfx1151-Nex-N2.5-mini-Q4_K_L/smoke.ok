@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-14T11:53:36",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Nex-N2.5-mini-Q4_K_L",
+  "reply": "pong",
+  "duration_s": 9.582667
+}

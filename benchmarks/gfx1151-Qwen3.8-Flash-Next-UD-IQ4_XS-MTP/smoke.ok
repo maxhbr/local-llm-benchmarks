@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-14T12:34:30",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Qwen3.8-Flash-Next-UD-IQ4_XS-MTP",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 31.805746
+}

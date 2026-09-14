@@ -1,0 +1,13 @@
+==========================================================================================
+RUN SUMMARY  (20260913-232133)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | smoke          | 0   | 7.6      | OK
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | llama-benchy   | 130 | 165.7    | FAIL (interrupted)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | tool-eval-bench | -   | -        | SKIP (not run)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | smoke          | -   | -        | SKIP (not run)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | llama-benchy   | -   | -        | SKIP (not run)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | tool-eval-bench | -   | -        | SKIP (not run)
+------------------------------------------------------------------------------------------
+Total: 6   OK: 1   FAIL: 1   SKIP: 4

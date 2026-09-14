@@ -35,6 +35,12 @@ benchmarks = ["llama-benchy"]
   name = "InternScience-Agents-A1-Q4_K_M"
   alias = "rtx5090:InternScience-Agents-A1-Q4_K_M"
   [[endpoints.models]]
+  name = "Nex-N2.5-mini-Q4_K_L"
+  alias = "rtx5090:Nex-N2.5-mini-Q4_K_L"
+  [[endpoints.models]]
+  name = "Nex-N2.5-mini-Q5_K_M"
+  alias = "rtx5090:Nex-N2.5-mini-Q5_K_M"
+  [[endpoints.models]]
   name = "Qwen3.5-9B-Q5_K_M"
   alias = "rtx5090:Qwen3.5-9B-Q5_K_M"
   [[endpoints.models]]

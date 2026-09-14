@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-14T11:38:29",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Nex-N2.5-mini-Q5_K_M",
+  "reply": "pong",
+  "duration_s": 0.080153
+}
