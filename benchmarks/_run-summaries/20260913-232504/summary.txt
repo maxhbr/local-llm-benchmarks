@@ -1,0 +1,15 @@
+==========================================================================================
+RUN SUMMARY  (20260913-232504)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | llama-benchy   | 0   | 187.7    | OK
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | tool-eval-bench | 0   | 139.0    | OK
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | aider          | 130 | 30165.7  | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q5_K_M        | aider          | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 8   OK: 3   FAIL: 2   SKIP: 3

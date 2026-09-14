@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260913-233030",
+  "host": "thing",
+  "bench": "aider",
+  "model": "rtx5090:Nex-N2.5-mini-Q4_K_L",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Nex-N2.5-mini-Q4_K_L",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

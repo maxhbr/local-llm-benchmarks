@@ -1,0 +1,54 @@
+{
+  "timestamp": "20260914-075732",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nex-N2.5-mini-Q5_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 60.063706,
+      "error": "TimeoutError: timed out"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nex-N2.5-mini-Q5_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nex-N2.5-mini-Q5_K_M",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nex-N2.5-mini-Q5_K_M",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    }
+  ]
+}
