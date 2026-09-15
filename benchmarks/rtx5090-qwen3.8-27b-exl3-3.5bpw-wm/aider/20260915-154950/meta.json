@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260915-154950",
+  "host": "thing",
+  "bench": "aider",
+  "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "container_endpoint": "http://host.containers.internal:22545/v1",
+  "run_name": "rtx5090:qwen3.8-27b-exl3-3.5bpw-wm",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

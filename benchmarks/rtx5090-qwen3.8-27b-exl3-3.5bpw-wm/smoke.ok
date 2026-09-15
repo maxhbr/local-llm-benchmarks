@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-15T16:40:59",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+  "reply": "The user is asking me to say 'pong' and",
+  "duration_s": 4.005452
+}
