@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260915-153849",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "exl3-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+      "bench": "smoke",
+      "alias": "rtx5090:qwen3.8-27b-exl3-3.5bpw-wm",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "exl3-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+      "bench": "llama-benchy",
+      "alias": "rtx5090:qwen3.8-27b-exl3-3.5bpw-wm",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "exl3-22545",
+      "endpoint_url": "http://127.0.0.1:22545/v1",
+      "api_key": "EMPTY",
+      "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+      "bench": "tool-eval-bench",
+      "alias": "rtx5090:qwen3.8-27b-exl3-3.5bpw-wm",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    }
+  ]
+}

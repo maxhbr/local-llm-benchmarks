@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260915-164059",
+  "host": "thing",
+  "bench": "llama-benchy",
+  "model": "qwen3.8-27b-exl3-3.5bpw-wm",
+  "endpoint": "http://127.0.0.1:22545/v1",
+  "run_name": "rtx5090:qwen3.8-27b-exl3-3.5bpw-wm",
+  "pp": 2048,
+  "tg": 128,
+  "depth": "0 8192 16384",
+  "runs": 3,
+  "concurrency": "1 2 4",
+  "latency_mode": "generation",
+  "format": "md",
+  "enable_prefix_caching": false
+}
