@@ -14,8 +14,11 @@
     "gfx1151-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
     "gfx1151-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider.computed.yaml",
     "gfx1151-Qwen3.6-35B-A3B-Q8_0/aider.computed.yaml",
+    "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL/aider.computed.yaml",
+    "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential/aider.computed.yaml",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
     "rtx5090-InternScience-Agents-A1-Q4_K_M/aider.computed.yaml",
+    "rtx5090-Nex-N2.5-mini-Q4_K_L/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-Q6_K-MTP/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider-diff.computed.yaml",
     "rtx5090-Qwen3.6-27B-UD-Q4_K_XL/aider.computed.yaml",
@@ -32,9 +35,11 @@
     "rtx5090-Qwen3.8-27B-MTP-Q4_0/aider.computed.yaml",
     "rtx5090-Qwen3.8-27B-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-Qwen3.8-27B-UD-Q5_K_XL/aider.computed.yaml",
+    "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4/aider.computed.yaml",
     "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-UD-Q4_K_XL/aider.computed.yaml",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider.computed.yaml",
+    "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm/aider.computed.yaml",
     "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider.computed.yaml"
   ]
 }

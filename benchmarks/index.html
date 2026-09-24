@@ -21,29 +21,30 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    header { padding: 16px 20px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    header { padding: 12px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
     header h1 { margin: 0; font-size: 18px; font-weight: 600; }
-    header .status { color: var(--muted); font-size: 13px; }
+    header .status { color: var(--muted); font-size: 13px;
+      flex-basis: 100%; margin-top: -8px; }
     header select, header input[type=search] {
       background: var(--panel-2); color: var(--fg); border: 1px solid var(--border);
       border-radius: 4px; padding: 4px 8px; font-size: 13px;
     }
     header input[type=search] { font-family: inherit; }
-    header .mode-toggle { display: inline-flex; border: 1px solid var(--border);
-      border-radius: 4px; overflow: hidden; }
-    header .mode-toggle button {
-      background: var(--panel-2); color: var(--muted); border: 0; cursor: pointer;
-      font: inherit; font-size: 13px; padding: 4px 10px;
-    }
-    header .mode-toggle button.active { background: var(--accent); color: #0b0e14; }
-    /* highlight mode: non-matching table rows / cells stay visible but faded */
+    /* header control groups: one for the FILTERs (hide), one for the
+       HIGHLIGHT selection (fade) — same options in both */
+    header .fgroup { display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 13px; background: var(--panel-2);
+      border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px;
+      flex-wrap: wrap; }
+    header .fgroup > .fg-label { color: var(--fg); font-weight: 600; }
+    /* entries outside the highlight selection stay visible but faded */
     .dim { opacity: 0.32; }
-    header .gpu-boxes { display: inline-flex; align-items: center; gap: 10px; }
+    header .gpu-boxes { display: inline-flex; align-items: center; gap: 6px; }
     header .gpu-boxes label {
-      display: inline-flex; align-items: center; gap: 4px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 3px; cursor: pointer;
       color: var(--fg); font-size: 13px; background: var(--panel-2);
-      border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px;
+      border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px;
     }
     header .gpu-boxes input[type=checkbox] { accent-color: var(--accent); margin: 0; }
     main { padding: 16px 20px; }
@@ -144,8 +145,8 @@
     /* --- dual-thumb quantization slider (two overlaid range inputs) --- */
     .bit-filter { display: inline-flex; align-items: center; gap: 8px;
       color: var(--muted); font-size: 13px; }
-    .bit-filter .bitvals { font-variant-numeric: tabular-nums; min-width: 8.5em; }
-    .dualrange { position: relative; width: 160px; height: 20px; }
+    .bit-filter .bitvals { font-variant-numeric: tabular-nums; }
+    .dualrange { position: relative; width: 110px; height: 20px; }
     .dualrange input[type=range] {
       position: absolute; left: 0; top: 0; width: 100%; margin: 0;
       background: none; pointer-events: none; -webkit-appearance: none; appearance: none;
@@ -176,37 +177,41 @@
 <body>
   <header>
     <h1>Local LLM Benchmarks</h1>
-    <span class="status" id="status">loading…</span>
-    <span class="filter-mode" title="How the global filters act: &quot;filter&quot; hides everything outside the filter, &quot;highlight&quot; keeps it visible but greys it out."
-          style="margin-left: auto; color: var(--muted); font-size: 13px;
-           display: inline-flex; align-items: center; gap: 6px;">
-      Filters
-      <span class="mode-toggle" id="filterMode">
-        <button type="button" data-mode="filter" class="active">filter</button>
-        <button type="button" data-mode="highlight">highlight</button>
-      </span>
-    </span>
-    <span class="gpu-filter" title="Show only the checked graphics cards. &quot;other&quot; groups every model without a known GPU prefix. Unchecking everything hides all data (highlight mode: greys it out)."
-          style="color: var(--muted); font-size: 13px;
-           display: inline-flex; align-items: center; gap: 6px;">
-      Graphics card
-      <span class="gpu-boxes" id="gpuFilter"></span>
-    </span>
-    <label class="bit-filter" title="Quantization bits deduced from the model name (Q4_K_M, IQ2_XS, BF16, FP8, int4, …). Models with an unknown quantization are hidden while this filter is narrowed.">
-      Quantization
-      <span class="dualrange">
-        <span class="track"><span class="sel" id="bitSel"></span></span>
-        <input id="bitMin" type="range" min="1" max="16" step="1" value="1">
-        <input id="bitMax" type="range" min="1" max="16" step="1" value="16">
-      </span>
-      <span class="bitvals" id="bitVals">1–16 bit</span>
-    </label>
-    <label class="text-filter" title="Wildcard filter on the model / folder name. Use * and ? as wildcards, e.g. &quot;Qwen*Q5&quot;. Several patterns can be separated by spaces or commas (match any); prefix a pattern with - or ! to exclude it."
-           style="color: var(--muted); font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
-      Filter
+    <span class="fgroup"
+          title="FILTER — hides everything outside the selection, in every panel.">
+      <span class="fg-label">Filter</span>
+      <span class="gpu-boxes" id="gpuFilter" title="Show only the checked graphics cards. &quot;other&quot; groups every model without a known GPU prefix. Unchecking everything hides all data."></span>
+      <label class="bit-filter" title="Quantization bits deduced from the model name (Q4_K_M, IQ2_XS, BF16, FP8, int4, …). Models with an unknown quantization are hidden while this filter is narrowed.">
+        Quantization
+        <span class="dualrange">
+          <span class="track"><span class="sel" id="bitSel"></span></span>
+          <input id="bitMin" type="range" min="1" max="16" step="1" value="1">
+          <input id="bitMax" type="range" min="1" max="16" step="1" value="16">
+        </span>
+        <span class="bitvals" id="bitVals">1–16 bit</span>
+      </label>
       <input id="textFilter" type="search" placeholder="Qwen*Q5" autocomplete="off" spellcheck="false"
-             style="width: 180px;">
-    </label>
+             style="width: 120px;"
+             title="Wildcard filter on the model / folder name. Use * and ? as wildcards, e.g. &quot;Qwen*Q5&quot;. Several patterns can be separated by spaces or commas (match any); prefix a pattern with - or ! to exclude it. Non-matching entries are hidden.">
+    </span>
+    <span class="fgroup"
+          title="HIGHLIGHT — entries that pass the filters stay visible, but those outside the highlight selection are faded (greyed out). At the defaults — all cards checked, full bit range, empty pattern — nothing is faded. Example: filter to two GPUs, then uncheck one of them here to highlight the other.">
+      <span class="fg-label">Highlight</span>
+      <span class="gpu-boxes" id="gpuHi" title="Fade every entry of the unchecked graphics cards (among the filtered ones)."></span>
+      <label class="bit-filter" title="Fade entries whose deduced quantization is outside this range (among the filtered ones). Entries with an unknown quantization are faded while this range is narrowed.">
+        Quantization
+        <span class="dualrange">
+          <span class="track"><span class="sel" id="hbitSel"></span></span>
+          <input id="hbitMin" type="range" min="1" max="16" step="1" value="1">
+          <input id="hbitMax" type="range" min="1" max="16" step="1" value="16">
+        </span>
+        <span class="bitvals" id="hbitVals">1–16 bit</span>
+      </label>
+      <input id="textHi" type="search" placeholder="Qwen*Q5" autocomplete="off" spellcheck="false"
+             style="width: 120px;"
+             title="Wildcard highlight on the model / folder name — same syntax as the filter box. Non-matching entries are faded, not hidden.">
+    </span>
+    <span class="status" id="status">loading…</span>
   </header>
   <main>
     <div class="tabs" role="tablist">
@@ -983,9 +988,6 @@
     // Anything without a recognizable known-GPU marker is grouped as "other".
     // ====================================================================
     const KNOWN_GPUS = ["rtx5090", "gfx1151"];
-    // "filter" (hide non-matching) or "highlight" (grey out non-matching).
-    let FILTER_MODE = "filter";
-    const isHighlight = () => FILTER_MODE === "highlight";
     // Multi-select GPU filter: a Set of the GPU keys that are currently shown.
     // Known GPUs start checked, "other" starts unchecked. An empty set hides
     // everything (no GPU selected -> no data).
@@ -1014,56 +1016,69 @@
     }
 
     const gpuMatchesRaw = (gpu) => GPU_FILTER.has(gpu);
-    const gpuMatches = (gpu) => isHighlight() || gpuMatchesRaw(gpu);
+    const gpuMatches = (gpu) => gpuMatchesRaw(gpu);
 
     // ====================================================================
-    // FILTER MODE — how the global filters (graphics card / quantization /
-    // free text) act on the data:
-    //   "filter"    (default) non-matching entries are removed entirely
-    //   "highlight"           non-matching entries stay visible but are
-    //                         greyed out (charts) / faded (tables)
-    // In highlight mode every gpuMatches/bitsMatch/textMatches call returns
-    // true (so nothing is dropped) and the renderers ask dimmed*() which
-    // entries to grey out instead.
+    // FILTER vs HIGHLIGHT — the header controls come in two independent
+    // groups with the same options:
+    //   Filter    — hides everything outside the selection, in every panel.
+    //   Highlight — among the entries that pass the filters, fades (greys
+    //               out) the ones outside the highlight selection.
+    // At its defaults (all cards checked, full bit range, empty pattern) the
+    // highlight selection covers everything, so nothing is faded.
     // ====================================================================
-    // (FILTER_MODE / isHighlight are declared above the predicates.)
+    // GPU highlight selection. null = untouched defaults: all highlighted.
+    let GPU_HI = null;
 
-    // True when an entry fails the raw filters while highlight mode is on.
+    const hiGpuMatch = (gpu) => GPU_HI == null || GPU_HI.has(gpu);
+    // Any highlight control narrowed away from its default?
+    const hiActive = () =>
+      GPU_HI !== null || hiBitActive() || hiTextActive();
+
+    // True when a displayed (filter-passing) entry falls outside the highlight
+    // selection — the renderers grey those out / fade them.
     function dimmed(gpu, bits, ...names) {
-      return isHighlight() &&
-        !(gpuMatchesRaw(gpu) && bitsMatchRaw(bits) && textMatchesRaw(...names));
+      return hiActive()
+        && !(hiGpuMatch(gpu) && hiBitsMatch(bits) && hiTextMatch(...names));
     }
     const dimmedDataset = (d) =>
       dimmed(gpuFromDataset(d), bitsFromDataset(d), d.model, d.baseName, d.folder);
     const dimmedModel = (model) =>
       dimmed(gpuFromModel(model), bitsFromName(model), model);
-    // Group-level (per graphics card) dimming, e.g. for frontier barriers.
-    const dimmedGpu = (gpu) => isHighlight() && !gpuMatchesRaw(gpu);
-    // Dimmed for a reason OTHER than the graphics card. Per-GPU frontier
-    // barriers use this so a frontier is always computed over the same points
-    // as in filter mode — the whole barrier is then greyed when its GPU is
-    // unchecked, instead of changing shape.
+    // Group-level (per graphics card) fading, e.g. for frontier barriers.
+    const dimmedGpu = (gpu) => GPU_HI !== null && !GPU_HI.has(gpu);
+    // Faded for a reason OTHER than the graphics card. Per-GPU frontier
+    // barriers use this so a barrier is always computed over the same points
+    // as without a highlight — the whole barrier is then faded when its GPU is
+    // not highlighted, instead of changing shape.
     const dimmedNonGpu = (bits, ...names) =>
-      isHighlight() && !(bitsMatchRaw(bits) && textMatchesRaw(...names));
+      (hiBitActive() || hiTextActive())
+        && !(hiBitsMatch(bits) && hiTextMatch(...names));
     const dimmedNonGpuDataset = (d) =>
       dimmedNonGpu(bitsFromDataset(d), d.model, d.baseName, d.folder);
     const dimmedNonGpuModel = (model) => dimmedNonGpu(bitsFromName(model), model);
 
-    // Grey used for everything dimmed in highlight mode.
+    // Grey used for everything faded by the highlight.
     const DIM_COLOR = "rgba(140,148,160,0.35)";
     const DIM_FILL  = "rgba(140,148,160,0.10)";
     const dimC = (color, dim) => (dim ? DIM_COLOR : color);
-    // "  (n highlighted)" suffix for panel status lines (empty in filter mode).
-    const hlSuffix = (n) => (isHighlight() ? `  (${n} highlighted)` : "");
+    // "  (n highlighted)" suffix for panel status lines (empty while the
+    // highlight selection is at its defaults).
+    const hlSuffix = (n) => (hiActive() ? `  (${n} highlighted)` : "");
 
     // ====================================================================
-    // GLOBAL FREE-TEXT (WILDCARD) NAME FILTER
+    // GLOBAL FREE-TEXT (WILDCARD) PATTERN MATCHING — shared by the Filter
+    // and Highlight header boxes. Same syntax in both:
     // "Qwen*Q5" -> /qwen.*q5/  (unanchored, case-insensitive)
     // Several patterns separated by spaces/commas match ANY of them;
     // a pattern prefixed with "-" or "!" excludes matches.
+    // The FILTER set hides non-matching entries; the HIGHLIGHT set only
+    // fades them.
     // ====================================================================
-    let TEXT_INCLUDE = []; // RegExp[]
-    let TEXT_EXCLUDE = []; // RegExp[]
+    let TEXT_INCLUDE = []; // RegExp[] (filter)
+    let TEXT_EXCLUDE = []; // RegExp[] (filter)
+    let HI_TEXT_INCLUDE = []; // RegExp[] (highlight)
+    let HI_TEXT_EXCLUDE = []; // RegExp[] (highlight)
 
     function wildcardToRegex(pattern) {
       const body = pattern
@@ -1073,27 +1088,47 @@
       try { return new RegExp(body, "i"); } catch { return null; }
     }
 
-    function setTextFilter(raw) {
-      TEXT_INCLUDE = [];
-      TEXT_EXCLUDE = [];
+    // Parse a raw pattern string into a {include, exclude} RegExp-set pair.
+    function parseWildcards(raw) {
+      const include = [], exclude = [];
       String(raw || "").split(/[\s,]+/).filter(Boolean).forEach(tok => {
         const neg = tok[0] === "-" || tok[0] === "!";
         const pat = neg ? tok.slice(1) : tok;
         if (!pat) return;
         const re = wildcardToRegex(pat);
-        if (re) (neg ? TEXT_EXCLUDE : TEXT_INCLUDE).push(re);
+        if (re) (neg ? exclude : include).push(re);
       });
+      return { include, exclude };
+    }
+
+    function setTextFilter(raw) {
+      ({ include: TEXT_INCLUDE, exclude: TEXT_EXCLUDE } = parseWildcards(raw));
+    }
+    function setHighlightText(raw) {
+      ({ include: HI_TEXT_INCLUDE, exclude: HI_TEXT_EXCLUDE } = parseWildcards(raw));
+    }
+
+    const hiTextActive = () =>
+      HI_TEXT_INCLUDE.length > 0 || HI_TEXT_EXCLUDE.length > 0;
+
+    // True when any of the given name candidates satisfies a pattern set.
+    function matchSet(include, exclude, names) {
+      if (!include.length && !exclude.length) return true;
+      const cands = names.map(n => String(n || "")).filter(Boolean);
+      if (exclude.some(re => cands.some(c => re.test(c)))) return false;
+      if (!include.length) return true;
+      return include.some(re => cands.some(c => re.test(c)));
     }
 
     // True when any of the given name candidates satisfies the text filter.
     function textMatchesRaw(...names) {
-      if (!TEXT_INCLUDE.length && !TEXT_EXCLUDE.length) return true;
-      const cands = names.map(n => String(n || "")).filter(Boolean);
-      if (TEXT_EXCLUDE.some(re => cands.some(c => re.test(c)))) return false;
-      if (!TEXT_INCLUDE.length) return true;
-      return TEXT_INCLUDE.some(re => cands.some(c => re.test(c)));
+      return matchSet(TEXT_INCLUDE, TEXT_EXCLUDE, names);
     }
-    const textMatches = (...names) => isHighlight() || textMatchesRaw(...names);
+    // True when any of the given name candidates satisfies the highlight text.
+    function hiTextMatch(...names) {
+      return matchSet(HI_TEXT_INCLUDE, HI_TEXT_EXCLUDE, names);
+    }
+    const textMatches = (...names) => textMatchesRaw(...names);
 
     // ====================================================================
     // GLOBAL QUANTIZATION (BITS-PER-WEIGHT) FILTER
@@ -1135,10 +1170,23 @@
       if (bits == null) return false;
       return bits >= BIT_MIN && bits <= BIT_MAX;
     }
-    const bitsMatch = (bits) => isHighlight() || bitsMatchRaw(bits);
+    const bitsMatch = (bits) => bitsMatchRaw(bits);
     // Datasets carry both a model and a folder name — either may reveal the quant.
     function bitsFromDataset(d) {
       return bitsFromName(d.model) ?? bitsFromName(d.baseName) ?? bitsFromName(d.folder);
+    }
+
+    // ====================================================================
+    // GLOBAL HIGHLIGHT QUANTIZATION (BITS-PER-WEIGHT) — second slider.
+    // Fades entries outside the range (among the ones the filters kept).
+    // Unknown bit sizes are faded once the highlight range is narrowed.
+    // ====================================================================
+    let HI_BIT_MIN = BIT_MIN_LIMIT, HI_BIT_MAX = BIT_MAX_LIMIT;
+    const hiBitActive = () => HI_BIT_MIN > BIT_MIN_LIMIT || HI_BIT_MAX < BIT_MAX_LIMIT;
+    function hiBitsMatch(bits) {
+      if (!hiBitActive()) return true;
+      if (bits == null) return false;
+      return bits >= HI_BIT_MIN && bits <= HI_BIT_MAX;
     }
 
     // Filtered views of each data source, honoring the global GPU + quant filters.
@@ -1154,18 +1202,33 @@
 
     // Keep the two range thumbs ordered, update the label + selected track, re-render.
     function applyBitFilter() {
-      const minEl = document.getElementById("bitMin");
-      const maxEl = document.getElementById("bitMax");
+      const { lo, hi } = orderedRange("bitMin", "bitMax");
+      BIT_MIN = lo; BIT_MAX = hi;
+      paintRange("bitVals", "bitSel", lo, hi);
+      renderAll();
+    }
+    function applyHiBitFilter() {
+      const { lo, hi } = orderedRange("hbitMin", "hbitMax");
+      HI_BIT_MIN = lo; HI_BIT_MAX = hi;
+      paintRange("hbitVals", "hbitSel", lo, hi);
+      renderAll();
+    }
+    // Shared dual-slider plumbing — sort the two thumbs, return lo/hi.
+    function orderedRange(minId, maxId) {
+      const minEl = document.getElementById(minId);
+      const maxEl = document.getElementById(maxId);
       let lo = Number(minEl.value), hi = Number(maxEl.value);
       if (lo > hi) { const t = lo; lo = hi; hi = t; minEl.value = lo; maxEl.value = hi; }
-      BIT_MIN = lo; BIT_MAX = hi;
-      document.getElementById("bitVals").textContent =
+      return { lo, hi };
+    }
+    // Paint the "a–b bit" label and the selected part of the slider track.
+    function paintRange(valsId, selId, lo, hi) {
+      document.getElementById(valsId).textContent =
         lo === hi ? `${lo} bit` : `${lo}\u2013${hi} bit`;
       const span = BIT_MAX_LIMIT - BIT_MIN_LIMIT;
-      const sel = document.getElementById("bitSel");
+      const sel = document.getElementById(selId);
       sel.style.left  = `${((lo - BIT_MIN_LIMIT) / span) * 100}%`;
       sel.style.right = `${((BIT_MAX_LIMIT - hi) / span) * 100}%`;
-      renderAll();
     }
 
     function sortGpus(gpus) {
@@ -1176,9 +1239,10 @@
       });
     }
 
-    // Populate the header checkbox group from every data source we have loaded.
-    function populateGpuFilter() {
-      const box = document.getElementById("gpuFilter");
+    // Populate a header checkbox group from every data source we have loaded.
+    // populateGpuFilter builds the Filter group, populateGpuHighlight the
+    // Highlight one (same GPU list, all boxes pre-checked).
+    function gpuList() {
       const set = new Set(KNOWN_GPUS);
       set.add("other");
       DATASETS.forEach(d => set.add(gpuFromDataset(d)));
@@ -1189,19 +1253,32 @@
       if (window.ToolEvalBench && window.ToolEvalBench.gpus) {
         window.ToolEvalBench.gpus().forEach(g => set.add(g));
       }
-      const gpus = sortGpus([...set]);
+      return sortGpus([...set]);
+    }
+
+    function buildGpuBoxes(boxId, checkedSet, onChange) {
+      const box = document.getElementById(boxId);
       box.innerHTML = "";
-      gpus.forEach(g => {
+      gpuList().forEach(g => {
         const label = document.createElement("label");
         const cb = document.createElement("input");
         cb.type = "checkbox";
         cb.value = g;
-        cb.checked = GPU_FILTER.has(g);
-        cb.addEventListener("change", applyGpuFilter);
+        cb.checked = checkedSet ? checkedSet.has(g) : true;
+        cb.addEventListener("change", onChange);
         label.appendChild(cb);
         label.appendChild(document.createTextNode(g));
         box.appendChild(label);
       });
+    }
+
+    function populateGpuFilter() {
+      buildGpuBoxes("gpuFilter", GPU_FILTER, applyGpuFilter);
+    }
+    function populateGpuHighlight() {
+      // GPU_HI == null means "defaults — everything highlighted": all checked.
+      // Once the user changes a box we materialize the Set.
+      buildGpuBoxes("gpuHi", GPU_HI, applyGpuHighlight);
     }
 
     // Re-render every visible chart/table after a filter changes.
@@ -1228,6 +1305,15 @@
       renderAll();
     }
 
+    function applyGpuHighlight() {
+      const boxes = document.querySelectorAll("#gpuHi input[type=checkbox]");
+      const set = new Set([...boxes].filter(cb => cb.checked).map(cb => cb.value));
+      // all checked = the untouched default selection — collapse back so the
+      // status lines drop the "(n highlighted)" suffix again
+      GPU_HI = set.size === boxes.length ? null : set;
+      renderAll();
+    }
+
     function populateGridModels() {
       const sel = document.getElementById("gridModel");
       const prev = sel.value;
@@ -1236,9 +1322,8 @@
       models.forEach((m, i) => {
         const opt = document.createElement("option");
         opt.value = m;
-        // highlight mode keeps every model in the list — flag the ones that
-        // fall outside the current filters.
-        opt.textContent = dimmedModel(m) ? `${m}  (outside filter)` : m;
+        // models outside the highlight selection are flagged in the list
+        opt.textContent = dimmedModel(m) ? `${m}  (outside highlight)` : m;
         sel.appendChild(opt);
       });
       // keep prior model if still present, otherwise select the first
@@ -2136,8 +2221,8 @@
       // per-column (across the displayed rows). Shown in the column headers
       // (via .colrate) and the sticky row-key cell (via .rk-rate), reusing the
       // same styling as the per-test matrix tab.
-      // column averages ignore dimmed (out-of-filter) rows so the marginal
-      // stats read the same in both filter modes
+      // column averages ignore faded (out-of-highlight) rows so the marginal
+      // stats are independent of the highlight selection
       const colAvgs = cols.map((_, ci) =>
         lfGeomean(rows.filter(r => !r.dim).map(r => r.vals[ci])));
       const rowAvgs = rows.map(r => lfGeomean(r.vals));
@@ -2522,13 +2607,20 @@
       });
     }
 
-    // Free-text wildcard filter (debounced so typing stays responsive).
+    // Free-text wildcard pattern boxes (debounced so typing stays responsive).
+    // The Filter box hides non-matching entries; the Highlight box fades them.
     (function () {
       const el = document.getElementById("textFilter");
       let t = null;
       el.addEventListener("input", () => {
         clearTimeout(t);
         t = setTimeout(() => { setTextFilter(el.value); renderAll(); }, 150);
+      });
+      const hel = document.getElementById("textHi");
+      let ht = null;
+      hel.addEventListener("input", () => {
+        clearTimeout(ht);
+        ht = setTimeout(() => { setHighlightText(hel.value); renderAll(); }, 150);
       });
     })();
 
@@ -2556,14 +2648,8 @@
       document.getElementById(id).addEventListener("change", renderGrid));
     ["bitMin", "bitMax"].forEach(id =>
       document.getElementById(id).addEventListener("input", applyBitFilter));
-    document.querySelectorAll("#filterMode button").forEach(btn =>
-      btn.addEventListener("click", () => {
-        if (FILTER_MODE === btn.dataset.mode) return;
-        FILTER_MODE = btn.dataset.mode;
-        document.querySelectorAll("#filterMode button").forEach(b =>
-          b.classList.toggle("active", b.dataset.mode === FILTER_MODE));
-        renderAll();
-      }));
+    ["hbitMin", "hbitMax"].forEach(id =>
+      document.getElementById(id).addEventListener("input", applyHiBitFilter));
 
     (async () => {
       try {
@@ -2577,6 +2663,7 @@
         statusEl.textContent =
           `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
         populateGpuFilter();
+        populateGpuHighlight();
         populateLfGpus();
         applyBitFilter();  // sets the slider label/track and renders everything
       } catch (e) {
@@ -2606,8 +2693,8 @@
           gpuMatches(gpuFromHost(r.host)) && bitsMatch(bitsFromName(r.model))
           && textMatches(r.model, r.host));
       }
-      // In highlight mode viewRuns() also returns the runs outside the filter;
-      // this says which of them must be greyed out.
+      // Runs that fall outside the highlight selection (among the filtered
+      // ones) are faded instead of hidden.
       const runDim = (r) =>
         dimmed(gpuFromHost(r.host), bitsFromName(r.model), r.model, r.host);
 
@@ -3068,6 +3155,7 @@
           loaded = true;
           // hosts add GPU options not present in the other data sources
           populateGpuFilter();
+          populateGpuHighlight();
         } catch (e) {
           loadStarted = false;
           const cur = errorsEl.textContent;
@@ -3137,7 +3225,7 @@
           gpuMatches(gpuOf(c)) && bitsMatch(bitsOf(c))
           && textMatches(c.model, c.folder, c.bench));
       }
-      // Columns kept only because highlight mode shows everything: greyed out.
+      // Columns outside the highlight selection are greyed out, not hidden.
       const colDim = (c) => dimmed(gpuOf(c), bitsOf(c), c.model, c.folder, c.bench);
 
       // Pretty short model label: strip openai/<host>: prefix (same as loadAll).
@@ -3348,7 +3436,7 @@
           gpuMatches(gpuOf(r)) && bitsMatch(bitsOf(r))
           && textMatches(r.model, r.folder, r.meta && r.meta.run_name));
       }
-      // Runs kept only because highlight mode shows everything: greyed out.
+      // Runs outside the highlight selection are greyed out, not hidden.
       const runDim = (r) =>
         dimmed(gpuOf(r), bitsOf(r), r.model, r.folder, r.meta && r.meta.run_name);
       // Dimmed for a reason other than the graphics card (frontier barriers).
@@ -3774,6 +3862,7 @@
           loaded = true;
           // runs add GPU options not present in the other data sources
           populateGpuFilter();
+          populateGpuHighlight();
         } catch (e) {
           loadStarted = false;
           const cur = errorsEl.textContent;

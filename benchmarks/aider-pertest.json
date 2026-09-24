@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-28T20:26:47",
-  "column_count": 36,
+  "generated_at": "2026-09-15T18:00:08",
+  "column_count": 41,
   "row_count": 225,
   "columns": [
     {
@@ -130,6 +130,24 @@
       "num_tests_run": 225
     },
     {
+      "column_id": "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider",
+      "folder": "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL",
+      "run_dir": "20260828-221848",
+      "num_tests_run": 5
+    },
+    {
+      "column_id": "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential|aider",
+      "folder": "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/gfx1151:Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential",
+      "run_dir": "20260829-113913",
+      "num_tests_run": 1
+    },
+    {
       "column_id": "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0|aider",
       "folder": "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0",
       "bench": "aider",
@@ -146,6 +164,15 @@
       "model": "openai/rtx5090:InternScience-Agents-A1-Q4_K_M",
       "run_dir": "20260707-123423",
       "num_tests_run": 89
+    },
+    {
+      "column_id": "rtx5090-Nex-N2.5-mini-Q4_K_L|aider",
+      "folder": "rtx5090-Nex-N2.5-mini-Q4_K_L",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/rtx5090:Nex-N2.5-mini-Q4_K_L",
+      "run_dir": "20260913-233030",
+      "num_tests_run": 11
     },
     {
       "column_id": "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider",
@@ -292,6 +319,15 @@
       "num_tests_run": 153
     },
     {
+      "column_id": "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider",
+      "folder": "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/Qwen3.6-35B-A3B-NVFP4",
+      "run_dir": "20260830-000642",
+      "num_tests_run": 43
+    },
+    {
       "column_id": "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL|aider",
       "folder": "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL",
       "bench": "aider",
@@ -316,6 +352,15 @@
       "edit_format": "whole",
       "model": "openai/rtx5090:gemma-4-31B-it-qat-q4_0",
       "run_dir": "20260606-131137",
+      "num_tests_run": 225
+    },
+    {
+      "column_id": "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider",
+      "folder": "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/qwen3.8-27b-exl3-3.5bpw-wm",
+      "run_dir": "20260915-165153",
       "num_tests_run": 225
     },
     {
@@ -443,6 +488,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -552,6 +605,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:5"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -646,6 +707,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
@@ -653,6 +720,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -752,6 +827,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -833,6 +916,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -950,6 +1041,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1048,6 +1147,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -1059,6 +1164,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1156,6 +1269,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1261,6 +1382,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1374,6 +1503,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1467,6 +1604,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1560,6 +1705,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1660,11 +1813,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1744,6 +1911,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -1848,6 +2023,14 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
           "p1": true,
           "p2": true,
@@ -1940,6 +2123,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1, ctx_exhausted:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2026,11 +2217,25 @@
           "err": true,
           "errd": "error_outputs:1, malformed:1"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2137,6 +2342,14 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
           "p1": true,
           "p2": true,
@@ -2239,6 +2452,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2346,6 +2567,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2437,6 +2666,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2548,6 +2785,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2640,11 +2885,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2730,6 +2989,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2821,6 +3088,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -2914,6 +3189,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -2958,6 +3241,14 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -2999,6 +3290,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3038,6 +3337,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -3085,11 +3390,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3179,6 +3498,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3276,6 +3603,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3379,6 +3714,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3464,6 +3807,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3543,6 +3894,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         },
         "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
           "p1": false,
@@ -3640,6 +3999,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3725,6 +4092,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3840,6 +4215,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3925,6 +4308,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -3970,6 +4361,12 @@
           "status": "ran"
         },
         "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -4028,6 +4425,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4129,6 +4534,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4224,6 +4637,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:16"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4311,6 +4732,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4402,6 +4831,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -4507,6 +4944,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -4604,6 +5049,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4707,6 +5160,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4810,6 +5271,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4907,6 +5376,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -4940,6 +5417,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
@@ -4992,6 +5475,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5098,6 +5589,14 @@
           "err": true,
           "errd": "error_outputs:1"
         },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
           "p1": false,
           "p2": false,
@@ -5184,6 +5683,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5251,6 +5758,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5336,6 +5851,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5438,11 +5961,25 @@
           "err": true,
           "errd": "error_outputs:2, ctx_exhausted:2"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5534,6 +6071,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5643,6 +6188,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5680,6 +6233,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
@@ -5722,6 +6283,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5802,11 +6371,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -5910,6 +6493,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6003,6 +6594,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6082,6 +6681,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -6191,6 +6798,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6290,6 +6905,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6375,6 +6998,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6455,11 +7086,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6563,6 +7208,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6674,6 +7327,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6781,6 +7442,14 @@
           "status": "ran",
           "err": true,
           "errd": "timeouts:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6861,11 +7530,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -6957,6 +7640,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7031,11 +7722,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7129,6 +7834,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7211,6 +7924,14 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": false,
@@ -7222,6 +7943,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7337,6 +8066,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7440,6 +8177,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7531,6 +8276,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7604,6 +8357,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7683,6 +8444,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7786,6 +8555,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7881,6 +8658,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -7978,6 +8763,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8065,6 +8858,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8162,6 +8963,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8204,6 +9013,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -8265,6 +9080,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8386,6 +9209,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8491,6 +9322,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8528,6 +9367,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
@@ -8571,6 +9418,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -8582,6 +9435,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8693,6 +9554,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8802,6 +9671,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8901,6 +9778,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -8981,11 +9866,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9055,6 +9954,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9091,6 +9998,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -9152,6 +10065,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9257,6 +10178,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9324,6 +10253,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9431,6 +10368,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9515,11 +10460,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9623,6 +10582,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9709,11 +10676,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9811,6 +10792,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -9899,11 +10888,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10001,6 +11004,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10081,11 +11092,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10201,6 +11226,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10294,6 +11327,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10331,6 +11372,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
@@ -10403,6 +11452,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10491,11 +11548,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10605,6 +11676,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10702,6 +11781,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10793,6 +11880,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10890,6 +11985,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -10987,6 +12090,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11084,6 +12195,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11134,6 +12253,14 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -11175,6 +12302,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11274,6 +12409,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11360,6 +12503,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -11371,6 +12520,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11463,11 +12620,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11556,6 +12727,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": true,
           "p2": true,
@@ -11567,6 +12744,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11611,6 +12796,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -11647,6 +12838,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -11658,6 +12855,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11737,6 +12942,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11834,6 +13047,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -11916,6 +13137,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -11927,6 +13154,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12018,6 +13253,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12110,11 +13353,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12216,6 +13473,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12319,6 +13584,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12422,6 +13695,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12507,6 +13788,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12616,6 +13905,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12707,6 +14004,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12810,6 +14115,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12846,6 +14159,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -12898,6 +14217,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
@@ -12905,6 +14230,14 @@
           "status": "ran",
           "err": true,
           "errd": "timeouts:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -12984,6 +14317,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13063,6 +14404,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13154,6 +14503,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13234,11 +14591,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13338,6 +14709,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13423,6 +14802,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13540,6 +14927,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13643,6 +15038,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13746,6 +15149,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13830,11 +15241,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -13944,6 +15369,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14053,6 +15486,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14095,6 +15536,12 @@
           "p1": false,
           "p2": false,
           "n": 2,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
           "status": "ran"
         },
         "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0|aider": {
@@ -14156,6 +15603,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14189,6 +15644,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
@@ -14247,6 +15708,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14332,6 +15801,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14435,6 +15912,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14468,6 +15953,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
@@ -14526,6 +16017,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14629,6 +16128,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14732,6 +16239,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14859,6 +16374,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -14947,11 +16470,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15051,6 +16588,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15136,6 +16681,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15245,6 +16798,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15342,6 +16903,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15421,6 +16990,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15519,6 +17096,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -15530,6 +17113,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15615,6 +17206,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -15706,6 +17305,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15805,6 +17412,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15896,6 +17511,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -15993,6 +17616,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         },
         "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA|aider": {
           "p1": false,
@@ -16095,11 +17726,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16209,6 +17854,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16283,6 +17936,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -16294,6 +17953,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16391,6 +18058,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16489,11 +18164,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16597,6 +18286,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16694,6 +18391,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16809,6 +18514,14 @@
           "status": "ran",
           "err": true,
           "errd": "timeouts:1"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16894,6 +18607,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -16975,6 +18696,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:2"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17078,6 +18807,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17119,6 +18856,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
+        "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
@@ -17184,11 +18927,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17275,6 +19032,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -17286,6 +19049,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17380,11 +19151,25 @@
           "err": true,
           "errd": "error_outputs:1, ctx_exhausted:1"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17470,6 +19255,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17561,6 +19354,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17652,6 +19453,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17777,6 +19586,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -17886,6 +19703,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -17997,6 +19822,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18094,6 +19927,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18173,6 +20014,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18271,11 +20120,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18377,6 +20240,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18463,6 +20334,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": false,
           "p2": true,
@@ -18474,6 +20351,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18510,6 +20395,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -18560,11 +20451,25 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18650,6 +20555,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18753,6 +20666,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18844,6 +20765,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -18929,6 +20858,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19026,6 +20963,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         }
       }
     },
@@ -19125,6 +21070,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19258,6 +21211,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19343,6 +21304,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19442,6 +21411,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19526,6 +21503,12 @@
           "err": true,
           "errd": "error_outputs:2, ctx_exhausted:2"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-26B-A4B-it-UD-Q6_K_XL|aider": {
           "p1": false,
           "p2": false,
@@ -19539,6 +21522,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19624,6 +21615,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19703,6 +21702,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19796,6 +21803,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19880,11 +21895,25 @@
           "err": true,
           "errd": "error_outputs:2, ctx_exhausted:2"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": true,
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -19986,6 +22015,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20101,6 +22138,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20193,6 +22238,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": true,
+          "p2": true,
+          "n": 1,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-UD-Q4_K_XL|aider": {
           "p1": true,
           "p2": true,
@@ -20204,6 +22255,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20295,6 +22354,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20386,6 +22453,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20466,11 +22541,25 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-freetoken-qwen3.6-35b-a3b-nvfp4|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-gemma-4-31B-it-qat-q4_0|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20604,6 +22693,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20707,6 +22804,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20792,6 +22897,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20895,6 +23008,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -20980,6 +23101,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21083,6 +23212,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21172,6 +23309,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21275,6 +23420,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21384,6 +23537,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21491,6 +23652,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21582,6 +23751,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21655,6 +23832,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21752,6 +23937,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21855,6 +24048,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -21976,6 +24177,14 @@
           "p2": true,
           "n": 1,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     },
@@ -22075,6 +24284,14 @@
           "p2": false,
           "n": 2,
           "status": "ran"
+        },
+        "rtx5090-qwen3.8-27b-exl3-3.5bpw-wm|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         }
       }
     }
@@ -22115,7 +24332,6 @@
     "gfx1151-Qwen3.6-35B-A3B-UD-IQ1_M/aider/20260613-010755: no per-test blocks",
     "gfx1151-Qwen3.6-35B-A3B-UD-Q2_K_XL/aider/20260613-012420: no per-test blocks",
     "gfx1151-Qwen3.6-35B-A3B-UD-Q3_K_XL/aider/20260613-014137: no per-test blocks",
-    "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL/aider/20260828-001043: no per-test blocks",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider/20260626-120023: no per-test blocks",
     "gfx1151-ROCm0-Qwen3.6-35B-A3B-Q8_0/aider/20260708-000003: no per-test blocks",
     "gfx1151-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider/20260705-234910: no per-test blocks",
@@ -22156,6 +24372,7 @@
     "rtx5090-gemma-4-31B-it-UD-Q5_K_XL/aider/20260612-090249: no per-test blocks",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121713: no per-test blocks",
     "rtx5090-gemma-4-31B-it-qat-q4_0/aider/20260606-121725: no per-test blocks",
+    "rtx5090-sglang-Qwen3.8-27B-NVFP4/aider-diff/20260830-153143: no per-test blocks",
     "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-202902: no per-test blocks",
     "rtx5090-vllm-dockerized-Qwen3.8-27B-NVFP4-CUDA/aider/20260824-205224: no per-test blocks",
     "trustedtokens_nvidia_NVIDIA-Nemotron-3.5-Lightning-30B-A3B/aider/20260828-160036: no per-test blocks"
