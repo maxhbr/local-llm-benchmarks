@@ -1,0 +1,9 @@
+==========================================================================================
+RUN SUMMARY  (20260923-182805)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan      | smoke          | 1   | 6.6      | FAIL (HTTP 500: Internal Server Error — {"error":{"message":"litellm.InternalServerError: InternalServerError: OpenAIException - Error code: 500 - {'error': 'unspecific error: upstream command exited prematurely', 'src': 'llama-swap'}. Received Model Group=gfx1151:MiMo-V2.6-Flash-RL-IQ2_S\nAvailable Model Group Fallbacks=None","type":null)
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan      | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 2   OK: 0   FAIL: 1   SKIP: 1

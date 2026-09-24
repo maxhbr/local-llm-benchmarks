@@ -1,0 +1,10 @@
+==========================================================================================
+RUN SUMMARY  (20260923-211914)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan      | smoke          | 0   | 0.0      | OK
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan      | aider          | 130 | 51235.7  | FAIL (interrupted)
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan      | tool-eval-bench | -   | -        | SKIP (not run)
+------------------------------------------------------------------------------------------
+Total: 3   OK: 1   FAIL: 1   SKIP: 1

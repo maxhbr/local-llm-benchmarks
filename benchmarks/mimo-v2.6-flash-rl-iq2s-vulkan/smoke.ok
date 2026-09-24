@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-09-23T19:40:57",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:MiMo-V2.6-Flash-RL-IQ2_S",
+  "reply": "pong",
+  "duration_s": 42.400566
+}

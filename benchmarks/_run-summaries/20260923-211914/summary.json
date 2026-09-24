@@ -1,0 +1,42 @@
+{
+  "timestamp": "20260923-211914",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm-gfx1151-vulkan",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiMo-V2.6-Flash-RL-IQ2_S",
+      "bench": "smoke",
+      "alias": "mimo-v2.6-flash-rl-iq2s-vulkan",
+      "edit_format": "whole",
+      "returncode": 0,
+      "duration_s": 0.0,
+      "error": null
+    },
+    {
+      "endpoint_name": "litellm-gfx1151-vulkan",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiMo-V2.6-Flash-RL-IQ2_S",
+      "bench": "aider",
+      "alias": "mimo-v2.6-flash-rl-iq2s-vulkan",
+      "edit_format": "whole",
+      "returncode": 130,
+      "duration_s": 51235.734501,
+      "error": "interrupted"
+    },
+    {
+      "endpoint_name": "litellm-gfx1151-vulkan",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "gfx1151:MiMo-V2.6-Flash-RL-IQ2_S",
+      "bench": "tool-eval-bench",
+      "alias": "mimo-v2.6-flash-rl-iq2s-vulkan",
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": null
+    }
+  ]
+}
