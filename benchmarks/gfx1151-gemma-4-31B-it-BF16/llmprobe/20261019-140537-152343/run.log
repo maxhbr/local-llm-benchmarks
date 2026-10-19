@@ -1,0 +1,109 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 500
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 500
+  ✓ audio/transcriptions     HTTP 422
+
+model: gfx1151:gemma-4-31B-it-BF16   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion  19.5s
+  ✓ chat/completions: streaming + SSE framing  20.1s
+  ✓ chat/completions: streaming matches non-streaming  17.2s
+  ✓ chat/completions: usage tokens  8.7s
+  ✓ chat/completions: usage reported while streaming  8.3s
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored  3.6s
+  ✓ chat/completions: stop sequences are honored  5.0s
+  ✓ chat/completions: unicode round-trips intact  53.3s
+  ✓ chat/completions: error codes and shapes  4.3s
+  ✓ chat/completions: tool call serialization  25.9s
+  ✓ chat/completions: streamed tool arguments reassemble  25.0s
+  ✓ chat/completions: tool results are accepted back  21.6s
+  ✓ chat/completions: parallel tool calls  36.3s
+  ✓ chat/completions: tool_choice "none" suppresses tools  16.4s
+  ✓ chat/completions: parallel_tool_calls: false is honored  32.3s
+  ✓ chat/completions: typed tool arguments survive the wire  42.9s
+  ✓ chat/completions: JSON mode  52.8s
+  ✗ chat/completions: structured outputs (json_schema strict)  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: marker strings inside constrained JSON are data  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: constrained output enforces schemas behind $ref  60.1s
+      → The operation was aborted due to timeout
+  ✓ chat/completions: an object argument declared as a oneOf union arrives as an object  17.2s
+  ✗ chat/completions: logprobs  18.2s
+      → the same greedy request produced 29 logprob entries without streaming and 25 with it ("<|channel>␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟Hi␟!" vs "<|channel>␟thought␟\n␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟<channel|")
+  ✗ chat/completions: seed determinism  60.0s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: top_p is honored  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: reasoning is kept out of content  60.1s
+      → The operation was aborted due to timeout
+  ✓ chat/completions: a cap spent on reasoning is reported as a cap  13.3s
+  ✓ chat/completions: the answer is an answer, not a scratchpad  23.2s
+  ✓ chat/completions: assistant-history reasoning round-trip  61.4s
+  ✗ responses: basic completion
+      → got HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-31B-it-BF16 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params set `litel
+  ✗ responses: streaming + SSE framing
+      → got HTTP 400
+  ✓ responses: streaming matches non-streaming
+  ✗ responses: usage tokens
+      → no usage block in the response
+  ✗ responses: length finish reason
+      → finish reason was null
+  ✓ responses: max_tokens is honored
+  ✓ responses: unicode round-trips intact
+  ✗ responses: error codes and shapes  4.8s
+      → got HTTP 500 — a malformed body must not succeed
+  ✗ responses: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ responses: tool results are accepted back
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-31B-it-BF16 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params set `litel
+  ✗ responses: tool_choice "none" suppresses tools
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-31B-it-BF16 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`
+  ? responses: typed tool arguments survive the wire
+      → model emitted no call even with a named tool_choice
+  ✗ responses: reasoning is kept out of content  60.0s
+      → The operation was aborted due to timeout
+  ✓ responses: the answer is an answer, not a scratchpad
+  ✓ messages: basic completion  19.3s
+  ✓ messages: streaming + SSE framing  21.8s
+  ✓ messages: streaming matches non-streaming  21.8s
+  ✗ messages: usage tokens  10.4s
+      → cached_tokens 14 > prompt_tokens 5
+  ✓ messages: usage reported while streaming  14.6s
+  ✗ messages: length finish reason  8.7s
+      → expected length/max_tokens, got "end_turn"
+  ✗ messages: max_tokens is honored  5.8s
+      → asked for 8 tokens, got 16 — consistent with a speculative draft block overrunning the cap
+  ✗ messages: stop sequences are honored  20.3s
+      → stop sequence "beta" appeared in the output: "alpha beta gamma"
+  ✓ messages: unicode round-trips intact  53.3s
+  ✗ messages: error codes and shapes  3.9s
+      → got HTTP 500 — a malformed body must not succeed
+  ✓ messages: tool call serialization  25.4s
+  ✓ messages: streamed tool arguments reassemble  25.1s
+  ✓ messages: tool results are accepted back  21.6s
+  ✓ messages: parallel tool calls  40.8s
+  ✓ messages: tool_choice "none" suppresses tools  20.7s
+  ✗ messages: parallel_tool_calls: false is honored  46.3s
+      → got 2 tool calls with parallel_tool_calls: false
+  ✓ messages: typed tool arguments survive the wire  40.6s
+  ✓ messages: an object argument declared as a oneOf union arrives as an object  12.9s
+  ✗ messages: top_p is honored  60.0s
+      → The operation was aborted due to timeout
+  ✗ messages: reasoning is kept out of content  60.4s
+      → The operation was aborted due to timeout
