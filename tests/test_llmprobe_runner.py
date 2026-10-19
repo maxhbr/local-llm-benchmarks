@@ -51,7 +51,7 @@ if mode != "no-report":
     path = pathlib.Path(args[args.index("--save") + 1])
     path.write_text("not JSON" if mode == "malformed" else json.dumps(report))
 print("fake llmprobe output")
-sys.exit(1 if mode in ("conformance", "budget") else 2 if mode == "incomplete" else 0)
+sys.exit(1 if mode in ("conformance", "budget") else 2 if mode in ("incomplete", "fatal-report") else 0)
 ''')
         self.fake.chmod(0o755)
         self.env = mock.patch.dict(os.environ, FAKE_CALLS=str(self.calls), FAKE_REPORT=str(self.fixture))
@@ -97,13 +97,39 @@ sys.exit(1 if mode in ("conformance", "budget") else 2 if mode == "incomplete" e
         self.assertEqual(board["skipped"], [])
         self.assertTrue(all(r["rankable"] for r in board["runs"]))
 
-    def test_conformance_failure_is_published_and_cache_preserves_exit_code(self):
-        self.assertEqual(self.execute(mode="conformance"), 1)
+    def test_conformance_failure_is_a_successful_execution_with_raw_exit_preserved(self):
+        self.assertEqual(self.execute(mode="conformance"), 0)
         self.assertTrue(self.latest.exists())
-        self.assertEqual(self.execute(), 1)
+        meta_path = self.histories()[0] / "meta.json"
+        meta = json.loads(meta_path.read_text())
+        self.assertEqual(meta["status"], "conformance-failed")
+        self.assertEqual(meta["returncode"], 1)
+        self.assertEqual(meta["driver_returncode"], 0)
+        self.assertEqual(self.execute(), 0)
         self.assertEqual(len(self.histories()), 1)
-        self.assertEqual(json.loads((self.histories()[0] / "meta.json").read_text())["status"], "conformance-failed")
+        self.assertEqual(len(self.calls.read_text().splitlines()), 1)
         self.assertTrue(manifest.build_manifest(self.output)["runs"][0]["rankable"])
+        self.assertEqual(json.loads(self.latest.read_text()), self.report)
+
+    def test_legacy_conformance_failure_cache_returns_success_without_rewriting_history(self):
+        self.assertEqual(self.execute(), 0)
+        meta_path = self.histories()[0] / "meta.json"
+        meta = json.loads(meta_path.read_text())
+        meta.update(status="conformance-failed", returncode=1, driver_returncode=1)
+        original = json.dumps(meta)
+        meta_path.write_text(original)
+        self.assertEqual(self.execute(), 0)
+        self.assertEqual(meta_path.read_text(), original)
+        self.assertEqual(len(self.histories()), 1)
+        self.assertEqual(len(self.calls.read_text().splitlines()), 1)
+
+    def test_failed_execution_is_not_hidden_by_a_written_report(self):
+        self.assertEqual(self.execute(mode="fatal-report"), 2)
+        self.assertFalse(self.latest.exists())
+        meta = json.loads((self.histories()[0] / "meta.json").read_text())
+        self.assertEqual(meta["status"], "failed")
+        self.assertEqual(meta["returncode"], 2)
+        self.assertEqual(meta["driver_returncode"], 2)
 
     def test_failures_do_not_publish_or_cache_but_keep_reports_and_metadata(self):
         for mode, rc, status in (("budget", 1, "budget-exhausted"), ("incomplete", 2, "incomplete"),
@@ -226,6 +252,20 @@ sys.exit(1 if mode in ("conformance", "budget") else 2 if mode == "incomplete" e
             harness.run_job(plan.jobs[0], self.output, ROOT, dry_run=False)
         self.assertEqual(plan.jobs[0].returncode, 0)
         self.assertTrue(self.latest.exists())
+
+    def test_harness_summary_counts_conformance_failures_as_completed_benchmarks(self):
+        job = harness.Job(endpoint_name="test", endpoint_url="http://localhost:1/v1", api_key="EMPTY",
+                          model="api/model:Q4", bench="llmprobe", alias="gfx1151-friend/Q4")
+        with mock.patch.dict(os.environ, FAKE_MODE="conformance"), \
+             mock.patch.object(harness, "resolve_driver", return_value=[sys.executable, str(ROOT / "llmprobe_bench.py"),
+                                                                       "--llmprobe-bin", str(self.fake)]), \
+             contextlib.redirect_stdout(io.StringIO()):
+            harness.run_job(job, self.output, ROOT, dry_run=False)
+            board = harness.write_summary(harness.Plan(output_dir=self.output, jobs=[job]), "test")
+        self.assertEqual(job.returncode, 0)
+        self.assertEqual(json.loads((board / "summary.json").read_text())["jobs"][0]["returncode"], 0)
+        self.assertIn("Total: 1   OK: 1   FAIL: 0", (board / "summary.txt").read_text())
+        self.assertEqual(json.loads((self.histories()[0] / "meta.json").read_text())["returncode"], 1)
 
     def test_harness_cli_dry_run_and_smoke_failure_gate(self):
         config = self.base / "benchmarks.toml"

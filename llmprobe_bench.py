@@ -100,7 +100,9 @@ def cached_result(latest: Path, signature: dict[str, Any]) -> int | None:
                 and report["target"]["model"] == signature["model"]
                 and meta.get("status") in ("complete", "conformance-failed")
                 and report_status(report, rc) in ("complete", "conformance-failed")):
-            return rc
+            # Compatibility findings are benchmark results, not execution errors.
+            # This also handles histories written before driver rc normalization.
+            return 0
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
         pass
     return None
@@ -218,7 +220,11 @@ def run(args: argparse.Namespace) -> int:
             if report["target"]["model"] != args.model:
                 raise ValueError("report target.model differs from the requested model")
             meta["status"] = report_status(report, rc)
-            if meta["status"] not in ("complete", "conformance-failed") and rc == 0:
+            if meta["status"] in ("complete", "conformance-failed"):
+                # Upstream rc=1 gates on MUST assertions. A validated completed
+                # report is still a successful benchmark execution for this harness.
+                rc = 0
+            elif rc == 0:
                 rc = 1
         except subprocess.TimeoutExpired as exc:
             meta.update(status="timeout", error=str(exc))
@@ -238,7 +244,7 @@ def run(args: argparse.Namespace) -> int:
         temp_link = model_dir / (".llmprobe-" + run_dir.name)
         temp_link.symlink_to(report_path.relative_to(model_dir))
         temp_link.replace(latest)
-    print(f">>> llmprobe {meta['status']} (rc={rc}): {run_dir}", flush=True)
+    print(f">>> llmprobe {meta['status']} (driver rc={rc}, upstream rc={meta['returncode']}): {run_dir}", flush=True)
     if meta.get("error"):
         print(f"Error: {meta['error']}", file=sys.stderr)
     return rc
