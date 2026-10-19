@@ -1,0 +1,155 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 500
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 500
+  ✓ audio/transcriptions     HTTP 422
+
+model: gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion
+  ✓ chat/completions: streaming + SSE framing  4.5s
+  ✓ chat/completions: streaming matches non-streaming
+  ✓ chat/completions: usage tokens
+  ✓ chat/completions: usage reported while streaming
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored
+  ✓ chat/completions: stop sequences are honored
+  ✓ chat/completions: unicode round-trips intact  4.0s
+  ✓ chat/completions: error codes and shapes  4.6s
+  ✓ chat/completions: tool call serialization
+  ✓ chat/completions: streamed tool arguments reassemble
+  ✓ chat/completions: tool results are accepted back
+  ✓ chat/completions: parallel tool calls  3.5s
+  ✓ chat/completions: tool_choice "none" suppresses tools
+  ✓ chat/completions: parallel_tool_calls: false is honored  3.1s
+  ✓ chat/completions: typed tool arguments survive the wire  3.9s
+  ✓ chat/completions: JSON mode  5.0s
+  ✓ chat/completions: structured outputs (json_schema strict)  17.5s
+  ✓ chat/completions: marker strings inside constrained JSON are data  19.0s
+  ✓ chat/completions: constrained output enforces schemas behind $ref  9.3s
+  ✓ chat/completions: an object argument declared as a oneOf union arrives as an object
+  ✗ chat/completions: logprobs
+      → the same greedy request produced 47 logprob entries without streaming and 43 with it ("<|channel>␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ simple␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟ or␟ \"␟Hi␟ " vs "<|channel>␟thought␟\n␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ simple␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟ ")
+  ✗ chat/completions: seed determinism  41.3s
+      → same seed produced different text: "**Indigo Drift**" vs "Cobalt Echo"
+  ✓ chat/completions: top_p is honored  37.0s
+  ✓ chat/completions: reasoning is kept out of content  12.8s
+  ✓ chat/completions: a cap spent on reasoning is reported as a cap
+  ✓ chat/completions: the answer is an answer, not a scratchpad
+  ✓ chat/completions: assistant-history reasoning round-trip  8.5s
+  ✗ responses: basic completion
+      → got HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-UD-Q8_K_XL doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params 
+  ✗ responses: streaming + SSE framing
+      → got HTTP 400
+  ✓ responses: streaming matches non-streaming
+  ✗ responses: usage tokens
+      → no usage block in the response
+  ✗ responses: length finish reason
+      → finish reason was null
+  ✓ responses: max_tokens is honored
+  ✓ responses: unicode round-trips intact
+  ✗ responses: error codes and shapes  4.8s
+      → got HTTP 500 — a malformed body must not succeed
+  ✗ responses: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ responses: tool results are accepted back
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-UD-Q8_K_XL doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params 
+  ✗ responses: tool_choice "none" suppresses tools
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-UD-Q8_K_XL doesn't support `reasoning.effort` (its model cost map entry lacks `supports_
+  ? responses: typed tool arguments survive the wire
+      → model emitted no call even with a named tool_choice
+  ✓ responses: reasoning is kept out of content  12.8s
+  ✓ responses: the answer is an answer, not a scratchpad
+  ✓ messages: basic completion
+  ✓ messages: streaming + SSE framing  4.5s
+  ✓ messages: streaming matches non-streaming
+  ✗ messages: usage tokens
+      → cached_tokens 14 > prompt_tokens 5
+  ✓ messages: usage reported while streaming
+  ✗ messages: length finish reason
+      → expected length/max_tokens, got "end_turn"
+  ✗ messages: max_tokens is honored
+      → asked for 8 tokens, got 16 — consistent with a speculative draft block overrunning the cap
+  ✗ messages: stop sequences are honored  4.7s
+      → stop sequence "beta" appeared in the output: "alpha beta gamma"
+  ✓ messages: unicode round-trips intact  4.1s
+  ✗ messages: error codes and shapes  4.4s
+      → got HTTP 500 — a malformed body must not succeed
+  ✓ messages: tool call serialization
+  ✓ messages: streamed tool arguments reassemble
+  ✓ messages: tool results are accepted back
+  ✓ messages: parallel tool calls  3.5s
+  ✓ messages: tool_choice "none" suppresses tools
+  ✗ messages: parallel_tool_calls: false is honored  3.4s
+      → got 2 tool calls with parallel_tool_calls: false
+  ✓ messages: typed tool arguments survive the wire  3.7s
+  ✓ messages: an object argument declared as a oneOf union arrives as an object
+  ✗ messages: top_p is honored  43.7s
+      → temperature 1 with top_p≈0 should decode greedily, but two runs differ: "**Paper Oceans**" vs ""
+  ✓ messages: the answer is an answer, not a scratchpad
+  ✓ messages: assistant-history reasoning round-trip
+  ✓ chat/completions: n > 1 choices  31.0s
+  ✓ chat/completions: legacy max_tokens alias
+  ✓ chat/completions: trailing assistant message
+  ✓ chat/completions: stop as a bare string
+  ✓ chat/completions: chat_template_kwargs dialect  16.8s
+  ✓ chat/completions: sampling extensions  45.0s
+  ✗ responses: streaming event order
+      → HTTP 400
+  ? responses: previous_response_id chaining
+      → first response carried no id to chain from
+  ✓ messages: streaming event order
+  ✓ messages: max_tokens is required  4.6s
+  ✗ messages: stop_sequence is reported and echoed  4.7s
+      → stop_reason was "end_turn"
+  ✗ messages: a trailing assistant message is a prefill
+      → the response repeated the prefill — a caller that appends the reply to what it sent gets it twice
+  ✓ messages: system as an array of text blocks  4.1s
+  ✓ messages: user content as an array of text blocks
+  ✗ messages: top_k is honored  39.4s
+      → two runs differ: "**Velvet Static**" vs "**Neon Orchard**" — the parameter was silently dropped
+  ✓ messages: cache_control breakpoints  26.6s
+  ✓ messages: error envelope taxonomy  4.7s
+  ✓ messages/count_tokens: token counting
+  ? embeddings: basic vector  9.2s
+      → HTTP 501 — likely needs a dedicated embedding model (tested with "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL")
+  ✓ completions (legacy): basic
+
+  ✓ picks the weather tool from a menu of decoys 3/3
+  ✓ distinguishes the time tool from the weather tool 3/3
+  ✓ does not reach for a tool during small talk 3/3
+  ✓ answers from knowledge instead of calling an irrelevant tool 3/3
+  ✓ fills typed arguments with the right types 3/3
+  ✓ respects an enum constraint in the tool schema 3/3
+  ✓ recalls a fact from an earlier turn 1/1
+  ✓ uses a tool result instead of inventing an answer 1/1
+  ✓ keeps honoring the system prompt after several turns 1/1
+  ✓ reproduces an exact requested string 1/1
+  ✓ honors a negative constraint 1/1
+  ✓ obeys a one-word length constraint 1/1
+  ✓ emits raw JSON without markdown fences when told to 3/3
+  ✓ produces a nested JSON structure on request 3/3
+  ✓ multiplies two two-digit numbers 1/1
+  ✓ follows a transitive chain 1/1
+  ✓ counts letters in a word 1/1
+  ✓ knows a non-obvious capital city 1/1
+  ✓ knows a chemical symbol 1/1
+  ✓ attributes a well-known novel 1/1
+
+agentic (multi-step tool tasks in a simulated workspace)...
+  ✓ reads the config instead of answering from priors 3 steps
+  ✓ finds where the port really lives and edits only that 5 steps
+  ✓ follows the pointer in build.cfg instead of guessing 5 steps

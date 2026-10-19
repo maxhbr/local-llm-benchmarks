@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-10-19T13:45:34.827837+00:00",
+  "host": "thing",
+  "bench": "llmprobe",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+  "run_name": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+  "llmprobe_version": "0.6.17",
+  "depth": "default",
+  "performance": false,
+  "signature": {
+    "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+    "model": "gfx1151:gemma-4-26B-A4B-it-UD-Q8_K_XL",
+    "llmprobe_version": "0.6.17",
+    "llmprobe_bin": null,
+    "depth": "default",
+    "performance": false,
+    "budget": null,
+    "timeout": 60,
+    "run_timeout": 3600,
+    "reasoning": "medium",
+    "concurrency": 1
+  },
+  "status": "failed",
+  "returncode": null
+}

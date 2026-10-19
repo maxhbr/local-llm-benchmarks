@@ -1,0 +1,99 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 500
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 500
+  ✓ audio/transcriptions     HTTP 422
+
+model: gfx1151:gemma-4-26B-A4B-it-qat-q4_0   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion
+  ✓ chat/completions: streaming + SSE framing
+  ✓ chat/completions: streaming matches non-streaming
+  ✓ chat/completions: usage tokens
+  ✓ chat/completions: usage reported while streaming
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored
+  ✓ chat/completions: stop sequences are honored
+  ✓ chat/completions: unicode round-trips intact
+  ✓ chat/completions: error codes and shapes  4.0s
+  ✓ chat/completions: tool call serialization
+  ✓ chat/completions: streamed tool arguments reassemble
+  ✓ chat/completions: tool results are accepted back
+  ✓ chat/completions: parallel tool calls
+  ✓ chat/completions: tool_choice "none" suppresses tools
+  ✓ chat/completions: parallel_tool_calls: false is honored
+  ✓ chat/completions: typed tool arguments survive the wire
+  ✓ chat/completions: JSON mode
+  ✓ chat/completions: structured outputs (json_schema strict)  10.7s
+  ✓ chat/completions: marker strings inside constrained JSON are data  13.1s
+  ✓ chat/completions: constrained output enforces schemas behind $ref  6.7s
+  ✓ chat/completions: an object argument declared as a oneOf union arrives as an object
+  ✗ chat/completions: logprobs
+      → the same greedy request produced 47 logprob entries without streaming and 43 with it ("<|channel>␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ simple␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟ or␟ \"␟Hi␟ " vs "<|channel>␟thought␟\n␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ simple␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟ ")
+  ✗ chat/completions: seed determinism  29.9s
+      → same seed produced different text: "Velvet Riot" vs ""
+  ✓ chat/completions: top_p is honored  32.7s
+  ✓ chat/completions: reasoning is kept out of content  7.7s
+  ✓ chat/completions: a cap spent on reasoning is reported as a cap
+  ✓ chat/completions: the answer is an answer, not a scratchpad
+  ✓ chat/completions: assistant-history reasoning round-trip  5.3s
+  ✗ responses: basic completion
+      → got HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-qat-q4_0 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params se
+  ✗ responses: streaming + SSE framing
+      → got HTTP 400
+  ✓ responses: streaming matches non-streaming
+  ✗ responses: usage tokens
+      → no usage block in the response
+  ✗ responses: length finish reason
+      → finish reason was null
+  ✓ responses: max_tokens is honored
+  ✓ responses: unicode round-trips intact
+  ✗ responses: error codes and shapes  4.4s
+      → got HTTP 500 — a malformed body must not succeed
+  ✗ responses: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ responses: tool results are accepted back
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-qat-q4_0 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params se
+  ✗ responses: tool_choice "none" suppresses tools
+      → HTTP 400: {"error":{"message":"litellm.UnsupportedParamsError: gemma-4-26B-A4B-it-qat-q4_0 doesn't support `reasoning.effort` (its model cost map entry lacks `supports_re
+  ? responses: typed tool arguments survive the wire
+      → model emitted no call even with a named tool_choice
+  ✓ responses: reasoning is kept out of content  7.1s
+  ✓ responses: the answer is an answer, not a scratchpad
+  ✓ messages: basic completion
+  ✓ messages: streaming + SSE framing
+  ✓ messages: streaming matches non-streaming
+  ✗ messages: usage tokens
+      → cached_tokens 14 > prompt_tokens 5
+  ✓ messages: usage reported while streaming
+  ✗ messages: length finish reason
+      → expected length/max_tokens, got "end_turn"
+  ✗ messages: max_tokens is honored
+      → asked for 8 tokens, got 16 — consistent with a speculative draft block overrunning the cap
+  ✗ messages: stop sequences are honored
+      → stop sequence "beta" appeared in the output: "alpha beta gamma"
+  ✓ messages: unicode round-trips intact
+  ✗ messages: error codes and shapes  4.2s
+      → got HTTP 500 — a malformed body must not succeed
+  ✓ messages: tool call serialization
+  ✓ messages: streamed tool arguments reassemble
+  ✓ messages: tool results are accepted back
+  ✓ messages: parallel tool calls
+  ✓ messages: tool_choice "none" suppresses tools
+  ✗ messages: parallel_tool_calls: false is honored
+      → got 2 tool calls with parallel_tool_calls: false
+  ✓ messages: typed tool arguments survive the wire
+  ✓ messages: an object argument declared as a oneOf union arrives as an object
