@@ -20,6 +20,7 @@ Available benchmarks (matches the flake apps and the *.sh / *.py drivers):
     terminal-bench -> terminal-bench-benchmarks.sh
     tool-eval-bench -> tool-eval-bench-benchmarks.sh
     agent-bench    -> agent_bench.py
+    llmprobe       -> llmprobe_bench.py
     smoke          -> run inline by this script itself (no driver)
 
 "smoke" always runs first, for every model — no need to list it in the TOML
@@ -104,6 +105,7 @@ BENCHMARKS: dict[str, str | None] = {
     "terminal-bench": "terminal-bench-benchmarks.sh",
     "tool-eval-bench": "tool-eval-bench-benchmarks.sh",
     "agent-bench":    "agent_bench.py",
+    "llmprobe":       "llmprobe_bench.py",
     "smoke":          None,  # inline: simple liveness check, writes smoke.ok
 }
 
@@ -270,6 +272,7 @@ WRAPPERS: dict[str, str] = {
     "terminal-bench": "terminal-bench",
     "tool-eval-bench": "tool-eval-bench-bench",
     "agent-bench":    "agent-bench",
+    "llmprobe":       "llmprobe-bench",
     # "smoke" is intentionally absent — handled inline by run_smoke_job().
 }
 

@@ -65,6 +65,7 @@ watch_list() {
         ! -name datasets.json \
         ! -name llama-benchy.csv \
         ! -name find-fastest.md \
+        ! -path "$BENCH_DIR/_llmprobe-scoreboards/*" \
         ! -name '*.computed.yaml'
 }
 

@@ -110,7 +110,7 @@ fi
 # Full set of selectable benchmark ids known to run_benchmarks.py's BENCHMARKS
 # map (verify with `run_benchmarks.py --list-benchmarks`). "smoke" is
 # deliberately absent: the runner always runs it and gates the others on it.
-ALL_BENCHMARKS=(agent-bench aider llama-benchy terminal-bench tool-eval-bench)
+ALL_BENCHMARKS=(agent-bench aider llama-benchy terminal-bench tool-eval-bench llmprobe)
 
 # Convert "a, b, c" -> TOML array literal: ["a", "b", "c"]
 benchmarks_toml_array() {

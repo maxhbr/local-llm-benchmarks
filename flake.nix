@@ -1,5 +1,5 @@
 {
-  description = "Local LLM Benchmarks - unified runners for aider, llama-benchy, terminal-bench, tool-eval-bench and agent_bench";
+  description = "Local LLM Benchmarks - unified runners for aider, llama-benchy, terminal-bench, tool-eval-bench, agent_bench and llmprobe";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/e9a7635a57597d9754eccebdfc7045e6c8600e6b";
 
@@ -17,11 +17,13 @@
       src = pkgs.runCommand "local-llm-benchmarks-src" { } ''
         mkdir -p $out/lib
         cp ${./lib/common.sh}                    $out/lib/common.sh
+        cp ${./lib/llmprobe_report.py}           $out/lib/llmprobe_report.py
         cp ${./aider-polyglot-benchmarks.sh}     $out/aider-polyglot-benchmarks.sh
         cp ${./llama-benchy-benchmarks.sh}       $out/llama-benchy-benchmarks.sh
         cp ${./terminal-bench-benchmarks.sh}     $out/terminal-bench-benchmarks.sh
         cp ${./tool-eval-bench-benchmarks.sh}    $out/tool-eval-bench-benchmarks.sh
         cp ${./agent_bench.py}                   $out/agent_bench.py
+        cp ${./llmprobe_bench.py}                $out/llmprobe_bench.py
         cp ${./run_benchmarks.py}                $out/run_benchmarks.py
         chmod +x $out/*.sh $out/*.py
       '';
@@ -82,6 +84,15 @@
         '';
       };
 
+      # The driver installs the pinned npm release into work/ on first use.
+      llmprobe-bench = pkgs.writeShellApplication {
+        name = "llmprobe-bench";
+        runtimeInputs = commonRuntime ++ [ pkgs.nodejs_24 ];
+        text = ''
+          exec ${pkgs.python3}/bin/python3 ${src}/llmprobe_bench.py "$@"
+        '';
+      };
+
       # Single entrypoint: reads a TOML matrix and dispatches to the
       # per-benchmark wrappers.  Needs python3 >= 3.11 for stdlib `tomllib`.
       run-benchmarks = pkgs.writeShellApplication {
@@ -93,6 +104,7 @@
           terminal-bench
           tool-eval-bench-bench
           agent-bench
+          llmprobe-bench
         ];
         text = ''
           exec ${pkgs.python3}/bin/python3 ${src}/run_benchmarks.py "$@"
@@ -101,7 +113,7 @@
     in
     {
       packages.${system} = {
-        inherit aider-bench llama-benchy-bench terminal-bench tool-eval-bench-bench agent-bench run-benchmarks;
+        inherit aider-bench llama-benchy-bench terminal-bench tool-eval-bench-bench agent-bench llmprobe-bench run-benchmarks;
         default = run-benchmarks;
       };
 
@@ -111,6 +123,7 @@
         terminal-bench     = { type = "app"; program = "${terminal-bench}/bin/terminal-bench"; };
         tool-eval-bench-bench = { type = "app"; program = "${tool-eval-bench-bench}/bin/tool-eval-bench-bench"; };
         agent-bench        = { type = "app"; program = "${agent-bench}/bin/agent-bench"; };
+        llmprobe-bench     = { type = "app"; program = "${llmprobe-bench}/bin/llmprobe-bench"; };
         run-benchmarks     = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };
         default            = { type = "app"; program = "${run-benchmarks}/bin/run-benchmarks"; };
       };
@@ -123,6 +136,7 @@
           podman
           docker
           entr
+          nodejs_24
         ]);
         # llama-benchy installs pre-built wheels (numpy, tokenizers, ...) that
         # need libstdc++ and libz from a stable LD path.

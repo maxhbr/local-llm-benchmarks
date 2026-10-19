@@ -1,5 +1,6 @@
 work/
 jobs/
+/benchmarks_snd/
 # benchmarks/
 *.cmd
 __pycache__/
