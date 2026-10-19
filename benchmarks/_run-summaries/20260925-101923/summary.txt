@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260925-101923)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-gfx1151-rocm | mimo-v2.6-flash-rl-iq2s-rocm-dry    | smoke          | 0   | 40.9     | OK
+litellm-gfx1151-rocm | mimo-v2.6-flash-rl-iq2s-rocm-dry    | llama-benchy   | 0   | 6130.2   | OK
+litellm-gfx1151-rocm | mimo-v2.6-flash-rl-iq2s-rocm-dry    | tool-eval-bench | 0   | 14792.0  | OK
+litellm-gfx1151-rocm | mimo-v2.6-flash-rl-iq2s-rocm-dry    | aider          | 130 | 2123.9   | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 3   FAIL: 1

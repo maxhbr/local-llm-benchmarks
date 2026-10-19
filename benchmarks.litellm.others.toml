@@ -11,7 +11,7 @@ name       = "litellm.thing.wg0"
 url        = "http://litellm.thing.wg0.maxhbr.local/v1"
 api_key    = "EMPTY"
 benchmarks = ["llama-benchy"]
-# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench"
+# remaining options: "agent-bench", "aider", "terminal-bench", "tool-eval-bench", "llmprobe"
 
   [[endpoints.models]]
   name = "localhost:22545:localhost:22545"

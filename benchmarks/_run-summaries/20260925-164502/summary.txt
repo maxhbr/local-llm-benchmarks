@@ -1,0 +1,11 @@
+==========================================================================================
+RUN SUMMARY  (20260925-164502)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan-dry  | smoke          | 0   | 0.0      | OK
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan-dry  | llama-benchy   | 0   | 5357.7   | OK
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan-dry  | tool-eval-bench | 0   | 12459.6  | OK
+litellm-gfx1151-vulk | mimo-v2.6-flash-rl-iq2s-vulkan-dry  | aider          | 130 | 43638.3  | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 4   OK: 3   FAIL: 1
