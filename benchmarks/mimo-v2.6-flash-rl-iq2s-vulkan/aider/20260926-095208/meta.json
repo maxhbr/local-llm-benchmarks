@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260926-095208",
+  "host": "thing",
+  "bench": "aider",
+  "model": "gfx1151:MiMo-V2.6-Flash-RL-IQ2_S",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "mimo-v2.6-flash-rl-iq2s-vulkan",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}
