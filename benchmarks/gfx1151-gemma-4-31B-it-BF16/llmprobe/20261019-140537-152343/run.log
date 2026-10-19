@@ -1,0 +1,54 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 500
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 500
+  ✓ audio/transcriptions     HTTP 422
+
+model: gfx1151:gemma-4-31B-it-BF16   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion  19.5s
+  ✓ chat/completions: streaming + SSE framing  20.1s
+  ✓ chat/completions: streaming matches non-streaming  17.2s
+  ✓ chat/completions: usage tokens  8.7s
+  ✓ chat/completions: usage reported while streaming  8.3s
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored  3.6s
+  ✓ chat/completions: stop sequences are honored  5.0s
+  ✓ chat/completions: unicode round-trips intact  53.3s
+  ✓ chat/completions: error codes and shapes  4.3s
+  ✓ chat/completions: tool call serialization  25.9s
+  ✓ chat/completions: streamed tool arguments reassemble  25.0s
+  ✓ chat/completions: tool results are accepted back  21.6s
+  ✓ chat/completions: parallel tool calls  36.3s
+  ✓ chat/completions: tool_choice "none" suppresses tools  16.4s
+  ✓ chat/completions: parallel_tool_calls: false is honored  32.3s
+  ✓ chat/completions: typed tool arguments survive the wire  42.9s
+  ✓ chat/completions: JSON mode  52.8s
+  ✗ chat/completions: structured outputs (json_schema strict)  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: marker strings inside constrained JSON are data  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: constrained output enforces schemas behind $ref  60.1s
+      → The operation was aborted due to timeout
+  ✓ chat/completions: an object argument declared as a oneOf union arrives as an object  17.2s
+  ✗ chat/completions: logprobs  18.2s
+      → the same greedy request produced 29 logprob entries without streaming and 25 with it ("<|channel>␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟Hi␟!" vs "<|channel>␟thought␟\n␟The␟ user␟ said␟ \"␟Say␟ hi␟.\"␟\n␟The␟ user␟ wants␟ a␟ greeting␟.␟\n␟\"␟Hi␟!\"␟ or␟ \"␟Hello␟!\"␟<channel|")
+  ✗ chat/completions: seed determinism  60.0s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: top_p is honored  60.1s
+      → The operation was aborted due to timeout
+  ✗ chat/completions: reasoning is kept out of content  60.1s
+      → The operation was aborted due to timeout
