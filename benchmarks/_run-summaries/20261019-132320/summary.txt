@@ -1,0 +1,37 @@
+==========================================================================================
+RUN SUMMARY  (20261019-132320)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-qat-q4_0 | llmprobe       | 1   | 234.7    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-26B-A4B-it-UD-Q6_K_ | llmprobe       | 1   | 276.2    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-qat-q4_0     | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-qat-q4_0     | llmprobe       | 1   | 529.8    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:gemma-4-31B-it-UD-Q4_K_XL   | llmprobe       | 1   | 586.0    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:InternScience-Agents-A1-Q4_ | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:InternScience-Agents-A1-Q4_ | llmprobe       | 1   | 298.0    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Nex-N2.5-mini-Q4_K_L        | llmprobe       | 1   | 100.0    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.5-9B-Q5_K_M           | llmprobe       | 1   | 382.3    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL  | llmprobe       | 1   | 323.0    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL- | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.6-35B-A3B-UD-Q5_K_XL- | llmprobe       | 1   | 260.7    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-ABL-Q5_K_M      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-ABL-Q5_K_M      | llmprobe       | 1   | 258.7    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-MTP-Q4_0        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-MTP-Q4_0        | llmprobe       | 1   | 166.4    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-Q6_K-MTP        | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-Q6_K-MTP        | llmprobe       | 1   | 204.8    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q4_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q4_K_XL      | llmprobe       | 1   | 261.3    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q5_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q5_K_XL      | llmprobe       | 1   | 286.7    | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q6_K_XL      | smoke          | 0   | 0.0      | OK
+litellm.thing.wg0    | rtx5090:Qwen3.8-27B-UD-Q6_K_XL      | llmprobe       | 1   | 315.5    | FAIL (rc!=0)
+------------------------------------------------------------------------------------------
+Total: 30   OK: 15   FAIL: 15

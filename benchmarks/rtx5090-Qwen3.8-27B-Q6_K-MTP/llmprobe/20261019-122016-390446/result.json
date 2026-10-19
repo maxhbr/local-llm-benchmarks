@@ -1,0 +1,3923 @@
+{
+  "version": 2,
+  "run": {
+    "depth": "default",
+    "mode": "probe",
+    "startedAt": "2026-10-19T12:20:16.457Z",
+    "phases": {
+      "coverage": {
+        "status": "partial",
+        "reason": "1 items were not probed"
+      },
+      "conformance": {
+        "status": "measured"
+      },
+      "capability": {
+        "status": "measured"
+      },
+      "agentic": {
+        "status": "measured"
+      },
+      "fidelity": {
+        "status": "measured"
+      },
+      "performance": {
+        "status": "not-run",
+        "reason": "benchmark not requested"
+      },
+      "reasoning": {
+        "status": "not-run",
+        "reason": "eval not requested"
+      }
+    },
+    "budget": {
+      "exhausted": false
+    }
+  },
+  "target": {
+    "baseUrl": "http://litellm.thing.wg0.maxhbr.local/v1",
+    "model": "rtx5090:Qwen3.8-27B-Q6_K-MTP"
+  },
+  "machine": {
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+    "memGB": 125
+  },
+  "coverage": {
+    "byTier": [
+      {
+        "tier": "core",
+        "supported": 9,
+        "total": 9,
+        "pct": 100,
+        "missing": [],
+        "unprobed": []
+      },
+      {
+        "tier": "extended",
+        "supported": 14,
+        "total": 15,
+        "pct": 93.3,
+        "missing": [
+          "vision"
+        ],
+        "unprobed": []
+      },
+      {
+        "tier": "frontier",
+        "supported": 6,
+        "total": 9,
+        "pct": 66.7,
+        "missing": [
+          "MCP tools",
+          "rate limiting",
+          "background responses"
+        ],
+        "unprobed": [
+          "prompt caching"
+        ]
+      }
+    ],
+    "credits": [
+      {
+        "id": "chat-assistant-prefill",
+        "label": "chat prefill: a trailing assistant message is continued, and echoed back"
+      },
+      {
+        "id": "chat-template-kwargs",
+        "label": "chat_template_kwargs: enable_thinking: false is honored"
+      },
+      {
+        "id": "chat-sampling-extensions",
+        "label": "sampling extensions: top_k honored; min_p, repetition_penalty accepted (acceptance only)"
+      }
+    ],
+    "entries": [
+      {
+        "id": "models",
+        "label": "/v1/models",
+        "kind": "surface",
+        "tier": "core",
+        "supported": true
+      },
+      {
+        "id": "chat",
+        "label": "chat/completions",
+        "kind": "surface",
+        "tier": "core",
+        "supported": true
+      },
+      {
+        "id": "responses",
+        "label": "responses",
+        "kind": "surface",
+        "tier": "extended",
+        "supported": true
+      },
+      {
+        "id": "messages",
+        "label": "messages",
+        "kind": "surface",
+        "tier": "extended",
+        "supported": true
+      },
+      {
+        "id": "count-tokens",
+        "label": "messages/count_tokens",
+        "kind": "surface",
+        "tier": "extended",
+        "supported": true
+      },
+      {
+        "id": "embeddings",
+        "label": "embeddings",
+        "kind": "surface",
+        "tier": "extended",
+        "supported": true
+      },
+      {
+        "id": "completions",
+        "label": "completions (legacy)",
+        "kind": "surface",
+        "tier": "extended",
+        "supported": true
+      },
+      {
+        "id": "images",
+        "label": "images/generations",
+        "kind": "surface",
+        "tier": "frontier",
+        "supported": true
+      },
+      {
+        "id": "images-edit",
+        "label": "images/edits",
+        "kind": "surface",
+        "tier": "frontier",
+        "supported": true
+      },
+      {
+        "id": "audio-speech",
+        "label": "audio/speech",
+        "kind": "surface",
+        "tier": "frontier",
+        "supported": true
+      },
+      {
+        "id": "audio-transcriptions",
+        "label": "audio/transcriptions",
+        "kind": "surface",
+        "tier": "frontier",
+        "supported": true
+      },
+      {
+        "id": "streaming",
+        "label": "streaming + SSE framing",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "tools",
+        "label": "tool calling",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "json-mode",
+        "label": "JSON mode",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "usage",
+        "label": "usage tokens",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "finish-reasons",
+        "label": "finish reasons",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "errors",
+        "label": "error codes",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "limits",
+        "label": "stop + max_tokens",
+        "kind": "feature",
+        "tier": "core",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "structured-outputs",
+        "label": "structured outputs",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "parallel-tools",
+        "label": "parallel tool calls",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "vision",
+        "label": "vision",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": false,
+        "probed": true,
+        "detail": "rejects image content with HTTP 500"
+      },
+      {
+        "id": "logprobs",
+        "label": "logprobs",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "reasoning",
+        "label": "reasoning items",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "reasoning-roundtrip",
+        "label": "reasoning history round-trip",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "stream-usage",
+        "label": "streamed usage",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "seed",
+        "label": "seed determinism",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "sampling",
+        "label": "top_p sampling",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "max-tokens-alias",
+        "label": "max_tokens legacy alias",
+        "kind": "feature",
+        "tier": "extended",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "mcp-tools",
+        "label": "MCP tools",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": false,
+        "probed": true,
+        "detail": "not probed — llmprobe does not yet host an MCP server to call back into"
+      },
+      {
+        "id": "n-choices",
+        "label": "n>1 choices",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "rate-limiting",
+        "label": "rate limiting",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": false,
+        "probed": true,
+        "detail": "no x-ratelimit-* headers"
+      },
+      {
+        "id": "prompt-caching",
+        "label": "prompt caching",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": false,
+        "probed": false
+      },
+      {
+        "id": "previous-response-id",
+        "label": "previous_response_id chaining",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": true,
+        "probed": true
+      },
+      {
+        "id": "background",
+        "label": "background responses",
+        "kind": "feature",
+        "tier": "frontier",
+        "supported": false,
+        "probed": true,
+        "detail": "rejects background with HTTP 400"
+      }
+    ]
+  },
+  "conformance": {
+    "pct": 87.8,
+    "passed": 137,
+    "total": 156,
+    "bySurface": [
+      {
+        "surface": "models",
+        "passed": 4,
+        "total": 4,
+        "pct": 100
+      },
+      {
+        "surface": "chat",
+        "passed": 70,
+        "total": 71,
+        "pct": 98.6
+      },
+      {
+        "surface": "responses",
+        "passed": 5,
+        "total": 14,
+        "pct": 35.7
+      },
+      {
+        "surface": "messages",
+        "passed": 53,
+        "total": 61,
+        "pct": 86.9
+      },
+      {
+        "surface": "count-tokens",
+        "passed": 2,
+        "total": 3,
+        "pct": 66.7
+      },
+      {
+        "surface": "completions",
+        "passed": 3,
+        "total": 3,
+        "pct": 100
+      }
+    ],
+    "inconclusive": [
+      {
+        "id": "responses-tool-arg-types",
+        "name": "responses: typed tool arguments survive the wire",
+        "reason": "model emitted no call even with a named tool_choice"
+      },
+      {
+        "id": "responses-previous-response-id",
+        "name": "responses: previous_response_id chaining",
+        "reason": "first response carried no id to chain from"
+      },
+      {
+        "id": "embeddings-basic",
+        "name": "embeddings: basic vector",
+        "reason": "HTTP 501 — likely needs a dedicated embedding model (tested with \"rtx5090:Qwen3.8-27B-Q6_K-MTP\")"
+      }
+    ],
+    "warnings": [
+      {
+        "id": "responses-max-tokens-unverifiable",
+        "label": "usage lets us verify max_tokens",
+        "message": "no output token count to check against"
+      },
+      {
+        "id": "messages-requires-max-tokens",
+        "label": "a request without max_tokens is rejected",
+        "message": "accepted a request with no max_tokens (HTTP 200) — the spec requires it"
+      },
+      {
+        "id": "messages-stop-echoed",
+        "label": "the matched sequence is echoed in stop_sequence",
+        "message": "stop_sequence field was null"
+      }
+    ],
+    "nits": [],
+    "results": [
+      {
+        "id": "models-list",
+        "name": "/v1/models: model list",
+        "surface": "models",
+        "outcome": "pass",
+        "durationMs": 31,
+        "failures": []
+      },
+      {
+        "id": "chat-basic",
+        "name": "chat/completions: basic completion",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 382,
+        "failures": []
+      },
+      {
+        "id": "chat-streaming",
+        "name": "chat/completions: streaming + SSE framing",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 426,
+        "failures": []
+      },
+      {
+        "id": "chat-parity",
+        "name": "chat/completions: streaming matches non-streaming",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 337,
+        "failures": []
+      },
+      {
+        "id": "chat-usage",
+        "name": "chat/completions: usage tokens",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 449,
+        "failures": []
+      },
+      {
+        "id": "chat-stream-usage",
+        "name": "chat/completions: usage reported while streaming",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 449,
+        "failures": []
+      },
+      {
+        "id": "chat-finish-length",
+        "name": "chat/completions: length finish reason",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 45,
+        "failures": []
+      },
+      {
+        "id": "chat-limits-max-tokens",
+        "name": "chat/completions: max_tokens is honored",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 184,
+        "failures": []
+      },
+      {
+        "id": "chat-limits-stop",
+        "name": "chat/completions: stop sequences are honored",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 211,
+        "failures": []
+      },
+      {
+        "id": "chat-unicode",
+        "name": "chat/completions: unicode round-trips intact",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 1310,
+        "failures": []
+      },
+      {
+        "id": "chat-errors",
+        "name": "chat/completions: error codes and shapes",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 4319,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-serialization",
+        "name": "chat/completions: tool call serialization",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 960,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-stream-reassembly",
+        "name": "chat/completions: streamed tool arguments reassemble",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 868,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-result-turn",
+        "name": "chat/completions: tool results are accepted back",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 712,
+        "failures": []
+      },
+      {
+        "id": "chat-parallel-tools",
+        "name": "chat/completions: parallel tool calls",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 869,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-choice-none",
+        "name": "chat/completions: tool_choice \"none\" suppresses tools",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 758,
+        "failures": []
+      },
+      {
+        "id": "chat-parallel-tools-off",
+        "name": "chat/completions: parallel_tool_calls: false is honored",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 769,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-arg-types",
+        "name": "chat/completions: typed tool arguments survive the wire",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 1033,
+        "failures": []
+      },
+      {
+        "id": "chat-json-mode",
+        "name": "chat/completions: JSON mode",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 461,
+        "failures": []
+      },
+      {
+        "id": "chat-structured-outputs",
+        "name": "chat/completions: structured outputs (json_schema strict)",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 2328,
+        "failures": []
+      },
+      {
+        "id": "chat-structured-markers",
+        "name": "chat/completions: marker strings inside constrained JSON are data",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 6540,
+        "failures": []
+      },
+      {
+        "id": "chat-structured-ref-enforced",
+        "name": "chat/completions: constrained output enforces schemas behind $ref",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 1685,
+        "failures": []
+      },
+      {
+        "id": "chat-structured-terminates",
+        "name": "chat/completions: constrained output terminates, cold and warm",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-args-union-object",
+        "name": "chat/completions: an object argument declared as a oneOf union arrives as an object",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 652,
+        "failures": []
+      },
+      {
+        "id": "chat-tool-args-literal-delimiter",
+        "name": "chat/completions: tool arguments may spell the model's own delimiters",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-vision",
+        "name": "chat/completions: image input",
+        "surface": "chat",
+        "outcome": "unsupported",
+        "reason": "rejects image content with HTTP 500",
+        "durationMs": 5040,
+        "failures": []
+      },
+      {
+        "id": "chat-logprobs",
+        "name": "chat/completions: logprobs",
+        "surface": "chat",
+        "outcome": "fail",
+        "durationMs": 832,
+        "failures": [
+          {
+            "id": "chat-logprobs-stream-parity",
+            "label": "streamed logprobs match the non-streamed ones",
+            "severity": "MUST",
+            "message": "the same greedy request produced 41 logprob entries without streaming and 1 with it (\"The\" vs \"The␟ user␟ is␟ asking␟ me␟ to␟ say␟ \\\"␟hi␟.\\\"␟ This␟ is␟ a␟ very␟ simple␟,␟ straightforward␟ request␟.␟ I␟'ll␟ just␟ say␟ \")"
+          }
+        ]
+      },
+      {
+        "id": "chat-seed",
+        "name": "chat/completions: seed determinism",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 3097,
+        "failures": []
+      },
+      {
+        "id": "chat-top-p",
+        "name": "chat/completions: top_p is honored",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 3016,
+        "failures": []
+      },
+      {
+        "id": "chat-reasoning",
+        "name": "chat/completions: reasoning is kept out of content",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 554,
+        "failures": []
+      },
+      {
+        "id": "chat-reasoning-cap",
+        "name": "chat/completions: a cap spent on reasoning is reported as a cap",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 373,
+        "failures": []
+      },
+      {
+        "id": "chat-reasoning-scratchpad",
+        "name": "chat/completions: the answer is an answer, not a scratchpad",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 326,
+        "failures": []
+      },
+      {
+        "id": "chat-reasoning-roundtrip",
+        "name": "chat/completions: assistant-history reasoning round-trip",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 1714,
+        "failures": []
+      },
+      {
+        "id": "chat-prompt-caching",
+        "name": "chat/completions: prompt cache reporting",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-prompt-cache-prefix",
+        "name": "chat/completions: prefix cache reuses a growing conversation",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-rate-limit-headers",
+        "name": "chat/completions: rate limit headers",
+        "surface": "chat",
+        "outcome": "unsupported",
+        "reason": "no x-ratelimit-* headers",
+        "durationMs": 440,
+        "failures": []
+      },
+      {
+        "id": "chat-concurrency",
+        "name": "chat/completions: concurrent requests stay isolated",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-concurrency-cache",
+        "name": "chat/completions: concurrent identical requests agree",
+        "surface": "chat",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-basic",
+        "name": "responses: basic completion",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 12,
+        "failures": [
+          {
+            "id": "responses-status-200",
+            "label": "returns 200",
+            "severity": "MUST",
+            "message": "got HTTP 400: {\"error\":{\"message\":\"litellm.UnsupportedParamsError: Qwen3.8-27B-Q6_K-MTP doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params set `lite"
+          }
+        ]
+      },
+      {
+        "id": "responses-streaming",
+        "name": "responses: streaming + SSE framing",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 12,
+        "failures": [
+          {
+            "id": "responses-stream-status",
+            "label": "streaming returns 200",
+            "severity": "MUST",
+            "message": "got HTTP 400"
+          }
+        ]
+      },
+      {
+        "id": "responses-parity",
+        "name": "responses: streaming matches non-streaming",
+        "surface": "responses",
+        "outcome": "pass",
+        "durationMs": 27,
+        "failures": []
+      },
+      {
+        "id": "responses-usage",
+        "name": "responses: usage tokens",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 11,
+        "failures": [
+          {
+            "id": "responses-usage-present",
+            "label": "reports token usage",
+            "severity": "MUST",
+            "message": "no usage block in the response"
+          }
+        ]
+      },
+      {
+        "id": "responses-stream-usage",
+        "name": "responses: usage reported while streaming",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "no usage on the stream (stream_options.include_usage ignored)",
+        "durationMs": 9,
+        "failures": []
+      },
+      {
+        "id": "responses-finish-length",
+        "name": "responses: length finish reason",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 10,
+        "failures": [
+          {
+            "id": "responses-finish-present",
+            "label": "reports a finish reason",
+            "severity": "MUST",
+            "message": "finish reason was null"
+          }
+        ]
+      },
+      {
+        "id": "responses-limits-max-tokens",
+        "name": "responses: max_tokens is honored",
+        "surface": "responses",
+        "outcome": "pass",
+        "durationMs": 9,
+        "failures": [
+          {
+            "id": "responses-max-tokens-unverifiable",
+            "label": "usage lets us verify max_tokens",
+            "severity": "SHOULD",
+            "message": "no output token count to check against"
+          }
+        ]
+      },
+      {
+        "id": "responses-unicode",
+        "name": "responses: unicode round-trips intact",
+        "surface": "responses",
+        "outcome": "pass",
+        "durationMs": 9,
+        "failures": []
+      },
+      {
+        "id": "responses-errors",
+        "name": "responses: error codes and shapes",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 5060,
+        "failures": [
+          {
+            "id": "responses-error-status",
+            "label": "a malformed request is rejected with 4xx",
+            "severity": "MUST",
+            "message": "got HTTP 500 — a malformed body must not succeed"
+          }
+        ]
+      },
+      {
+        "id": "responses-tool-serialization",
+        "name": "responses: tool call serialization",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects tools with HTTP 400",
+        "durationMs": 16,
+        "failures": []
+      },
+      {
+        "id": "responses-tool-stream-reassembly",
+        "name": "responses: streamed tool arguments reassemble",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 13,
+        "failures": [
+          {
+            "id": "responses-tool-stream-status",
+            "label": "streaming with tools returns 200",
+            "severity": "MUST",
+            "message": "HTTP 400"
+          }
+        ]
+      },
+      {
+        "id": "responses-tool-result-turn",
+        "name": "responses: tool results are accepted back",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 13,
+        "failures": [
+          {
+            "id": "responses-tool-result-status",
+            "label": "accepts a tool-result turn",
+            "severity": "MUST",
+            "message": "HTTP 400: {\"error\":{\"message\":\"litellm.UnsupportedParamsError: Qwen3.8-27B-Q6_K-MTP doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning`). To drop unsupported params set `lite"
+          }
+        ]
+      },
+      {
+        "id": "responses-parallel-tools",
+        "name": "responses: parallel tool calls",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects parallel_tool_calls with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "responses-tool-choice-none",
+        "name": "responses: tool_choice \"none\" suppresses tools",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 13,
+        "failures": [
+          {
+            "id": "responses-tool-none-status",
+            "label": "accepts tool_choice: \"none\"",
+            "severity": "MUST",
+            "message": "HTTP 400: {\"error\":{\"message\":\"litellm.UnsupportedParamsError: Qwen3.8-27B-Q6_K-MTP doesn't support `reasoning.effort` (its model cost map entry lacks `supports_reasoning"
+          }
+        ]
+      },
+      {
+        "id": "responses-parallel-tools-off",
+        "name": "responses: parallel_tool_calls: false is honored",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects parallel_tool_calls: false with HTTP 400",
+        "durationMs": 14,
+        "failures": []
+      },
+      {
+        "id": "responses-tool-arg-types",
+        "name": "responses: typed tool arguments survive the wire",
+        "surface": "responses",
+        "outcome": "inconclusive",
+        "reason": "model emitted no call even with a named tool_choice",
+        "durationMs": 15,
+        "failures": []
+      },
+      {
+        "id": "responses-json-mode",
+        "name": "responses: JSON mode",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects json_object with HTTP 400",
+        "durationMs": 14,
+        "failures": []
+      },
+      {
+        "id": "responses-structured-outputs",
+        "name": "responses: structured outputs (json_schema strict)",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects json_schema with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "responses-structured-markers",
+        "name": "responses: marker strings inside constrained JSON are data",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects json_schema with HTTP 400",
+        "durationMs": 14,
+        "failures": []
+      },
+      {
+        "id": "responses-structured-ref-enforced",
+        "name": "responses: constrained output enforces schemas behind $ref",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects json_schema with HTTP 400",
+        "durationMs": 14,
+        "failures": []
+      },
+      {
+        "id": "responses-structured-terminates",
+        "name": "responses: constrained output terminates, cold and warm",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-tool-args-union-object",
+        "name": "responses: an object argument declared as a oneOf union arrives as an object",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects the request with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "responses-tool-args-literal-delimiter",
+        "name": "responses: tool arguments may spell the model's own delimiters",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-vision",
+        "name": "responses: image input",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects image content with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "responses-top-p",
+        "name": "responses: top_p is honored",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects top_p with HTTP 400",
+        "durationMs": 14,
+        "failures": []
+      },
+      {
+        "id": "responses-reasoning",
+        "name": "responses: reasoning is kept out of content",
+        "surface": "responses",
+        "outcome": "pass",
+        "durationMs": 563,
+        "failures": []
+      },
+      {
+        "id": "responses-reasoning-cap",
+        "name": "responses: a cap spent on reasoning is reported as a cap",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "the standard reasoning opt-in was rejected with HTTP 400",
+        "durationMs": 11,
+        "failures": []
+      },
+      {
+        "id": "responses-reasoning-scratchpad",
+        "name": "responses: the answer is an answer, not a scratchpad",
+        "surface": "responses",
+        "outcome": "pass",
+        "durationMs": 9,
+        "failures": []
+      },
+      {
+        "id": "responses-reasoning-roundtrip",
+        "name": "responses: assistant-history reasoning round-trip",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "surface has no history-reasoning wire shape",
+        "durationMs": 1,
+        "failures": []
+      },
+      {
+        "id": "responses-prompt-caching",
+        "name": "responses: prompt cache reporting",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-prompt-cache-prefix",
+        "name": "responses: prefix cache reuses a growing conversation",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-rate-limit-headers",
+        "name": "responses: rate limit headers",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "no x-ratelimit-* headers",
+        "durationMs": 8,
+        "failures": []
+      },
+      {
+        "id": "responses-concurrency",
+        "name": "responses: concurrent requests stay isolated",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "responses-concurrency-cache",
+        "name": "responses: concurrent identical requests agree",
+        "surface": "responses",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-basic",
+        "name": "messages: basic completion",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 540,
+        "failures": []
+      },
+      {
+        "id": "messages-streaming",
+        "name": "messages: streaming + SSE framing",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 582,
+        "failures": []
+      },
+      {
+        "id": "messages-parity",
+        "name": "messages: streaming matches non-streaming",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 605,
+        "failures": []
+      },
+      {
+        "id": "messages-usage",
+        "name": "messages: usage tokens",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 395,
+        "failures": []
+      },
+      {
+        "id": "messages-stream-usage",
+        "name": "messages: usage reported while streaming",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 316,
+        "failures": []
+      },
+      {
+        "id": "messages-finish-length",
+        "name": "messages: length finish reason",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 168,
+        "failures": [
+          {
+            "id": "messages-finish-is-length",
+            "label": "truncation reports a length-style finish reason",
+            "severity": "MUST",
+            "message": "expected length/max_tokens, got \"end_turn\""
+          }
+        ]
+      },
+      {
+        "id": "messages-limits-max-tokens",
+        "name": "messages: max_tokens is honored",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 187,
+        "failures": [
+          {
+            "id": "messages-max-tokens-respected",
+            "label": "max_tokens caps the output",
+            "severity": "MUST",
+            "message": "asked for 8 tokens, got 16 — consistent with a speculative draft block overrunning the cap"
+          }
+        ]
+      },
+      {
+        "id": "messages-limits-stop",
+        "name": "messages: stop sequences are honored",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 467,
+        "failures": [
+          {
+            "id": "messages-stop-honored",
+            "label": "output is cut at the stop sequence",
+            "severity": "MUST",
+            "message": "stop sequence \"beta\" appeared in the output: \"alpha beta gamma\""
+          }
+        ]
+      },
+      {
+        "id": "messages-unicode",
+        "name": "messages: unicode round-trips intact",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 1517,
+        "failures": []
+      },
+      {
+        "id": "messages-errors",
+        "name": "messages: error codes and shapes",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 4637,
+        "failures": [
+          {
+            "id": "messages-error-status",
+            "label": "a malformed request is rejected with 4xx",
+            "severity": "MUST",
+            "message": "got HTTP 500 — a malformed body must not succeed"
+          }
+        ]
+      },
+      {
+        "id": "messages-tool-serialization",
+        "name": "messages: tool call serialization",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 696,
+        "failures": []
+      },
+      {
+        "id": "messages-tool-stream-reassembly",
+        "name": "messages: streamed tool arguments reassemble",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 606,
+        "failures": []
+      },
+      {
+        "id": "messages-tool-result-turn",
+        "name": "messages: tool results are accepted back",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 755,
+        "failures": []
+      },
+      {
+        "id": "messages-parallel-tools",
+        "name": "messages: parallel tool calls",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 906,
+        "failures": []
+      },
+      {
+        "id": "messages-tool-choice-none",
+        "name": "messages: tool_choice \"none\" suppresses tools",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 956,
+        "failures": []
+      },
+      {
+        "id": "messages-parallel-tools-off",
+        "name": "messages: parallel_tool_calls: false is honored",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 959,
+        "failures": [
+          {
+            "id": "messages-parallel-off-single",
+            "label": "disabling parallel calls yields at most one call",
+            "severity": "MUST",
+            "message": "got 2 tool calls with parallel_tool_calls: false"
+          }
+        ]
+      },
+      {
+        "id": "messages-tool-arg-types",
+        "name": "messages: typed tool arguments survive the wire",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 1028,
+        "failures": []
+      },
+      {
+        "id": "messages-tool-args-union-object",
+        "name": "messages: an object argument declared as a oneOf union arrives as an object",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 648,
+        "failures": []
+      },
+      {
+        "id": "messages-tool-args-literal-delimiter",
+        "name": "messages: tool arguments may spell the model's own delimiters",
+        "surface": "messages",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-vision",
+        "name": "messages: image input",
+        "surface": "messages",
+        "outcome": "unsupported",
+        "reason": "rejects image content with HTTP 500",
+        "durationMs": 4203,
+        "failures": []
+      },
+      {
+        "id": "messages-top-p",
+        "name": "messages: top_p is honored",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 978,
+        "failures": []
+      },
+      {
+        "id": "messages-reasoning",
+        "name": "messages: reasoning is kept out of content",
+        "surface": "messages",
+        "outcome": "unsupported",
+        "reason": "no reasoning channel; the standard opt-in was rejected with HTTP 400",
+        "durationMs": 525,
+        "failures": []
+      },
+      {
+        "id": "messages-reasoning-cap",
+        "name": "messages: a cap spent on reasoning is reported as a cap",
+        "surface": "messages",
+        "outcome": "unsupported",
+        "reason": "the standard reasoning opt-in was rejected with HTTP 400",
+        "durationMs": 20,
+        "failures": []
+      },
+      {
+        "id": "messages-reasoning-scratchpad",
+        "name": "messages: the answer is an answer, not a scratchpad",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 461,
+        "failures": []
+      },
+      {
+        "id": "messages-reasoning-roundtrip",
+        "name": "messages: assistant-history reasoning round-trip",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 24,
+        "failures": []
+      },
+      {
+        "id": "messages-prompt-caching",
+        "name": "messages: prompt cache reporting",
+        "surface": "messages",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-prompt-cache-prefix",
+        "name": "messages: prefix cache reuses a growing conversation",
+        "surface": "messages",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-rate-limit-headers",
+        "name": "messages: rate limit headers",
+        "surface": "messages",
+        "outcome": "unsupported",
+        "reason": "no x-ratelimit-* headers",
+        "durationMs": 444,
+        "failures": []
+      },
+      {
+        "id": "messages-concurrency",
+        "name": "messages: concurrent requests stay isolated",
+        "surface": "messages",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-concurrency-cache",
+        "name": "messages: concurrent identical requests agree",
+        "surface": "messages",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "chat-n-choices",
+        "name": "chat/completions: n > 1 choices",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 2252,
+        "failures": []
+      },
+      {
+        "id": "chat-max-tokens-alias",
+        "name": "chat/completions: legacy max_tokens alias",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 188,
+        "failures": []
+      },
+      {
+        "id": "chat-assistant-prefill",
+        "name": "chat/completions: trailing assistant message",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 126,
+        "failures": []
+      },
+      {
+        "id": "chat-stop-string",
+        "name": "chat/completions: stop as a bare string",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 253,
+        "failures": []
+      },
+      {
+        "id": "chat-template-kwargs",
+        "name": "chat/completions: chat_template_kwargs dialect",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 1435,
+        "failures": []
+      },
+      {
+        "id": "chat-sampling-extensions",
+        "name": "chat/completions: sampling extensions",
+        "surface": "chat",
+        "outcome": "pass",
+        "durationMs": 3020,
+        "failures": []
+      },
+      {
+        "id": "responses-reasoning-effort-none",
+        "name": "responses: reasoning.effort none turns thinking off",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects effort \"none\" with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "responses-event-order",
+        "name": "responses: streaming event order",
+        "surface": "responses",
+        "outcome": "fail",
+        "durationMs": 11,
+        "failures": [
+          {
+            "id": "responses-stream-status",
+            "label": "streaming returns 200",
+            "severity": "MUST",
+            "message": "HTTP 400"
+          }
+        ]
+      },
+      {
+        "id": "responses-previous-response-id",
+        "name": "responses: previous_response_id chaining",
+        "surface": "responses",
+        "outcome": "inconclusive",
+        "reason": "first response carried no id to chain from",
+        "durationMs": 11,
+        "failures": []
+      },
+      {
+        "id": "responses-background",
+        "name": "responses: background mode",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "rejects background with HTTP 400",
+        "durationMs": 11,
+        "failures": []
+      },
+      {
+        "id": "responses-mcp-tools",
+        "name": "responses: server-side MCP tools",
+        "surface": "responses",
+        "outcome": "unsupported",
+        "reason": "not probed — llmprobe does not yet host an MCP server to call back into",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "messages-event-order",
+        "name": "messages: streaming event order",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 421,
+        "failures": []
+      },
+      {
+        "id": "messages-max-tokens-required",
+        "name": "messages: max_tokens is required",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 858,
+        "failures": [
+          {
+            "id": "messages-requires-max-tokens",
+            "label": "a request without max_tokens is rejected",
+            "severity": "SHOULD",
+            "message": "accepted a request with no max_tokens (HTTP 200) — the spec requires it"
+          }
+        ]
+      },
+      {
+        "id": "messages-stop-sequence-echo",
+        "name": "messages: stop_sequence is reported and echoed",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 540,
+        "failures": [
+          {
+            "id": "messages-stop-reason",
+            "label": "a hit stop sequence reports stop_reason \"stop_sequence\"",
+            "severity": "MUST",
+            "message": "stop_reason was \"end_turn\""
+          },
+          {
+            "id": "messages-stop-echoed",
+            "label": "the matched sequence is echoed in stop_sequence",
+            "severity": "SHOULD",
+            "message": "stop_sequence field was null"
+          }
+        ]
+      },
+      {
+        "id": "messages-assistant-prefill",
+        "name": "messages: a trailing assistant message is a prefill",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 186,
+        "failures": [
+          {
+            "id": "messages-prefill-not-echoed",
+            "label": "the prefill is not echoed back in the content",
+            "severity": "MUST",
+            "message": "the response repeated the prefill — a caller that appends the reply to what it sent gets it twice"
+          }
+        ]
+      },
+      {
+        "id": "messages-thinking-budget",
+        "name": "messages: thinking blocks and budget",
+        "surface": "messages",
+        "outcome": "unsupported",
+        "reason": "rejects thinking with HTTP 400",
+        "durationMs": 21,
+        "failures": []
+      },
+      {
+        "id": "messages-system-blocks",
+        "name": "messages: system as an array of text blocks",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 776,
+        "failures": []
+      },
+      {
+        "id": "messages-content-blocks",
+        "name": "messages: user content as an array of text blocks",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 549,
+        "failures": []
+      },
+      {
+        "id": "messages-top-k",
+        "name": "messages: top_k is honored",
+        "surface": "messages",
+        "outcome": "fail",
+        "durationMs": 1106,
+        "failures": [
+          {
+            "id": "messages-top-k-honored",
+            "label": "top_k: 1 at temperature 1 decodes greedily",
+            "severity": "MUST",
+            "message": "two runs differ: \"Velvet Echo\" vs \"Velvet Static\" — the parameter was silently dropped"
+          }
+        ]
+      },
+      {
+        "id": "messages-cache-control",
+        "name": "messages: cache_control breakpoints",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 2223,
+        "failures": []
+      },
+      {
+        "id": "messages-error-envelope",
+        "name": "messages: error envelope taxonomy",
+        "surface": "messages",
+        "outcome": "pass",
+        "durationMs": 4632,
+        "failures": []
+      },
+      {
+        "id": "count-tokens",
+        "name": "messages/count_tokens: token counting",
+        "surface": "count-tokens",
+        "outcome": "fail",
+        "durationMs": 354,
+        "failures": [
+          {
+            "id": "count-tokens-grows",
+            "label": "a longer conversation counts strictly more tokens",
+            "severity": "MUST",
+            "message": "66 tokens for a conversation, 45 for a strict superset of it"
+          }
+        ]
+      },
+      {
+        "id": "embeddings-basic",
+        "name": "embeddings: basic vector",
+        "surface": "embeddings",
+        "outcome": "inconclusive",
+        "reason": "HTTP 501 — likely needs a dedicated embedding model (tested with \"rtx5090:Qwen3.8-27B-Q6_K-MTP\")",
+        "durationMs": 8928,
+        "failures": []
+      },
+      {
+        "id": "embeddings-dimensions",
+        "name": "embeddings: dimensions honored",
+        "surface": "embeddings",
+        "outcome": "unsupported",
+        "reason": "rejects `dimensions` with HTTP 400",
+        "durationMs": 13,
+        "failures": []
+      },
+      {
+        "id": "completions-basic",
+        "name": "completions (legacy): basic",
+        "surface": "completions",
+        "outcome": "pass",
+        "durationMs": 217,
+        "failures": []
+      },
+      {
+        "id": "images-generate",
+        "name": "images: generation",
+        "surface": "images",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "images-edit",
+        "name": "images: edit (multipart)",
+        "surface": "images-edit",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      },
+      {
+        "id": "audio-speech",
+        "name": "audio/speech: synthesis",
+        "surface": "audio-speech",
+        "outcome": "skipped",
+        "reason": "not run at depth \"default\"",
+        "durationMs": 0,
+        "failures": []
+      }
+    ]
+  },
+  "capability": {
+    "pct": 100,
+    "verdict": "strong",
+    "categories": [
+      {
+        "category": "tool-selection",
+        "passed": 6,
+        "total": 6,
+        "pct": 100
+      },
+      {
+        "category": "tool-restraint",
+        "passed": 6,
+        "total": 6,
+        "pct": 100
+      },
+      {
+        "category": "tool-args",
+        "passed": 6,
+        "total": 6,
+        "pct": 100
+      },
+      {
+        "category": "multiturn",
+        "passed": 3,
+        "total": 3,
+        "pct": 100
+      },
+      {
+        "category": "instructions",
+        "passed": 3,
+        "total": 3,
+        "pct": 100
+      },
+      {
+        "category": "json-discipline",
+        "passed": 6,
+        "total": 6,
+        "pct": 100
+      },
+      {
+        "category": "reasoning",
+        "passed": 3,
+        "total": 3,
+        "pct": 100
+      },
+      {
+        "category": "knowledge",
+        "passed": 3,
+        "total": 3,
+        "pct": 100
+      }
+    ],
+    "weakCategories": [],
+    "unmeasured": [],
+    "evals": [
+      {
+        "id": "eval-tool-select-weather",
+        "name": "picks the weather tool from a menu of decoys",
+        "category": "tool-selection",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-tool-select-time",
+        "name": "distinguishes the time tool from the weather tool",
+        "category": "tool-selection",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-tool-restraint-chitchat",
+        "name": "does not reach for a tool during small talk",
+        "category": "tool-restraint",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-tool-restraint-knowledge",
+        "name": "answers from knowledge instead of calling an irrelevant tool",
+        "category": "tool-restraint",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-tool-args-typed",
+        "name": "fills typed arguments with the right types",
+        "category": "tool-args",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-tool-args-enum",
+        "name": "respects an enum constraint in the tool schema",
+        "category": "tool-args",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-multiturn-recall",
+        "name": "recalls a fact from an earlier turn",
+        "category": "multiturn",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-multiturn-tool-result",
+        "name": "uses a tool result instead of inventing an answer",
+        "category": "multiturn",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-multiturn-system",
+        "name": "keeps honoring the system prompt after several turns",
+        "category": "multiturn",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-instructions-exact",
+        "name": "reproduces an exact requested string",
+        "category": "instructions",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-instructions-negative",
+        "name": "honors a negative constraint",
+        "category": "instructions",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-instructions-length",
+        "name": "obeys a one-word length constraint",
+        "category": "instructions",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-json-no-fences",
+        "name": "emits raw JSON without markdown fences when told to",
+        "category": "json-discipline",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-json-nested",
+        "name": "produces a nested JSON structure on request",
+        "category": "json-discipline",
+        "passed": 3,
+        "total": 3,
+        "failures": []
+      },
+      {
+        "id": "eval-long-context-needle",
+        "name": "finds a needle buried in 16KB of filler",
+        "category": "long-context",
+        "passed": 0,
+        "total": 0,
+        "outcome": "skipped",
+        "failures": []
+      },
+      {
+        "id": "eval-reasoning-arithmetic",
+        "name": "multiplies two two-digit numbers",
+        "category": "reasoning",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-reasoning-transitive",
+        "name": "follows a transitive chain",
+        "category": "reasoning",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-reasoning-counting",
+        "name": "counts letters in a word",
+        "category": "reasoning",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-knowledge-capital",
+        "name": "knows a non-obvious capital city",
+        "category": "knowledge",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-knowledge-symbol",
+        "name": "knows a chemical symbol",
+        "category": "knowledge",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      },
+      {
+        "id": "eval-knowledge-author",
+        "name": "attributes a well-known novel",
+        "category": "knowledge",
+        "passed": 1,
+        "total": 1,
+        "failures": []
+      }
+    ]
+  },
+  "agentic": {
+    "tasks": [
+      {
+        "id": "agentic-read",
+        "name": "reads the config instead of answering from priors",
+        "passed": true,
+        "steps": 2
+      },
+      {
+        "id": "agentic-edit",
+        "name": "finds where the port really lives and edits only that",
+        "passed": true,
+        "steps": 4
+      },
+      {
+        "id": "agentic-indirect",
+        "name": "follows the pointer in build.cfg instead of guessing",
+        "passed": true,
+        "steps": 5
+      },
+      {
+        "id": "coding-fix-failing-test",
+        "name": "fixes a failing test in the source, not the test",
+        "passed": true,
+        "steps": 5,
+        "violations": [],
+        "calls": {
+          "total": 6,
+          "valid": 6
+        }
+      },
+      {
+        "id": "coding-extend-then-rename",
+        "name": "adds a function, then renames across files on request",
+        "passed": true,
+        "steps": 15,
+        "violations": [],
+        "calls": {
+          "total": 15,
+          "valid": 15
+        }
+      },
+      {
+        "id": "coding-follow-test-output",
+        "name": "lets the failing test point at the file to change",
+        "passed": false,
+        "steps": 5,
+        "violations": [
+          {
+            "rule": "edit-before-tests",
+            "severity": "must",
+            "step": 3,
+            "detail": "edited before running the tests to see what fails"
+          }
+        ],
+        "calls": {
+          "total": 8,
+          "valid": 8
+        },
+        "failure": "rule-violation",
+        "detail": "edited before running the tests to see what fails"
+      },
+      {
+        "id": "coding-already-done",
+        "name": "checks, finds nothing to do, and stops",
+        "passed": true,
+        "steps": 4,
+        "violations": [],
+        "calls": {
+          "total": 4,
+          "valid": 4
+        }
+      },
+      {
+        "id": "coding-parallel-reads",
+        "name": "finds which file exports a function",
+        "passed": true,
+        "steps": 2,
+        "violations": [],
+        "calls": {
+          "total": 1,
+          "valid": 1
+        }
+      }
+    ],
+    "passed": 7,
+    "total": 8,
+    "pct": 87.5
+  },
+  "fidelity": {
+    "pct": 100,
+    "slices": [
+      {
+        "id": "correctness",
+        "label": "Correctness",
+        "score": 1,
+        "weight": 0.4,
+        "detail": "36/36 items answered correctly",
+        "measured": true
+      },
+      {
+        "id": "confidence",
+        "label": "Confidence",
+        "score": 1,
+        "weight": 0.25,
+        "detail": "mean top-1 prob 0.987 · margin 0.978 · 12 harder items",
+        "measured": true
+      },
+      {
+        "id": "determinism",
+        "label": "Determinism",
+        "score": 1,
+        "weight": 0.25,
+        "detail": "3/3 greedy prompts reproduced byte-for-byte",
+        "measured": true
+      },
+      {
+        "id": "consistency",
+        "label": "Logprob consistency",
+        "score": 1,
+        "weight": 0.1,
+        "detail": "36/36 items: emitted token = argmax, valid distribution",
+        "measured": true
+      }
+    ],
+    "items": 36,
+    "firstDivergence": null,
+    "unmeasured": [],
+    "reasoningCaveat": true,
+    "measurements": {
+      "meanTopProb": 0.9872,
+      "meanMargin": 0.9777,
+      "items": [
+        {
+          "id": "copy-word",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9984,
+          "margin": 0.9973
+        },
+        {
+          "id": "copy-token",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9982,
+          "margin": 0.9973
+        },
+        {
+          "id": "add",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9961,
+          "margin": 0.9944
+        },
+        {
+          "id": "sub",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9939,
+          "margin": 0.9908
+        },
+        {
+          "id": "mul",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9974,
+          "margin": 0.9962
+        },
+        {
+          "id": "div",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9985,
+          "margin": 0.9978
+        },
+        {
+          "id": "cap-france",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9829,
+          "margin": 0.9719
+        },
+        {
+          "id": "cap-japan",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9618,
+          "margin": 0.9451
+        },
+        {
+          "id": "cap-italy",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9829,
+          "margin": 0.9739
+        },
+        {
+          "id": "cap-england",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9678,
+          "margin": 0.9414
+        },
+        {
+          "id": "antonym-hot",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.999,
+          "margin": 0.9983
+        },
+        {
+          "id": "antonym-up",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.999,
+          "margin": 0.9983
+        },
+        {
+          "id": "plural-mouse",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9916,
+          "margin": 0.9883
+        },
+        {
+          "id": "rhyme-blue",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9988,
+          "margin": 0.9979
+        },
+        {
+          "id": "seq-even",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9995,
+          "margin": 0.9993
+        },
+        {
+          "id": "seq-alpha",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9995,
+          "margin": 0.9994
+        },
+        {
+          "id": "day-after-mon",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9574,
+          "margin": 0.9246
+        },
+        {
+          "id": "month-after-jan",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9681,
+          "margin": 0.9371
+        },
+        {
+          "id": "water",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9976,
+          "margin": 0.9961
+        },
+        {
+          "id": "largest-planet",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9985,
+          "margin": 0.9976
+        },
+        {
+          "id": "gold-symbol",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.982,
+          "margin": 0.9748
+        },
+        {
+          "id": "romeo-author",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9971,
+          "margin": 0.9945
+        },
+        {
+          "id": "sun-rises",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.9926,
+          "margin": 0.987
+        },
+        {
+          "id": "week-days",
+          "hard": false,
+          "correct": true,
+          "topProb": 0.995,
+          "margin": 0.9907
+        },
+        {
+          "id": "cap-australia",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9795,
+          "margin": 0.9617
+        },
+        {
+          "id": "cap-canada",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.983,
+          "margin": 0.972
+        },
+        {
+          "id": "cap-turkey",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9663,
+          "margin": 0.9343
+        },
+        {
+          "id": "cap-newyork-state",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9881,
+          "margin": 0.98
+        },
+        {
+          "id": "iron-symbol",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.979,
+          "margin": 0.9679
+        },
+        {
+          "id": "sodium-symbol",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9749,
+          "margin": 0.9598
+        },
+        {
+          "id": "mul-7-8",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9916,
+          "margin": 0.9862
+        },
+        {
+          "id": "sqrt-144",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9976,
+          "margin": 0.9963
+        },
+        {
+          "id": "author-1984",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9953,
+          "margin": 0.9908
+        },
+        {
+          "id": "largest-ocean",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.999,
+          "margin": 0.9985
+        },
+        {
+          "id": "fib-next",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.998,
+          "margin": 0.9962
+        },
+        {
+          "id": "vp-first",
+          "hard": true,
+          "correct": true,
+          "topProb": 0.9939,
+          "margin": 0.9882
+        }
+      ]
+    },
+    "fingerprint": {
+      "topK": 20,
+      "prompts": [
+        {
+          "id": "det-echo-sentence",
+          "tokens": [
+            {
+              "t": "The",
+              "lp": -0.0059,
+              "top": [
+                [
+                  "The",
+                  -0.0059
+                ],
+                [
+                  "Thinking",
+                  -5.6053
+                ],
+                [
+                  "User",
+                  -6.9248
+                ],
+                [
+                  "You",
+                  -8.678
+                ],
+                [
+                  "I",
+                  -8.7857
+                ],
+                [
+                  "Here",
+                  -8.8792
+                ],
+                [
+                  "1",
+                  -10.0323
+                ],
+                [
+                  "Set",
+                  -10.1052
+                ],
+                [
+                  "Hmm",
+                  -10.1904
+                ],
+                [
+                  "This",
+                  -10.2357
+                ],
+                [
+                  "user",
+                  -10.4373
+                ],
+                [
+                  "We",
+                  -10.4991
+                ],
+                [
+                  "用户",
+                  -10.5042
+                ],
+                [
+                  "In",
+                  -10.5528
+                ],
+                [
+                  "-",
+                  -10.5969
+                ],
+                [
+                  "thinking",
+                  -10.7731
+                ],
+                [
+                  "Thought",
+                  -10.7963
+                ],
+                [
+                  "Need",
+                  -10.8645
+                ],
+                [
+                  "Do",
+                  -10.8687
+                ],
+                [
+                  "Okay",
+                  -11.0449
+                ]
+              ]
+            },
+            {
+              "t": " user",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " wants",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " me",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " to",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " repeat",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " a",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " specific",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " sentence",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " exactly",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " word",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " for",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " word",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " Let",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " me",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " carefully",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " copy",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " it",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ":",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\"The",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " quick",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " brown",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " fox",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " jumps",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " over",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " lazy",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " dog",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " near",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " river",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " bank",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " at",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " dawn",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".\"",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "Let",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " me",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " make",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " sure",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " I",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " get",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " every",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " word",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " and",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " punctuation",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " exactly",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " right",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "</think>",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "The",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " quick",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " brown",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " fox",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " jumps",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " over",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " lazy",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " dog",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " near",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " river",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " bank",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " at",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " dawn",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "",
+              "lp": 0,
+              "top": []
+            }
+          ]
+        },
+        {
+          "id": "det-count",
+          "tokens": [
+            {
+              "t": "The",
+              "lp": -0.0008,
+              "top": [
+                [
+                  "The",
+                  -0.0008
+                ],
+                [
+                  "User",
+                  -8.323
+                ],
+                [
+                  "Simple",
+                  -8.5748
+                ],
+                [
+                  "Thinking",
+                  -8.9439
+                ],
+                [
+                  "用户",
+                  -9.0753
+                ],
+                [
+                  "1",
+                  -10.5296
+                ],
+                [
+                  "user",
+                  -10.5536
+                ],
+                [
+                  "Count",
+                  -11.1751
+                ],
+                [
+                  "This",
+                  -11.4448
+                ],
+                [
+                  "I",
+                  -11.4456
+                ],
+                [
+                  "We",
+                  -11.9716
+                ],
+                [
+                  "You",
+                  -12.1852
+                ],
+                [
+                  "</think>",
+                  -12.2464
+                ],
+                [
+                  "thinking",
+                  -12.5852
+                ],
+                [
+                  "A",
+                  -12.6545
+                ],
+                [
+                  "Hmm",
+                  -12.6709
+                ],
+                [
+                  "the",
+                  -12.6997
+                ],
+                [
+                  "simple",
+                  -12.7687
+                ],
+                [
+                  "Simply",
+                  -12.8109
+                ],
+                [
+                  "Wait",
+                  -12.9379
+                ]
+              ]
+            },
+            {
+              "t": " user",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " wants",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " me",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " to",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " count",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " from",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " to",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "0",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " separated",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " by",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " commas",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " and",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " reply",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " with",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " only",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " numbers",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "</think>",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "4",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "5",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "6",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "8",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "0",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "4",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "5",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "6",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "8",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "0",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "",
+              "lp": 0,
+              "top": []
+            }
+          ]
+        },
+        {
+          "id": "det-primes",
+          "tokens": [
+            {
+              "t": "The",
+              "lp": -0.0055,
+              "top": [
+                [
+                  "The",
+                  -0.0055
+                ],
+                [
+                  "Thinking",
+                  -5.6101
+                ],
+                [
+                  "I",
+                  -7.2962
+                ],
+                [
+                  "Let",
+                  -8.139
+                ],
+                [
+                  "We",
+                  -8.7951
+                ],
+                [
+                  "Listing",
+                  -8.8896
+                ],
+                [
+                  "First",
+                  -9.5945
+                ],
+                [
+                  "Standard",
+                  -9.7151
+                ],
+                [
+                  "Need",
+                  -9.9509
+                ],
+                [
+                  "User",
+                  -9.9637
+                ],
+                [
+                  "A",
+                  -10.2887
+                ],
+                [
+                  "1",
+                  -10.346
+                ],
+                [
+                  "Simple",
+                  -10.8428
+                ],
+                [
+                  "List",
+                  -10.8456
+                ],
+                [
+                  "Prime",
+                  -11.1956
+                ],
+                [
+                  "\"",
+                  -11.4862
+                ],
+                [
+                  "2",
+                  -11.5799
+                ],
+                [
+                  "Two",
+                  -11.8313
+                ],
+                [
+                  "There",
+                  -11.9143
+                ],
+                [
+                  "Checking",
+                  -11.9201
+                ]
+              ]
+            },
+            {
+              "t": " user",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " wants",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " the",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " first",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ten",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " prime",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " numbers",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " separated",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " by",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " commas",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " with",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " no",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " other",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " text",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "The",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " first",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ten",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " prime",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " numbers",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " are",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ":",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "5",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ".",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "</think>",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "\n\n",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "5",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "7",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "1",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "3",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": ",",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": " ",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "2",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "9",
+              "lp": 0,
+              "top": []
+            },
+            {
+              "t": "",
+              "lp": 0,
+              "top": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "usage": {
+    "inputTokens": 69680,
+    "outputTokens": 13183
+  },
+  "durationMs": 204686
+}

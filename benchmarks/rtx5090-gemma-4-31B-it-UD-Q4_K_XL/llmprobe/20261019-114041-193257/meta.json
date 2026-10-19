@@ -21,6 +21,8 @@
     "reasoning": "medium",
     "concurrency": 1
   },
-  "status": "failed",
-  "returncode": null
+  "status": "conformance-failed",
+  "returncode": 1,
+  "driver_returncode": 1,
+  "duration_s": 585.929
 }
