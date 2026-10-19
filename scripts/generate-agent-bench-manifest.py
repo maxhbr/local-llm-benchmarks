@@ -1,10 +1,24 @@
 #!/usr/bin/env python3
-"""Compile every ``_agent-bench-scoreboards/<run>/scoreboard.json`` into a single
-``manifest.json`` that the dashboard (``benchmarks/_agent-bench-scoreboards/index.html``)
-loads with one fetch.
+"""Compile agent-bench histories and legacy scoreboards into ``manifest.json``.
 
-The scoreboard files come from three generations of the benchmark runner, so the
-schema varies. This script normalizes everything to:
+``--root`` is the legacy ``_agent-bench-scoreboards`` directory. Its parent is
+also scanned for ``<folder>/agent-bench/<run>/{meta,metrics}.json`` histories.
+These histories identify the actual output folder, even when different models
+share an API model name. They replace scoreboard rows only for the exact
+``(run, raw_key)`` pair; different folders are always kept separately. Unmatched
+legacy scoreboard rows remain available without a guessed output alias.
+
+History entries add ``folder`` (the actual directory name), ``run_name`` (the
+metadata alias, falling back to folder), and ``source_path`` (a safe path relative
+to the benchmark root, pointing to metrics.json). Legacy entries have a
+source_path pointing to scoreboard.json instead. Only model and run_name are
+read from metadata; the raw sidecar, including credentials, is never published.
+Missing or corrupt metadata is diagnosed in ``skipped`` but valid metrics are
+kept with folder identity and an empty raw_key/model when the model is unknown.
+Symlink aliases and unsafe path components are ignored.
+
+The metrics come from three generations of the runner, so the schema varies.
+This script preserves the existing normalized fields and adds history identity:
 
     {
       "generated_at": "2026-06-15T...",
@@ -15,6 +29,9 @@ schema varies. This script normalizes everything to:
           "host":         "gfx1151",
           "model":        "Qwen3.6-35B-A3B-UD-Q3_K_XL",
           "raw_key":      "gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+          "folder":       "gfx1151-Qwen3.6-35B-A3B-UD-Q3_K_XL",
+          "run_name":     "gfx1151:Qwen3.6-35B-A3B-UD-Q3_K_XL",
+          "source_path":  "gfx1151-Qwen3.6-35B-A3B-UD-Q3_K_XL/agent-bench/20260613-014122/metrics.json",
           "runs_n":       10,
           "turn_1_tps":   0.0,
           "turn_2_tps":   0.0,
@@ -43,6 +60,7 @@ import datetime as dt
 import json
 import os
 import sys
+from pathlib import Path
 from typing import Any
 
 
@@ -121,42 +139,109 @@ def normalize_entry(run: str, key: str, raw: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_manifest(root: str) -> dict[str, Any]:
+def safe_component(name: str) -> bool:
+    """Reject traversal, control characters, and URL/path separators."""
+    return bool(name) and name not in (".", "..") and not any(
+        char in "/\\:?#%" or ord(char) < 32 or ord(char) == 127 for char in name
+    )
+
+
+def build_manifest(root: str | Path) -> dict[str, Any]:
+    # Do not resolve symlinks: aliases must not become extra histories.
+    root = Path(os.path.abspath(root))
+    benchmark_root = root.parent
     runs: list[dict[str, Any]] = []
     skipped: list[str] = []
+    history_ids: set[tuple[str, str]] = set()
 
-    for name in sorted(os.listdir(root)):
-        run_dir = os.path.join(root, name)
-        if not os.path.isdir(run_dir):
-            continue
-        sb = os.path.join(run_dir, "scoreboard.json")
-        if not os.path.isfile(sb):
-            skipped.append(f"{name}: no scoreboard.json")
-            continue
+    def relative(path: Path) -> str:
+        return path.relative_to(benchmark_root).as_posix()
+
+    def directories(parent: Path):
         try:
-            with open(sb, encoding="utf-8") as f:
-                data = json.load(f)
-        except Exception as e:  # noqa: BLE001
-            skipped.append(f"{name}: {e}")
+            children = sorted(parent.iterdir())
+        except OSError as error:
+            skipped.append(f"{relative(parent)}: {error}")
+            return
+        for path in children:
+            if path.is_symlink():
+                skipped.append(f"{relative(path)}: symlink ignored")
+            elif path.is_dir():
+                if safe_component(path.name):
+                    yield path
+                else:
+                    skipped.append(f"{relative(path)}: unsafe path component")
+
+    def read_object(path: Path) -> dict[str, Any] | None:
+        if path.is_symlink():
+            skipped.append(f"{relative(path)}: symlink ignored")
+            return None
+        try:
+            if not path.is_file():
+                raise ValueError(f"missing regular {path.name}")
+            with path.open(encoding="utf-8") as stream:
+                data = json.load(stream)
+            if not isinstance(data, dict):
+                raise ValueError("expected a JSON object")
+            return data
+        except (OSError, ValueError, UnicodeError, RecursionError) as error:
+            skipped.append(f"{relative(path)}: {error}")
+            return None
+
+    for folder in directories(benchmark_root):
+        if folder == root:
             continue
-        if not isinstance(data, dict) or not data:
-            # An empty {} dict — record the run but flag it.
-            runs.append({
-                "run":   name,
-                "ts":    parse_run_timestamp(name),
-                "host":  "",
-                "model": "",
-                "raw_key": "",
-                "schema": "empty",
-                "errors": [],
-                "error_count": 0,
-            })
+        bench = folder / "agent-bench"
+        if bench.is_symlink():
+            skipped.append(f"{relative(bench)}: symlink ignored")
             continue
-        for key, raw in data.items():
-            if not isinstance(raw, dict):
-                skipped.append(f"{name}: non-dict entry for {key}")
+        if not bench.is_dir():
+            continue
+        for run_dir in directories(bench):
+            metrics_path = run_dir / "metrics.json"
+            metrics = read_object(metrics_path)
+            if metrics is None:
                 continue
-            runs.append(normalize_entry(name, key, raw))
+            meta_path = run_dir / "meta.json"
+            meta = read_object(meta_path)
+            key = meta.get("model") if meta is not None else None
+            if not isinstance(key, str) or not key.strip():
+                if meta is not None:
+                    skipped.append(f"{relative(meta_path)}: missing or invalid model")
+                key = ""
+            run_name = meta.get("run_name") if meta is not None else None
+            if not isinstance(run_name, str) or not run_name.strip():
+                run_name = folder.name
+            entry = normalize_entry(run_dir.name, key, metrics)
+            entry.update(folder=folder.name, run_name=run_name,
+                         source_path=relative(metrics_path))
+            runs.append(entry)
+            if key:
+                history_ids.add((run_dir.name, key))
+
+    if root.is_symlink() or not safe_component(root.name):
+        skipped.append(f"{root.name}: symlink or unsafe scoreboard root ignored")
+    else:
+        for run_dir in directories(root):
+            sb = run_dir / "scoreboard.json"
+            data = read_object(sb)
+            if data is None:
+                continue
+            if not data:
+                # Keep the historical empty-run placeholder.
+                entry = normalize_entry(run_dir.name, "", {})
+                entry["source_path"] = relative(sb)
+                runs.append(entry)
+                continue
+            for key, raw in data.items():
+                if not isinstance(raw, dict):
+                    skipped.append(f"{relative(sb)}: non-dict entry for {key}")
+                    continue
+                if (run_dir.name, key) in history_ids:
+                    continue
+                entry = normalize_entry(run_dir.name, key, raw)
+                entry["source_path"] = relative(sb)
+                runs.append(entry)
 
     return {
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),

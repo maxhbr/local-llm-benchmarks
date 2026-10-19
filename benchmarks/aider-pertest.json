@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-24T14:29:24",
-  "column_count": 43,
+  "generated_at": "2026-10-19T14:41:34",
+  "column_count": 44,
   "row_count": 225,
   "columns": [
     {
@@ -157,6 +157,15 @@
       "num_tests_run": 19
     },
     {
+      "column_id": "mimo-v2.6-flash-rl-iq2s-rocm-dry|aider",
+      "folder": "mimo-v2.6-flash-rl-iq2s-rocm-dry",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/gfx1151:ROCm0:MiMo-V2.6-Flash-RL-IQ2_S-dry",
+      "run_dir": "20260925-160846",
+      "num_tests_run": 1
+    },
+    {
       "column_id": "mimo-v2.6-flash-rl-iq2s-vulkan|aider",
       "folder": "mimo-v2.6-flash-rl-iq2s-vulkan",
       "bench": "aider",
@@ -171,8 +180,8 @@
       "bench": "aider",
       "edit_format": "whole",
       "model": "openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry",
-      "run_dir": "20260924-125331",
-      "num_tests_run": 4
+      "run_dir": "20260925-214159",
+      "num_tests_run": 33
     },
     {
       "column_id": "rtx5090-InternScience-Agents-A1-Q4_K_M|aider",
@@ -1252,6 +1261,14 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, malformed:1"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -1694,6 +1711,12 @@
           "err": true,
           "errd": "error_outputs:1, ctx_exhausted:1"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -1911,6 +1934,12 @@
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
           "p1": false,
           "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
           "n": 2,
           "status": "ran"
         },
@@ -2215,6 +2244,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -2432,6 +2467,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -2776,6 +2817,12 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -2986,6 +3033,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -3181,6 +3234,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
@@ -3810,6 +3869,14 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -3898,6 +3965,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": true,
           "n": 2,
@@ -4516,12 +4589,6 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
-          "p1": false,
-          "p2": false,
-          "n": 2,
-          "status": "ran"
-        },
-        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -5157,6 +5224,14 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:12, ctx_exhausted:1"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -5476,6 +5551,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-rocm-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
@@ -7007,6 +7088,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": true,
@@ -7861,6 +7948,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -8677,6 +8770,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -8776,6 +8875,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -9335,6 +9440,14 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": true,
@@ -9552,12 +9665,6 @@
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
           "p1": false,
           "p2": true,
-          "n": 2,
-          "status": "ran"
-        },
-        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
-          "p1": false,
-          "p2": false,
           "n": 2,
           "status": "ran"
         },
@@ -10958,6 +11065,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -11493,6 +11606,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
           "p1": true,
           "p2": true,
@@ -11842,6 +11961,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -12051,6 +12176,14 @@
           "p2": true,
           "n": 2,
           "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
@@ -12270,6 +12403,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -12480,6 +12619,12 @@
           "p1": true,
           "p2": true,
           "n": 1,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
           "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
@@ -12952,6 +13097,12 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": true,
@@ -13374,6 +13525,14 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -13474,6 +13633,12 @@
           "status": "ran",
           "err": true,
           "errd": "timeouts:1"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
@@ -14618,6 +14783,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -15025,6 +15196,12 @@
           "errd": "error_outputs:2"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -17558,6 +17735,12 @@
         "mimo-v2.6-flash-rl-iq2s-vulkan|aider": {
           "p1": false,
           "p2": true,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
           "n": 2,
           "status": "ran"
         },
@@ -20952,6 +21135,12 @@
           "n": 1,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": true,
@@ -21996,14 +22185,6 @@
           "err": true,
           "errd": "error_outputs:1, ctx_exhausted:1"
         },
-        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
-          "p1": false,
-          "p2": false,
-          "n": 2,
-          "status": "ran",
-          "err": true,
-          "errd": "error_outputs:1, ctx_exhausted:1"
-        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -22217,6 +22398,12 @@
           "errd": "error_outputs:2"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -23734,6 +23921,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -24491,6 +24684,12 @@
           "n": 2,
           "status": "ran"
         },
+        "mimo-v2.6-flash-rl-iq2s-vulkan-dry|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
@@ -24598,6 +24797,7 @@
     "gfx1151-ROCm0-Qwen3.6-35B-A3B-Q8_0/aider/20260708-000003: no per-test blocks",
     "gfx1151-gemma-4-26B-A4B-it-UD-Q6_K_XL/aider/20260705-234910: no per-test blocks",
     "gfx1151-gemma-4-26B-A4B-it-qat-q4_0/aider/20260705-091619: no per-test blocks",
+    "mimo-v2.6-flash-rl-iq2s-vulkan/aider/20260926-095208: no per-test blocks",
     "rtx5090-InternScience-Agents-A1-Q4_K_M/aider/20260707-114530: no per-test blocks",
     "rtx5090-Qwen3.6-27B-NVFP4/aider/20260723-143045: no per-test blocks",
     "rtx5090-Qwen3.6-27B-Q8_0/aider/20260627-084420: no per-test blocks",

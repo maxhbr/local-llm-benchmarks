@@ -1,4 +1,4 @@
-- dirname: 2026-09-24-10-53-37--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
   test_cases: 1
   model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
   edit_format: whole
@@ -13,21 +13,21 @@
   error_outputs: 0
   num_malformed_responses: 0
   num_with_malformed_responses: 0
-  user_asks: 8
+  user_asks: 3
   lazy_comments: 0
   syntax_errors: 0
   indentation_errors: 0
   exhausted_context_windows: 0
-  prompt_tokens: 62618
-  completion_tokens: 9001
+  prompt_tokens: 7277
+  completion_tokens: 1870
   test_timeouts: 0
   total_tests: 225
   command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
-  date: 2026-09-24
+  date: 2026-09-25
   versions: 0.86.3.dev
-  seconds_per_case: 1318.5
+  seconds_per_case: 143.1
   total_cost: 0.0000
-- dirname: 2026-09-24-10-53-37--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
   test_cases: 2
   model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
   edit_format: whole
@@ -42,75 +42,916 @@
   error_outputs: 0
   num_malformed_responses: 0
   num_with_malformed_responses: 0
-  user_asks: 11
+  user_asks: 3
   lazy_comments: 0
   syntax_errors: 0
   indentation_errors: 0
   exhausted_context_windows: 0
-  prompt_tokens: 77692
-  completion_tokens: 11533
+  prompt_tokens: 10773
+  completion_tokens: 2419
   test_timeouts: 0
   total_tests: 225
   command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
-  date: 2026-09-24
+  date: 2026-09-25
   versions: 0.86.3.dev
-  seconds_per_case: 865.2
+  seconds_per_case: 104.4
   total_cost: 0.0000
-- dirname: 2026-09-24-10-53-37--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
   test_cases: 3
   model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
   edit_format: whole
   commit_hash: 5dc9490
   pass_rate_1: 0.0
-  pass_rate_2: 0.0
+  pass_rate_2: 33.3
   pass_num_1: 0
-  pass_num_2: 0
+  pass_num_2: 1
   theoretical_pass_num_2: 1
   theoretical_pass_rate_2: 33.3
   percent_cases_well_formed: 100.0
-  error_outputs: 1
+  error_outputs: 0
   num_malformed_responses: 0
   num_with_malformed_responses: 0
-  user_asks: 12
+  user_asks: 4
   lazy_comments: 0
   syntax_errors: 0
   indentation_errors: 0
-  exhausted_context_windows: 1
-  prompt_tokens: 78871
-  completion_tokens: 14373
+  exhausted_context_windows: 0
+  prompt_tokens: 15864
+  completion_tokens: 3405
   test_timeouts: 0
   total_tests: 225
   command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
-  date: 2026-09-24
+  date: 2026-09-25
   versions: 0.86.3.dev
-  seconds_per_case: 1681.6
+  seconds_per_case: 109.6
   total_cost: 0.0000
-- dirname: 2026-09-24-10-53-37--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
   test_cases: 4
   model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
   edit_format: whole
   commit_hash: 5dc9490
   pass_rate_1: 0.0
-  pass_rate_2: 0.0
+  pass_rate_2: 25.0
   pass_num_1: 0
-  pass_num_2: 0
-  theoretical_pass_num_2: 1
-  theoretical_pass_rate_2: 25.0
+  pass_num_2: 1
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 50.0
   percent_cases_well_formed: 100.0
   error_outputs: 1
   num_malformed_responses: 0
   num_with_malformed_responses: 0
-  user_asks: 12
+  user_asks: 9
   lazy_comments: 0
   syntax_errors: 0
   indentation_errors: 0
   exhausted_context_windows: 1
-  prompt_tokens: 93770
-  completion_tokens: 15903
+  prompt_tokens: 42732
+  completion_tokens: 13487
   test_timeouts: 0
   total_tests: 225
   command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
-  date: 2026-09-24
+  date: 2026-09-25
   versions: 0.86.3.dev
-  seconds_per_case: 1311.3
+  seconds_per_case: 1076.4
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 5
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 20.0
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 40.0
+  percent_cases_well_formed: 100.0
+  error_outputs: 1
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 17
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 1
+  prompt_tokens: 87064
+  completion_tokens: 22297
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1048.7
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 6
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 16.7
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 2
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 100.0
+  error_outputs: 1
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 25
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 1
+  prompt_tokens: 122718
+  completion_tokens: 26296
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 971.8
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 7
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 14.3
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 42.9
+  percent_cases_well_formed: 100.0
+  error_outputs: 13
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 26
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 2
+  prompt_tokens: 189518
+  completion_tokens: 27814
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1353.3
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 8
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 12.5
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 37.5
+  percent_cases_well_formed: 100.0
+  error_outputs: 13
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 34
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 2
+  prompt_tokens: 221644
+  completion_tokens: 32051
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1310.6
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 9
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 11.1
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 3
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 100.0
+  error_outputs: 13
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 34
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 2
+  prompt_tokens: 225660
+  completion_tokens: 93223
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1485.0
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 10
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 10.0
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 40.0
+  percent_cases_well_formed: 100.0
+  error_outputs: 14
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 35
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 3
+  prompt_tokens: 226682
+  completion_tokens: 93601
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1670.2
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 11
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 9.1
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 36.4
+  percent_cases_well_formed: 100.0
+  error_outputs: 14
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 43
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 3
+  prompt_tokens: 282848
+  completion_tokens: 102933
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1598.6
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 12
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 8.3
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 100.0
+  error_outputs: 14
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 43
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 3
+  prompt_tokens: 285383
+  completion_tokens: 103480
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1469.9
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 13
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 7.7
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 4
+  theoretical_pass_rate_2: 30.8
+  percent_cases_well_formed: 100.0
+  error_outputs: 14
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 43
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 3
+  prompt_tokens: 300948
+  completion_tokens: 125580
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1446.2
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 14
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 7.1
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 5
+  theoretical_pass_rate_2: 35.7
+  percent_cases_well_formed: 100.0
+  error_outputs: 15
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 49
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 331567
+  completion_tokens: 149400
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1671.0
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 15
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 6.7
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 5
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 100.0
+  error_outputs: 15
+  num_malformed_responses: 0
+  num_with_malformed_responses: 0
+  user_asks: 58
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 368526
+  completion_tokens: 154628
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1609.2
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 16
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 6.2
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 37.5
+  percent_cases_well_formed: 93.8
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 65
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 415927
+  completion_tokens: 163196
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1558.6
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 17
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 5.9
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 35.3
+  percent_cases_well_formed: 94.1
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 67
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 438799
+  completion_tokens: 171434
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1506.0
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 18
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 5.6
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 94.4
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 76
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 467967
+  completion_tokens: 174316
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1448.6
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 19
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 5.3
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 31.6
+  percent_cases_well_formed: 94.7
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 80
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 497251
+  completion_tokens: 181471
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1412.6
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 20
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 5.0
+  pass_num_1: 0
+  pass_num_2: 1
+  theoretical_pass_num_2: 6
+  theoretical_pass_rate_2: 30.0
+  percent_cases_well_formed: 95.0
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 83
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 511197
+  completion_tokens: 184378
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1359.8
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 21
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 9.5
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 7
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 95.2
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 89
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 623410
+  completion_tokens: 211050
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1381.1
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 22
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 9.1
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 7
+  theoretical_pass_rate_2: 31.8
+  percent_cases_well_formed: 95.5
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 89
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 629887
+  completion_tokens: 212819
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1324.3
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 23
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 8.7
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 7
+  theoretical_pass_rate_2: 30.4
+  percent_cases_well_formed: 95.7
+  error_outputs: 16
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 94
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 4
+  prompt_tokens: 648088
+  completion_tokens: 219187
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1291.3
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 24
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 8.3
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 33.3
+  percent_cases_well_formed: 95.8
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 98
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 665786
+  completion_tokens: 226902
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1388.0
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 25
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 8.0
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 32.0
+  percent_cases_well_formed: 96.0
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 106
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 704849
+  completion_tokens: 230189
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1354.7
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 26
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 7.7
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 30.8
+  percent_cases_well_formed: 96.2
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 112
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 734638
+  completion_tokens: 245886
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1345.4
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 27
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 7.4
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 29.6
+  percent_cases_well_formed: 96.3
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 113
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 739457
+  completion_tokens: 247481
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1300.3
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 28
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 7.1
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 28.6
+  percent_cases_well_formed: 96.4
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 122
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 796424
+  completion_tokens: 250205
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1276.5
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 29
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 6.9
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 27.6
+  percent_cases_well_formed: 96.6
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 122
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 807558
+  completion_tokens: 252271
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1238.7
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 30
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 6.7
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 26.7
+  percent_cases_well_formed: 96.7
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 125
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 825290
+  completion_tokens: 256172
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1268.3
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 31
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 6.5
+  pass_num_1: 0
+  pass_num_2: 2
+  theoretical_pass_num_2: 8
+  theoretical_pass_rate_2: 25.8
+  percent_cases_well_formed: 96.8
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 129
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 856872
+  completion_tokens: 271818
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1264.1
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 32
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 9.4
+  pass_num_1: 0
+  pass_num_2: 3
+  theoretical_pass_num_2: 9
+  theoretical_pass_rate_2: 28.1
+  percent_cases_well_formed: 96.9
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 129
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 863528
+  completion_tokens: 272752
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1229.1
+  total_cost: 0.0000
+- dirname: 2026-09-25-19-42-05--mimo-v2.6-flash-rl-iq2s-vulkan-dry
+  test_cases: 33
+  model: openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  edit_format: whole
+  commit_hash: 5dc9490
+  pass_rate_1: 0.0
+  pass_rate_2: 9.1
+  pass_num_1: 0
+  pass_num_2: 3
+  theoretical_pass_num_2: 9
+  theoretical_pass_rate_2: 27.3
+  percent_cases_well_formed: 97.0
+  error_outputs: 17
+  num_malformed_responses: 1
+  num_with_malformed_responses: 1
+  user_asks: 129
+  lazy_comments: 0
+  syntax_errors: 0
+  indentation_errors: 0
+  exhausted_context_windows: 5
+  prompt_tokens: 867797
+  completion_tokens: 308673
+  test_timeouts: 0
+  total_tests: 225
+  command: aider --model openai/gfx1151:MiMo-V2.6-Flash-RL-IQ2_S-dry
+  date: 2026-09-25
+  versions: 0.86.3.dev
+  seconds_per_case: 1243.4
   total_cost: 0.0000

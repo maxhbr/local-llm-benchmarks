@@ -142,6 +142,18 @@
     .kpi .label { color: var(--muted); font-size: 12px; }
     .kpi .value { font-size: 22px; font-weight: 600; margin-top: 2px; }
 
+    /* Cross-tool overview: grouped headers, sortable columns, sticky names. */
+    .overview-note { color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .overview-missing { color: var(--muted); }
+    .overview-partial { color: var(--warn); margin-left: 2px; }
+    #overviewTable .overview-groups th { position: static; text-align: center;
+      color: var(--accent); border-left: 1px solid var(--border); font-size: 12px; }
+    #overviewTable th button { background: none; border: 0; color: inherit;
+      font: inherit; font-weight: inherit; padding: 0; cursor: pointer; text-align: left; }
+    #overviewTable thead tr:last-child th:first-child { position: sticky; left: 0; z-index: 3; }
+    #overviewTable td.rowkey { max-width: min(32em, 42vw); overflow: hidden; text-overflow: ellipsis; }
+    #overviewWarnings pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
     /* llmprobe keeps independent score cards and run-scope notes together. */
     .llmp-note { color: var(--muted); font-size: 13px; line-height: 1.5; }
     .llmp-detail { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
@@ -228,9 +240,13 @@
   </header>
   <main>
     <div class="tabs" role="tablist">
+      <div class="tab-section" data-group="overview">
+        <span class="tab-group">Overview</span>
+        <button class="tab active" data-tab="overview">All models</button>
+      </div>
       <div class="tab-section" data-group="aider">
         <span class="tab-group">aider</span>
-        <button class="tab active" data-tab="pass">Pass rate</button>
+        <button class="tab" data-tab="pass">Pass rate</button>
         <button class="tab" data-tab="passtable">Pass-rate table</button>
         <button class="tab" data-tab="tokens">Tokens per test case</button>
         <button class="tab" data-tab="seconds">Seconds per test case</button>
@@ -267,7 +283,46 @@
       </div>
     </div>
 
-    <section class="panel active" id="panel-pass">
+    <section class="panel active" id="panel-overview">
+      <div class="kpis" id="overviewKpis"></div>
+      <div class="controls">
+        <label>Throughput depth
+          <select id="overviewDepth">
+            <option value="d0">d0</option><option value="d8192">d8192</option><option value="d16384">d16384</option>
+          </select>
+        </label>
+        <label>Concurrency
+          <select id="overviewConcurrency">
+            <option value="1">1</option><option value="2">2</option><option value="4">4</option>
+          </select>
+        </label>
+        <label>Aider format
+          <select id="overviewAiderFormat">
+            <option value="any">latest available</option><option value="whole">whole</option><option value="diff">diff</option>
+          </select>
+        </label>
+        <label>Minimum tools
+          <select id="overviewMinTools">
+            <option value="0">any</option><option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5">5</option>
+          </select>
+        </label>
+        <label><input id="overviewExtra" type="checkbox"> More metrics</label>
+        <button class="llmp-button" id="overviewReload" type="button">Reload manifests</button>
+        <span id="overviewStatus" role="status">Loading all models…</span>
+      </div>
+      <p class="overview-note">One row per output folder / alias, across all available tools. Each tool uses its latest indexed run, not its best score.
+        Throughput uses the exact depth and concurrency above. Aider shows the last cumulative result and its case count.
+        TOOL-EVAL comp score uses the fixed full-suite denominator. Scores from different tools are not averaged.</p>
+      <p class="overview-note">Click a column header to sort. Click a result to open its source. Hover for run details.
+        “—” means no measurement for the selected settings. “*” marks a partial result.
+        The global GPU, quantization, text, and highlight controls apply here too. Scroll horizontally for more tools.</p>
+      <p class="overview-note" id="overviewEmpty"></p>
+      <details class="overview-note" id="overviewWarnings" hidden><summary>Unavailable data sources</summary><pre></pre></details>
+      <div class="scrollwrap"><table class="grid" id="overviewTable" aria-label="Key benchmark results for all models"></table></div>
+    </section>
+
+    <section class="panel" id="panel-pass">
       <div class="controls">
         <label>
           View
@@ -878,10 +933,12 @@
   <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="overview.js"></script>
   <script>
     // List of *.computed.yaml files is loaded from datasets.json.
     // Regenerate that file with: python3 ../scripts/extract-aider-stats.py . --all
     let DATA_FILES = [];
+    const BASE_ERRORS = [];
 
     const statusEl = document.getElementById("status");
     const errorsEl = document.getElementById("errors");
@@ -897,6 +954,8 @@
         b.classList.toggle("active", b.dataset.tab === id));
       document.querySelectorAll(".panel").forEach(p =>
         p.classList.toggle("active", p.id === `panel-${id}`));
+      if (id === "overview" && window.ModelOverview) window.ModelOverview.load();
+      renderBaseTab(id);
       if (id === "llamagrid" && window.Plotly) {
         const el = document.getElementById("chartGrid");
         if (el && el.data) Plotly.Plots.resize(el);
@@ -963,6 +1022,31 @@
       return `hsl(${hue} 70% 60%)`;
     }
 
+    // Overview and detailed tabs share manifest requests, including in-flight
+    // loads. Evict failures so a later visit can retry a missing source.
+    const DASHBOARD_JSON = new Map();
+    const DASHBOARD_PENDING = new Set();
+    function loadDashboardJson(url, reload = false) {
+      // Even forced reloads share an in-flight request. Otherwise the overview
+      // and a detailed tab could apply old/new responses in the wrong order.
+      if (DASHBOARD_JSON.has(url) && (!reload || DASHBOARD_PENDING.has(url))) return DASHBOARD_JSON.get(url);
+      DASHBOARD_PENDING.add(url);
+      const pending = fetch(url, { cache: "no-cache" }).then(response => {
+        if (!response.ok) throw new Error(`${url}: ${response.status} ${response.statusText}`);
+        return response.json();
+      }).then(data => {
+        if (window.ModelOverview) window.ModelOverview.updateManifest(url, data);
+        return data;
+      }).catch(error => {
+        if (DASHBOARD_JSON.get(url) === pending) DASHBOARD_JSON.delete(url);
+        throw error;
+      }).finally(() => {
+        DASHBOARD_PENDING.delete(url);
+      });
+      DASHBOARD_JSON.set(url, pending);
+      return pending;
+    }
+
     async function loadManifest() {
       const res = await fetch("datasets.json", { cache: "no-cache" });
       if (!res.ok) throw new Error(`datasets.json: ${res.status} ${res.statusText}`);
@@ -997,7 +1081,10 @@
           errs.push(`${path}: ${e.message}`);
         }
       }));
-      if (errs.length) errorsEl.textContent = "Errors:\n" + errs.join("\n");
+      if (errs.length) {
+        BASE_ERRORS.push(...errs);
+        errorsEl.textContent = "Errors:\n" + errs.join("\n");
+      }
       results.sort((a, b) => a.path.localeCompare(b.path));
       return results;
     }
@@ -1025,9 +1112,9 @@
     // ====================================================================
     const KNOWN_GPUS = ["rtx5090", "gfx1151"];
     // Multi-select GPU filter: a Set of the GPU keys that are currently shown.
-    // Known GPUs start checked, "other" starts unchecked. An empty set hides
-    // everything (no GPU selected -> no data).
-    let GPU_FILTER = new Set(KNOWN_GPUS);
+    // All GPUs, including remote/unknown setups in "other", start checked so
+    // the overview starts with all models. An empty set hides everything.
+    let GPU_FILTER = new Set([...KNOWN_GPUS, "other"]);
 
     // Detect GPU from a model-name string (handles "openai/" and ":" prefixes).
     function gpuFromModel(model) {
@@ -1290,6 +1377,7 @@
         window.ToolEvalBench.gpus().forEach(g => set.add(g));
       }
       if (window.LlmProbe) window.LlmProbe.gpus().forEach(g => set.add(g));
+      if (window.ModelOverview) window.ModelOverview.gpus().forEach(g => set.add(g));
       return sortGpus([...set]);
     }
 
@@ -1318,19 +1406,21 @@
       buildGpuBoxes("gpuHi", GPU_HI, applyGpuHighlight);
     }
 
-    // Re-render every visible chart/table after a filter changes.
+    // Build chart canvases only on their active tab, not while opening the overview.
+    function renderBaseTab(id) {
+      if (id === "llamagrid") populateGridModels();
+      const render = {
+        pass: renderPass, passtable: renderPtable, tokens: renderTokens,
+        seconds: renderSeconds, scatterpass: renderScatterPass, llama: renderLlama,
+        llamagraph: renderLlamaGraph, llamavs: renderLlamaVs,
+        llamafactor: renderLlamaFactor, llamagrid: renderGrid,
+      }[id];
+      if (render) render();
+    }
+
     function renderAll() {
-      renderPass();
-      renderPtable();
-      renderTokens();
-      renderSeconds();
-      renderScatterPass();
-      renderLlama();
-      renderLlamaGraph();
-      renderLlamaVs();
-      renderLlamaFactor();
-      populateGridModels();
-      renderGrid();
+      renderBaseTab(document.querySelector(".tab.active")?.dataset.tab);
+      if (window.ModelOverview) window.ModelOverview.refresh();
       if (window.AgentBench && window.AgentBench.refresh) window.AgentBench.refresh();
       if (window.AiderPerTest && window.AiderPerTest.refresh) window.AiderPerTest.refresh();
       if (window.ToolEvalBench && window.ToolEvalBench.refresh) window.ToolEvalBench.refresh();
@@ -1492,7 +1582,9 @@
       } catch (e) {
         LLAMA_ROWS = [];
         const cur = errorsEl.textContent;
-        errorsEl.textContent = (cur ? cur + "\n" : "") + `llama-benchy.csv: ${e.message}`;
+        const message = `llama-benchy.csv: ${e.message}`;
+        BASE_ERRORS.push(message);
+        errorsEl.textContent = (cur ? cur + "\n" : "") + message;
       }
     }
 
@@ -2689,25 +2781,27 @@
     ["hbitMin", "hbitMax"].forEach(id =>
       document.getElementById(id).addEventListener("input", applyHiBitFilter));
 
-    (async () => {
-      try {
-        statusEl.textContent = "loading datasets.json…";
-        DATA_FILES = await loadManifest();
-        statusEl.textContent = `loading ${DATA_FILES.length} files…`;
-        await Promise.all([
-          loadAll().then(d => { DATASETS = d; }),
-          loadLlama(),
-        ]);
-        statusEl.textContent =
-          `${DATASETS.length} datasets, ${LLAMA_ROWS.length} llama-benchy rows`;
-        populateGpuFilter();
-        populateGpuHighlight();
-        populateLfGpus();
-        applyBitFilter();  // sets the slider label/track and renders everything
-      } catch (e) {
-        statusEl.textContent = "failed to load";
-        errorsEl.textContent = String(e);
-      }
+    const BASE_READY = (async () => {
+      statusEl.textContent = "loading benchmark sources…";
+      await Promise.allSettled([
+        (async () => {
+          try {
+            DATA_FILES = await loadManifest();
+            DATASETS = await loadAll();
+          } catch (error) {
+            BASE_ERRORS.push(String(error));
+            errorsEl.textContent += (errorsEl.textContent ? "\n" : "") + String(error);
+          }
+        })(),
+        loadLlama(),
+      ]);
+      statusEl.textContent = `${DATASETS.length} Aider datasets, ${LLAMA_ROWS.length} llama-benchy rows`
+        + (BASE_ERRORS.length ? " · some data unavailable" : "");
+      populateGpuFilter();
+      populateGpuHighlight();
+      populateLfGpus();
+      applyBitFilter();
+      return { errors: BASE_ERRORS };
     })();
 
     // ====================================================================
@@ -3179,9 +3273,7 @@
         if (loaded || loadStarted) return;
         loadStarted = true;
         try {
-          const res = await fetch(MANIFEST_URL, { cache: "no-cache" });
-          if (!res.ok) throw new Error(`${MANIFEST_URL}: ${res.status} ${res.statusText}`);
-          MANIFEST = await res.json();
+          MANIFEST = await loadDashboardJson(MANIFEST_URL);
           RUNS = (MANIFEST.runs || [])
             .slice().sort((a, b) => (b.ts || "").localeCompare(a.ts || ""));
           renderKpis();
@@ -3887,9 +3979,7 @@
         if (loaded || loadStarted) return;
         loadStarted = true;
         try {
-          const res = await fetch(MANIFEST_URL, { cache: "no-cache" });
-          if (!res.ok) throw new Error(`${MANIFEST_URL}: ${res.status} ${res.statusText}`);
-          MANIFEST = await res.json();
+          MANIFEST = await loadDashboardJson(MANIFEST_URL);
           RUNS = (MANIFEST.runs || [])
             .slice().sort((a, b) => (b.ts || "").localeCompare(a.ts || ""));
           renderKpis();
@@ -4160,9 +4250,7 @@
         el("llmpReload").disabled = true;
         loading = (async () => {
           try {
-            const response = await fetch(URL, { cache: "no-cache" });
-            if (!response.ok) throw new Error(`${URL}: HTTP ${response.status}`);
-            const data = await response.json();
+            const data = await loadDashboardJson(URL, force);
             if (data.schema_version !== 1 || !Array.isArray(data.runs)) throw new Error("Unsupported llmprobe manifest schema");
             manifest = data;
             runs = data.runs;
@@ -4188,6 +4276,18 @@
       el("llmpReload").addEventListener("click", () => load(true));
       return { onTabActivated: () => load(), refresh: render, gpus: () => runs.map(gpuOf) };
     })();
+
+    window.ModelOverview = BenchmarkOverview.create({
+      document,
+      getBase: () => ({ aider: DATASETS, llama: LLAMA_ROWS }),
+      baseReady: BASE_READY,
+      loadJson: loadDashboardJson,
+      bitsFromName,
+      matches: r => gpuMatches(r.gpu) && bitsMatch(r.bits) && textMatches(r.name, ...r.names),
+      dimmed: r => dimmed(r.gpu, r.bits, r.name, ...r.names),
+      onSourcesChanged: () => { populateGpuFilter(); populateGpuHighlight(); },
+    });
+    window.ModelOverview.load();
   </script>
 </body>
 </html>
