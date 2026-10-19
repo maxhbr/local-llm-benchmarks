@@ -80,6 +80,8 @@ python3 -m http.server --directory benchmarks 8000
 
 The generator writes `_llmprobe-scoreboards/manifest.json` under the supplied root. It indexes historical `result.json` files with their metadata. It does not count the latest link twice. Corrupt and unsupported reports produce diagnostics instead of breaking other results. The tab supports the global GPU, quantization, text, and highlight controls. It shows separate scores, coverage, optional performance values, run scope, phase reasons, failures, and artifact links.
 
+The X–Y plot tab lets you select either axis from scores, coverage, token counts, duration, and available performance measurements. It defaults to duration in seconds versus capability. Each point represents one run. Hover for its values and scope, or click it to open the run details. GPU colors, global filters, and highlighting match the results table. The comparable-scope checkbox stays synchronized between both tabs. Runs without both measurements are omitted rather than plotted as zero.
+
 Quick, interrupted, and unknown-scope runs remain visible without ranking as full comparable probes. Upstream intentionally marks unprobed coverage as partial, even at standard depth. The dashboard keeps that warning without discarding independently measured cards. Different run depths, inference hardware, reasoning settings, and available API features also affect comparisons. Machine metadata describes the client host, not necessarily a remote inference server.
 
 ## Runtime and upstream sources
@@ -98,4 +100,4 @@ The requirements and report contract come from these first-party sources at the 
 - [Benchmark workloads and request deadlines](https://github.com/ddalcu/llmprobe/blob/0b18df612f644e9619792c3ab3d0cabfc0a3d710/src/bench/index.ts).
 - [Upstream usage, comparison limits, and coding-suite warning](https://github.com/ddalcu/llmprobe/blob/0b18df612f644e9619792c3ab3d0cabfc0a3d710/README.md).
 
-Run the offline tests with `python3 -m unittest discover -s tests`. These tests use fixtures and a fake executable. They do not spend endpoint tokens.
+Run the offline Python tests with `python3 -m unittest discover -s tests`. Run the scatter-plot tests with `node --test tests/test_llmprobe_scatter.js`. These tests use fixtures and a fake executable. They do not spend endpoint tokens.
