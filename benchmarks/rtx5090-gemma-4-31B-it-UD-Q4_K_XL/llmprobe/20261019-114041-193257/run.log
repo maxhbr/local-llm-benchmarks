@@ -98,3 +98,140 @@ model: rtx5090:gemma-4-31B-it-UD-Q4_K_XL   depth: default   reasoning model — 
   ✓ messages: top_p is honored  17.5s
   ✓ messages: the answer is an answer, not a scratchpad
   ✓ messages: assistant-history reasoning round-trip
+  ✓ chat/completions: n > 1 choices  10.0s
+  ✓ chat/completions: legacy max_tokens alias
+  ✓ chat/completions: trailing assistant message
+  ✓ chat/completions: stop as a bare string
+  ✓ chat/completions: chat_template_kwargs dialect  5.5s
+  ✓ chat/completions: sampling extensions  18.1s
+  ✗ responses: streaming event order
+      → HTTP 400
+  ? responses: previous_response_id chaining
+      → first response carried no id to chain from
+  ✓ messages: streaming event order
+  ✓ messages: max_tokens is required
+  ✗ messages: stop_sequence is reported and echoed
+      → stop_reason was "end_turn"
+  ✗ messages: a trailing assistant message is a prefill
+      → the response repeated the prefill — a caller that appends the reply to what it sent gets it twice
+  ✓ messages: system as an array of text blocks
+  ✓ messages: user content as an array of text blocks
+  ✗ messages: top_k is honored  21.2s
+      → two runs differ: "Neon Fossil" vs "**Atomic Honey**" — the parameter was silently dropped
+  ✓ messages: cache_control breakpoints  8.7s
+  ✓ messages: error envelope taxonomy  4.5s
+  ✓ messages/count_tokens: token counting
+  ? embeddings: basic vector  8.8s
+      → HTTP 501 — likely needs a dedicated embedding model (tested with "rtx5090:gemma-4-31B-it-UD-Q4_K_XL")
+  ✓ completions (legacy): basic
+
+  ✓ picks the weather tool from a menu of decoys 3/3
+  ✓ distinguishes the time tool from the weather tool 3/3
+  ✓ does not reach for a tool during small talk 3/3
+  ✓ answers from knowledge instead of calling an irrelevant tool 3/3
+  ✓ fills typed arguments with the right types 3/3
+  ✓ respects an enum constraint in the tool schema 3/3
+  ✓ recalls a fact from an earlier turn 1/1
+  ✓ uses a tool result instead of inventing an answer 1/1
+  ✓ keeps honoring the system prompt after several turns 1/1
+  ✓ reproduces an exact requested string 1/1
+  ✓ honors a negative constraint 1/1
+  ✓ obeys a one-word length constraint 1/1
+  ✓ emits raw JSON without markdown fences when told to 3/3
+  ✓ produces a nested JSON structure on request 3/3
+  ✓ multiplies two two-digit numbers 1/1
+  ✓ follows a transitive chain 1/1
+  ✓ counts letters in a word 1/1
+  ✓ knows a non-obvious capital city 1/1
+  ✓ knows a chemical symbol 1/1
+  ✓ attributes a well-known novel 1/1
+
+agentic (multi-step tool tasks in a simulated workspace)...
+  ✓ reads the config instead of answering from priors 3 steps
+  ✓ finds where the port really lives and edits only that 5 steps
+  ✓ follows the pointer in build.cfg instead of guessing 5 steps
+  ✗ fixes a failing test in the source, not the test 12 steps
+      → the work itself was done — the model never stopped calling tools
+  ✗ adds a function, then renames across files on request 18 steps
+      → changed CHANGELOG.md, which was off limits
+  ✗ lets the failing test point at the file to change 6 steps
+      → edited before running the tests to see what fails
+  ✓ checks, finds nothing to do, and stops 5 steps
+  ✓ finds which file exports a function 3 steps
+
+fidelity (cloze battery + greedy self-consistency)...
+json report → /home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/rtx5090-gemma-4-31B-it-UD-Q4_K_XL/llmprobe/20261019-114041-193257/result.json
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ llmprobe · http://litellm.thing.wg0.maxhbr.local/v1 · rtx5090:gemma-4-31B-it-UD-Q4_K_XL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SURFACE COVERAGE
+  CORE      9/9      100%  ██████████
+  EXTENDED  13/15   86.7%  █████████░
+            ✗ vision   ✗ reasoning history round-trip
+  FRONTIER  6/9     66.7%  ███████░░░
+            ✗ MCP tools   ✗ rate limiting   ✗ background responses
+            ? prompt caching — not probed in this run
+  credit    chat prefill: a trailing assistant message is continued, and echoed back — detected, not scored
+  credit    chat_template_kwargs: enable_thinking: false is honored — detected, not scored
+  credit    sampling extensions: top_k honored; min_p, repetition_penalty accepted (acceptance only) — detected, not scored
+
+ENGINE CONFORMANCE                                                   88.5%
+  MUST assertions, implemented surfaces only
+  models        4/4         100%
+  chat          70/71      98.6%
+  responses     5/14       35.7%
+  messages      53/61      86.9%
+  count-tokens  3/3         100%
+  completions   3/3         100%
+  ⚠ 3 inconclusive — engine never exercised
+      responses: typed tool arguments survive the wire — model emitted no call even with a named tool_choice
+      responses: previous_response_id chaining — first response carried no id to chain from
+      embeddings: basic vector — HTTP 501 — likely needs a dedicated embedding model (tested with "rtx5090:gemma-4-31B-it-UD-Q4_K_XL")
+  ⚠ 6 SHOULD warnings
+      a oneOf-typed object argument is an object, not its JSON text — request was "ls"
+      usage lets us verify max_tokens — no output token count to check against
+      a oneOf-typed object argument is an object, not its JSON text — request was "ls"
+      a request without max_tokens is rejected — accepted a request with no max_tokens (HTTP 200) — the spec requires it
+      the matched sequence is echoed in stop_sequence — stop_sequence field was null
+      the first call reports cache_creation_input_tokens > 0 — cache_creation_input_tokens was null on a cold >1024-token breakpoint
+
+MODEL CAPABILITY                                           100%   strong ✓
+  Tool selection         6/6      100%  ██████████
+  Tool restraint         6/6      100%  ██████████
+  Tool arg fidelity      6/6      100%  ██████████
+  Multi-turn state       3/3      100%  ██████████
+  Instruction following  3/3      100%  ██████████
+  JSON discipline        6/6      100%  ██████████
+  Basic reasoning        3/3      100%  ██████████
+  Basic knowledge        3/3      100%  ██████████
+
+AGENTIC                                                          5/8 tasks
+  multi-step tool use in a simulated workspace — a harder bar than the floor check, never blended into it
+  ✓ reads the config instead of answering from priors      3 steps
+  ✓ finds where the port really lives and edits only that  5 steps
+  ✓ follows the pointer in build.cfg instead of guessing   5 steps
+  ✗ fixes a failing test in the source, not the test       12 steps · 12/12 valid calls
+      → the work itself was done — the model never stopped calling tools
+      ! shell-file-ops (step 6): ran "ls -a" instead of the file tools
+  ✗ adds a function, then renames across files on request  18 steps · 16/16 valid calls
+      → changed CHANGELOG.md, which was off limits
+      ! whole-file-rewrite (step 3): rewrote all of src/user.js instead of edit_file
+      ✗ protected-file (step 17): changed CHANGELOG.md, which was off limits
+      ✗ untested-edit: never ran the tests after the last edit
+  ✗ lets the failing test point at the file to change      6 steps · 5/5 valid calls
+      → edited before running the tests to see what fails
+      ✗ edit-before-tests (step 4): edited before running the tests to see what fails
+  ✓ checks, finds nothing to do, and stops                 5 steps · 4/4 valid calls
+  ✓ finds which file exports a function                    3 steps · 2/2 valid calls
+
+ENGINE FIDELITY                                                       100%
+  same-model comparisons only — holds the model constant, so the number is the engine
+  Correctness             100%  ██████████  36/36 items answered correctly
+  Confidence              100%  ██████████  mean top-1 prob 1.000 · margin 1.000 · 12 harder items
+  Determinism             100%  ██████████  3/3 greedy prompts reproduced byte-for-byte
+  Logprob consistency     100%  ██████████  36/36 items: emitted token = argmax, valid distribution
+  (reasoning model — Confidence reads the post-thinking distribution, so the score is a floor)
+
+  90,303 tokens (56,554 in · 33,749 out) · 9m 46s

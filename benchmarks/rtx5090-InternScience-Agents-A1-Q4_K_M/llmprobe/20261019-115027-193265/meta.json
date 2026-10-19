@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-19T11:50:27.193265+00:00",
+  "host": "thing",
+  "bench": "llmprobe",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+  "run_name": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+  "llmprobe_version": "0.6.17",
+  "depth": "default",
+  "performance": false,
+  "signature": {
+    "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+    "model": "rtx5090:InternScience-Agents-A1-Q4_K_M",
+    "llmprobe_version": "0.6.17",
+    "llmprobe_bin": null,
+    "depth": "default",
+    "performance": false,
+    "budget": null,
+    "timeout": 60,
+    "run_timeout": 3600,
+    "reasoning": "medium",
+    "concurrency": 1
+  },
+  "status": "conformance-failed",
+  "returncode": 1,
+  "driver_returncode": 1,
+  "duration_s": 297.924
+}
