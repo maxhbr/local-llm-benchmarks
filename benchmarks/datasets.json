@@ -17,6 +17,8 @@
     "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL/aider.computed.yaml",
     "gfx1151-Qwen3.8-Flash-Next-UD-Q4_K_XL-sequential/aider.computed.yaml",
     "gfx1151-ROCm0-Ornith-1.0-35B-Q8_0/aider.computed.yaml",
+    "mimo-v2.6-flash-rl-iq2s-vulkan/aider.computed.yaml",
+    "mimo-v2.6-flash-rl-iq2s-vulkan-dry/aider.computed.yaml",
     "rtx5090-InternScience-Agents-A1-Q4_K_M/aider.computed.yaml",
     "rtx5090-Nex-N2.5-mini-Q4_K_L/aider.computed.yaml",
     "rtx5090-Qwen3.6-27B-Q6_K-MTP/aider.computed.yaml",
