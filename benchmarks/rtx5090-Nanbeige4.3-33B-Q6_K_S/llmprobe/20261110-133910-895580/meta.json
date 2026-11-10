@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-11-10T13:39:10.895580+00:00",
+  "host": "thing",
+  "bench": "llmprobe",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Nanbeige4.3-33B-Q6_K_S",
+  "run_name": "rtx5090:Nanbeige4.3-33B-Q6_K_S",
+  "llmprobe_version": "0.6.17",
+  "depth": "default",
+  "performance": false,
+  "signature": {
+    "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+    "model": "rtx5090:Nanbeige4.3-33B-Q6_K_S",
+    "llmprobe_version": "0.6.17",
+    "llmprobe_bin": null,
+    "depth": "default",
+    "performance": false,
+    "budget": null,
+    "timeout": 60,
+    "run_timeout": 3600,
+    "reasoning": "medium",
+    "concurrency": 1
+  },
+  "status": "conformance-failed",
+  "returncode": 1,
+  "driver_returncode": 0,
+  "duration_s": 299.47
+}

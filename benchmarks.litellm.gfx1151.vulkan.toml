@@ -40,6 +40,14 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:MiniMax-M2.7-UD-Q3_K_S"
   [[endpoints.models]]
+  name = "gfx1151:Nanbeige4.3-33B-Q4_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:Nanbeige4.3-33B-Q5_K_M"
+  [[endpoints.models]]
+  name = "gfx1151:Nanbeige4.3-33B-Q6_K_S"
+  [[endpoints.models]]
+  name = "gfx1151:Nanbeige4.3-33B-Q8_0"
+  [[endpoints.models]]
   name = "gfx1151:Nex-N2.5-mini-Q4_K_L"
   [[endpoints.models]]
   name = "gfx1151:Nex-N2.5-mini-Q6_K_L"

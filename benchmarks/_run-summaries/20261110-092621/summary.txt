@@ -1,0 +1,12 @@
+==========================================================================================
+RUN SUMMARY  (20261110-092621)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | llmprobe       | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | aider          | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 5   OK: 0   FAIL: 1   SKIP: 4

@@ -1,0 +1,14 @@
+{
+  "timestamp": "20261110-000126",
+  "host": "thing",
+  "bench": "aider",
+  "model": "rtx5090:Nanbeige4.3-33B-Q4_K_M",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "container_endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "run_name": "rtx5090-Nanbeige4.3-33B-Q4_K_M",
+  "edit_format": "whole",
+  "num_tests": "all",
+  "threads": 1,
+  "request_timeout": 3300,
+  "container_runtime": "podman"
+}

@@ -1,0 +1,228 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 400
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 400
+  ✓ audio/transcriptions     HTTP 422
+
+model: rtx5090:Nanbeige4.3-33B-Q4_K_M   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion
+  ✓ chat/completions: streaming + SSE framing
+  ✓ chat/completions: streaming matches non-streaming
+  ✓ chat/completions: usage tokens
+  ✓ chat/completions: usage reported while streaming
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored
+  ✓ chat/completions: stop sequences are honored
+  ✓ chat/completions: unicode round-trips intact
+  ✓ chat/completions: error codes and shapes  5.0s
+  ✗ chat/completions: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ chat/completions: tool results are accepted back
+      → no assistant text after the tool result
+  ✓ chat/completions: tool_choice "none" suppresses tools
+  ✓ chat/completions: typed tool arguments survive the wire
+  ✓ chat/completions: an object argument declared as a oneOf union arrives as an object
+  ✗ chat/completions: logprobs
+      → the same greedy request produced 33 logprob entries without streaming and 28 with it ("We␟ need␟ respond␟ to␟ user␟ \"␟Say␟ hi␟.\"␟ Simple␟.␟ Need␟ final␟ answer␟ likely␟ \"␟Hi␟!\"␟ Ensure␟ no␟ analysis␟ outside" vs "We␟ need␟ respond␟ to␟ user␟ \"␟Say␟ hi␟.\"␟ Simple␟.␟ Need␟ final␟ answer␟ likely␟ \"␟Hi␟!\"␟ Ensure␟ no␟ analysis␟ outside")
+  ✓ chat/completions: seed determinism
+  ✓ chat/completions: top_p is honored
+  ✓ chat/completions: reasoning is kept out of content
+  ✓ chat/completions: a cap spent on reasoning is reported as a cap
+  ✓ chat/completions: the answer is an answer, not a scratchpad
+  ✓ chat/completions: assistant-history reasoning round-trip
+  ✗ responses: basic completion
+      → output.1: Invalid input; tools: Expected array, received null; tool_choice: Invalid input; truncation: Expected 'auto' | 'disabled', received null; parallel_tool_calls: Expected boolean, received null (+13 more)
+  ✗ responses: streaming + SSE framing
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+      → <root>: Invalid input
+  ✓ responses: streaming matches non-streaming
+  ✓ responses: usage tokens
+  ✓ responses: usage reported while streaming
+  ✗ responses: length finish reason
+      → expected length/max_tokens, got "completed"
+  ✗ responses: max_tokens is honored
+      → asked for 8 tokens, got 16 — consistent with a speculative draft block overrunning the cap
+  ✓ responses: unicode round-trips intact
+  ✗ responses: error codes and shapes  4.6s
+      → got HTTP 500 — a malformed body must not succeed
+  ✗ responses: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ responses: tool results are accepted back
+      → no assistant text after the tool result
+  ✓ responses: tool_choice "none" suppresses tools
+  ✓ responses: typed tool arguments survive the wire
+  ✓ responses: JSON mode
+  ✗ responses: structured outputs (json_schema strict)  8.2s
+      → not JSON: Here’s an invented person:
+
+**Name:** Elara Venn  
+**Age:** 34  
+**Occupation:** Restorer of damaged books and antique m
+  ✗ responses: marker strings inside constrained JSON are data  31.9s
+      → content was: 
+      → stream: {
+  "error": "No schema was provided, so the required JSON object cannot be determined."
+} | non-stream: 
+  ✓ responses: constrained output enforces schemas behind $ref  17.2s
+  ✓ responses: an object argument declared as a oneOf union arrives as an object
+  ✓ responses: top_p is honored
+  ✓ responses: reasoning is kept out of content
+  ? responses: a cap spent on reasoning is reported as a cap
+      → the model finished inside the cap
+  ✓ responses: the answer is an answer, not a scratchpad
+  ✗ messages: basic completion
+      → content.0: Invalid input
+  ✓ messages: streaming + SSE framing
+  ✓ messages: streaming matches non-streaming
+  ✗ messages: usage tokens
+      → cached_tokens 36 > prompt_tokens 1
+  ✓ messages: usage reported while streaming
+  ✓ messages: length finish reason
+  ✓ messages: max_tokens is honored
+  ✓ messages: stop sequences are honored
+  ✓ messages: unicode round-trips intact
+  ✗ messages: error codes and shapes  4.8s
+      → got HTTP 500 — a malformed body must not succeed
+  ✗ messages: streamed tool arguments reassemble
+      → HTTP 400
+  ✗ messages: tool results are accepted back
+      → no assistant text after the tool result
+  ✓ messages: tool_choice "none" suppresses tools
+  ✓ messages: typed tool arguments survive the wire
+  ✓ messages: an object argument declared as a oneOf union arrives as an object
+  ✓ messages: top_p is honored
+  ✓ messages: reasoning is kept out of content
+  ✓ messages: the answer is an answer, not a scratchpad
+  ✗ messages: assistant-history reasoning round-trip  6.3s
+      → content.0: Invalid input
+  ✓ chat/completions: n > 1 choices
+  ✓ chat/completions: legacy max_tokens alias
+  ✓ chat/completions: trailing assistant message
+  ✓ chat/completions: stop as a bare string
+  ✓ chat/completions: chat_template_kwargs dialect  3.3s
+  ✓ chat/completions: sampling extensions
+  ✗ responses: reasoning.effort none turns thinking off
+      → reasoning tokens n/a, reasoning text 182 chars
+  ✓ responses: streaming event order
+  ✗ responses: background mode
+      → background request returned status "completed" — it was run synchronously
+  ✓ messages: streaming event order
+  ✓ messages: max_tokens is required
+  ? messages: stop_sequence is reported and echoed
+      → the model never emitted the stop sequence (finish_reason "end_turn"), so the cut was never reachable
+  ✗ messages: a trailing assistant message is a prefill
+      → the response repeated the prefill — a caller that appends the reply to what it sent gets it twice
+  ? messages: thinking blocks and budget
+      → thinking was enabled but the model produced no thinking block
+  ✓ messages: system as an array of text blocks
+  ✓ messages: user content as an array of text blocks
+  ✓ messages: top_k is honored
+  ✓ messages: cache_control breakpoints  4.0s
+  ✓ messages: error envelope taxonomy  5.3s
+  ✓ messages/count_tokens: token counting
+  ? embeddings: basic vector  8.5s
+      → HTTP 501 — likely needs a dedicated embedding model (tested with "rtx5090:Nanbeige4.3-33B-Q4_K_M")
+  ✓ completions (legacy): basic
+
+  ✗ recalls a fact from an earlier turn 0/1
+  ✗ keeps honoring the system prompt after several turns 0/1
+  ✓ reproduces an exact requested string 1/1
+  ✓ honors a negative constraint 1/1
+  ✓ obeys a one-word length constraint 1/1
+  ✓ emits raw JSON without markdown fences when told to 3/3
+  ✓ produces a nested JSON structure on request 3/3
+  ✓ multiplies two two-digit numbers 1/1
+  ✓ follows a transitive chain 1/1
+  ✓ counts letters in a word 1/1
+  ✓ knows a non-obvious capital city 1/1
+  ✓ knows a chemical symbol 1/1
+  ✓ attributes a well-known novel 1/1
+
+agentic skipped — tool calling not available on this engine
+
+fidelity (cloze battery + greedy self-consistency)...
+json report → /home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks/rtx5090-Nanbeige4.3-33B-Q4_K_M/llmprobe/20261109-225656-484724/result.json
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ llmprobe · http://litellm.thing.wg0.maxhbr.local/v1 · rtx5090:Nanbeige4.3-33B-Q4_K_M
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+SURFACE COVERAGE
+  CORE      7/9     77.8%  ████████░░
+            ✗ tool calling   ✗ JSON mode
+  EXTENDED  12/15     80%  ████████░░
+            ✗ structured outputs   ✗ parallel tool calls   ✗ vision
+  FRONTIER  6/9     66.7%  ███████░░░
+            ✗ MCP tools   ✗ rate limiting   ✗ previous_response_id chaining
+            ? prompt caching — not probed in this run
+  credit    chat prefill: a trailing assistant message is continued, and echoed back — detected, not scored
+  credit    chat_template_kwargs: enable_thinking: false is honored — detected, not scored
+  credit    sampling extensions: top_k honored; min_p, repetition_penalty accepted (acceptance only) — detected, not scored
+
+ENGINE CONFORMANCE                                                   80.7%
+  MUST assertions, implemented surfaces only
+  models        4/4         100%
+  chat          52/55      94.5%
+  responses     29/52      55.8%
+  messages      47/54        87%
+  count-tokens  3/3         100%
+  completions   3/3         100%
+  ⚠ 4 inconclusive — engine never exercised
+      responses: a cap spent on reasoning is reported as a cap — the model finished inside the cap
+      messages: stop_sequence is reported and echoed — the model never emitted the stop sequence (finish_reason "end_turn"), so the cut was never reachable
+      messages: thinking blocks and budget — thinking was enabled but the model produced no thinking block
+      embeddings: basic vector — HTTP 501 — likely needs a dedicated embedding model (tested with "rtx5090:Nanbeige4.3-33B-Q4_K_M")
+  ⚠ 5 SHOULD warnings
+      an object reached by $ref honours its enum — content was: {
+  "error": "No schema was provided. Please provide the schema so I can return the required JSON object with every field filled in."
+}
+      an object reached by anyOf [$ref, null] is null or honours its enum — content was: {
+  "error": "No schema was provided. Please provide the schema so I can return the required JSON object with every field filled in."
+}
+      a request without max_tokens is rejected — accepted a request with no max_tokens (HTTP 200) — the spec requires it
+      the first call reports cache_creation_input_tokens > 0 — cache_creation_input_tokens was null on a cold >1024-token breakpoint
+      the count is within ~10% of what /v1/messages reports as usage — count_tokens said 48, the same messages cost 1 input tokens on /v1/messages
+
+MODEL CAPABILITY                                     88.2%   below floor ✗
+  Multi-turn state       0/2        0%  ░░░░░░░░░░
+  Instruction following  3/3      100%  ██████████
+  JSON discipline        6/6      100%  ██████████
+  Basic reasoning        3/3      100%  ██████████
+  Basic knowledge        3/3      100%  ██████████
+  below the floor: Multi-turn state
+  ⚠ never measured: Tool selection, Tool restraint, Tool arg fidelity — the engine refused these requests for this model
+
+ENGINE FIDELITY                                                     91.67%
+  same-model comparisons only — holds the model constant, so the number is the engine
+  Correctness             100%  ██████████  36/36 items answered correctly
+  Confidence              100%  ██████████  mean top-1 prob 0.933 · margin 0.867 · 12 harder items
+  Determinism           66.67%  ███████░░░  2/3 greedy prompts reproduced byte-for-byte
+  Logprob consistency     100%  ██████████  36/36 items: emitted token = argmax, valid distribution
+  ⚠ greedy runs diverged at char 2 (det-primes, run 2 of 3) — non-determinism at temperature 0
+  (reasoning model — Confidence reads the post-thinking distribution, so the score is a floor)
+
+  23,995 tokens (11,218 in · 12,777 out) · 4m 29s

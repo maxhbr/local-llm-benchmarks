@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-11-10T16:58:31",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:ROCm0:Nanbeige4.3-33B-Q5_K_M",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 13.115327
+}
