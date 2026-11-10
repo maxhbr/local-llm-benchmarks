@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-11-10T14:08:58",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Nanbeige4.3-33B-Q6_K_S",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 8.27986
+}

@@ -1,0 +1,15 @@
+==========================================================================================
+RUN SUMMARY  (20261110-151700)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q4_K_ | smoke          | 0   | 10.0     | OK
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q4_K_ | llama-benchy   | 0   | 6067.7   | OK
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q5_K_ | smoke          | 0   | 13.1     | OK
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q5_K_ | llama-benchy   | 0   | 6202.3   | OK
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q6_K_ | smoke          | 130 | -        | FAIL (interrupted)
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q6_K_ | llama-benchy   | -   | -        | SKIP (not run)
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q8_0  | smoke          | -   | -        | SKIP (not run)
+litellm.thing.wg0    | gfx1151:ROCm0:Nanbeige4.3-33B-Q8_0  | llama-benchy   | -   | -        | SKIP (not run)
+------------------------------------------------------------------------------------------
+Total: 8   OK: 4   FAIL: 1   SKIP: 3

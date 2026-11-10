@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-11-10T09:22:50",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Nanbeige4.3-33B-Q5_K_M",
+  "error": "TimeoutError: timed out",
+  "duration_s": 60.060861
+}

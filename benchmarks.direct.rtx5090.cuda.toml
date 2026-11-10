@@ -29,6 +29,15 @@ benchmarks = ["llama-benchy"]
   name = "InternScience-Agents-A1-Q4_K_M"
   alias = "rtx5090:InternScience-Agents-A1-Q4_K_M"
   [[endpoints.models]]
+  name = "Nanbeige4.3-33B-Q4_K_M"
+  alias = "rtx5090:Nanbeige4.3-33B-Q4_K_M"
+  [[endpoints.models]]
+  name = "Nanbeige4.3-33B-Q5_K_M"
+  alias = "rtx5090:Nanbeige4.3-33B-Q5_K_M"
+  [[endpoints.models]]
+  name = "Nanbeige4.3-33B-Q6_K_S"
+  alias = "rtx5090:Nanbeige4.3-33B-Q6_K_S"
+  [[endpoints.models]]
   name = "Nex-N2.5-mini-Q4_K_L"
   alias = "rtx5090:Nex-N2.5-mini-Q4_K_L"
   [[endpoints.models]]

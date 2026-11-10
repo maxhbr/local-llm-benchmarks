@@ -1,0 +1,22 @@
+==========================================================================================
+RUN SUMMARY  (20261109-233156)
+==========================================================================================
+Endpoint             | Model                               | Benchmark      | rc  | dur(s)   | status
+------------------------------------------------------------------------------------------
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q4_K_M      | smoke          | 0   | 6.8      | OK
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q4_K_M      | llama-benchy   | 0   | 472.4    | OK
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q4_K_M      | tool-eval-bench | 0   | 1020.8   | OK
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q4_K_M      | llmprobe       | 0   | 269.5    | OK
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q4_K_M      | aider          | 130 | 33624.7  | FAIL (rc!=0)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q5_K_M      | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q5_K_M      | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q5_K_M      | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q5_K_M      | llmprobe       | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q5_K_M      | aider          | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | smoke          | 1   | 60.1     | FAIL (TimeoutError: timed out)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | llama-benchy   | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | tool-eval-bench | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | llmprobe       | -   | -        | SKIP (skipped: smoke failed)
+litellm.thing.wg0    | rtx5090:Nanbeige4.3-33B-Q6_K_S      | aider          | -   | -        | SKIP (skipped: smoke failed)
+------------------------------------------------------------------------------------------
+Total: 15   OK: 4   FAIL: 3   SKIP: 8
