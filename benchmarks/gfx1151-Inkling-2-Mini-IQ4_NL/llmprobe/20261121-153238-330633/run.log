@@ -1,0 +1,41 @@
+llmprobe v0.6.17 · probing http://litellm.thing.wg0.maxhbr.local
+
+  ✓ /v1/models               HTTP 200
+  ✓ chat/completions         HTTP 400
+  ✓ responses                HTTP 400
+  ✓ messages                 HTTP 400
+  ✓ messages/count_tokens    HTTP 400
+  ✓ embeddings               HTTP 400
+  ✓ completions (legacy)     HTTP 400
+  ✓ images/generations       HTTP 400
+  ✓ images/edits             HTTP 400
+  ✓ audio/speech             HTTP 400
+  ✓ audio/transcriptions     HTTP 422
+
+model: gfx1151:Inkling-2-Mini-IQ4_NL   depth: default   reasoning model — +1024 token headroom
+  thinking:    on
+  reasoning:   medium
+  sampling:    greedy (temperature 0)
+  concurrency: 1
+
+  ✓ /v1/models: model list
+  ✓ chat/completions: basic completion  3.4s
+  ✓ chat/completions: streaming + SSE framing  4.5s
+  ✓ chat/completions: streaming matches non-streaming  5.0s
+  ✓ chat/completions: usage tokens
+  ✓ chat/completions: usage reported while streaming
+  ✓ chat/completions: length finish reason
+  ✓ chat/completions: max_tokens is honored
+  ✓ chat/completions: stop sequences are honored
+  ✓ chat/completions: unicode round-trips intact  5.7s
+  ✓ chat/completions: error codes and shapes  4.8s
+  ✓ chat/completions: tool call serialization  5.0s
+  ✓ chat/completions: streamed tool arguments reassemble  4.1s
+  ✓ chat/completions: tool results are accepted back  4.5s
+  ✓ chat/completions: parallel tool calls  7.0s
+  ✓ chat/completions: tool_choice "none" suppresses tools  4.1s
+  ✓ chat/completions: parallel_tool_calls: false is honored  6.0s
+  ✓ chat/completions: typed tool arguments survive the wire  5.7s
+  ✓ chat/completions: JSON mode  14.9s
+  ✓ chat/completions: structured outputs (json_schema strict)  4.3s
+  ✓ chat/completions: marker strings inside constrained JSON are data  30.7s

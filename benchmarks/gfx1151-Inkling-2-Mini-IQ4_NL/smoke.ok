@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-11-21T15:49:32",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "gfx1151:Inkling-2-Mini-IQ4_NL",
+  "reply": "(empty content, finish_reason=length)",
+  "duration_s": 0.882153
+}

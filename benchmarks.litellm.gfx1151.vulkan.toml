@@ -30,6 +30,10 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "gfx1151:Hy3-Q2_K_L"
   [[endpoints.models]]
+  name = "gfx1151:Inkling-2-Mini-IQ4_NL"
+  [[endpoints.models]]
+  name = "gfx1151:Inkling-2-Mini-Q8_0"
+  [[endpoints.models]]
   name = "gfx1151:InternScience-Agents-A1-Q4_K_M"
   [[endpoints.models]]
   name = "gfx1151:InternScience-Agents-A1-Q8_0"

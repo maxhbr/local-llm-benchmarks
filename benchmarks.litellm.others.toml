@@ -18,23 +18,45 @@ benchmarks = ["llama-benchy"]
   [[endpoints.models]]
   name = "localhost:22546:localhost:22546"
   [[endpoints.models]]
-  name = "trustedtokens/deepseek-ai/DeepSeek-V4.1-Flash"
+  name = "trustedtokens/deepseek-ai/DeepSeek-V4.1-Flash-1017"
   [[endpoints.models]]
-  name = "trustedtokens/deepseek-ai/DeepSeek-V4-Flash-0731"
+  name = "trustedtokens/google/diffusiongemma-26B-A4B-it"
   [[endpoints.models]]
-  name = "trustedtokens/deepseek-ai/DeepSeek-V4-Pro-0813"
+  name = "trustedtokens/google/gemma-4-26B-A4B-it"
   [[endpoints.models]]
-  name = "trustedtokens/google/gemma-4-31B-it"
-  [[endpoints.models]]
-  name = "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B"
+  name = "trustedtokens/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B"
   [[endpoints.models]]
   name = "trustedtokens/openai/gpt-oss-120b"
-  [[endpoints.models]]
-  name = "trustedtokens/Qwen/Qwen3.5-397B-A17B-FP8"
   [[endpoints.models]]
   name = "trustedtokens/Qwen/Qwen3.6-35B-A3B-FP8"
   [[endpoints.models]]
   name = "trustedtokens/Qwen/Qwen3.8-27B"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/Alibaba-NLP/gte-Qwen2-7B-instruct"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/auto"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/BAAI/bge-large-en-v1.5"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/intfloat/e5-large-v2"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/intfloat/multilingual-e5-large"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/llmrails/ember-v1"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/Qwen/Qwen3-Embedding-8B"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/Qwen/Qwen3Guard-Gen-8B"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/thenlper/gte-large"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/tngtech/olmocr-7B-faithful"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/zai-org/GLM-5.2-long-context"
+  [[endpoints.models]]
+  name = "trustedtokens/tng-internal/zai-org/GLM-5.3-long-context"
   [[endpoints.models]]
   name = "trustedtokens/tngtech/DeepSeek-TNG-R1T2-Chimera"
   [[endpoints.models]]
