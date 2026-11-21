@@ -22,8 +22,9 @@
 #   (appends .variants when ENABLE_VARIANTS=true)
 #
 # Benchmarks: BENCHMARKS is the active list (comma-separated, default
-# "llama-benchy").  "smoke" is not a selectable option: the runner always
-# prepends it (and gates the rest on it).  The full set of selectable ids is
+# "llama-benchy, aider, tool-eval-bench, llmprobe").  "smoke" is not a
+# selectable option: the runner always prepends it (and gates the rest on
+# it).  The full set of selectable ids is
 # ALL_BENCHMARKS below (matches the BENCHMARKS map in run_benchmarks.py,
 # sans the implicit "smoke"); ids NOT in the active list are written as a
 # "# remaining options:" comment line directly after the benchmarks array,
@@ -39,7 +40,7 @@ ENDPOINT_PRODUCER="${ENDPOINT_PRODUCER:-}"
 ENDPOINT_BACKEND_LABEL="${ENDPOINT_BACKEND_LABEL:-}"
 API_KEY="${API_KEY:-EMPTY}"
 OUTPUT_DIR_VALUE="${OUTPUT_DIR_VALUE:-./benchmarks}"
-BENCHMARKS="${BENCHMARKS:-llama-benchy}"
+BENCHMARKS="${BENCHMARKS:-llama-benchy, aider, tool-eval-bench, llmprobe}"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." &>/dev/null && pwd)"
