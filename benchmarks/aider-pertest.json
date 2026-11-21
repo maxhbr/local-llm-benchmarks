@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T12:18:50",
-  "column_count": 44,
+  "generated_at": "2026-11-21T16:35:15",
+  "column_count": 46,
   "row_count": 225,
   "columns": [
     {
@@ -191,6 +191,24 @@
       "model": "openai/rtx5090:InternScience-Agents-A1-Q4_K_M",
       "run_dir": "20260707-123423",
       "num_tests_run": 89
+    },
+    {
+      "column_id": "rtx5090-Nanbeige4.3-33B-Q4_K_M|aider",
+      "folder": "rtx5090-Nanbeige4.3-33B-Q4_K_M",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/rtx5090:Nanbeige4.3-33B-Q4_K_M",
+      "run_dir": "20261110-000126",
+      "num_tests_run": 3
+    },
+    {
+      "column_id": "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider",
+      "folder": "rtx5090-Nanbeige4.3-33B-Q6_K_S",
+      "bench": "aider",
+      "edit_format": "whole",
+      "model": "openai/rtx5090:Nanbeige4.3-33B-Q6_K_S",
+      "run_dir": "20261110-144410",
+      "num_tests_run": 11
     },
     {
       "column_id": "rtx5090-Nex-N2.5-mini-Q4_K_L|aider",
@@ -577,6 +595,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -798,6 +822,12 @@
           "status": "ran"
         },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nanbeige4.3-33B-Q4_K_M|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -5341,6 +5371,12 @@
           "err": true,
           "errd": "error_outputs:1"
         },
+        "rtx5090-Nanbeige4.3-33B-Q4_K_M|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -9555,6 +9591,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Nex-N2.5-mini-Q4_K_L|aider": {
           "p1": false,
           "p2": false,
@@ -13412,6 +13454,12 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -15907,6 +15955,14 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -16999,6 +17055,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -17099,6 +17161,12 @@
           "status": "ran"
         },
         "rtx5090-InternScience-Agents-A1-Q4_K_M|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -17321,6 +17389,14 @@
           "status": "ran",
           "err": true,
           "errd": "error_outputs:1, ctx_exhausted:1"
+        },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
         },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
@@ -18842,6 +18918,20 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q4_K_M|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:2, ctx_exhausted:2"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": false,
@@ -19803,6 +19893,14 @@
           "n": 2,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran",
+          "err": true,
+          "errd": "error_outputs:1, ctx_exhausted:1"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": false,
           "p2": true,
@@ -20589,6 +20687,12 @@
           "status": "ran"
         },
         "gfx1151-Qwen3.6-35B-A3B-Q8_0|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
           "p1": false,
           "p2": false,
           "n": 2,
@@ -24444,6 +24548,12 @@
           "n": 1,
           "status": "ran"
         },
+        "rtx5090-Nanbeige4.3-33B-Q6_K_S|aider": {
+          "p1": false,
+          "p2": false,
+          "n": 2,
+          "status": "ran"
+        },
         "rtx5090-Qwen3.6-27B-Q6_K-MTP|aider": {
           "p1": true,
           "p2": true,
@@ -24799,6 +24909,7 @@
     "gfx1151-gemma-4-26B-A4B-it-qat-q4_0/aider/20260705-091619: no per-test blocks",
     "mimo-v2.6-flash-rl-iq2s-vulkan/aider/20260926-095208: no per-test blocks",
     "rtx5090-InternScience-Agents-A1-Q4_K_M/aider/20260707-114530: no per-test blocks",
+    "rtx5090-Nanbeige4.3-33B-Q4_K_M/aider/20261110-184246: no per-test blocks",
     "rtx5090-Qwen3.6-27B-NVFP4/aider/20260723-143045: no per-test blocks",
     "rtx5090-Qwen3.6-27B-Q8_0/aider/20260627-084420: no per-test blocks",
     "rtx5090-Qwen3.6-27B-UD-Q5_K_XL-precise-coding-tasks/aider/20260606-095013: no per-test blocks",

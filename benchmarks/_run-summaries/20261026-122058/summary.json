@@ -1,0 +1,126 @@
+{
+  "timestamp": "20261026-122058",
+  "output_dir": "/home/mhuber/MINE/REPOS/local-llm-benchmarks/benchmarks",
+  "jobs": [
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 26.255122,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Nanbeige4.3-33B-AD-Q5_K_M failed to load\\n\\nLiteLLM: model group 'rtx5090:Nanbeige4.3-33B-AD-Q5_K_M' failed with the error above. No fallback was attempted.\",\"type\":\"internal_server_error\",\"param\":nul"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+      "bench": "llmprobe",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K",
+      "bench": "smoke",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": 1,
+      "duration_s": 28.302185,
+      "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Nanbeige4.3-33B-AD-Q6_K-Q5_K failed to load\\n\\nLiteLLM: model group 'rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K' failed with the error above. No fallback was attempted.\",\"type\":\"internal_server_error\",\"para"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K",
+      "bench": "llama-benchy",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K",
+      "bench": "llmprobe",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K",
+      "bench": "tool-eval-bench",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    },
+    {
+      "endpoint_name": "litellm.thing.wg0",
+      "endpoint_url": "http://litellm.thing.wg0.maxhbr.local/v1",
+      "api_key": "EMPTY",
+      "model": "rtx5090:Nanbeige4.3-33B-AD-Q6_K-Q5_K",
+      "bench": "aider",
+      "alias": null,
+      "edit_format": "whole",
+      "returncode": null,
+      "duration_s": null,
+      "error": "skipped: smoke failed"
+    }
+  ]
+}

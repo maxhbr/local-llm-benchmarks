@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-10-26T12:21:24",
+  "endpoint": "http://litellm.thing.wg0.maxhbr.local/v1",
+  "model": "rtx5090:Nanbeige4.3-33B-AD-Q5_K_M",
+  "error": "HTTP 500: Internal Server Error \u2014 {\"error\":{\"message\":\"litellm.InternalServerError: InternalServerError: OpenAIException - model name=Nanbeige4.3-33B-AD-Q5_K_M failed to load\\n\\nLiteLLM: model group 'rtx5090:Nanbeige4.3-33B-AD-Q5_K_M' failed with the error above. No fallback was attempted.\",\"type\":\"internal_server_error\",\"param\":nul",
+  "duration_s": 26.255122
+}
