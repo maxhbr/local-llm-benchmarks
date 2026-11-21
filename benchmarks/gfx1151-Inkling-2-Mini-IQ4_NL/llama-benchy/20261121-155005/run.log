@@ -1,0 +1,13 @@
+--- Verifying API connectivity ---
+OK
+
+--- Starting benchmark ---
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+llama-benchy (0.3.8)
+Date: 2026-11-21 15:50:06
+Benchmarking model: gfx1151:Inkling-2-Mini-IQ4_NL at http://litellm.thing.wg0.maxhbr.local/v1
+Concurrency levels: [1, 2, 4]
+Error loading tokenizer: Repo id must use alphanumeric chars, '-', '_' or '.'. The name cannot start or end with '-' or '.' and the maximum length is 96: 'gfx1151:Inkling-2-Mini-IQ4_NL'.
+Falling back to 'gpt2' tokenizer as approximation.
+Downloading book from https://www.gutenberg.org/files/1661/1661-0.txt...
+Error downloading or processing book: 503 Server Error: Service Unavailable for url: https://www.gutenberg.org/files/1661/1661-0.txt
